@@ -556,6 +556,10 @@ img{max-width:100%;display:block}
 @media (max-width:760px){.band-map::after{background:linear-gradient(180deg,var(--ink) 0,rgba(11,11,11,.92) 48%,rgba(11,11,11,.35) 100%)}}
 .band-graf{position:relative;overflow:hidden}
 @media (max-width:760px){.band-graf .g{display:none}}
+/* morcego pendurado na barra, na página 404 */
+.mascote-404{position:absolute;left:44%;top:72px;width:clamp(84px,11vw,140px);pointer-events:none;z-index:1}
+.mascote-404 svg{width:100%;height:auto}
+@media (max-width:640px){.mascote-404{left:auto;right:6%;width:72px}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
