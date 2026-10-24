@@ -298,6 +298,8 @@ img{max-width:100%;display:block}
 /* o ponto do slogan: "o teu ● de encontro" */
 .dsl{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:var(--pink);vertical-align:-.06em;margin:0 .12em}
 .s-eyebrow .dsl{width:.8em;height:.8em;vertical-align:-.1em;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+
+.s-logo em{font-style:normal;color:var(--pink)}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -1314,7 +1316,7 @@ const S = [
    bar('back', 'Pagamento', null) + row(th('heli'), 'Cascais e Cabo da Roca', 'sáb 25 out · 18:20 · 2 pessoas', null)
    + '<div class="seg"><span class="on">Pagar tudo</span><span>Dividir com o grupo</span></div>'
    + lbl('Peso dos passageiros', 'só para o voo') + row('', 'Mariana Costa', '', ['58 kg', 'mu']) + row('', 'Rui Pereira', '', ['80 kg', 'mu'])
-   + kv([['2 × voo', '€2.140,00'], ['Taxa Bora e IVA', 'incluídos'], ['Total', '€2.140,00']], true)
+   + kv([['2 × voo', '€2.140,00'], ['Taxa Streetfy e IVA', 'incluídos'], ['Total', '€2.140,00']], true)
    + guar('Restrições confirmadas', 'Peso abaixo de 120 kg e documento com foto. Se mudar de ideia, cancele até 72 h antes.')
    + btn('Pagar €2.140 · Apple Pay', 'mint')},
  {c:'XP07', n:'Rateio do grupo', t:'19:30', g:'Reservar', f:() =>
@@ -1354,7 +1356,7 @@ const S = [
    + '<div class="area">O piloto contornou o Cabo da Roca no pôr do sol. Valeu cada minuto.</div>'
    + btn('Publicar avaliação', 'mint')},
  {c:'XP13', n:'Concierge', t:'17:20', g:'Concierge e after', dark:true, nav:2, f:() =>
-   '<div class="hd">' + icob('back', 'margin:0') + '<span class="av im" style="background-image:url(img/pink.jpg)"></span><div><div class="t">Inês · Concierge Bora</div><div class="s"><span style="color:var(--ac2)">●</span> online · responde em ~3 min</div></div></div>'
+   '<div class="hd">' + icob('back', 'margin:0') + '<span class="av im" style="background-image:url(img/pink.jpg)"></span><div><div class="t">Inês · Concierge Streetfy</div><div class="s"><span style="color:var(--ac2)">●</span> online · responde em ~3 min</div></div></div>'
    + '<div class="bub me">Somos 12, aniversário no sábado. Jantar e depois um after até às 6h, perto do Cais.<small>17:12</small></div>'
    + '<div class="bub">Para 12 tenho duas salas privadas para jantar e um terraço licenciado em Santos para o after. Qual o orçamento por pessoa?<small>17:14</small></div>'
    + '<div class="bub me">Até €150 por pessoa, tudo incluído.<small>17:15</small></div>'
@@ -1440,13 +1442,13 @@ const S = [
    + lbl('Inclui') + '<div class="chk"><div>DJ das 23 h às 6 h</div><div>Bar aberto: cerveja, vinho, gin</div><div>Segurança na porta</div></div>'
    + '<div style="display:flex;justify-content:space-between;font-size:11.5px;font-weight:700"><span>72 pagaram</span><span style="color:var(--ac)">mínimo 90 · até qui 6</span></div><div class="bar2"><i style="width:80%"></i></div>'
    + guar('Seu dinheiro fica guardado', 'Se a festa não juntar 90 até quinta, os €26,85 voltam sozinhos ao cartão.')
-   + kv([['Sua parte', '€26,20'], ['Taxa Bora', '€0,65'], ['Total', '€26,85']], true)
+   + kv([['Sua parte', '€26,20'], ['Taxa Streetfy', '€0,65'], ['Total', '€26,85']], true)
    + btn('Pagar €26,85 e entrar na lista', 'mint') + btn('Não vou', 'text')},
  {c:'XP25', n:'Painel do organizador', t:'09:40', g:'Sua festa', f:() =>
    bar('back', 'Sua festa', 'set') + P('FALTAM<br><em>18</em>', 46) + '<div class="desc" style="color:var(--fg)">para o mínimo de 90 pagantes · prazo qui 6 nov, 20:00</div>'
    + '<div class="bar2"><i style="width:80%"></i></div>'
    + '<div class="stats"><div><b>120</b><small>convidados</small></div><div><b>72</b><small>pagaram</small></div><div><b>€1.933</b><small>retidos</small></div></div>'
-   + row('', 'Espaço · armazém', 'sinal de €450 pago ao fornecedor pelo Bora', [ico('check', 'ic s'), 'mu']) + row('', 'DJ · do catálogo', 'confirmado · pago pelo Bora no dia', [ico('check', 'ic s'), 'mu']) + row('', 'Segurança · 2 pessoas', 'pedir ao catálogo', ['<span class="tag live">pedir</span>'])
+   + row('', 'Espaço · armazém', 'sinal de €450 pago ao fornecedor pelo Streetfy', [ico('check', 'ic s'), 'mu']) + row('', 'DJ · do catálogo', 'confirmado · pago pelo Streetfy no dia', [ico('check', 'ic s'), 'mu']) + row('', 'Segurança · 2 pessoas', 'pedir ao catálogo', ['<span class="tag live">pedir</span>'])
    + btn('Lembrar quem falta pagar', 'mint') + btn('Cancelar e devolver tudo', 'ghost')},
  {c:'XP26', n:'Porta da festa', t:'22:48', g:'Sua festa', dark:true, f:() =>
    bar(null, 'Porta · Aniversário', 'set') + '<div class="desc" style="text-align:center;margin-top:-4px">celular da organizadora ou da equipe</div>'
@@ -1607,14 +1609,14 @@ window.BORA_NEW.push(
  {c:'U19', n:'Conversas', t:'00:21', dark:true, f:() =>
    P('<em>CONVERSAS</em>', 40) + '<div class="seg"><span class="on">Pessoas</span><span>Concierge</span><span>Operadores</span></div>'
    + who('pink', 'Ana L.', 'Perto do bar da esquerda 🙂', '<span style="margin-left:auto;text-align:right;font-size:10px;color:var(--mu)">00:21<br><i style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ac)"></i></span>')
-   + who('alfama', 'Rui P.', 'Bora no Lux sexta?', '<span style="margin-left:auto;font-size:10px;color:var(--mu)">ontem</span>')
-   + who('retrato', 'Inês · Concierge Bora', 'Proposta A-214 enviada', '<span style="margin-left:auto;font-size:10px;color:var(--mu)">17:36</span>')
+   + who('alfama', 'Rui P.', 'Streetfy no Lux sexta?', '<span style="margin-left:auto;font-size:10px;color:var(--mu)">ontem</span>')
+   + who('retrato', 'Inês · Concierge Streetfy', 'Proposta A-214 enviada', '<span style="margin-left:auto;font-size:10px;color:var(--mu)">17:36</span>')
    + who('tejo', 'Tejo Boats', 'Confirmado para sábado, 18:00', '<span style="margin-left:auto;font-size:10px;color:var(--mu)">qui</span>')
    + '<div class="spacer"></div>' + note('Só conversas mútuas: aceno de volta ou seguimento dos dois lados.')},
  {c:'U33', n:'Conversa', t:'00:22', f:() =>
    '<div class="hd">' + icob('back', 'margin:0') + av('pink') + '<div><div class="t">Ana L.</div><div class="s"><span style="color:var(--ac)">●</span> no Lux agora · aceno mútuo</div></div>' + icob('shield') + '</div>'
    + bub('Oi! Vi que você também curte techno. Primeira vez no Lux?', false, '00:16') + bub('Terceira! Você tá na pista de cima?', true, '00:18') + bub('Perto do bar da esquerda 🙂', false, '00:21')
-   + chips(['Bora lá', 'Oferecer uma bebida · fase 3'])
+   + chips(['Streetfy lá', 'Oferecer uma bebida · fase 3'])
    + '<div class="spacer"></div><div class="search">Escreva…<span class="ico" style="background:var(--ac);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center">' + ico('send', 'ic s') + '</span></div>'},
  {c:'U25', n:'Avaliar o lugar', t:'11:10', f:() =>
    bar(null, '', null) + P('COMO FOI<br>NO <em>LUX?</em>', 40) + '<div class="desc">Noite X · sex 23 · check-in às 23:48</div>'
@@ -1670,7 +1672,7 @@ window.BORA_NEW.push(
  {c:'U30', n:'Achar amigos', t:'18:37', f:() =>
    P('QUEM JÁ<br>ESTÁ <em>AQUI?</em>', 38)
    + '<div class="row">' + icob('users', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Contatos</div><div class="s">números em hash, nunca a agenda inteira</div></div><span class="end">' + sel('Permitir') + '</span></div>'
-   + '<div class="row">' + icob('share', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Instagram ligado</div><div class="s">12 amigos já estão no Bora</div></div><span class="end" style="color:#11a160">' + ico('check', 'ic s') + '</span></div>'
+   + '<div class="row">' + icob('share', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Instagram ligado</div><div class="s">12 amigos já estão no Streetfy</div></div><span class="end" style="color:#11a160">' + ico('check', 'ic s') + '</span></div>'
    + '<div class="row">' + icob('send', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Convidar por link</div><div class="s">quem entrar pelo seu link já segue você</div></div><span class="end mu">→</span></div>'
    + lbl('Sugestões') + who('alfama', 'Rui P.', 'curte techno · 3 lugares em comum', '<span class="act">Seguir</span>') + who('noite', 'Sofia F.', '2 amigos em comum', '<span class="act">Seguir</span>') + who('dj', 'João M.', 'do Instagram', '<span class="act on">Seguindo</span>')},
  {c:'E08', n:'Modo bar', t:'01:23', dark:true, f:() =>
