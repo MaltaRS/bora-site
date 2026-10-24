@@ -1616,7 +1616,7 @@ window.BORA_NEW.push(
    + note('O catálogo é por cidade. Se o GPS mostrar outra cidade aberta, o app pergunta se quer trocar.')},
  {c:'U20', n:'Mapa', t:'21:12', nav:1, f:() =>
    chips(['*Agora', 'Techno', 'Até €15', 'Amigos vão'])
-   + '<div class="mapbig"><div class="rio"></div>'
+   + '<div class="mapbig mapa-tel" data-mapa-tel=\'{"centro": [38.7108, -9.137], "zoom": 14, "pinos": [{"lat": 38.7141, "lng": -9.121, "t": "Lux", "n": "214", "hot": true}, {"lat": 38.7067, "lng": -9.144, "t": "Pensão Amor", "n": "38"}, {"lat": 38.7057, "lng": -9.1486, "t": "B.Leza", "n": "51"}, {"lat": 38.7069, "lng": -9.1459, "t": "Time Out", "n": "120"}, {"lat": 38.7111, "lng": -9.148, "t": "Park", "n": "88"}, {"lat": 38.7166, "lng": -9.1446, "t": "Hot Clube"}]}\'><div class="rio"></div>'
    + [['70%', '40%', 'Lux · 214', true], ['38%', '64%', 'Pensão Amor · 38', false], ['28%', '74%', 'B.Leza', false], ['48%', '84%', 'Time Out', false], ['22%', '34%', 'Park', false], ['58%', '22%', 'Hot Clube', false]].map(p => '<div class="pin' + (p[3] ? ' hot' : '') + '" style="left:' + p[0] + ';top:' + p[1] + '"><i></i><small>' + p[2] + '</small></div>').join('') + '</div>'
    + '<div style="border:1.5px solid #111;border-radius:14px;padding:4px 10px">' + row(th('lux'), 'Noite X · Lux Frágil', '23:00 · €15 · 1,2 km · <span style="color:var(--ac);font-weight:700">● 214 aqui</span>', ['→', 'ac']) + '</div>'},
  {c:'U21', n:'Busca', t:'21:13', dark:true, f:() =>
