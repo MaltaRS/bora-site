@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Bora · festas, bares, restaurantes e experiências de Lisboa e do Porto com preço final, presença ao vivo e gente de verdade. Protótipo."><title>Bora</title>
+<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="O teu ponto de encontro: festas, bares, restaurantes e experiências de Lisboa e do Porto com preço final, presença ao vivo e gente de verdade. Protótipo."><title>Bora</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap">
 <style>
@@ -294,6 +294,10 @@ img{max-width:100%;display:block}
 .p-hero .fres b,.s-dark .fres b{color:#fff}
 .p-hero .fres a{color:var(--mint)}
 @media (max-width:640px){.fbar .fsel{flex:1 1 44%}.fchips{margin-right:0}.fchips button{font-size:12px;padding:7px 11px}.fempty{padding:20px}}
+
+/* o ponto do slogan: "o teu ● de encontro" */
+.dsl{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:var(--pink);vertical-align:-.06em;margin:0 .12em}
+.s-eyebrow .dsl{width:.8em;height:.8em;vertical-align:-.1em;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -757,7 +761,7 @@ img{max-width:100%;display:block}
     <span class="g scrawl white" style="left:35%;top:44%;font-size:clamp(16px,1.6vw,22px);transform:rotate(-4deg)" aria-hidden="true"><span class="x">ficar em casa</span> &nbsp;nem pensar</span>
     <svg class="g-arrow mint" style="right:30%;bottom:34%;width:160px" viewBox="0 0 220 140" aria-hidden="true"><path d="M12 24 C 40 110, 120 128, 196 70"/><path d="M160 56 l40 12 -16 34"/></svg>
     <div>
-      <p class="s-eyebrow" style="color:var(--mint)" data-i18n="h0">Lisboa · a noite num só lugar</p>
+      <p class="s-eyebrow" style="color:var(--mint)" data-i18n="h0">Lisboa e Porto · o teu <i class="dsl"></i> de encontro</p>
       <h1 class="s-h"><span class="w"><span>BORA</span></span><br><span class="w"><span>SA<em>IR</em></span></span><br><span class="w"><span class="o">HOJE</span></span></h1>
       <p class="s-lead" data-i18n="h1">Festas, bares, restaurantes e experiências de Lisboa com preço final, presença ao vivo e gente de verdade. Descobre o que combina contigo, compra o bilhete, reserva a mesa e faz check-in quando chegas.</p>
       <div class="s-ctas">
@@ -1480,7 +1484,7 @@ window.BORA_NEW = window.BORA_NEW || [];
 window.BORA_NEW.push(
  {c:'U01', n:'Boas-vindas', t:'21:00', f:() =>
    im('pink', 240, '', 'duo poster-side') + '<div style="position:relative;margin-top:30px">' + P('BORA<br><em>SAIR</em>', 56) + '</div>'
-   + '<div class="desc" style="position:relative;max-width:140px;color:var(--fg)">A noite de Lisboa num só lugar: festas, bares, restaurantes e experiências.</div>'
+   + '<div class="desc" style="position:relative;max-width:140px;color:var(--fg)">O teu ponto de encontro: festas, bares, restaurantes e experiências.</div>'
    + '<div class="spacer"></div>' + inkbtn('Continuar com Apple') + btn('Continuar com Google', 'ghost') + btn('Telefone ou e-mail', 'mint')
    + note('Só para maiores de 18 · Termos e Privacidade')},
  {c:'U02', n:'Código', t:'21:01', dark:true, f:() =>
@@ -1755,7 +1759,7 @@ form.addEventListener('submit', ev => {
 /* idioma: PT escrito na página, EN no dicionário */
 const EN = {
   m1:'Tonight', m2:'How it works', m3:'Experiences', m4:'Your party', m5:'Partners', cta0:'Get the app',
-  h0:'Lisbon · the whole night in one place', h1:'Lisbon’s parties, bars, restaurants and experiences with the final price up front, live presence and real people. Find what fits you, buy the ticket, book the table and check in when you arrive.', h2:'See how it works', h3:'FREE', h4:'214 people at Lux right now',
+  h0:'Lisbon &amp; Porto · your meeting <i class="dsl"></i>', h1:'Lisbon’s parties, bars, restaurants and experiences with the final price up front, live presence and real people. Find what fits you, buy the ticket, book the table and check in when you arrive.', h2:'See how it works', h3:'FREE', h4:'214 people at Lux right now',
   t0:'Friday, 23 October', t1:'TONIGHT IN <em class="g-ring ink"><span data-f-cidade>LISBON</span><svg viewBox="0 0 300 120" aria-hidden="true"><path d="M22 62 C 28 14, 262 4, 286 50 C 300 92, 70 124, 24 90 C 2 72, 48 28, 150 20"/></svg></em>', t2:'What is happening right now, sorted by what you like. Every card shows time, price, distance, who is going and how many are already there.', t3:'See everything in the app',
   s1:'places in the catalogue', s2:'events per week', s3:'people at Lux right now', s4:'in hidden fees',
   c1:'here', c2:'Free entry', c3:'Bar · open till 3am', c4:'Jazz session', c5:'Fado night',
