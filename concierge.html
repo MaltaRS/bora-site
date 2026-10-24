@@ -528,6 +528,22 @@ img{max-width:100%;display:block}
 .catgrid span{color:var(--grey);font-size:14px}
 .catgrid .n{justify-self:start;background:var(--mint);font-weight:800;font-size:12px;padding:3px 8px;border-radius:5px}
 
+/* ===== secção com mapa real por trás dos telemóveis (Presença) ===== */
+.ph-map{position:relative;overflow:hidden;isolation:isolate;background:var(--paper)}
+.ph-map::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,var(--paper) 0,rgba(242,242,242,0) 15%,rgba(242,242,242,0) 85%,var(--paper) 100%)}
+.ph-map .s-wrap{position:relative;z-index:3}
+.ph-map .ph-row{min-height:680px}
+.placa{position:absolute;z-index:2;background:var(--ink);color:#fff;font-family:var(--fd,"Anton",Impact,sans-serif);font-weight:400;font-size:clamp(18px,2.3vw,32px);letter-spacing:.06em;line-height:1;text-transform:uppercase;padding:12px 18px 10px;border:3px solid #fff;outline:3px solid var(--ink);box-shadow:7px 7px 0 var(--pink);white-space:nowrap}
+.placa small{display:block;font:700 10px/1 var(--fb,"Work Sans",sans-serif);letter-spacing:.32em;color:var(--mint);margin-bottom:7px}
+.placa.mint{background:var(--mint);color:var(--ink);box-shadow:7px 7px 0 var(--ink)} .placa.mint small{color:#1f5a3c}
+.coord{position:absolute;z-index:2;font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;color:var(--ink);background:rgba(255,255,255,.88);border:2px solid var(--ink);padding:8px 11px;box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+.coord i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:8px;vertical-align:1px;animation:pulso-coord 1.6s ease-in-out infinite}
+@keyframes pulso-coord{50%{opacity:.3}}
+.osm{position:absolute;right:8px;bottom:6px;z-index:4;font:600 10px/1.3 var(--fb,"Work Sans",sans-serif);color:#4f4f4f;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:4px;text-decoration:none}
+.osm:hover{color:var(--ink)}
+@media (max-width:900px){.placa{display:none}}
+@media (max-width:640px){.ph-map .ph-row{min-height:0}.coord{font-size:10px;left:12px!important;bottom:10px!important}}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -1581,6 +1597,23 @@ window.BORA_NEW.push(
    + chips(['*Tudo', 'Festa', 'Concerto', 'Bar', 'Restaurante', 'Clube'])
    + [['21:00', 'Jazz na Casa da Música', 'Boavista · Sala 2 · 60 vão', '€14', ''], ['21:30', 'Noite de rock', 'Hard Club · Mercado Ferreira Borges', '€18', ''], ['22:00', 'Maus Hábitos ao vivo', 'indie · Passos Manuel · 54 vão', '€8', ''], ['23:00', 'Plano B · Sexta', 'Galerias de Paris · disco · 96 aqui', '€6', 'ac'], ['23:30', 'Baile da Pérola Negra', 'kizomba · Bonfim', '€10', '']].map(e => '<div class="row"><div style="width:40px;font-weight:800;font-size:12px;flex:0 0 auto">' + e[0] + '</div><div><div class="t">' + e[1] + '</div><div class="s">' + e[2] + '</div></div><span class="end ' + e[4] + '">' + e[3] + '</span></div>').join('')
    + '<div class="seg" style="margin-top:auto"><span class="on">Lista</span><span>Mapa</span></div>'},
+ {c:'U37', n:'Bandeja a caminho', t:'00:42', dark:true, f:() =>
+   bar('back', 'Pista 1 · Lux Frágil', null)
+   + '<div class="guar" style="background:rgba(255,46,110,.16);border-color:var(--ac)">' + ico('bell', 'ic s') + '<span><b>Bandeja a caminho · 2 min</b>O Rui saiu do bar com 26 bebidas para a Pista 1. Toca no que queres: pagas no cartão guardado e ele vem ter contigo.</span></div>'
+   + lbl('Na bandeja', 'preço final · até 2 por pessoa')
+   + [['Água', '6 na bandeja', '€1', false], ['Gin tónico', '12 na bandeja · 4 reservadas', '€8', false], ['Super Bock', '8 na bandeja · 3 reservadas', '€3', false], ['Vodka Red Bull', 'esgotou nesta rodada', '€9', true]].map(d => '<div class="row"><div><div class="t">' + d[0] + ' <span style="color:var(--mu);font-weight:600">' + d[2] + '</span></div><div class="s">' + d[1] + '</div></div>' + (d[3] ? '<span class="end mu">esgotou</span>' : '<span class="act" style="background:var(--ac2);color:#0b0b0b">Eu quero</span>') + '</div>').join('')
+   + '<div class="ocard" style="border-color:var(--ac)"><div class="hd3"><b style="color:var(--ac)">KX</b><span style="font-size:10.5px;color:var(--mu)">pago · 00:43</span></div><div class="it">1 × Gin tónico · €8 · o Rui vem ter contigo</div><div class="ac">' + btn('Mostrar farol', 'mint') + btn('Cancelar · devolve', 'ghost') + '</div></div>'
+   + '<div class="row" style="border:1.5px solid var(--ln);border-radius:14px;padding:8px 10px;background:var(--sf)">' + icob('bell', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Chamar o garçom à Pista 1</div><div class="s">3.º na fila · cerca de 4 min</div></div><span class="act">Chamar</span></div>'
+   + note('Se não chegar em 3 min, o dinheiro volta sozinho. O garçom pode recusar servir, por lei, e o app devolve. Localização fina só depois do pedido, só para ele, e desliga na entrega.')},
+ {c:'U38', n:'Farol', t:'00:44', dark:true, f:() =>
+   '<div style="position:absolute;inset:-8px -12px -12px;background:var(--ac)"></div>'
+   + '<div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;gap:8px;min-height:100%">'
+   + '<div style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.95;margin-top:6px">Levanta o celular · o Rui está a chegar</div>'
+   + '<div style="font-family:var(--fd);font-size:150px;line-height:.9;letter-spacing:.02em">KX</div>'
+   + '<div style="font-family:var(--fd);font-size:26px;line-height:1">GIN TÓNICO · €8</div><div style="font-size:12px;opacity:.9">pago · Pista 1 · Lux Frágil</div>'
+   + '<div style="margin:14px auto 0;width:118px;height:118px;border-radius:50%;border:3px solid rgba(255,255,255,.6);display:grid;place-items:center;position:relative"><span style="position:absolute;inset:-16px;border-radius:50%;border:2px solid rgba(255,255,255,.35)"></span><span style="position:absolute;inset:-32px;border-radius:50%;border:2px solid rgba(255,255,255,.18)"></span><div><div style="font-family:var(--fd);font-size:34px;line-height:1">4 m</div><div style="font-size:10px;opacity:.9">a aproximar-se</div></div></div>'
+   + '<div style="margin-top:auto;width:100%;display:grid;gap:8px"><a class="btn" href="#" onclick="return false" style="background:#fff;color:var(--ac)">Já recebi</a><div style="font-size:11px;opacity:.9">Cancelar · devolve €8 · o radar desliga quando o Rui marcar entregue</div></div>'
+   + '</div>'},
  {c:'U05', n:'Filtros', t:'21:11', dark:true, f:() =>
    bar('back', 'Filtros', null) + lbl('Onde') + row('', 'País', '', ['Portugal ›']) + row('', 'Cidade', '1.248 lugares · 37 eventos hoje', ['Lisboa ›'])
    + lbl('Tipo de lugar') + chips(['Bar', 'Restaurante', '*Clube', 'Rooftop', 'Sala de concertos'], true)
@@ -1739,7 +1772,18 @@ window.BORA_NEW.push(
    + '<div class="ocard"><div class="hd3"><b>B-47</b><span style="font-size:10.5px;color:var(--mu)">01:21 · há 2 min</span></div><div class="it">2 × Gin tónico · 1 × Super Bock</div><div class="ac">' + btn('Preparando', 'ghost') + btn('Pronto', 'mint') + '</div></div>'
    + '<div class="ocard"><div class="hd3"><b>B-48</b><span style="font-size:10.5px;color:var(--mu)">01:22 · há 1 min</span></div><div class="it">1 × Vodka com Red Bull · 2 × Água</div><div class="ac">' + btn('Preparando', 'ghost') + btn('Pronto', 'mint') + '</div></div>'
    + '<div class="tog"><span><span class="t">Pausar cardápio</span><span class="s">para quando o bar não dá conta</span></span>' + swt(false) + '</div>'
-   + '<div class="spacer"></div><div class="stats"><div><b>212</b><small>pedidos hoje</small></div><div><b>€1.930</b><small>vendidos</small></div><div><b>6 min</b><small>tempo médio</small></div></div>'}
+   + '<div class="spacer"></div><div class="stats"><div><b>212</b><small>pedidos hoje</small></div><div><b>€1.930</b><small>vendidos</small></div><div><b>6 min</b><small>tempo médio</small></div></div>'},
+ {c:'E09', n:'Modo bandeja', t:'00:41', dark:true, f:() =>
+   bar('back', 'Bandeja · Rui · Pista 1', null)
+   + '<div class="stats"><div><b>26</b><small>na bandeja</small></div><div><b>9</b><small>reservadas</small></div><div><b>€71</b><small>já pagos</small></div></div>'
+   + chips(['*Pista 1', 'Terraço', 'Pista 2', 'Mesa VIP'])
+   + lbl('Rodada', 'toca para ajustar') + [['12', 'Gin tónico', '€8 · 4 reservadas'], ['8', 'Super Bock', '€3 · 3 reservadas'], ['6', 'Água', '€1 · 2 reservadas']].map(d => '<div class="row"><div style="width:30px;font-family:var(--fd);font-size:20px;flex:0 0 auto">' + d[0] + '</div><div><div class="t">' + d[1] + '</div><div class="s">' + d[2] + '</div></div></div>').join('')
+   + lbl('Quem pediu', 'mais perto primeiro')
+   + '<div class="ocard" style="border-color:var(--ac)"><div style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 100 100" width="84" height="84" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#333" stroke-width="2"/><circle cx="50" cy="50" r="30" fill="none" stroke="#333" stroke-width="2"/><circle cx="50" cy="50" r="14" fill="none" stroke="#333" stroke-width="2"/><g transform="rotate(35 50 50)"><path d="M50 8 L62 34 L50 28 L38 34 Z" fill="#ff2e6e"/></g><circle cx="50" cy="50" r="4" fill="#fff"/></svg><div style="flex:1"><div class="hd3"><b style="color:var(--ac)">KX</b><span style="font-family:var(--fd);font-size:22px">4 m ↗</span></div><div class="it">Mariana C. · Gin tónico · pago</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px">' + av('retrato') + '<span style="font-size:10.5px;color:var(--mu)">farol ligado · levanta o celular</span></div></div></div><div class="ac">' + btn('Entregue', 'mint') + btn('Recusar · devolve', 'ghost') + '</div></div>'
+   + who('alfama', 'Rui P. · <span style="color:var(--ac)">SB</span>', 'Super Bock · 7 m ↑ · pago', '<span class="act">Entregue</span>')
+   + who('pink', 'Ana L. · <span style="color:var(--ac)">AG</span>', 'Água · 11 m ← · pago', '<span class="act">Entregue</span>')
+   + '<div class="tog"><span><span class="t">Aceitar chamadas da zona</span><span class="s">3 na fila · Pista 1</span></span>' + swt(true) + '</div>'
+   + note('O radar liga só para quem pediu, só neste celular, e desliga ao marcar entregue. Recusar devolve o dinheiro na hora, sem justificar.')}
 );
 
 /* montagem */
@@ -1749,10 +1793,10 @@ const cell = s => '<div class="cell v5" id="' + s.c + '"><div class="ph' + (s.da
 const flows = {
   entrar:[N.U01, N.U02, N.U34, N.U03, N.U32],
   descobrir:[ex('U04', 'Hoje em Lisboa', 'home', 0), N.U35, N.U31, N.U36, N.U05, N.U20, N.U21],
-  lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve')],
+  lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U37, N.U38],
   gente:[ex('U14', 'A pergunta', 'ask'), ex('U18', 'Quem está aqui', 'here'), N.U17, N.U19, N.U33, N.U25, N.U26],
   agenda:[N.U13, ex('U15', 'Meu perfil', 'profile', 4), N.U16, N.U22, N.U23, N.U24, N.U27, N.U28, N.U29, N.U30],
-  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08]
+  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09]
 };
 Object.keys(flows).forEach(k => { const el = document.querySelector('.stage[data-flow="' + k + '"]'); if (el) el.innerHTML = flows[k].map(cell).join(''); });
 const groups = []; XP.S.forEach(s => { if (!groups.includes(s.g)) groups.push(s.g); });
@@ -1798,7 +1842,8 @@ document.querySelectorAll('.book').forEach(bx=>{
 /* celulares, se houver motor */
 if(window.BORA&&window.BORA_XP){
   const B=window.BORA,XP=window.BORA_XP; const N={}; (window.BORA_NEW||[]).forEach(s=>N[s.c]=s); XP.S.forEach(s=>N[s.c]=s);
-  document.querySelectorAll('[data-screen]').forEach(el=>{const s=N[el.dataset.screen]; if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.nav!==undefined?XP.nav5(s.nav):'')+'</div>';});
+  const SC=window.BORA_SCREENS||[],R=window.BORA_R||{},K5=(window.BORA_NEWH&&window.BORA_NEWH.skin5)||(B.SKINS||[]).find(x=>x.id==='v5');
+  document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
 </script></body></html>

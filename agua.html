@@ -527,6 +527,22 @@ img{max-width:100%;display:block}
 .catgrid b{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:24px;line-height:1}
 .catgrid span{color:var(--grey);font-size:14px}
 .catgrid .n{justify-self:start;background:var(--mint);font-weight:800;font-size:12px;padding:3px 8px;border-radius:5px}
+
+/* ===== secção com mapa real por trás dos telemóveis (Presença) ===== */
+.ph-map{position:relative;overflow:hidden;isolation:isolate;background:var(--paper)}
+.ph-map::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,var(--paper) 0,rgba(242,242,242,0) 15%,rgba(242,242,242,0) 85%,var(--paper) 100%)}
+.ph-map .s-wrap{position:relative;z-index:3}
+.ph-map .ph-row{min-height:680px}
+.placa{position:absolute;z-index:2;background:var(--ink);color:#fff;font-family:var(--fd,"Anton",Impact,sans-serif);font-weight:400;font-size:clamp(18px,2.3vw,32px);letter-spacing:.06em;line-height:1;text-transform:uppercase;padding:12px 18px 10px;border:3px solid #fff;outline:3px solid var(--ink);box-shadow:7px 7px 0 var(--pink);white-space:nowrap}
+.placa small{display:block;font:700 10px/1 var(--fb,"Work Sans",sans-serif);letter-spacing:.32em;color:var(--mint);margin-bottom:7px}
+.placa.mint{background:var(--mint);color:var(--ink);box-shadow:7px 7px 0 var(--ink)} .placa.mint small{color:#1f5a3c}
+.coord{position:absolute;z-index:2;font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;color:var(--ink);background:rgba(255,255,255,.88);border:2px solid var(--ink);padding:8px 11px;box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+.coord i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:8px;vertical-align:1px;animation:pulso-coord 1.6s ease-in-out infinite}
+@keyframes pulso-coord{50%{opacity:.3}}
+.osm{position:absolute;right:8px;bottom:6px;z-index:4;font:600 10px/1.3 var(--fb,"Work Sans",sans-serif);color:#4f4f4f;background:rgba(255,255,255,.85);padding:2px 6px;border-radius:4px;text-decoration:none}
+.osm:hover{color:var(--ink)}
+@media (max-width:900px){.placa{display:none}}
+@media (max-width:640px){.ph-map .ph-row{min-height:0}.coord{font-size:10px;left:12px!important;bottom:10px!important}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -618,7 +634,8 @@ document.querySelectorAll('.book').forEach(bx=>{
 /* celulares, se houver motor */
 if(window.BORA&&window.BORA_XP){
   const B=window.BORA,XP=window.BORA_XP; const N={}; (window.BORA_NEW||[]).forEach(s=>N[s.c]=s); XP.S.forEach(s=>N[s.c]=s);
-  document.querySelectorAll('[data-screen]').forEach(el=>{const s=N[el.dataset.screen]; if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.nav!==undefined?XP.nav5(s.nav):'')+'</div>';});
+  const SC=window.BORA_SCREENS||[],R=window.BORA_R||{},K5=(window.BORA_NEWH&&window.BORA_NEWH.skin5)||(B.SKINS||[]).find(x=>x.id==='v5');
+  document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
 </script></body></html>
