@@ -543,6 +543,14 @@ img{max-width:100%;display:block}
 .osm:hover{color:var(--ink)}
 @media (max-width:900px){.placa{display:none}}
 @media (max-width:640px){.ph-map .ph-row{min-height:0}.coord{font-size:10px;left:12px!important;bottom:10px!important}}
+.placa.paper{background:#fff;color:var(--ink);border-color:var(--ink);outline-color:#fff;box-shadow:7px 7px 0 var(--pink)} .placa.paper small{color:var(--pink)}
+/* faixa escura com mapa por trás (Hoje · "O mapa, os filtros e quem vai") */
+.band-map{position:relative;overflow:hidden;isolation:isolate}
+.band-map > *{position:relative;z-index:2}
+.band-map > .mapa-fundo{position:absolute;z-index:0;border-radius:0}
+.band-map::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--ink) 0,rgba(11,11,11,.94) 34%,rgba(11,11,11,.3) 58%,rgba(11,11,11,.22) 100%)}
+.band-map > .osm{position:absolute;z-index:4;background:rgba(17,17,17,.8);color:#aaa}
+@media (max-width:760px){.band-map::after{background:linear-gradient(180deg,var(--ink) 0,rgba(11,11,11,.92) 48%,rgba(11,11,11,.35) 100%)}}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
