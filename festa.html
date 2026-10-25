@@ -371,6 +371,12 @@ img{max-width:100%;display:block}
 .fbar .fbusca.on button{display:grid}
 .fres .fperfil{color:var(--pink);font-weight:800;text-decoration:none;border-bottom:2px solid currentColor}
 @media (max-width:640px){.fbar .fbusca{flex-basis:100%;max-width:none}}
+/* caixa de procura no cabeçalho escuro: texto branco, não preto */
+.p-hero .fbar .fbusca input,.s-dark .fbar .fbusca input{color:#fff}
+.p-hero .fbar .fbusca input::placeholder,.s-dark .fbar .fbusca input::placeholder{color:#bdbdbd}
+.p-hero .fbar .fbusca svg,.s-dark .fbar .fbusca svg{color:#cfcfcf}
+.p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:#fff}
+.p-hero .fbar .fbusca button,.s-dark .fbar .fbusca button{background:#fff;color:var(--ink)}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
