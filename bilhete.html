@@ -1032,10 +1032,10 @@ const ITENS = [
 
 /* ---------- textos ---------- */
 const L = {
- pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', g_rolando:'A rolar', gs_rolando:'agora', g_jaja:'Já já rola', gs_jaja:'começa nas próximas 2 horas', g_vai:'Vai rolar', gs_vai:'mais tarde e nos próximos dias', g_rolou:'Já rolou', gs_rolou:'já acabou', gosto:'Gosto', jaGosto:'Já gostas · tirar', gostos:n => n === 1 ? '1 gosto primeiro' : n + ' gostos primeiro', pelosGostos:'e pelo que gostas', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
+ pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', g_rolando:'A rolar', gs_rolando:'agora', g_jaja:'Já já rola', gs_jaja:'começa nas próximas 2 horas', g_vai:'Vai rolar', gs_vai:'mais tarde e nos próximos dias', g_rolou:'Já rolou', gs_rolou:'já acabou', g_diatodo:'O dia todo', gs_diatodo:'sem hora marcada', gosto:'Gosto', jaGosto:'Já gostas · tirar', gostos:n => n === 1 ? '1 gosto primeiro' : n + ' gostos primeiro', pelosGostos:'e pelo que gostas', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
    destaque:n => n + ' em destaque', limpar:'Limpar filtros', nada:'NADA COM ESTES FILTROS', nadaTxt:c => 'Em ' + c + ' nenhum lugar bate com tudo o que escolheste. Tira o tipo ou muda o dia.',
    naoAbriu:'AINDA NÃO ABRIU', breveTxt:(c, q) => 'O Streetfy chega a ' + c + ' ' + (q || 'em breve') + '. Deixa o e-mail e avisamos-te primeiro.', avisar:'Avisa-me quando abrir', agora:o => 'pessoas ' + o + ' agora', agoraNada:'pessoas aqui agora', tags:{}},
- en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', g_rolando:'On now', gs_rolando:'right now', g_jaja:'Up next', gs_jaja:'starts within 2 hours', g_vai:'Later', gs_vai:'later tonight and the next days', g_rolou:'Already happened', gs_rolou:'over', gosto:'Like', jaGosto:'Liked · remove', gostos:n => n === 1 ? '1 like first' : n + ' likes first', pelosGostos:'and by what you like', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
+ en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', g_rolando:'On now', gs_rolando:'right now', g_jaja:'Up next', gs_jaja:'starts within 2 hours', g_vai:'Later', gs_vai:'later tonight and the next days', g_rolou:'Already happened', gs_rolou:'over', g_diatodo:'All day', gs_diatodo:'no set time', gosto:'Like', jaGosto:'Liked · remove', gostos:n => n === 1 ? '1 like first' : n + ' likes first', pelosGostos:'and by what you like', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
    destaque:n => n + ' featured', limpar:'Clear filters', nada:'NOTHING MATCHES', nadaTxt:c => 'In ' + c + ' nothing matches all your filters. Drop the type or change the day.',
    naoAbriu:'NOT OPEN YET', breveTxt:(c, q) => 'Streetfy reaches ' + c + ' ' + (q || 'soon') + '. Leave your e-mail and we tell you first.', avisar:'Tell me when it opens', agora:o => 'people ' + o + ' right now', agoraNada:'people here right now',
    tags:{'Entrada livre':'Free entry', 'Bar · até às 3h':'Bar · open till 3am', 'Bar · até às 2h':'Bar · open till 2am', 'Bar a bar':'Bar to bar', 'Pôr do sol':'Sunset', 'Clássica':'Classical'}}
@@ -1102,10 +1102,9 @@ function horasDe(i){
 }
 function grupoDe(i, agora){
   const dia = dataDe(i, agora), hs = horasDe(i), hojeD = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
-  if (!hs) { /* sem hora: conta como o dia inteiro (exposições, bares sem hora marcada) */
+  if (!hs) { /* sem hora de fim não há "a rolar": exposições e casas sem hora marcada vão para "o dia todo" */
     const fimD = i.dataFim ? new Date(i.dataFim + 'T23:59:59') : new Date(dia.getTime() + 86399e3);
-    if (dia <= hojeD && fimD >= agora) return 'rolando';
-    return fimD < agora ? 'rolou' : 'vai';
+    return fimD < agora ? 'rolou' : 'diatodo';
   }
   const H = 3600e3;
   if (hs[1] > 24) { const ontem = dia.getTime() - 86400e3; if (agora >= ontem + hs[0] * H && agora < ontem + hs[1] * H) return 'rolando'; } /* noite que atravessou a meia-noite */
@@ -1115,7 +1114,7 @@ function grupoDe(i, agora){
   if (ini - agora <= 2 * H) return 'jaja';
   return 'vai';
 }
-const GRUPOS = ['rolando', 'jaja', 'vai', 'rolou'];
+const GRUPOS = ['rolando', 'jaja', 'vai', 'diatodo', 'rolou'];
 const cabecalhoGrupo = (g, n, t) => '<h3 class="fgrupo ' + g + '"><b>' + t['g_' + g] + '</b><small>' + t['gs_' + g] + ' · ' + n + '</small></h3>';
 /* vista dos resultados: cartões ou lista. Preferência do aparelho, fora do link (quem recebe o link vê os cartões). */
 let VISTA = 'cartoes'; try { if (localStorage.getItem('streetfy:vista') === 'lista') VISTA = 'lista'; } catch (e) {}
@@ -1248,7 +1247,7 @@ function montar(bar){
       const max = +(res.dataset.max || 12), emLista = VISTA === 'lista', tipo = emLista ? 'linha' : (res.dataset.cartao || 'poster');
       res.classList.toggle('vista-lista', emLista);
       const cartao = tipo === 'linha' ? cartaoLinha : tipo === 'lista' ? cartaoLista : cartaoPoster;
-      const agora = AGORA(), por = {rolando:[], jaja:[], vai:[], rolou:[]}; lista.forEach(i => por[grupoDe(i, agora)].push(i));
+      const agora = AGORA(), por = {rolando:[], jaja:[], vai:[], diatodo:[], rolou:[]}; lista.forEach(i => por[grupoDe(i, agora)].push(i));
       if (res.dataset.grupos !== undefined) {
         /* a rolar primeiro, o que já acabou no fundo (só com scroll); o corte do "mostrar mais" segue essa ordem */
         const seq = []; GRUPOS.forEach(g => por[g].forEach(i => seq.push([g, i])));
