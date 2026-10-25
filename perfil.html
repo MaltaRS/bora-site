@@ -1188,7 +1188,7 @@ function render(){
       + '<div class="p-ev-h"><span class="p-ev-q">' + esc(quando) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat" style="position:static">Patrocinado</span>' : '') + (aberto ? '' : '<span class="p-ev-abrir">ver ›</span>') + '</div>'
       + '<h3>' + esc(i.titulo) + '</h3>'
       + '<p>' + esc(i.estilo ? cap(i.estilo) : '') + (preco(i) ? ' · ' + esc(preco(i)) : '') + (i.pp ? ' · ' + esc(i.pp) : '') + '</p>'
-      + (aberto ? '<div class="p-ev-acts">' + (assumido ? '<a class="s-btn mint" href="evento.html">Bilhetes</a><a class="s-btn ghost" href="lugar.html">Reservar</a>' : ((i.fonteLink || i.href) ? '<a class="s-btn ghost" href="' + esc(i.fonteLink || i.href) + '" target="_blank" rel="noopener">Abrir na fonte</a>' : '')) + '<a class="s-btn ghost" href="' + esc(ligar(i)) + '" data-copiar>Copiar ligação</a></div>' : '')
+      + (aberto ? '<div class="p-ev-acts">' + (assumido ? '<a class="s-btn mint" href="evento.html">Bilhetes</a><a class="s-btn ghost" href="lugar.html">Reservar</a>' : ((i.fonteLink || i.href) ? '<a class="s-btn ghost" href="' + esc(i.fonteLink || i.href) + '" target="_blank" rel="noopener">Abrir na fonte</a>' : '')) + '<a class="s-btn ghost" href="' + esc(ligar(i)) + '" data-copiar>Copiar link</a></div>' : '')
       + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '')
       + '</article>';
   }).join('');
@@ -1214,7 +1214,7 @@ function render(){
 /* clique num cartão (fora dos botões) seleciona o evento; o hash muda e a página redesenha-se */
 el('eventos').addEventListener('click', ev => {
   const a = ev.target.closest('a');
-  if (a && a.hasAttribute('data-copiar')) { ev.preventDefault(); const url = location.origin + location.pathname + a.getAttribute('href').replace(/^perfil\.html/, ''); (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { a.textContent = 'Ligação copiada'; }).catch(() => { prompt('Copia a ligação:', url); }); return; }
+  if (a && a.hasAttribute('data-copiar')) { ev.preventDefault(); const url = location.origin + location.pathname + a.getAttribute('href').replace(/^perfil\.html/, ''); (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { a.textContent = 'Link copiado'; }).catch(() => { prompt('Copia o link:', url); }); return; }
   if (a) return;
   const art = ev.target.closest('.p-ev'); if (!art) return;
   const q = new URLSearchParams(location.hash.slice(1)); q.set('evento', art.dataset.ev);
