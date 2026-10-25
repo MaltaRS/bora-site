@@ -304,6 +304,31 @@ img{max-width:100%;display:block}
 .fmais{grid-column:1/-1;display:flex;justify-content:center;padding:18px 0 4px}
 .s-ig{display:inline-block;margin-left:8px;font-weight:800;font-size:11px;color:var(--ink);background:var(--mint);padding:2px 7px;border-radius:5px}
 
+/* vista dos resultados: cartões ou lista (botão na linha de resultados) */
+.fres .fvista{margin-left:auto;display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:#fff}
+.fres .fvista button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;font-weight:800;font-size:12px;color:var(--ink);line-height:1}
+.fres .fvista button.on{background:var(--ink);color:#fff}
+.fres .fvista button:focus-visible{outline:3px solid var(--pink);outline-offset:-3px}
+.vista-lista{grid-template-columns:1fr!important;gap:10px!important}
+.ev-row{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;border:2px solid var(--ink);border-radius:14px;background:#fff;color:var(--ink);text-decoration:none;padding:10px 14px 10px 10px;transition:transform .15s,box-shadow .15s}
+.ev-row:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.ev-row .im{width:72px;height:72px;border-radius:10px;background-size:cover;background-position:center;background-color:var(--ink);filter:grayscale(1) contrast(1.2);transition:filter .4s}
+.ev-row:hover .im{filter:none}
+.ev-row .bd{min-width:0}
+.ev-row h3{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:22px;line-height:.95;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-row p{margin:4px 0 0;color:var(--grey);font-size:13px}
+.ev-row p b{color:var(--ink)}
+.ev-row .et{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ev-row .et:empty{display:none}
+.ev-row .ev-tag{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 6px;border-radius:4px;background:#efefef;color:var(--ink)}
+.ev-row .ev-tag.pat,.ev-row .ev-tag.ig{background:var(--mint)}
+.ev-row .pp{font-size:12px;font-weight:600}
+.ev-row .dir{display:grid;gap:6px;justify-items:end;text-align:right}
+.ev-row .pr{font-family:var(--fd);font-size:20px;line-height:1;background:#fff;border:2px solid var(--ink);padding:4px 8px;border-radius:5px;transform:rotate(3deg)}
+.ev-row .pr.mint{background:var(--mint);border-color:var(--mint);font-family:var(--fb);font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;transform:none}
+.ev-row .pres{font-size:12px;font-weight:800;color:var(--pink);white-space:nowrap}
+@media (max-width:640px){.ev-row{grid-template-columns:56px 1fr auto;gap:10px;padding:8px 10px 8px 8px}.ev-row .im{width:56px;height:56px}.ev-row h3{font-size:18px;white-space:normal}.ev-row .pr{font-size:16px}.fres .fvista button span{display:none}.fres .fvista button{padding:7px 10px}}
+
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
 .p-hero .s-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.3) brightness(.6)}
@@ -2216,10 +2241,10 @@ const ITENS = [
 
 /* ---------- textos ---------- */
 const L = {
- pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
+ pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
    destaque:n => n + ' em destaque', limpar:'Limpar filtros', nada:'NADA COM ESTES FILTROS', nadaTxt:c => 'Em ' + c + ' nenhum lugar bate com tudo o que escolheste. Tira o tipo ou muda o dia.',
    naoAbriu:'AINDA NÃO ABRIU', breveTxt:(c, q) => 'O Streetfy chega a ' + c + ' ' + (q || 'em breve') + '. Deixa o e-mail e avisamos-te primeiro.', avisar:'Avisa-me quando abrir', agora:o => 'pessoas ' + o + ' agora', agoraNada:'pessoas aqui agora', tags:{}},
- en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
+ en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
    destaque:n => n + ' featured', limpar:'Clear filters', nada:'NOTHING MATCHES', nadaTxt:c => 'In ' + c + ' nothing matches all your filters. Drop the type or change the day.',
    naoAbriu:'NOT OPEN YET', breveTxt:(c, q) => 'Streetfy reaches ' + c + ' ' + (q || 'soon') + '. Leave your e-mail and we tell you first.', avisar:'Tell me when it opens', agora:o => 'people ' + o + ' right now', agoraNada:'people here right now',
    tags:{'Entrada livre':'Free entry', 'Bar · até às 3h':'Bar · open till 3am', 'Bar · até às 2h':'Bar · open till 2am', 'Bar a bar':'Bar to bar', 'Pôr do sol':'Sunset', 'Clássica':'Classical'}}
@@ -2243,6 +2268,12 @@ const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
 const hrefPerfil = i => 'perfil.html#lugar=' + encodeURIComponent(lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
 const PADRAO = {pais:'pt', cidade:'lisboa', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:''};
+/* vista dos resultados: cartões ou lista. Preferência do aparelho, fora do link (quem recebe o link vê os cartões). */
+let VISTA = 'cartoes'; try { if (localStorage.getItem('streetfy:vista') === 'lista') VISTA = 'lista'; } catch (e) {}
+const ICO = {
+  grade:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor"/></svg>',
+  lista:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="4" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3" rx="1.5" fill="currentColor"/></svg>'
+};
 
 /* ---------- ajudantes ---------- */
 const lang = () => (document.documentElement.lang || 'pt').slice(0, 2) === 'en' ? 'en' : 'pt';
@@ -2306,6 +2337,8 @@ function linha(e, t, pais, cidade, n){
     + (e.tipo !== 'tudo' ? ' · ' + tiposDe(e).map(x => t[x].toLowerCase()).join(' + ') : '') + (e.estilo !== 'todos' ? ' · ' + esc(estilosSel(e).join(' + ')) : '') + '</span>';
   if (e.bairro) h += '<span class="bchip">' + esc(e.bairro) + '<button type="button" data-f="bairro" data-v="' + esc(e.bairro) + '" aria-label="remover bairro">×</button></span>';
   if (e.tipo !== 'tudo' || e.quando !== 'hoje' || e.estilo !== 'todos' || e.bairro) h += '<a href="#" data-f="limpar">' + t.limpar + '</a>';
+  const vb = (v, ico, txt) => '<button type="button" data-f="vista" data-v="' + v + '"' + (VISTA === v ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + ' title="' + esc(txt) + '">' + ico + '<span>' + esc(txt) + '</span></button>';
+  h += '<span class="fvista" role="group" aria-label="' + esc(t.vista) + '">' + vb('cartoes', ICO.grade, t.cartoes) + vb('lista', ICO.lista, t.lista) + '</span>';
   return h + '</p>';
 }
 function presenca(i, t){
@@ -2330,6 +2363,15 @@ function cartaoLista(i, k, t){
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ' · ' + esc(i.bairro) + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
 }
+/* vista em lista: uma linha por evento, com miniatura, lugar, hora, preço e presença */
+function cartaoLinha(i, k, t){
+  const livre = i.preco === 0, pr = preco(i);
+  const pres = i.aqui ? '● ' + i.aqui + ' ' + t.aqui : (i.vao ? i.vao + ' ' + t.vao : '');
+  return '<a class="ev-row pop" style="animation-delay:' + (Math.min(k, 12) * 40) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="im" style="background-image:url(' + im(i) + ')"></div>'
+    + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p><b>' + esc(i.lugar) + '</b>' + (i.bairro ? ' · ' + esc(i.bairro) : '') + (i.hora ? ' · ' + esc(i.hora) : '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (i.star ? ' · ★ ' + i.star : '') + '</p>'
+    + '<p class="et">' + (i.origem === 'patrocinado' ? '<span class="ev-tag pat">' + t.patrocinado + '</span>' : '') + (i.origem === 'bot' ? '<span class="ev-tag">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + (i.instagram ? '<span class="ev-tag ig">@' + esc(i.instagram) + '</span>' : '') + (i.pp && i.origem !== 'bot' ? '<span class="pp">' + esc(i.pp) + '</span>' : '') + '</p></div>'
+    + '<div class="dir">' + (pr ? '<span class="pr' + (livre ? ' mint' : '') + '">' + esc(pr) + '</span>' : '') + (pres ? '<span class="pres">' + pres + '</span>' : '') + '</div></a>';
+}
 function vazio(e, t, cidade){
   const espera = document.getElementById('espera') ? '#espera' : 'cidades.html#espera';
   if (!cidade.aberta) return '<div class="fempty pop"><b>' + esc(nome(cidade)) + '<br>' + t.naoAbriu + '</b><p>' + esc(t.breveTxt(nome(cidade), cidade.abre && cidade.abre[lang()])) + '</p><a class="s-btn ink" href="' + espera + '">' + t.avisar + '</a></div>';
@@ -2351,8 +2393,10 @@ function montar(bar){
     const lista = cidade.aberta ? filtrar(e) : [];
     bar.innerHTML = barra(e, t) + linha(e, t, pais, cidade, lista.length);
     if (res) {
-      const max = +(res.dataset.max || 12), tipo = res.dataset.cartao || 'poster';
-      res.innerHTML = (!cidade.aberta || !lista.length) ? vazio(e, t, cidade) : lista.slice(0, max).map((i, k) => (tipo === 'lista' ? cartaoLista : cartaoPoster)(i, k, t)).join('')
+      const max = +(res.dataset.max || 12), emLista = VISTA === 'lista', tipo = emLista ? 'linha' : (res.dataset.cartao || 'poster');
+      res.classList.toggle('vista-lista', emLista);
+      const cartao = tipo === 'linha' ? cartaoLinha : tipo === 'lista' ? cartaoLista : cartaoPoster;
+      res.innerHTML = (!cidade.aberta || !lista.length) ? vazio(e, t, cidade) : lista.slice(0, max).map((i, k) => cartao(i, k, t)).join('')
         + (lista.length > max ? '<div class="fmais"><a href="#" class="s-btn ink" data-f="mais">' + t.mais(lista.length - max) + '</a></div>' : '');
     }
     document.querySelectorAll('[data-f-cidade]').forEach(x => { x.textContent = nome(cidade).toUpperCase(); });
@@ -2376,6 +2420,7 @@ function montar(bar){
     else if (k === 'tipo') { if (v === 'tudo') e.tipo = 'tudo'; else { const ts = tiposDe(e), i = ts.indexOf(v); if (i >= 0) ts.splice(i, 1); else ts.push(v); e.tipo = ts.length ? ts.join(',') : 'tudo'; } }
     else if (k === 'dia') { e.quando = ['hoje', 'amanha', 'fds'][+v] || 'semana'; }
     else if (k === 'mais') { if (res) res.dataset.max = (+(res.dataset.max || 12)) + 24; render(false); return; }
+    else if (k === 'vista') { VISTA = v === 'lista' ? 'lista' : 'cartoes'; try { localStorage.setItem('streetfy:vista', VISTA); } catch (x) {} render(false); return; }
     else if (k === 'bairro') { e.bairro = e.bairro === v ? '' : v; }
     else if (k === 'limpar') { e = Object.assign({}, PADRAO, {pais:e.pais, cidade:e.cidade}); }
     else e[k] = v;
