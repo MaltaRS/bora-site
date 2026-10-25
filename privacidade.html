@@ -892,6 +892,13 @@ html.lb-aberta{overflow:hidden}
 .cc-prop span{color:var(--grey);font-size:13px}
 .cc-prop i{font-style:normal;font-family:var(--fd);font-size:24px;color:var(--pink)}
 .cc-prop i small{font-family:var(--fb);font-size:11px;color:var(--grey);letter-spacing:.06em}
+
+/* seguir no cartão de promoter e de concierge */
+.pr-card{position:relative}
+.pr-seguir{position:absolute;top:12px;right:12px;z-index:2;font:800 12px/1 var(--fb);padding:9px 13px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.pr-seguir:hover{transform:translate(-1px,-1px)}
+.pr-seguir.on{background:var(--mint);border-color:var(--ink)}
+.pr-seguir:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

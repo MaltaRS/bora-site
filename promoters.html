@@ -893,6 +893,13 @@ html.lb-aberta{overflow:hidden}
 .cc-prop i{font-style:normal;font-family:var(--fd);font-size:24px;color:var(--pink)}
 .cc-prop i small{font-family:var(--fb);font-size:11px;color:var(--grey);letter-spacing:.06em}
 
+/* seguir no cartão de promoter e de concierge */
+.pr-card{position:relative}
+.pr-seguir{position:absolute;top:12px;right:12px;z-index:2;font:800 12px/1 var(--fb);padding:9px 13px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.pr-seguir:hover{transform:translate(-1px,-1px)}
+.pr-seguir.on{background:var(--mint);border-color:var(--ink)}
+.pr-seguir:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2965,12 +2972,15 @@ function grelha(el){
     el.innerHTML = '<div class="fchips pr-chips" role="group" aria-label="Cidade"><small>Cidade</small>' + cids.map(c => '<button type="button" data-pc="' + c + '"' + (c === filtro ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + (c === 'todas' ? 'Todas' : esc(NOME_CID(c))) + '</button>').join('') + '</div>'
       + '<div class="pr-grid">' + lista.map(p => { const f = festasDe(p); return '<a class="pr-card" href="promoter.html#p=' + p.id + '">'
         + '<div class="pr-foto" style="background-image:url(' + RETRATO(p) + ')"><span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span></div>'
+        + '<button type="button" class="pr-seguir' + (segue[p.id] ? ' on' : '') + '" data-seg="' + p.id + '" aria-pressed="' + !!segue[p.id] + '">' + (segue[p.id] ? 'A seguir ✓' : 'Seguir') + '</button>'
         + '<div class="pr-bd"><h3>' + esc(p.nome) + '</h3><p class="pr-num">★ ' + p.nota + ' · ' + fmt(p.seg) + ' seguidores · ' + esc(NOME_CID(p.cidade)) + '</p>'
         + '<p class="pr-est">' + p.estilos.map(cap).join(' · ') + '</p>'
         + '<div class="pr-prox"><small>Promove · ' + f.length + (f.length === 1 ? ' festa' : ' festas') + '</small>' + (f.slice(0, 2).map(i => '<span><b>' + esc(i.titulo) + '</b> · ' + esc(quando(i)) + (i.hora ? ' ' + esc(i.hora.replace(/^\D+\s/, '')) : '') + '</span>').join('') || '<span>sem festas esta semana</span>') + '</div>'
         + '<span class="pr-ver">Ver perfil ›</span></div></a>'; }).join('') + '</div>';
   };
-  el.addEventListener('click', ev => { const b = ev.target.closest('[data-pc]'); if (b) { filtro = b.dataset.pc; desenha(); } });
+  el.addEventListener('click', ev => {
+    const sg = ev.target.closest('[data-seg]'); if (sg) { ev.preventDefault(); ev.stopPropagation(); const id = sg.dataset.seg; if (segue[id]) delete segue[id]; else segue[id] = 1; guarda(); desenha(); return; }
+    const b = ev.target.closest('[data-pc]'); if (b) { filtro = b.dataset.pc; desenha(); } });
   desenha();
 }
 

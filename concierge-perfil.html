@@ -892,6 +892,13 @@ html.lb-aberta{overflow:hidden}
 .cc-prop span{color:var(--grey);font-size:13px}
 .cc-prop i{font-style:normal;font-family:var(--fd);font-size:24px;color:var(--pink)}
 .cc-prop i small{font-family:var(--fb);font-size:11px;color:var(--grey);letter-spacing:.06em}
+
+/* seguir no cartão de promoter e de concierge */
+.pr-card{position:relative}
+.pr-seguir{position:absolute;top:12px;right:12px;z-index:2;font:800 12px/1 var(--fb);padding:9px 13px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.pr-seguir:hover{transform:translate(-1px,-1px)}
+.pr-seguir.on{background:var(--mint);border-color:var(--ink)}
+.pr-seguir:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1030,12 +1037,15 @@ function grelha(el){
     el.innerHTML = '<div class="fchips pr-chips" role="group" aria-label="Cidade"><small>Cidade</small>' + cids.map(c => '<button type="button" data-cc="' + esc(c) + '"' + (c === filtro ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + esc(c) + '</button>').join('') + '</div>'
       + '<div class="pr-grid">' + lista.map(c => '<a class="pr-card" href="concierge-perfil.html#c=' + c.id + '">'
         + '<div class="pr-foto" style="background-image:url(' + RETRATO(c) + ')"><span class="pr-nivel cidade">Concierge · ' + esc(c.cidade) + '</span></div>'
+        + '<button type="button" class="pr-seguir' + (segue[c.id] ? ' on' : '') + '" data-seg="' + c.id + '" aria-pressed="' + !!segue[c.id] + '">' + (segue[c.id] ? 'A seguir ✓' : 'Seguir') + '</button>'
         + '<div class="pr-bd"><h3>' + esc(c.nome) + '</h3><p class="pr-num">★ ' + c.nota + ' · ' + fmt(c.pedidos) + ' pedidos · responde em ' + c.resp + '</p>'
         + '<p class="pr-est">' + c.linguas.join(' · ') + ' · ' + esc(c.turno) + '</p>'
         + '<div class="pr-prox"><small>Monta</small>' + c.exp.slice(0, 3).map(k => '<span><b>' + esc(EXP[k][0]) + '</b> · ' + esc(EXP[k][2]) + '</span>').join('') + '</div>'
         + '<span class="pr-ver">Ver perfil ›</span></div></a>').join('') + '</div>';
   };
-  el.addEventListener('click', ev => { const b = ev.target.closest('[data-cc]'); if (b) { filtro = b.dataset.cc; desenha(); } });
+  el.addEventListener('click', ev => {
+    const sg = ev.target.closest('[data-seg]'); if (sg) { ev.preventDefault(); ev.stopPropagation(); const id = sg.dataset.seg; if (segue[id]) delete segue[id]; else segue[id] = 1; guarda(); desenha(); return; }
+    const b = ev.target.closest('[data-cc]'); if (b) { filtro = b.dataset.cc; desenha(); } });
   desenha();
 }
 
@@ -1049,7 +1059,7 @@ function perfil(el){
       + '<div class="pr-cab"><div class="pr-av" style="background-image:url(' + RETRATO(c) + ')"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(c.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
       + '<span class="pr-nivel cidade">Concierge · ' + esc(c.cidade) + '</span> <span class="p-meta">' + c.linguas.join(' · ') + ' · ' + esc(c.turno) + '</span></div></div>'
       + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(c.bio) + '</p>'
-      + '<div class="p-acoes"><a class="s-btn mint" href="app.html">Falar com ' + esc(c.nome.split(' ')[0]) + '</a><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-c="' + c.id + '" aria-pressed="' + s + '">' + (s ? 'Favorito ✓' : 'Guardar como favorito') + '</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-c data-titulo="' + esc(c.nome) + '">Compartilhar</a></div>'
+      + '<div class="p-acoes"><a class="s-btn mint" href="app.html">Falar com ' + esc(c.nome.split(' ')[0]) + '</a><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-c="' + c.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-c data-titulo="' + esc(c.nome) + '">Compartilhar</a></div>'
       + '<div class="p-nums"><div class="p-num"><b>★ ' + c.nota + '</b><span>nota · ' + c.aval + ' avaliações de quem usou</span></div><div class="p-num"><b>' + fmt(c.pedidos) + '</b><span>pedidos montados</span></div><div class="p-num"><b>' + c.resp + '</b><span>primeira resposta, em média</span></div><div class="p-num"><b>15%</b><span>taxa já dentro do preço</span></div></div></div></section>'
       + '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div><p class="s-eyebrow">O que monta</p><h2 class="s-h h2s" style="margin-bottom:18px">PEDE-LHE <em>ISTO</em></h2>'
       + c.exp.map(k => '<a class="p-ev pr-ev" href="' + EXP[k][1] + '"><div class="p-ev-h"><span class="p-ev-q">experiência</span><span class="p-ev-abrir">ver ›</span></div><h3>' + esc(EXP[k][0]) + '</h3><p>' + esc(EXP[k][2]) + '</p></a>').join('')
