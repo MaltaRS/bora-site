@@ -900,6 +900,16 @@ html.lb-aberta{overflow:hidden}
 .pr-seguir.on{background:var(--mint);border-color:var(--ink)}
 .pr-seguir:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 
+/* quem esteve: avatares sobrepostos */
+.qe{display:flex;align-items:center;gap:12px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.qe-avs{display:inline-flex;align-items:center}
+.qe-avs i{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center;border:3px solid #fff;margin-left:-12px;box-shadow:0 0 0 1px var(--line);filter:grayscale(.3)}
+.qe-avs i:first-child{margin-left:0}
+.qe-avs b{margin-left:-12px;min-width:38px;height:38px;padding:0 8px;border-radius:999px;background:var(--ink);color:#fff;border:3px solid #fff;display:grid;place-items:center;font:800 12px/1 var(--fb)}
+.qe-txt{font-weight:800;font-size:14px;color:var(--ink);display:grid;gap:2px}
+.qe-txt small{font-weight:600;font-size:11px;color:var(--grey)}
+.pr-galeria{grid-template-columns:repeat(4,1fr)}@media (max-width:600px){.pr-galeria{grid-template-columns:repeat(2,1fr)}}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2963,6 +2973,16 @@ const precoTxt = i => i.preco === 0 ? 'entrada livre' : (typeof i.preco === 'num
 let segue = {}; try { segue = JSON.parse(localStorage.getItem('streetfy:segue-promoters') || '{}'); } catch (e) {}
 const guarda = () => { try { localStorage.setItem('streetfy:segue-promoters', JSON.stringify(segue)); } catch (e) {} };
 
+/* galeria do promoter: fotos das festas que promove + fotos das noites dele (no site real: as que ele publica, com crédito) */
+const NOITES = ['club', 'dj', 'lux', 'noite', 'pink', 'cocktail', 'shots', 'tram', 'bairro', 'alfama', 'mesa', 'lx'];
+const imgDe = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+function galeria(p, f){
+  const fotos = f.filter(i => i.img).map(i => ({url:imgDe(i), leg:i.titulo + (i.lugar ? ' · ' + i.lugar : '')}));
+  const h = p.id.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  for (let k = 0; fotos.length < 8 && k < NOITES.length; k++) { const n = NOITES[(h + k * 5) % NOITES.length], u = 'img/' + n + '.jpg'; if (!fotos.some(x => x.url === u)) fotos.push({url:u, leg:'Noite com ' + p.nome.split(' ')[0] + ' · ' + NOME_CID(p.cidade)}); }
+  return fotos.slice(0, 8).map(x => '<figure class="p-foto"><div style="background-image:url(' + esc(x.url) + ')"></div><figcaption>' + esc(x.leg) + '</figcaption></figure>').join('');
+}
+
 /* ---------- grelha ---------- */
 function grelha(el){
   let filtro = 'todas';
@@ -3057,6 +3077,7 @@ function perfil(el){
       + (f.length ? f.map(i => '<a class="p-ev pr-ev" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (p.comissao.includes(i.id) ? '<span class="pr-com">comissão</span>' : '<span class="pr-com sem">sem comissão</span>') + '</div>'
           + '<h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + (i.vao ? ' · ' + i.vao + ' vão' : '') + '</p>' + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '') + '<span class="p-ev-abrir">bilhete ›</span></a>').join('')
           : '<p class="p-vazio">Sem festas marcadas esta semana.</p>')
+      + '<p class="s-eyebrow" style="margin-top:28px">Galeria</p><h2 class="s-h h2s" style="margin-bottom:14px">FOTOS DAS <em>NOITES</em></h2><div class="p-fotos pr-galeria" data-p="fotos">' + galeria(p, f) + '</div>'
       + '</div><div><p class="s-eyebrow">Como funciona</p><div class="inc" style="margin-top:12px"><div><h4>Regra da casa</h4><ul><li>O promoter só indica festas do catálogo; não inventa eventos.</li><li>Comissão declarada pelo parceiro aparece sempre no cartão (R71). O bilhete pelo link dele custa o mesmo.</li><li>A nota só vem de quem esteve lá, com check-in.</li><li>Sobe e desce de nível sozinho: seguidores, presenças e nota dos últimos 30 dias.</li></ul></div></div>'
       + '<p class="s-eyebrow" style="margin-top:26px">Outros promoters</p><div class="pr-outros">' + P.filter(x => x.id !== p.id && x.cidade === p.cidade).concat(P.filter(x => x.cidade !== p.cidade)).slice(0, 4).map(x => '<a href="promoter.html#p=' + x.id + '"><span class="pr-av mini" style="background-image:url(' + RETRATO(x) + ')"></span><b>' + esc(x.nome) + '</b><small>' + NIVEL[x.nivel] + ' · ' + esc(NOME_CID(x.cidade)) + '</small></a>').join('') + '</div>'
       + '</div></div></div></section>');
@@ -3072,5 +3093,54 @@ function perfil(el){
 document.querySelectorAll('[data-promoters]').forEach(grelha);
 document.querySelectorAll('[data-promoter]').forEach(perfil);
 window.STREETFY_PROMOTERS = {lista:P, festasDe};
+})();
+</script><script>/* Streetfy · lightbox.js — tocar numa foto amplia-a; com várias, desliza-se (ou setas/teclado) para ver todas ampliadas.
+   Grupos: as fotos do perfil e do evento ([data-p="fotos"]: cartazes e álbum do Instagram) e a galeria do evento (.gal).
+   No álbum, cada foto ampliada tem a ligação para a publicação original. */
+(function(){
+'use strict';
+const SEL = '[data-p="fotos"] .p-foto, [data-p="fotos"] .al-foto, .gal .big, .gal .thumbs button';
+const urlDe = el => { const alvo = el.matches('.p-foto, .al-foto') ? el.querySelector('div, .im') : el; const m = (alvo && alvo.style.backgroundImage || '').match(/url\(["']?(.*?)["']?\)/); return m ? m[1] : ''; };
+const legenda = el => { const c = el.querySelector('figcaption'); return c ? c.textContent.trim() : (el.getAttribute('aria-label') || ''); };
+let caixa = null, pista = null, cont = null, ultimoFoco = null;
+function monta(){
+  caixa = document.createElement('div'); caixa.className = 'lb'; caixa.hidden = true; caixa.setAttribute('role', 'dialog'); caixa.setAttribute('aria-modal', 'true'); caixa.setAttribute('aria-label', 'Fotos ampliadas');
+  caixa.innerHTML = '<div class="lb-topo"><span class="lb-cont" aria-live="polite"></span><button type="button" class="lb-x" aria-label="Fechar">×</button></div><div class="lb-pista" tabindex="0"></div>'
+    + '<button type="button" class="lb-seta ant" aria-label="Foto anterior">‹</button><button type="button" class="lb-seta seg" aria-label="Foto seguinte">›</button>';
+  document.body.appendChild(caixa); pista = caixa.querySelector('.lb-pista'); cont = caixa.querySelector('.lb-cont');
+  caixa.querySelector('.lb-x').addEventListener('click', fecha);
+  caixa.querySelector('.ant').addEventListener('click', () => vai(-1));
+  caixa.querySelector('.seg').addEventListener('click', () => vai(1));
+  caixa.addEventListener('click', ev => { if (ev.target === caixa || ev.target.classList.contains('lb-slide')) fecha(); });
+  pista.addEventListener('scroll', () => { cancelAnimationFrame(pista._r); pista._r = requestAnimationFrame(conta); });
+}
+const atual = () => Math.round(pista.scrollLeft / Math.max(1, pista.clientWidth));
+function conta(){ const n = pista.children.length, k = atual(); cont.textContent = n > 1 ? (k + 1) + ' / ' + n : ''; caixa.querySelector('.ant').hidden = k <= 0; caixa.querySelector('.seg').hidden = k >= n - 1; }
+function vai(d){ pista.scrollTo({left:(atual() + d) * pista.clientWidth, behavior:'smooth'}); }
+function abre(fotos, k){
+  if (!caixa) monta();
+  ultimoFoco = document.activeElement;
+  pista.innerHTML = fotos.map(f => '<figure class="lb-slide"><img src="' + f.url.replace(/"/g, '&quot;') + '" alt="' + (f.leg || '').replace(/"/g, '&quot;') + '" loading="lazy"><figcaption>' + (f.leg || '').replace(/</g, '&lt;') + (f.link ? ' <a href="' + f.link.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Abrir no Instagram ›</a>' : '') + '</figcaption></figure>').join('');
+  caixa.hidden = false; document.documentElement.classList.add('lb-aberta');
+  requestAnimationFrame(() => { pista.scrollLeft = k * pista.clientWidth; conta(); caixa.querySelector('.lb-x').focus(); });
+}
+function fecha(){ if (!caixa || caixa.hidden) return; caixa.hidden = true; document.documentElement.classList.remove('lb-aberta'); pista.innerHTML = ''; if (ultimoFoco && ultimoFoco.focus) ultimoFoco.focus(); }
+document.addEventListener('keydown', ev => { if (!caixa || caixa.hidden) return; if (ev.key === 'Escape') fecha(); if (ev.key === 'ArrowRight') { ev.preventDefault(); vai(1); } if (ev.key === 'ArrowLeft') { ev.preventDefault(); vai(-1); } });
+document.addEventListener('click', ev => {
+  const el = ev.target.closest(SEL); if (!el || ev.target.closest('[data-gosto]')) return;
+  const grupo = el.closest('[data-p="fotos"]') || el.closest('.gal'); if (!grupo) return;
+  /* na galeria do evento, as miniaturas trocam a foto grande; só a foto grande amplia */
+  if (el.matches('.gal .thumbs button')) return;
+  ev.preventDefault(); ev.stopPropagation();
+  let itens;
+  if (grupo.classList.contains('gal')) itens = [...grupo.querySelectorAll('.thumbs button')].map(b => ({url:urlDe(b), leg:b.getAttribute('aria-label') || ''}));
+  else itens = [...grupo.querySelectorAll('.p-foto, .al-foto')].map(f => ({url:urlDe(f), leg:legenda(f), link:f.matches('a.al-foto') ? f.href : '', el:f}));
+  itens = itens.filter(f => f.url);
+  if (!itens.length) return;
+  let k = 0;
+  if (grupo.classList.contains('gal')) { const u = urlDe(el); k = Math.max(0, itens.findIndex(f => f.url === u)); if (!itens.length) itens = [{url:u}]; }
+  else k = Math.max(0, itens.findIndex(f => f.el === el));
+  abre(itens, k);
+}, true);
 })();
 </script></body></html>
