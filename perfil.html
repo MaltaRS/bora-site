@@ -600,6 +600,10 @@ img{max-width:100%;display:block}
 .p-aval.ia{border-style:dashed}
 .p-ev.passou{opacity:.55}.p-ev.passou h3::after{content:" · já passou";font-family:var(--fb);font-size:11px;letter-spacing:.14em;color:var(--grey)}
 @media (max-width:600px){.p-fotos{grid-template-columns:repeat(2,1fr)}}
+.p-ev[role="button"]{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.p-ev[role="button"]:not(.on):hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.p-ev[role="button"]:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.p-ev-abrir{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
 
 .leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 /* ===== mapas reais · Leaflet com tiles CARTO/OpenStreetMap, no estilo V5 ===== */
@@ -1099,98 +1103,125 @@ window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
 window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados};
 })();
-</script><script>/* Streetfy · perfil.js — a ficha única de cada estabelecimento (R86–R89).
+</script><script>/* Streetfy · perfil.js — a ficha única de cada estabelecimento (R86–R90).
    Todo o evento abre aqui, com o evento clicado selecionado: perfil.html#lugar=<cidade/chave>&evento=<id>
-   O perfil junta o que o catálogo do parceiro e o bot sabem do lugar. Se ninguém o assumiu, é "gerido pela IA" e a única
-   saída é a fonte (Instagram ou a página de origem). Se foi assumido, há bilhetes e reservas aqui mesmo. */
+   Tocar noutro evento da lista seleciona-o no mesmo perfil (muda o hash, a página redesenha-se). O perfil junta o que o
+   catálogo do parceiro, o bot e o Instagram sabem do lugar. Sem perfil assumido, é "gerido pela IA" e a única saída é a
+   fonte (Instagram ou página de origem). Assumido, há bilhetes e reservas aqui mesmo. */
 (function(){
 'use strict';
 const C = window.STREETFY_CATALOGO; if (!C) return;
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-const q = new URLSearchParams(location.hash.slice(1));
-const chaveLugar = q.get('lugar') || '', idEvento = q.get('evento') || '';
-const itens = C.itens.filter(i => C.lugarKey(i) === chaveLugar);
 const el = k => document.querySelector('[data-p="' + k + '"]');
-const T = { tipos:{festa:'Festas', concerto:'Concertos', bar:'Bar', clube:'Clube', restaurante:'Restaurante', livre:'Entrada livre'} };
+const T = {tipos:{festa:'Festas', concerto:'Concertos', bar:'Bar', clube:'Clube', restaurante:'Restaurante', livre:'Entrada livre'}, quando:{hoje:'hoje', amanha:'amanhã', fds:'fim de semana'}};
 const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
 const moda = arr => { const n = {}; arr.forEach(x => { if (x) n[x] = (n[x] || 0) + 1; }); return Object.keys(n).sort((a, b) => n[b] - n[a]); };
-if (!itens.length) {
-  el('nome').textContent = 'LUGAR NÃO ENCONTRADO';
-  el('eventos').innerHTML = '<p class="s-lead">Este perfil não existe no catálogo de hoje. <a href="hoje.html">Volta à lista</a>.</p>';
-  return;
-}
-const sel = itens.find(i => i.id === idEvento) || itens[0];
-const assumido = itens.some(i => i.origem === 'parceiro' || i.origem === 'patrocinado');
-const nome = moda(itens.map(i => i.lugar || i.titulo))[0];
-const cidade = itens[0].cidade, bairro = moda(itens.map(i => i.bairro))[0] || '';
-const geo = itens.find(i => i.lat && i.lng);
-const tipos = [...new Set(itens.flatMap(i => i.tipos || []))].filter(t => t !== 'livre');
-const estilos = moda(itens.map(i => i.estilo)).slice(0, 4);
-const instagram = itens.map(i => i.instagram).find(Boolean) || '';
-const star = itens.map(i => i.star).find(Boolean) || '';
-const aqui = Math.max(0, ...itens.map(i => +i.aqui || 0));
-const fontes = [...new Set(itens.filter(i => i.origem === 'bot').map(i => i.fonte))];
-document.title = 'Streetfy · ' + nome;
-el('nome').innerHTML = esc(nome).replace(/ ([^ ]+)$/, ' <em>$1</em>');
-el('crumb').textContent = nome;
-el('chips').innerHTML = tipos.map(t => '<span class="f on"><small>tipo</small>' + esc(T.tipos[t] || cap(t)) + '</span>').join('') + estilos.map(s => '<span class="f"><small>estilo</small>' + esc(cap(s)) + '</span>').join('');
-el('morada').textContent = [bairro, cap(cidade)].filter(Boolean).join(' · ') + (geo ? ' · no mapa' : ' · sem coordenadas ainda');
-el('estado').innerHTML = assumido
-  ? '<span class="p-estado ok">Perfil assumido pelo parceiro</span>' + (star ? '<span class="p-meta">★ ' + esc(star) + '</span>' : '') + (aqui ? '<span class="p-meta">● ' + aqui + ' aqui agora</span>' : '')
-  : '<span class="p-estado ia">Perfil gerido pela IA · ainda não assumido</span><span class="p-meta">dados de ' + esc(fontes.join(', ') || 'fontes públicas') + (instagram ? ' e do Instagram @' + esc(instagram) : '') + '</span>';
-/* ações: assumido → bilhete e reserva aqui; não assumido → a única saída é a fonte, e o convite para assumir */
-const fonteLink = sel.fonteLink || (sel.origem === 'bot' ? sel.href : '');
-const acoes = [];
-if (assumido) {
-  acoes.push('<a class="s-btn mint" href="evento.html">Bilhetes</a>', '<a class="s-btn ink" href="lugar.html">Reservar mesa</a>');
-  if (instagram) acoes.push('<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>');
-} else {
-  if (instagram) acoes.push('<a class="s-btn mint" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Ver no Instagram</a>');
-  if (fonteLink && !/instagram\.com/.test(fonteLink)) acoes.push('<a class="s-btn ' + (instagram ? 'ghost' : 'mint') + '" href="' + esc(fonteLink) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(sel.fonte || 'origem') + '</a>');
-  acoes.push('<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>');
-}
-el('acoes').innerHTML = acoes.join('');
-const info = (window.STREETFY_PERFIS_INFO || {})[instagram] || {};
-const hoje = new Date().toISOString().slice(0, 10);
-const futuros = itens.filter(i => !i.fim || i.fim >= hoje), passados = itens.filter(i => i.fim && i.fim < hoje);
 const fmt = n => n == null ? '—' : (n >= 1000 ? (Math.round(n / 100) / 10).toString().replace('.', ',') + ' mil' : String(n));
-el('numeros').innerHTML = [
-  ['<b>' + (assumido ? fmt(itens.reduce((a, i) => a + (+i.vao || 0), 0) || 0) : '0') + '</b><span>seguidores no Streetfy' + (assumido ? '' : ' · começa quando o perfil for assumido') + '</span>'],
-  info.seguidores ? ['<b>' + fmt(info.seguidores) + '</b><span>seguidores no Instagram · @' + esc(instagram) + '</span>'] : null,
-  ['<b>' + futuros.length + '</b><span>eventos a seguir</span>'],
-  ['<b>' + passados.length + '</b><span>já passaram · o histórico começa hoje</span>'],
-  [star ? '<b>★ ' + esc(star) + '</b><span>nota de quem esteve lá</span>' : '<b>—</b><span>sem avaliações ainda · só de quem faz check-in</span>'],
-].filter(Boolean).map(x => '<div class="p-num">' + x[0] + '</div>').join('');
-/* fotos e cartazes: do parceiro quando assumido; das fontes (com crédito) quando a IA gere */
-const fotos = [...new Map(itens.filter(i => i.img).map(i => [i.img, i])).values()].slice(0, 8);
-el('fotos').innerHTML = fotos.length ? fotos.map(i => '<figure class="p-foto"><div style="background-image:url(' + esc(/^https?:/.test(i.img) ? i.img : 'img/' + i.img + '.jpg') + ')"></div><figcaption>' + esc(i.titulo) + (i.origem === 'bot' ? ' · via ' + esc(i.fonte) : '') + '</figcaption></figure>').join('')
-  : '<p class="p-vazio">Sem fotos ainda. Chegam com o perfil assumido, ou com os cartazes das fontes.</p>';
-el('avaliacoes').innerHTML = assumido && star
-  ? '<div class="p-aval"><b>★ ' + esc(star) + '</b><span>' + (aqui ? aqui + ' aqui agora · ' : '') + 'avaliações só de quem fez check-in; o lugar responde em público, não apaga</span></div>'
-  : '<div class="p-aval ia"><b>Sem avaliações</b><span>No Streetfy só avalia quem esteve lá, com check-in. Este perfil ainda não tem presenças registadas.</span></div>';
-el('nota').textContent = assumido
-  ? 'Este lugar está no Streetfy com bilhete e reserva. O que compras aqui é válido na porta.'
-  : 'Enquanto ninguém assume o perfil, a IA mantém a ficha com o que as fontes públicas dizem. Não há bilhete nem reserva aqui, por isso a saída é a fonte. O dono pede o perfil no portal e passa a controlar tudo.';
-/* eventos do lugar, o selecionado primeiro e aberto */
-const ordem = futuros.slice().sort((a, b) => (a === sel ? -1 : b === sel ? 1 : 0)).concat(passados);
 const preco = i => i.preco === 0 ? 'Entrada livre' : (typeof i.preco === 'number' ? '€' + i.preco : (i.preco || ''));
-el('eventos').innerHTML = ordem.map(i => {
-  const aberto = i === sel;
-  const passou = i.fim && i.fim < hoje;
-  return '<article class="p-ev' + (aberto ? ' on' : '') + (passou ? ' passou' : '') + '" id="ev-' + esc(i.id) + '">'
-    + '<div class="p-ev-h"><span class="p-ev-q">' + esc((i.quando || []).filter(x => x !== 'semana').map(x => ({hoje:'hoje', amanha:'amanhã', fds:'fim de semana'})[x] || x).join(' · ') || 'esta semana') + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>'
-    + (i.origem === 'patrocinado' ? '<span class="s-pat" style="position:static">Patrocinado</span>' : '') + '</div>'
-    + '<h3>' + esc(i.titulo) + '</h3>'
-    + '<p>' + esc(i.estilo ? cap(i.estilo) : '') + (preco(i) ? ' · ' + esc(preco(i)) : '') + (i.pp ? ' · ' + esc(i.pp) : '') + '</p>'
-    + (aberto ? '<div class="p-ev-acts">' + (assumido ? '<a class="s-btn mint" href="evento.html">Bilhetes</a><a class="s-btn ghost" href="lugar.html">Reservar</a>' : (fonteLink ? '<a class="s-btn ghost" href="' + esc(i.fonteLink || i.href) + '" target="_blank" rel="noopener">Abrir na fonte</a>' : '')) + '</div>' : '')
-    + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '')
-    + '</article>';
-}).join('');
-/* mapa */
-const mapaEl = document.getElementById('mapa-perfil');
-if (mapaEl && window.BORA_MAPA && geo) {
-  window.BORA_MAPA.criar(mapaEl, {centro:[geo.lat, geo.lng], zoom:16, pinos:[{lat:geo.lat, lng:geo.lng, t:nome, hot:true, n:aqui ? aqui + ' aqui' : ''}]});
-} else if (mapaEl) { mapaEl.innerHTML = '<div class="p-semmapa">Sem coordenadas ainda. Quando o parceiro assumir o perfil, confirma a morada e o pino aparece.</div>'; }
-document.querySelectorAll('[data-p-lista]').forEach(a => { a.href = 'hoje.html#onde=pt/' + cidade; });
+const img = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+const hoje = new Date().toISOString().slice(0, 10);
+let mapaFeito = false;
+
+function render(){
+  const q = new URLSearchParams(location.hash.slice(1));
+  const chaveLugar = q.get('lugar') || '', idEvento = q.get('evento') || '';
+  const itens = C.itens.filter(i => C.lugarKey(i) === chaveLugar);
+  if (!itens.length) {
+    el('nome').textContent = 'LUGAR NÃO ENCONTRADO';
+    el('eventos').innerHTML = '<p class="s-lead">Este perfil não existe no catálogo de hoje. <a href="hoje.html">Volta à lista</a>.</p>';
+    return;
+  }
+  const sel = itens.find(i => i.id === idEvento) || itens[0];
+  const assumido = itens.some(i => i.origem === 'parceiro' || i.origem === 'patrocinado');
+  const nome = moda(itens.map(i => i.lugar || i.titulo))[0];
+  const cidade = itens[0].cidade, bairro = moda(itens.map(i => i.bairro))[0] || '';
+  const geo = itens.find(i => i.lat && i.lng);
+  const tipos = [...new Set(itens.flatMap(i => i.tipos || []))].filter(t => t !== 'livre');
+  const estilos = moda(itens.map(i => i.estilo)).slice(0, 4);
+  const instagram = itens.map(i => i.instagram).find(Boolean) || '';
+  const star = itens.map(i => i.star).find(Boolean) || '';
+  const aqui = Math.max(0, ...itens.map(i => +i.aqui || 0));
+  const fontes = [...new Set(itens.filter(i => i.origem === 'bot').map(i => i.fonte))];
+  const info = (window.STREETFY_PERFIS_INFO || {})[instagram] || {};
+  const futuros = itens.filter(i => !i.fim || i.fim >= hoje), passados = itens.filter(i => i.fim && i.fim < hoje);
+  const fonteLink = sel.fonteLink || (sel.origem === 'bot' ? sel.href : '');
+  const ligar = i => 'perfil.html#lugar=' + encodeURIComponent(chaveLugar) + '&evento=' + encodeURIComponent(i.id);
+
+  document.title = 'Streetfy · ' + nome;
+  el('nome').innerHTML = esc(nome).replace(/ ([^ ]+)$/, ' <em>$1</em>');
+  el('crumb').textContent = nome;
+  el('chips').innerHTML = tipos.map(t => '<span class="f on"><small>tipo</small>' + esc(T.tipos[t] || cap(t)) + '</span>').join('') + estilos.map(s => '<span class="f"><small>estilo</small>' + esc(cap(s)) + '</span>').join('');
+  el('morada').textContent = [bairro, cap(cidade)].filter(Boolean).join(' · ') + (geo ? ' · no mapa' : ' · sem coordenadas ainda');
+  el('estado').innerHTML = assumido
+    ? '<span class="p-estado ok">Perfil assumido pelo parceiro</span>' + (star ? '<span class="p-meta">★ ' + esc(star) + '</span>' : '') + (aqui ? '<span class="p-meta">● ' + aqui + ' aqui agora</span>' : '')
+    : '<span class="p-estado ia">Perfil gerido pela IA · ainda não assumido</span><span class="p-meta">dados de ' + esc(fontes.join(', ') || 'fontes públicas') + (instagram ? ' e do Instagram @' + esc(instagram) : '') + '</span>';
+
+  /* ações: assumido → bilhete e reserva aqui; não assumido → a única saída é a fonte, e o convite para assumir */
+  const acoes = [];
+  if (assumido) {
+    acoes.push('<a class="s-btn mint" href="evento.html">Bilhetes</a>', '<a class="s-btn ink" href="lugar.html">Reservar mesa</a>');
+    if (instagram) acoes.push('<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>');
+  } else {
+    if (instagram) acoes.push('<a class="s-btn mint" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Ver no Instagram</a>');
+    if (fonteLink && !/instagram\.com/.test(fonteLink)) acoes.push('<a class="s-btn ' + (instagram ? 'ghost' : 'mint') + '" href="' + esc(fonteLink) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(sel.fonte || 'origem') + '</a>');
+    acoes.push('<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>');
+  }
+  el('acoes').innerHTML = acoes.join('');
+  el('nota').textContent = assumido
+    ? 'Este lugar está no Streetfy com bilhete e reserva. O que compras aqui é válido na porta.'
+    : 'Enquanto ninguém assume o perfil, a IA mantém a ficha com o que as fontes públicas dizem. Não há bilhete nem reserva aqui, por isso a saída é a fonte. O dono pede o perfil no portal e passa a controlar tudo.';
+
+  el('numeros').innerHTML = [
+    '<b>' + (assumido ? fmt(itens.reduce((a, i) => a + (+i.vao || 0), 0) || 0) : '0') + '</b><span>seguidores no Streetfy' + (assumido ? '' : ' · começa quando o perfil for assumido') + '</span>',
+    info.seguidores ? '<b>' + fmt(info.seguidores) + '</b><span>seguidores no Instagram · @' + esc(instagram) + '</span>' : null,
+    '<b>' + futuros.length + '</b><span>eventos a seguir</span>',
+    '<b>' + passados.length + '</b><span>já passaram · o histórico começa hoje</span>',
+    star ? '<b>★ ' + esc(star) + '</b><span>nota de quem esteve lá</span>' : '<b>—</b><span>sem avaliações ainda · só de quem faz check-in</span>',
+  ].filter(Boolean).map(x => '<div class="p-num">' + x + '</div>').join('');
+
+  /* eventos do lugar: o selecionado primeiro e aberto; os outros são clicáveis e selecionam-se aqui mesmo */
+  const ordem = futuros.slice().sort((a, b) => (a === sel ? -1 : b === sel ? 1 : 0)).concat(passados);
+  el('eventos').innerHTML = ordem.map(i => {
+    const aberto = i === sel, passou = i.fim && i.fim < hoje;
+    const quando = (i.quando || []).filter(x => x !== 'semana').map(x => T.quando[x] || x).join(' · ') || 'esta semana';
+    return '<article class="p-ev' + (aberto ? ' on' : '') + (passou ? ' passou' : '') + '" data-ev="' + esc(i.id) + '" tabindex="0" role="button" aria-pressed="' + aberto + '" aria-label="' + esc(i.titulo) + '">'
+      + '<div class="p-ev-h"><span class="p-ev-q">' + esc(quando) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat" style="position:static">Patrocinado</span>' : '') + (aberto ? '' : '<span class="p-ev-abrir">ver ›</span>') + '</div>'
+      + '<h3>' + esc(i.titulo) + '</h3>'
+      + '<p>' + esc(i.estilo ? cap(i.estilo) : '') + (preco(i) ? ' · ' + esc(preco(i)) : '') + (i.pp ? ' · ' + esc(i.pp) : '') + '</p>'
+      + (aberto ? '<div class="p-ev-acts">' + (assumido ? '<a class="s-btn mint" href="evento.html">Bilhetes</a><a class="s-btn ghost" href="lugar.html">Reservar</a>' : ((i.fonteLink || i.href) ? '<a class="s-btn ghost" href="' + esc(i.fonteLink || i.href) + '" target="_blank" rel="noopener">Abrir na fonte</a>' : '')) + '<a class="s-btn ghost" href="' + esc(ligar(i)) + '" data-copiar>Copiar ligação</a></div>' : '')
+      + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '')
+      + '</article>';
+  }).join('');
+
+  /* fotos e cartazes; avaliações */
+  const fotos = [...new Map(itens.filter(i => i.img).map(i => [i.img, i])).values()].slice(0, 8);
+  el('fotos').innerHTML = fotos.length ? fotos.map(i => '<figure class="p-foto"><div style="background-image:url(' + esc(img(i)) + ')"></div><figcaption>' + esc(i.titulo) + (i.origem === 'bot' ? ' · via ' + esc(i.fonte) : '') + '</figcaption></figure>').join('')
+    : '<p class="p-vazio">Sem fotos ainda. Chegam com o perfil assumido, ou com os cartazes das fontes.</p>';
+  el('avaliacoes').innerHTML = assumido && star
+    ? '<div class="p-aval"><b>★ ' + esc(star) + '</b><span>' + (aqui ? aqui + ' aqui agora · ' : '') + 'avaliações só de quem fez check-in; o lugar responde em público, não apaga</span></div>'
+    : '<div class="p-aval ia"><b>Sem avaliações</b><span>No Streetfy só avalia quem esteve lá, com check-in. Este perfil ainda não tem presenças registadas.</span></div>';
+
+  /* mapa, uma vez */
+  const mapaEl = document.getElementById('mapa-perfil');
+  if (mapaEl && !mapaFeito) {
+    mapaFeito = true;
+    if (window.BORA_MAPA && geo) window.BORA_MAPA.criar(mapaEl, {centro:[geo.lat, geo.lng], zoom:16, pinos:[{lat:geo.lat, lng:geo.lng, t:nome, hot:true, n:aqui ? aqui + ' aqui' : ''}]});
+    else mapaEl.innerHTML = '<div class="p-semmapa">Sem coordenadas ainda. Quando o parceiro assumir o perfil, confirma a morada e o pino aparece.</div>';
+  }
+  document.querySelectorAll('[data-p-lista]').forEach(a => { a.href = 'hoje.html#onde=pt/' + cidade; });
+}
+
+/* clique num cartão (fora dos botões) seleciona o evento; o hash muda e a página redesenha-se */
+el('eventos').addEventListener('click', ev => {
+  const a = ev.target.closest('a');
+  if (a && a.hasAttribute('data-copiar')) { ev.preventDefault(); const url = location.origin + location.pathname + a.getAttribute('href').replace(/^perfil\.html/, ''); (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { a.textContent = 'Ligação copiada'; }).catch(() => { prompt('Copia a ligação:', url); }); return; }
+  if (a) return;
+  const art = ev.target.closest('.p-ev'); if (!art) return;
+  const q = new URLSearchParams(location.hash.slice(1)); q.set('evento', art.dataset.ev);
+  location.hash = q.toString().replace(/%2F/g, '/');
+});
+el('eventos').addEventListener('keydown', ev => { if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList.contains('p-ev')) { ev.preventDefault(); ev.target.click(); } });
+window.addEventListener('hashchange', () => { render(); const on = document.querySelector('.p-ev.on'); if (on) on.scrollIntoView({block:'nearest'}); });
+render();
 })();
 </script></body></html>

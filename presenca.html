@@ -600,6 +600,10 @@ img{max-width:100%;display:block}
 .p-aval.ia{border-style:dashed}
 .p-ev.passou{opacity:.55}.p-ev.passou h3::after{content:" · já passou";font-family:var(--fb);font-size:11px;letter-spacing:.14em;color:var(--grey)}
 @media (max-width:600px){.p-fotos{grid-template-columns:repeat(2,1fr)}}
+.p-ev[role="button"]{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.p-ev[role="button"]:not(.on):hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.p-ev[role="button"]:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.p-ev-abrir{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
