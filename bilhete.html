@@ -1029,7 +1029,7 @@ window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
 })();
-</script><script src="dados-bot.js?v=1792959373" data-v="1792959373"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
+</script><script src="dados-bot.js?v=1792961315" data-v="1792961315"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
      <div id="lista" data-resultados data-cartao="poster|lista" data-max="12"></div>
@@ -1117,6 +1117,15 @@ const estilosSel = e => e.estilo === 'todos' ? [] : String(e.estilo).split(',').
 const CAMADA = {patrocinado:0, parceiro:1, promoter:2, bot:3};
 ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 (window.STREETFY_BOT || []).forEach(i => ITENS.push(i));
+/* cidades do bot (Portugal inteiro): abrem no filtro se tiverem eventos; Faro, que estava "em breve", abre também */
+{ const pt = PAISES[0];
+  (window.STREETFY_CIDADES || []).forEach(c => {
+    let x = pt.cidades.find(y => y.id === c.id);
+    if (x && x.aberta) return;
+    if (!x) { x = {id:c.id, nome:c.nome}; pt.cidades.push(x); }
+    Object.assign(x, {aberta:true, lugares:c.lugares, eventos:c.eventos, semana:c.eventos, agora:0, centro:c.centro || [39.5, -8.0], zoom:c.centro ? 13 : 7, agoraOnde:{pt:'em ' + c.nome, en:'in ' + c.nome}, bairros:[]});
+  });
+  const ordem = ['lisboa', 'porto']; pt.cidades.sort((a, b) => (ordem.indexOf(b.id) + 1 && ordem.indexOf(a.id) + 1) ? ordem.indexOf(a.id) - ordem.indexOf(b.id) : (ordem.indexOf(b.id) + 1) - (ordem.indexOf(a.id) + 1) || (b.aberta - a.aberta) || a.nome.localeCompare(b.nome, 'pt')); }
 /* R85: sem conta ligada no portal, o Instagram do lugar vem da lista manual (perfis.json → STREETFY_PERFIS) */
 const chaveNome = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 { const PERF = window.STREETFY_PERFIS || {}; ITENS.forEach(i => { if (!i.instagram) { const h = PERF[chaveNome(i.lugar)] || PERF[chaveNome(i.titulo)]; if (h) i.instagram = h; } }); }
@@ -1376,7 +1385,7 @@ function montar(bar){
     { const hoje = HOJE0(AGORA()); document.querySelectorAll('[data-f-hoje]').forEach(x => { x.textContent = textoHoje(hoje); });
       if (dias) { const ks = diasDe(e.quando, hoje), todos = ITENS.filter(i => i.cidade === cidade.id);
         dias.innerHTML = cidade.aberta ? [0, 1, 2, 3, 4, 5, 6].map(k => { const d = maisDias(hoje, k), n = todos.filter(i => (i._ks || []).includes(k)).length, on = ks.includes(k); return '<button type="button" data-f="dia" data-v="' + k + '"' + (on ? ' class="on"' : '') + ' aria-pressed="' + on + '"><b>' + d.getDate() + '</b><small>' + SEM[lang()][d.getDay()] + '</small><i>' + n + '</i></button>'; }).join('') : ''; } }
-    if (bairros) bairros.innerHTML = cidade.aberta ? cidade.bairros.map(b => '<a href="#' + hashDe(Object.assign({}, e, {bairro:b[0]})) + '" data-f="bairro" data-v="' + esc(b[0]) + '"' + (e.bairro === b[0] ? ' class="on"' : '') + '><span class="n">● ' + b[1] + ' ' + t.aqui + '</span><b>' + esc(b[0]) + '</b><span>' + esc(b[2]) + '</span></a>').join('') : '';
+    if (bairros) bairros.innerHTML = cidade.aberta ? (cidade.bairros || []).map(b => '<a href="#' + hashDe(Object.assign({}, e, {bairro:b[0]})) + '" data-f="bairro" data-v="' + esc(b[0]) + '"' + (e.bairro === b[0] ? ' class="on"' : '') + '><span class="n">● ' + b[1] + ' ' + t.aqui + '</span><b>' + esc(b[0]) + '</b><span>' + esc(b[2]) + '</span></a>').join('') : '';
     if (mapa && window.BORA_MAPA && cidade.aberta) {
       const pinos = lista.filter(i => i.lat && i.lng).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:hrefPerfil(i),
         s:i.lugar + (i.hora ? ' · ' + i.hora : '') + (i.preco === 0 ? ' · ' + t.livre : (typeof i.preco === 'number' ? ' · €' + i.preco : '')) + (i.bairro ? ' · ' + i.bairro : '')}));
