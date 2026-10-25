@@ -832,6 +832,10 @@ html.lb-aberta{overflow:hidden}
 .pr-outros a b{font-family:var(--fd);font-weight:400;font-size:20px;text-transform:uppercase;line-height:1}
 .pr-outros a small{color:var(--grey);font-size:12px}
 @media (max-width:640px){.pr-av{width:80px;height:80px}}
+/* telemóveis do site: todos do mesmo tamanho; ecrã com conteúdo comprido corta em vez de esticar o aparelho */
+.site-ph .ph{width:272px;height:740px;max-height:none;overflow:hidden;flex:none}
+.site-ph .ph .body{overflow:hidden}
+.site-ph{flex:0 0 auto;max-width:100%}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
