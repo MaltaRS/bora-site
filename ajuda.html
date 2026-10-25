@@ -360,6 +360,18 @@ img{max-width:100%;display:block}
 .s-cards .passou,.cards-l .passou,.vista-lista .passou{opacity:.55}
 .s-card.passou .s-im,.card-l.passou .s-im,.ev-row.passou .im{filter:grayscale(1) contrast(1)}
 
+/* procura por nome, na barra de filtros */
+.fbar .fbusca{flex:1 1 240px;max-width:440px;gap:8px;padding:8px 10px 8px 14px;cursor:text}
+.fbar .fbusca svg{flex:0 0 auto;color:var(--grey)}
+.fbar .fbusca.on svg{color:var(--ink)}
+.fbar .fbusca input{all:unset;flex:1;min-width:0;font-weight:700;font-size:14px;color:var(--ink);line-height:1.4}
+.fbar .fbusca input::placeholder{color:#9a9a9a;font-weight:600}
+.fbar .fbusca input::-webkit-search-cancel-button{display:none}
+.fbar .fbusca button{all:unset;cursor:pointer;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:none;place-items:center;font-weight:900;font-size:15px;line-height:1}
+.fbar .fbusca.on button{display:grid}
+.fres .fperfil{color:var(--pink);font-weight:800;text-decoration:none;border-bottom:2px solid currentColor}
+@media (max-width:640px){.fbar .fbusca{flex-basis:100%;max-width:none}}
+
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
 .p-hero .s-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.3) brightness(.6)}
