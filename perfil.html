@@ -712,7 +712,7 @@ a.ev:hover .t{color:var(--pink)}
 <a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
 <ul class="s-menu"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
-</div></header><section class="s-sec" style="padding-top:104px" data-perfil><div class="s-wrap"><div class="crumbs light" data-p="crumbs"><a href="index.html">Streetfy</a> › <a href="hoje.html" data-p-lista>Hoje</a></div><div class="det"><div class="main"><div class="gal" data-gal style="position:relative" data-p="galeria"></div><div><span class="g marker pink keep" data-p="graf" style="right:0;top:-34px;font-size:clamp(22px,2.6vw,40px);transform:rotate(5deg)" aria-hidden="true"></span><h1 class="s-h" data-p="titulo">EVENTO</h1><div class="meta" data-p="meta"></div></div><div class="opbox" data-p="lugar"></div><div data-p="sobre"></div><div><h2 class="s-h h2s">LINE<em>UP</em></h2><div class="lineup" style="margin-top:14px" data-p="lineup"></div></div><div><h2 class="s-h h2s">MAIS <em>AQUI</em></h2><p class="s-lead" style="font-size:15px;margin:6px 0 14px">Outros eventos deste lugar. Toca num para abrir a página dele.</p><div data-p="eventos"></div></div><div><h2 class="s-h h2s">FOTOS E <em>CARTAZES</em></h2><div class="p-fotos" style="margin-top:14px" data-p="fotos"></div></div><div><h2 class="s-h h2s">QUEM <em>ESTEVE</em></h2><div style="margin-top:14px" data-p="avaliacoes"></div></div><div class="inc"><div><h4>Regra da casa</h4><ul><li>Cada estabelecimento tem um perfil só, com morada, posição, tipo, estilo, seguidores, eventos, fotos e avaliações.</li><li>Todo o evento abre nesta página, com o bilhete à vista.</li><li>Sem perfil assumido, a IA cuida da ficha e a única saída é a fonte.</li><li>Assumido e aprovado, o dono controla tudo: bilhetes, reservas, fotos, respostas.</li></ul></div></div></div><aside><div data-p="bilhete"></div><div class="p-nums escuro" data-p="numeros" style="margin-top:18px"></div><div class="mapa-v5" id="mapa-perfil" data-mapa-perfil role="region" aria-label="Mapa do lugar" style="margin-top:18px;height:300px"></div></aside></div></div></section><footer class="s-foot"><div class="s-wrap">
+</div></header><section class="s-sec" style="padding-top:104px" data-perfil><div class="s-wrap"><div class="crumbs light" data-p="crumbs"><a href="index.html">Streetfy</a> › <a href="hoje.html" data-p-lista>Hoje</a></div><div class="det"><div class="main"><div class="gal" data-gal style="position:relative" data-p="galeria"></div><div><span class="g marker pink keep" data-p="graf" style="right:0;top:-34px;font-size:clamp(22px,2.6vw,40px);transform:rotate(5deg)" aria-hidden="true"></span><h1 class="s-h" data-p="titulo">EVENTO</h1><div class="meta" data-p="meta"></div></div><div class="opbox" data-p="lugar"></div><div data-p="sobre"></div><div data-p="sec-lineup"><h2 class="s-h h2s">LINE<em>UP</em></h2><div class="lineup" style="margin-top:14px" data-p="lineup"></div></div><div><h2 class="s-h h2s" data-p="h-eventos">MAIS <em>AQUI</em></h2><p class="s-lead" style="font-size:15px;margin:6px 0 14px" data-p="h-eventos-sub">Outros eventos deste lugar. Toca num para abrir a página dele.</p><div data-p="eventos"></div></div><div><h2 class="s-h h2s">FOTOS E <em>CARTAZES</em></h2><div class="p-fotos" style="margin-top:14px" data-p="fotos"></div></div><div><h2 class="s-h h2s">QUEM <em>ESTEVE</em></h2><div style="margin-top:14px" data-p="avaliacoes"></div></div><div class="inc"><div><h4>Regra da casa</h4><ul><li>Cada estabelecimento tem um perfil só, com morada, posição, tipo, estilo, seguidores, eventos, fotos e avaliações.</li><li>Todo o evento abre nesta página, com o bilhete à vista.</li><li>Sem perfil assumido, a IA cuida da ficha e a única saída é a fonte.</li><li>Assumido e aprovado, o dono controla tudo: bilhetes, reservas, fotos, respostas.</li></ul></div></div></div><aside><div data-p="bilhete"></div><div class="p-nums escuro" data-p="numeros" style="margin-top:18px"></div><div class="mapa-v5" id="mapa-perfil" data-mapa-perfil role="region" aria-label="Mapa do lugar" style="margin-top:18px;height:300px"></div></aside></div></div></section><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
 <div><h4>Streetfy</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a><a href="parceiros.html">Para parceiros</a><a href="promoters.html">Promoters</a></div>
 <div><h4>Experiências</h4><a href="experiencias.html">Todas</a><a href="ceu.html">Céu</a><a href="agua.html">Água</a><a href="noite-vip.html">Noite VIP</a><a href="porta.html">À tua porta</a><a href="concierge.html">Concierge</a><a href="festa.html">A tua festa</a></div>
@@ -1145,6 +1145,7 @@ function render(){
   const chaveLugar = q.get('lugar') || '', idEvento = q.get('evento') || '';
   const itens = C.itens.filter(i => C.lugarKey(i) === chaveLugar);
   if (!itens.length) { el('titulo').textContent = 'LUGAR NÃO ENCONTRADO'; el('eventos').innerHTML = '<p class="s-lead">Este perfil não existe no catálogo de hoje. <a href="hoje.html">Volta à lista</a>.</p>'; return; }
+  const modoPerfil = !idEvento;
   const sel = itens.find(i => i.id === idEvento) || itens[0];
   const assumido = itens.some(i => i.origem === 'parceiro' || i.origem === 'patrocinado');
   const nome = moda(itens.map(i => i.lugar || i.titulo))[0];
@@ -1160,11 +1161,21 @@ function render(){
   const urlPerfil = 'perfil.html#lugar=' + encodeURIComponent(chaveLugar);
   let segue = false; try { segue = localStorage.getItem('segue:' + chaveLugar) === '1'; } catch (e) {}
 
-  document.title = 'Streetfy · ' + sel.titulo + ' · ' + nome;
-  el('crumbs').innerHTML = '<a href="index.html">Streetfy</a> › <a href="hoje.html#onde=pt/' + esc(cidade) + '">Hoje</a> › <a href="' + esc(urlPerfil) + '">' + esc(nome) + '</a> › <span>' + esc(sel.titulo) + '</span>';
-  el('graf').textContent = sel.origem === 'patrocinado' ? 'patrocinado' : (sel.origem === 'bot' ? 'via ' + String(sel.fonte || 'fonte').split(/ ·| /)[0] : ((sel.quando || []).includes('hoje') ? 'hoje!' : 'bora!'));
-  el('titulo').innerHTML = esc(sel.titulo).replace(/ ([^ ]+)$/, ' <em>$1</em>');
-  el('meta').innerHTML = ['<span><b>' + esc(nome) + '</b>' + (bairro ? ' · ' + esc(bairro) : '') + '</span>', '<span><b>' + esc(quandoTxt(sel)) + '</b></span>', sel.hora ? '<span><b>' + esc(sel.hora) + '</b></span>' : '', sel.estilo ? '<span>' + esc(cap(sel.estilo)) + '</span>' : '', precoTxt(sel) ? '<span><b>' + esc(precoTxt(sel)) + '</b></span>' : '', '<span><b>18+</b></span>', sel.vao ? '<span><b>' + sel.vao + '</b> vão</span>' : ''].filter(Boolean).join('');
+  const tipos = [...new Set(itens.flatMap(i => i.tipos || []))].filter(t => t !== 'livre');
+  const estilos = moda(itens.map(i => i.estilo)).slice(0, 4);
+  if (modoPerfil) {
+    document.title = 'Streetfy · ' + nome;
+    el('crumbs').innerHTML = '<a href="index.html">Streetfy</a> › <a href="hoje.html#onde=pt/' + esc(cidade) + '">Hoje</a> › <span>' + esc(nome) + '</span>';
+    el('graf').textContent = assumido ? (aqui ? '● ' + aqui + ' aqui' : 'parceiro') : 'gerido pela IA';
+    el('titulo').innerHTML = esc(nome).replace(/ ([^ ]+)$/, ' <em>$1</em>');
+    el('meta').innerHTML = tipos.map(t => '<span><b>' + esc(T.tipos[t] || cap(t)) + '</b></span>').join('') + estilos.map(e => '<span>' + esc(cap(e)) + '</span>').join('') + (bairro ? '<span><b>' + esc(bairro) + '</b> · ' + esc(cap(cidade)) + '</span>' : '<span><b>' + esc(cap(cidade)) + '</b></span>') + (star ? '<span><b class="star">★</b> <b>' + esc(star) + '</b></span>' : '') + (info.seguidores ? '<span><b>' + fmt(info.seguidores) + '</b> no Instagram</span>' : '');
+  } else {
+    document.title = 'Streetfy · ' + sel.titulo + ' · ' + nome;
+    el('crumbs').innerHTML = '<a href="index.html">Streetfy</a> › <a href="hoje.html#onde=pt/' + esc(cidade) + '">Hoje</a> › <a href="' + esc(urlPerfil) + '">' + esc(nome) + '</a> › <span>' + esc(sel.titulo) + '</span>';
+    el('graf').textContent = sel.origem === 'patrocinado' ? 'patrocinado' : (sel.origem === 'bot' ? 'via ' + String(sel.fonte || 'fonte').split(/ ·| /)[0] : ((sel.quando || []).includes('hoje') ? 'hoje!' : 'bora!'));
+    el('titulo').innerHTML = esc(sel.titulo).replace(/ ([^ ]+)$/, ' <em>$1</em>');
+    el('meta').innerHTML = ['<span><b>' + esc(nome) + '</b>' + (bairro ? ' · ' + esc(bairro) : '') + '</span>', '<span><b>' + esc(quandoTxt(sel)) + '</b></span>', sel.hora ? '<span><b>' + esc(sel.hora) + '</b></span>' : '', sel.estilo ? '<span>' + esc(cap(sel.estilo)) + '</span>' : '', precoTxt(sel) ? '<span><b>' + esc(precoTxt(sel)) + '</b></span>' : '', '<span><b>18+</b></span>', sel.vao ? '<span><b>' + sel.vao + '</b> vão</span>' : ''].filter(Boolean).join('');
+  }
 
   /* galeria: imagens do evento e do lugar */
   const imgs = [...new Map([sel].concat(itens).filter(i => i.img).map(i => [i.img, i])).values()].slice(0, 5);
@@ -1174,10 +1185,12 @@ function render(){
 
   /* o lugar: estado, seguir, compartilhar, instagram */
   el('lugar').innerHTML = '<div class="av">' + SH + '</div><div style="flex:1;min-width:0"><b>' + esc(nome) + (assumido ? ' · parceiro verificado' : '') + '</b><span>' + (assumido ? 'Bilhete e reserva aqui. O dinheiro do bilhete fica retido até 2 dias depois do evento.' : 'Perfil mantido pela IA com fontes públicas' + (instagram ? ' e o Instagram @' + esc(instagram) : '') + '.') + '</span><br><span class="p-estado-lugar ' + (assumido ? 'ok' : 'ia') + '">' + (assumido ? 'Perfil assumido' : 'Gerido pela IA · ainda não assumido') + '</span></div>'
-    + '<div class="p-acts"><a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="' + esc(urlPerfil) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>' + (instagram ? '<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>' : '') + (assumido ? '' : '<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>') + '</div>';
+    + '<div class="p-acts">' + (modoPerfil ? '' : '<a class="s-btn ink" href="' + esc(urlPerfil) + '">Ver perfil</a>') + '<a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="' + esc(urlPerfil) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>' + (instagram ? '<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>' : '') + (assumido ? '' : '<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>') + '</div>';
 
-  /* sobre o evento */
-  el('sobre').innerHTML = '<p class="s-lead" style="font-size:16px">' + esc(sel.pp || sel.descricao || '') + (sel.origem === 'bot' ? (sel.pp ? ' · ' : '') + 'Informação recolhida de ' + esc(sel.fonte) + (fonteLink ? ', <a href="' + esc(fonteLink) + '" target="_blank" rel="noopener">ver a origem</a>' : '') : '') + '</p>'
+  el('sec-lineup').hidden = modoPerfil;
+  /* sobre o evento (no modo perfil, a apresentação do lugar) */
+  if (modoPerfil) el('sobre').innerHTML = '<p class="s-lead" style="font-size:16px">' + (assumido ? 'Parceiro verificado no Streetfy: bilhetes, reservas e presença ao vivo funcionam aqui.' : 'Ficha mantida pela IA com o que as fontes públicas' + (instagram ? ' e o Instagram @' + esc(instagram) : '') + ' dizem. Quando o dono assumir, passa a controlar tudo.') + (tipos.length ? ' ' + tipos.map(t => T.tipos[t] || cap(t)).join(', ') : '') + (estilos.length ? ' · ' + estilos.map(cap).join(', ') : '') + '.</p>';
+  else el('sobre').innerHTML = '<p class="s-lead" style="font-size:16px">' + esc(sel.pp || sel.descricao || '') + (sel.origem === 'bot' ? (sel.pp ? ' · ' : '') + 'Informação recolhida de ' + esc(sel.fonte) + (fonteLink ? ', <a href="' + esc(fonteLink) + '" target="_blank" rel="noopener">ver a origem</a>' : '') : '') + '</p>'
     + '<div class="p-acoes" style="margin-top:12px"><a class="s-btn ghost" href="' + esc(ligar(sel)) + '" data-partilhar data-titulo="' + esc(sel.titulo + ' · ' + nome) + '">Compartilhar</a><a class="s-btn ghost icone" href="' + esc(ligar(sel)) + '" data-copiar title="Copiar link" aria-label="Copiar link"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></div>';
 
   /* lineup: dos artistas (subtítulo) ou do estilo */
@@ -1186,15 +1199,24 @@ function render(){
     ? artistas.slice(0, 6).map(a => '<div><div class="bd"><b class="nome">' + esc(a) + '</b><span>' + esc(sel.estilo ? cap(sel.estilo) : 'ao vivo') + '</span>' + (sel.hora ? '<span class="h">' + esc(sel.hora) + '</span>' : '') + '</div></div>').join('')
     : '<div><div class="bd"><b class="nome">' + esc(sel.estilo ? cap(sel.estilo) : 'Programa') + '</b><span>' + (sel.origem === 'bot' ? 'a fonte não lista os artistas' : 'residentes da casa') + '</span>' + (sel.hora ? '<span class="h">' + esc(sel.hora) + '</span>' : '') + '</div></div>';
 
-  /* mais eventos do lugar: clicáveis */
-  const outros = futuros.filter(i => i !== sel).concat(passados);
+  /* programação: no modo perfil, tudo; no modo evento, os outros */
+  el('h-eventos').innerHTML = modoPerfil ? 'PROGRA<em>MAÇÃO</em>' : 'MAIS <em>AQUI</em>';
+  el('h-eventos-sub').textContent = modoPerfil ? (futuros.length + ' a seguir · ' + passados.length + ' já passaram. Toca num para abrir a página do evento com o bilhete.') : 'Outros eventos deste lugar. Toca num para abrir a página dele.';
+  const outros = (modoPerfil ? futuros : futuros.filter(i => i !== sel)).concat(passados);
   el('eventos').innerHTML = outros.length ? outros.map(i => '<article class="p-ev mini' + (i.fim && i.fim < hoje ? ' passou' : '') + '" data-ev="' + esc(i.id) + '" tabindex="0" role="button" aria-label="' + esc(i.titulo) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quandoTxt(i)) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat" style="position:static">Patrocinado</span>' : '<span class="p-ev-abrir">ver ›</span>') + '</div><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.estilo ? cap(i.estilo) : '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + '</p></article>').join('')
     : '<p class="p-vazio">Só este evento por agora.</p>';
 
   /* bilhete: assumido → caixa de compra; IA → a única saída é a fonte */
   precoBase = typeof sel.preco === 'number' ? sel.preco : 0;
   const livre = sel.preco === 0;
-  if (assumido) {
+  if (modoPerfil) {
+    const prox = futuros[0];
+    el('bilhete').innerHTML = '<div class="book"><span class="mode-tag"' + (assumido ? '' : ' style="background:#fff;color:var(--ink);border:2px dashed var(--ink)"') + '>' + (assumido ? 'Perfil assumido · parceiro verificado' : 'Perfil gerido pela IA · ainda não assumido') + '</span>'
+      + '<div class="pr"><b>' + (prox ? esc(quandoTxt(prox)) : '—') + '</b><span>' + (prox ? 'próximo: ' + esc(prox.titulo) + (prox.hora ? ' · ' + esc(prox.hora) : '') : 'sem eventos marcados') + '</span></div><div class="fonte">'
+      + (prox ? '<a class="s-btn pink" href="' + esc(ligar(prox)) + '" style="width:100%;text-align:center">' + (assumido ? 'Ver bilhete do próximo evento' : 'Abrir o próximo evento') + '</a>' : '')
+      + (assumido ? '<a class="s-btn ghost" href="lugar.html" style="width:100%;text-align:center">Reservar mesa</a>' : (instagram ? '<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener" style="width:100%;text-align:center">Ver no Instagram</a>' : '') + '<a class="s-btn ink" href="parceiros.html" style="width:100%;text-align:center">É o teu lugar? Assume o perfil</a>')
+      + '</div></div>';
+  } else if (assumido) {
     el('bilhete').innerHTML = '<div class="book"><span class="mode-tag">' + (livre ? 'Entrada livre · sem bilhete' : 'Bilhete · lotação à vista') + '</span>'
       + '<div class="pr"><b>' + (livre ? 'Grátis' : eur(precoBase)) + '</b><span>' + (livre ? 'chega e entra; faz check-in à porta' : 'Geral · taxa de serviço à parte, mostrada antes de pagar') + '</span></div>'
       + (livre ? '' : '<div><div class="lbl"><span>Tipo</span><i>restam 62</i></div><div class="zones"><button type="button" class="on so">Geral<small>restam 62 · ' + eur(precoBase) + '</small></button><button type="button" class="so" style="opacity:.6">Mesa VIP<small>consumo mínimo · reservar</small></button></div></div>'
