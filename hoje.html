@@ -2147,6 +2147,7 @@ const L = {
 };
 /* camadas (R73–R79): 0 patrocinado · 1 parceiro · 2 promoter · 3 bot. Os itens do catálogo são do parceiro salvo indicação; os do bot chegam de dados-bot.js com crédito à fonte. */
 const tiposDe = e => e.tipo === 'tudo' ? [] : String(e.tipo).split(',').filter(x => TIPOS.includes(x) && x !== 'tudo');
+const estilosSel = e => e.estilo === 'todos' ? [] : String(e.estilo).split(',').map(x => x.trim()).filter(x => x && x !== 'todos');
 const CAMADA = {patrocinado:0, parceiro:1, promoter:2, bot:3};
 ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 (window.STREETFY_BOT || []).forEach(i => ITENS.push(i));
@@ -2177,7 +2178,7 @@ function filtrar(e){
   return ordenar(ITENS.filter(i => i.cidade === e.cidade
     && (e.tipo === 'tudo' || tiposDe(e).some(tp => i.tipos.includes(tp)))
     && (e.quando === 'semana' || i.quando.includes(e.quando))
-    && (e.estilo === 'todos' || i.estilo === e.estilo)
+    && (e.estilo === 'todos' || estilosSel(e).includes(i.estilo))
     && (!e.bairro || i.bairro === e.bairro)));
 }
 function hashDe(e){
@@ -2192,6 +2193,7 @@ function lerUrl(){
   if (q.get('cidade')) { e.cidade = q.get('cidade'); const p = PAISES.find(x => x.cidades.some(c => c.id === e.cidade)); if (p) e.pais = p.id; }
   ['tipo', 'quando', 'estilo', 'bairro'].forEach(k => { if (q.get(k)) e[k] = q.get(k); });
   { const ts = String(e.tipo).split(',').filter(x => TIPOS.includes(x) && x !== 'tudo'); e.tipo = ts.length ? ts.join(',') : 'tudo'; }
+  { const es = estilosSel(e); e.estilo = es.length ? es.join(',') : 'todos'; }
   if (!QUANDO.includes(e.quando)) e.quando = 'hoje';
   const p = paisDe(e.pais); e.pais = p.id; e.cidade = cidadeDe(p, e.cidade).id;
   return e;
@@ -2212,12 +2214,12 @@ function barra(e, t){
     + pais.cidades.map(c => opt(c.id, nome(c) + (c.aberta ? '' : ' · ' + t.breve), c.id === cidade.id)).join('') + '</select></label>';
   h += '<span class="fsep"></span>' + grupo('tipo', t.tipo, TIPOS.map(x => [x, t[x]]), e.tipo === 'tudo' ? ['tudo'] : tiposDe(e)) + grupo('quando', t.quando, QUANDO.map(x => [x, t[x]]), e.quando);
   const est = cidade.aberta ? estilosDe(cidade.id) : [];
-  if (est.length) h += '<span class="fsep"></span>' + grupo('estilo', t.estilo, [['todos', t.todos]].concat(est.map(x => [x, cap(x)])), e.estilo);
+  if (est.length) h += '<span class="fsep"></span>' + grupo('estilo', t.estilo, [['todos', t.todos]].concat(est.map(x => [x, cap(x)])), e.estilo === 'todos' ? ['todos'] : estilosSel(e));
   return h;
 }
 function linha(e, t, pais, cidade, n){
   let h = '<p class="fres"><b>' + (cidade.aberta ? t.destaque(n) : esc(nome(cidade)) + ' · ' + t.breve) + '</b><span>' + esc(nome(cidade)) + ', ' + esc(nome(pais)) + ' · ' + t[e.quando].toLowerCase()
-    + (e.tipo !== 'tudo' ? ' · ' + tiposDe(e).map(x => t[x].toLowerCase()).join(' + ') : '') + (e.estilo !== 'todos' ? ' · ' + esc(e.estilo) : '') + '</span>';
+    + (e.tipo !== 'tudo' ? ' · ' + tiposDe(e).map(x => t[x].toLowerCase()).join(' + ') : '') + (e.estilo !== 'todos' ? ' · ' + esc(estilosSel(e).join(' + ')) : '') + '</span>';
   if (e.bairro) h += '<span class="bchip">' + esc(e.bairro) + '<button type="button" data-f="bairro" data-v="' + esc(e.bairro) + '" aria-label="remover bairro">×</button></span>';
   if (e.tipo !== 'tudo' || e.quando !== 'hoje' || e.estilo !== 'todos' || e.bairro) h += '<a href="#" data-f="limpar">' + t.limpar + '</a>';
   return h + '</p>';
@@ -2286,6 +2288,7 @@ function montar(bar){
   function set(k, v){
     if (k === 'pais') { e.pais = v; e.cidade = paisDe(v).cidades[0].id; e.estilo = 'todos'; e.bairro = ''; }
     else if (k === 'cidade') { e.cidade = v; e.estilo = 'todos'; e.bairro = ''; }
+    else if (k === 'estilo') { if (v === 'todos') e.estilo = 'todos'; else { const es = estilosSel(e), i = es.indexOf(v); if (i >= 0) es.splice(i, 1); else es.push(v); e.estilo = es.length ? es.join(',') : 'todos'; } }
     else if (k === 'tipo') { if (v === 'tudo') e.tipo = 'tudo'; else { const ts = tiposDe(e), i = ts.indexOf(v); if (i >= 0) ts.splice(i, 1); else ts.push(v); e.tipo = ts.length ? ts.join(',') : 'tudo'; } }
     else if (k === 'dia') { e.quando = ['hoje', 'amanha', 'fds'][+v] || 'semana'; }
     else if (k === 'mais') { if (res) res.dataset.max = (+(res.dataset.max || 12)) + 24; render(false); return; }
