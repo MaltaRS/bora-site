@@ -1170,13 +1170,17 @@ function render(){
     if (fonteLink && !/instagram\.com/.test(fonteLink)) acoes.push('<a class="s-btn ' + (instagram ? 'ghost' : 'mint') + '" href="' + esc(fonteLink) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(sel.fonte || 'origem') + '</a>');
     acoes.push('<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>');
   }
+  const urlPerfil = 'perfil.html#lugar=' + encodeURIComponent(chaveLugar);
+  let segue = false; try { segue = localStorage.getItem('segue:' + chaveLugar) === '1'; } catch (e) {}
+  acoes.push('<a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a>');
+  acoes.push('<a class="s-btn ghost" href="' + esc(urlPerfil) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>');
   el('acoes').innerHTML = acoes.join('');
   el('nota').textContent = assumido
     ? 'Este lugar está no Streetfy com bilhete e reserva. O que compras aqui é válido na porta.'
     : 'Enquanto ninguém assume o perfil, a IA mantém a ficha com o que as fontes públicas dizem. Não há bilhete nem reserva aqui, por isso a saída é a fonte. O dono pede o perfil no portal e passa a controlar tudo.';
 
   el('numeros').innerHTML = [
-    '<b>' + (assumido ? fmt(itens.reduce((a, i) => a + (+i.vao || 0), 0) || 0) : '0') + '</b><span>seguidores no Streetfy' + (assumido ? '' : ' · começa quando o perfil for assumido') + '</span>',
+    '<b>' + fmt((assumido ? (itens.reduce((a, i) => a + (+i.vao || 0), 0) || 0) : 0) + (segue ? 1 : 0)) + '</b><span>seguidores no Streetfy' + (assumido ? '' : ' · começa quando o perfil for assumido') + (segue ? ' · tu incluído' : '') + '</span>',
     info.seguidores ? '<b>' + fmt(info.seguidores) + '</b><span>seguidores no Instagram · @' + esc(instagram) + '</span>' : null,
     '<b>' + futuros.length + '</b><span>eventos a seguir</span>',
     '<b>' + passados.length + '</b><span>já passaram · o histórico começa hoje</span>',
@@ -1231,6 +1235,19 @@ el('eventos').addEventListener('click', ev => {
   const art = ev.target.closest('.p-ev'); if (!art) return;
   const q = new URLSearchParams(location.hash.slice(1)); q.set('evento', art.dataset.ev);
   location.hash = q.toString().replace(/%2F/g, '/');
+});
+el('acoes').addEventListener('click', ev => {
+  const a = ev.target.closest('a'); if (!a) return;
+  if (a.hasAttribute('data-seguir')) {
+    ev.preventDefault(); const q = new URLSearchParams(location.hash.slice(1)); const k = 'segue:' + (q.get('lugar') || '');
+    let on = false; try { on = localStorage.getItem(k) === '1'; localStorage.setItem(k, on ? '0' : '1'); } catch (e) {}
+    render(); return;
+  }
+  if (a.hasAttribute('data-partilhar')) {
+    ev.preventDefault(); const url = location.origin + location.pathname + a.getAttribute('href').replace(/^perfil\.html/, ''); const titulo = a.getAttribute('data-titulo') || document.title;
+    if (navigator.share) navigator.share({title: titulo + ' · Streetfy', text: titulo + ' no Streetfy', url}).catch(() => {});
+    else window.open('https://wa.me/?text=' + encodeURIComponent(titulo + ' no Streetfy · ' + url), '_blank', 'noopener');
+  }
 });
 el('eventos').addEventListener('keydown', ev => { if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList.contains('p-ev')) { ev.preventDefault(); ev.target.click(); } });
 window.addEventListener('hashchange', () => { render(); const on = document.querySelector('.p-ev.on'); if (on) on.scrollIntoView({block:'nearest'}); });
