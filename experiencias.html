@@ -880,6 +880,19 @@ html.lb-aberta{overflow:hidden}
 .lc-av.foto{background-size:cover;background-position:center;color:transparent;border:2px solid var(--ink)}
 .pr-foto{background-position:center 30%}
 
+/* fotos iniciais: preto e branco, cor ao passar o rato (como antes) */
+.pr-card .pr-foto,.pr-av{filter:grayscale(1) contrast(1.25)}
+.pr-card:hover .pr-foto{filter:none}
+.pr-foto{background-position:center}
+
+/* concierge: propostas recentes */
+.cc-props{display:grid;gap:10px;margin-top:12px}
+.cc-prop{border:2px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;display:grid;gap:4px}
+.cc-prop b{font-family:var(--fd);font-weight:400;font-size:22px;text-transform:uppercase;line-height:1}
+.cc-prop span{color:var(--grey);font-size:13px}
+.cc-prop i{font-style:normal;font-family:var(--fd);font-size:24px;color:var(--pink)}
+.cc-prop i small{font-family:var(--fb);font-size:11px;color:var(--grey);letter-spacing:.06em}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
