@@ -377,6 +377,8 @@ img{max-width:100%;display:block}
 .p-hero .fbar .fbusca svg,.s-dark .fbar .fbusca svg{color:#cfcfcf}
 .p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:#fff}
 .p-hero .fbar .fbusca button,.s-dark .fbar .fbusca button{background:#fff;color:var(--ink)}
+.p-hero .fbar .fbusca.on input,.s-dark .fbar .fbusca.on input{color:var(--ink)}
+.p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:var(--ink)}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
@@ -1360,7 +1362,7 @@ function montar(bar){
   };
   bar.addEventListener('change', ev => { const s = ev.target.closest('select[data-f]'); if (s) set(s.dataset.f, s.value); });
   let tmQ = 0;
-  bar.addEventListener('input', ev => { const inp = ev.target.closest('input[data-f-q]'); if (!inp) return; e.q = inp.value.slice(0, 60); clearTimeout(tmQ); tmQ = setTimeout(() => render(true, true), 140); });
+  bar.addEventListener('input', ev => { const inp = ev.target.closest('input[data-f-q]'); if (!inp) return; e.q = inp.value.slice(0, 60); inp.closest('.fbusca').classList.toggle('on', !!e.q); clearTimeout(tmQ); tmQ = setTimeout(() => render(true, true), 140); });
   bar.addEventListener('keydown', ev => { const inp = ev.target.closest('input[data-f-q]'); if (!inp) return; if (ev.key === 'Enter') { ev.preventDefault(); clearTimeout(tmQ); e.q = inp.value.slice(0, 60); render(true, true); inp.blur(); if (res) res.scrollIntoView({behavior:'smooth', block:'start'}); } if (ev.key === 'Escape') { inp.value = ''; set('q', ''); } });
   [bar, res, dias, bairros].forEach(el => { if (el) el.addEventListener('click', click); });
   document.querySelectorAll('[data-f-set]').forEach(a => a.addEventListener('click', () => { const p = a.dataset.fSet.split('/'); e = Object.assign({}, PADRAO, {pais:p[0], cidade:p[1] || paisDe(p[0]).cidades[0].id}); render(false); }));
