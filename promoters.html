@@ -844,6 +844,32 @@ html.lb-aberta{overflow:hidden}
 .pr-av{background-color:#fff}
 .pr-foto .pr-nivel.bairro{background:var(--ink);border-color:var(--ink);color:#fff}
 
+/* lista de convidados do promoter */
+.lc-abas{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:#fff;margin-bottom:16px}
+.lc-abas a{padding:9px 14px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none}
+.lc-abas a.on{background:var(--ink);color:#fff}
+.lc-lista{display:grid;gap:14px}
+.lc-ev{border:2px solid var(--ink);border-radius:16px;background:#fff;padding:14px 16px;display:grid;gap:12px;min-width:0}
+.lc-cab{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.lc-cab h3{font-family:var(--fd);font-weight:400;font-size:24px;text-transform:uppercase;line-height:.95;margin:6px 0 4px}
+.lc-cab p{margin:0;color:var(--grey);font-size:13px}.lc-cab p b{color:var(--ink)}
+.lc-ver{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink);text-decoration:none;white-space:nowrap;padding-top:4px}
+.lc-acao{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lc-est{font-weight:800;font-size:13px;color:var(--ink);background:#f3f3f3;border-radius:999px;padding:8px 12px}
+.lc-est.ok{background:var(--mint)}.lc-est.nao{color:var(--grey)}
+.lc-pessoas{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lc-p{display:grid;grid-template-columns:34px 1fr auto;column-gap:10px;row-gap:6px;align-items:center;border-top:1px solid var(--line);padding-top:8px}
+.lc-av{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;grid-row:span 2}
+.lc-p b{font-size:14px}.lc-fav.on{color:var(--pink)}
+.lc-st{font:800 10px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);justify-self:end}
+.lc-st.aceite,.lc-st.na-lista{color:#1f8a52}.lc-st.recusado{color:var(--pink)}
+.lc-p .lc-b{grid-column:2/-1;justify-self:start}
+.lc-p .lc-b + .lc-b{margin-left:0}
+.lc-p{grid-template-areas:none}
+.lc-b{display:inline-block;margin-right:8px;font-weight:800;font-size:12px;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:6px 11px;color:var(--ink);background:#fff}
+.lc-b.aceitar,.lc-b.eu-aceitar{background:var(--mint);border-color:var(--mint)}
+.lc-b.fav{border-style:dashed}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2924,10 +2950,66 @@ function grelha(el){
   desenha();
 }
 
+/* ---------- lista de convidados (R97–R99) ----------
+   Quem quer entrar pede ("Quero entrar"); o promoter aceita ou recusa e pode marcar favoritos. Favorito do promoter põe o nome
+   direto ("Pôr o meu nome"), sem esperar. No protótipo, o estado vive neste aparelho; o site real guarda-o na conta. */
+const LK = 'streetfy:listas';
+let LS = {}; try { LS = JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) {}
+const gravaL = () => { try { localStorage.setItem(LK, JSON.stringify(LS)); } catch (e) {} };
+const doP = pid => (LS[pid] = LS[pid] || {pedidos:{}, fav:{}, pessoas:{}});
+const PESSOAS = ['Bruna T.', 'Hugo M.', 'Leonor S.', 'Kiko R.', 'Mariana C.', 'Nuno P.', 'Carla V.', 'André L.', 'Sara D.', 'Tomás F.'];
+const comLista = (p, f) => f.filter(i => (i.tipos || []).some(t => t === 'festa' || t === 'clube') || /festa|dj|club|noite|party/i.test((i.titulo || '') + ' ' + (i.estilo || ''))).slice(0, 5).concat(f).filter((v, k, a) => a.indexOf(v) === k).slice(0, 5);
+const vagas = i => 20 + ((String(i.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0)) % 40);
+/* pedidos de outras pessoas, fixos por evento, para o promoter ter quem aceitar */
+function pedidosDemo(p, i){
+  const st = doP(p.id); const k = String(i.id);
+  if (!st.pessoas[k]) { const h = k.split('').reduce((a, c) => a + c.charCodeAt(0), 0); st.pessoas[k] = [0, 1, 2].map(n => ({nome: PESSOAS[(h + n * 3) % PESSOAS.length], estado: n === 2 ? 'aceite' : 'pendente'})); gravaL(); }
+  return st.pessoas[k];
+}
+function acaoLista(d){
+  const st = doP(d.pid);
+  if (d.lc === 'quero') st.pedidos[d.ev] = st.fav.eu ? 'na-lista' : 'pendente';
+  if (d.lc === 'cancelar') delete st.pedidos[d.ev];
+  if (d.lc === 'eu-aceitar') st.pedidos[d.ev] = 'aceite';
+  if (d.lc === 'eu-recusar') st.pedidos[d.ev] = 'recusado';
+  if (d.lc === 'fav') { if (st.fav[d.quem]) delete st.fav[d.quem]; else st.fav[d.quem] = 1; }
+  if (d.lc === 'aceitar' || d.lc === 'recusar') { const pe = (st.pessoas[d.ev] || [])[+d.n]; if (pe) pe.estado = d.lc === 'aceitar' ? 'aceite' : 'recusado'; }
+  gravaL();
+}
+function listaHtml(p, f, modo){
+  const st = doP(p.id), ev = comLista(p, f), fav = !!st.fav.eu;
+  const abas = '<div class="lc-abas" role="tablist"><a role="tab" aria-selected="' + (modo === 'eu') + '" class="' + (modo === 'eu' ? 'on' : '') + '" href="#p=' + p.id + '&lista=1">Quero entrar</a><a role="tab" aria-selected="' + (modo === 'promoter') + '" class="' + (modo === 'promoter' ? 'on' : '') + '" href="#p=' + p.id + '&lista=1&modo=promoter">Vista do promoter</a></div>';
+  let h = '<section class="s-sec tight"><div class="s-wrap"><p class="s-eyebrow">Lista de convidados</p><h2 class="s-h h2s" style="margin-bottom:10px">NA LISTA <em>DE ' + esc(p.nome.split(' ')[0].toUpperCase()) + '</em></h2>'
+    + '<p class="s-lead" style="font-size:15px;margin:0 0 16px;max-width:64ch">' + (modo === 'eu' ? (fav ? 'És favorito de ' + esc(p.nome) + ': pões o teu nome na lista sem esperar.' : 'Pede para entrar; ' + esc(p.nome) + ' aceita ou recusa. Quem é favorito põe o nome direto.') : 'O que ' + esc(p.nome) + ' vê: pedidos por evento, aceitar ou recusar, e marcar favoritos. Favorito põe o nome sozinho nas próximas listas.') + '</p>' + abas;
+  if (!ev.length) return h + '<p class="p-vazio" style="margin-top:16px">Sem listas abertas esta semana.</p></div></section>';
+  h += '<div class="lc-lista">' + ev.map(i => {
+    const k = String(i.id), meu = st.pedidos[k], dem = pedidosDemo(p, i), noLista = dem.filter(x => x.estado === 'aceite').length + (meu === 'aceite' || meu === 'na-lista' ? 1 : 0), resta = Math.max(0, vagas(i) - noLista);
+    const cab = '<div class="lc-cab"><div><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + ' · lista até 30 min antes · <b>restam ' + resta + '</b></p></div><a class="lc-ver" href="' + esc(hrefEv(i)) + '">evento ›</a></div>';
+    if (modo === 'eu') {
+      const b = (lc, t, cls) => '<a href="#" class="s-btn ' + cls + '" data-lc="' + lc + '" data-pid="' + p.id + '" data-ev="' + esc(k) + '">' + t + '</a>';
+      const est = meu === 'na-lista' || meu === 'aceite' ? '<span class="lc-est ok">Estás na lista ✓' + (meu === 'na-lista' ? ' · como favorito' : ' · aceite por ' + esc(p.nome.split(' ')[0])) + '</span>' + b('cancelar', 'Tirar o nome', 'ghost')
+        : meu === 'pendente' ? '<span class="lc-est">Pedido enviado · à espera de ' + esc(p.nome.split(' ')[0]) + '</span>' + b('cancelar', 'Cancelar', 'ghost')
+        : meu === 'recusado' ? '<span class="lc-est nao">' + esc(p.nome.split(' ')[0]) + ' não aceitou desta vez</span>'
+        : (resta ? b('quero', fav ? 'Pôr o meu nome' : 'Quero entrar', fav ? 'mint' : 'pink') : '<span class="lc-est nao">Lista cheia</span>');
+      return '<article class="lc-ev">' + cab + '<div class="lc-acao">' + est + '</div></article>';
+    }
+    /* vista do promoter: tu (se pediste) + os outros pedidos */
+    const pessoa = (nome, estado, quem, acoes) => '<li class="lc-p"><span class="lc-av">' + esc(quem === 'eu' ? 'TU' : nome.split(' ').map(x => x[0]).join('').slice(0, 2)) + '</span><b>' + esc(nome) + (st.fav[quem] ? ' <span class="lc-fav on" title="Favorito">★</span>' : '') + '</b><span class="lc-st ' + estado + '">' + ({pendente:'pediu', aceite:'na lista', 'na-lista':'na lista · favorito', recusado:'recusado'})[estado] + '</span>' + acoes + '</li>';
+    const ac = (lc, t, extra) => '<a href="#" class="lc-b ' + lc + '" data-lc="' + lc + '" data-pid="' + p.id + '" data-ev="' + esc(k) + '"' + extra + '>' + t + '</a>';
+    let lis = '';
+    if (meu) lis += pessoa('Tu (este aparelho)', meu, 'eu', (meu === 'pendente' ? ac('eu-aceitar', 'Aceitar', '') + ac('eu-recusar', 'Recusar', '') : '') + ac('fav', st.fav.eu ? '★ Favorito' : '☆ Favorito', ' data-quem="eu"'));
+    dem.forEach((x, n) => { lis += pessoa(x.nome, x.estado, x.nome, (x.estado === 'pendente' ? ac('aceitar', 'Aceitar', ' data-n="' + n + '"') + ac('recusar', 'Recusar', ' data-n="' + n + '"') : '') + ac('fav', st.fav[x.nome] ? '★ Favorito' : '☆ Favorito', ' data-quem="' + esc(x.nome) + '"')); });
+    return '<article class="lc-ev">' + cab + '<ul class="lc-pessoas">' + lis + '</ul></article>';
+  }).join('') + '</div>'
+    + (modo === 'promoter' ? '<p class="al-nota" style="margin-top:12px">Favorito vale para todas as listas de ' + esc(p.nome) + '. Na conta real só o promoter vê esta vista; aqui está aberta para testar o fluxo.</p>' : (st.fav.eu ? '' : '<p class="al-nota" style="margin-top:12px">Para testar o favorito: abre "Vista do promoter", pede para entrar num evento e marca-te com ☆.</p>'))
+    + '</div></section>';
+  return h;
+}
+
 /* ---------- perfil ---------- */
 function perfil(el){
   const desenha = () => {
-    const id = new URLSearchParams(location.hash.slice(1)).get('p') || P[0].id, p = P.find(x => x.id === id) || P[0], f = festasDe(p), s = !!segue[p.id];
+    const q = new URLSearchParams(location.hash.slice(1)), id = q.get('p') || P[0].id, p = P.find(x => x.id === id) || P[0], f = festasDe(p), s = !!segue[p.id], lista = q.get('lista') === '1', modo = q.get('modo') === 'promoter' ? 'promoter' : 'eu';
     document.title = 'Streetfy · ' + p.nome + ' · ' + NIVEL[p.nivel];
     const url = location.origin + location.pathname + '#p=' + p.id;
     el.innerHTML = '<section class="p-hero perfil pr-hero"><div class="s-bg" style="background-image:url(img/' + p.foto + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
@@ -2935,17 +3017,18 @@ function perfil(el){
       + '<div class="pr-cab"><div class="pr-av" style="background-image:url(' + RETRATO(p) + ')"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(p.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
       + '<span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span> <span class="p-meta">' + esc(NOME_CID(p.cidade)) + ' · ' + p.estilos.map(cap).join(', ') + '</span></div></div>'
       + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(p.bio) + '</p>'
-      + '<div class="p-acoes"><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-p="' + p.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="app.html">Lista de convidados</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-p data-titulo="' + esc(p.nome) + '">Compartilhar</a></div>'
+      + '<div class="p-acoes"><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-p="' + p.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ' + (lista ? 'mint' : 'ghost') + '" href="#p=' + p.id + (lista ? '' : '&lista=1') + '">' + (lista ? '← Festas promovidas' : 'Lista de convidados') + '</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-p data-titulo="' + esc(p.nome) + '">Compartilhar</a></div>'
       + '<div class="p-nums"><div class="p-num"><b>★ ' + p.nota + '</b><span>nota · ' + p.resp + ' respostas de quem foi</span></div><div class="p-num"><b>' + fmt(p.seg + (s ? 1 : 0)) + '</b><span>seguidores' + (s ? ' · tu incluído' : '') + '</span></div><div class="p-num"><b>' + p.pres + '</b><span>presenças verificadas · 30 dias</span></div><div class="p-num"><b>' + p.valeu + '%</b><span>dizem que valeu</span></div></div></div></section>'
-      + '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div><p class="s-eyebrow">O que promove</p><h2 class="s-h h2s" style="margin-bottom:18px">FESTAS <em>PROMOVIDAS</em></h2>'
+      + (lista ? listaHtml(p, f, modo) : '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div><p class="s-eyebrow">O que promove</p><h2 class="s-h h2s" style="margin-bottom:18px">FESTAS <em>PROMOVIDAS</em></h2>'
       + (f.length ? f.map(i => '<a class="p-ev pr-ev" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (p.comissao.includes(i.id) ? '<span class="pr-com">comissão</span>' : '<span class="pr-com sem">sem comissão</span>') + '</div>'
           + '<h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + (i.vao ? ' · ' + i.vao + ' vão' : '') + '</p>' + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '') + '<span class="p-ev-abrir">bilhete ›</span></a>').join('')
           : '<p class="p-vazio">Sem festas marcadas esta semana.</p>')
       + '</div><div><p class="s-eyebrow">Como funciona</p><div class="inc" style="margin-top:12px"><div><h4>Regra da casa</h4><ul><li>O promoter só indica festas do catálogo; não inventa eventos.</li><li>Comissão declarada pelo parceiro aparece sempre no cartão (R71). O bilhete pelo link dele custa o mesmo.</li><li>A nota só vem de quem esteve lá, com check-in.</li><li>Sobe e desce de nível sozinho: seguidores, presenças e nota dos últimos 30 dias.</li></ul></div></div>'
       + '<p class="s-eyebrow" style="margin-top:26px">Outros promoters</p><div class="pr-outros">' + P.filter(x => x.id !== p.id && x.cidade === p.cidade).concat(P.filter(x => x.cidade !== p.cidade)).slice(0, 4).map(x => '<a href="promoter.html#p=' + x.id + '"><span class="pr-av mini" style="background-image:url(' + RETRATO(x) + ')"></span><b>' + esc(x.nome) + '</b><small>' + NIVEL[x.nivel] + ' · ' + esc(NOME_CID(x.cidade)) + '</small></a>').join('') + '</div>'
-      + '</div></div></div></section>';
+      + '</div></div></div></section>');
   };
   el.addEventListener('click', ev => {
+    const a = ev.target.closest('[data-lc]'); if (a) { ev.preventDefault(); acaoLista(a.dataset); desenha(); return; }
     const s = ev.target.closest('[data-seguir-p]'); if (s) { ev.preventDefault(); const id = s.dataset.seguirP; if (segue[id]) delete segue[id]; else segue[id] = 1; guarda(); desenha(); return; }
     const sh = ev.target.closest('[data-partilhar-p]'); if (sh) { ev.preventDefault(); const t = sh.dataset.titulo + ' · promoter no Streetfy'; if (navigator.share) navigator.share({title:t, url:sh.href}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(t + ' · ' + sh.href), '_blank', 'noopener'); }
   });
