@@ -871,6 +871,9 @@ html.lb-aberta{overflow:hidden}
 .lc-b.fav{border-style:dashed}
 .lc-acs{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:8px}
 .lc-acs .lc-b{margin:0}
+
+.lc-av.foto{background-size:cover;background-position:center;color:transparent;border:2px solid var(--ink)}
+.pr-foto{background-position:center 30%}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1437,7 +1440,8 @@ const P = [
  {id:'ana-r', nome:'Ana R.', foto:'club', cidade:'braga', zona:['braga', 'guimaraes', 'barcelos', 'vila-nova-de-famalicao'], nivel:'rua', nota:'4,3', resp:27, seg:140, pres:44, valeu:87, estilos:['música', 'festa', 'concertos'], bio:'Braga e Guimarães: salas pequenas, DJs locais e festas de associação.', ids:[], comissao:[]},
  {id:'rui-v', nome:'Rui V.', foto:'dj', cidade:'funchal', nivel:'rua', nota:'4,0', resp:12, seg:64, pres:15, valeu:83, estilos:['música', 'festa'], bio:'Funchal à noite: Zona Velha, concertos e festas de praia.', ids:[], comissao:[]}
 ];
-const RETRATO = p => 'img/promoters/' + p.id + '.svg';
+const RETRATO = p => 'img/promoters/' + p.id + '.jpg';   /* fotografias de pessoas que não existem, geradas por IA (thispersondoesnotexist.com) */
+const FOTO_PESSOA = nome => 'img/pessoas/' + nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\.$/, '').replace(/[^a-z]+/g, '-').replace(/-$/, '') + '.jpg';
 const NOME_CID = id => { const c = ((window.BORA_FILTROS || {}).PAISES || [{cidades:[]}])[0].cidades.find(x => x.id === id); return c ? c.nome : cap(id); };
 const F = window.BORA_FILTROS || {};
 const ativo = i => (i._ks || []).length > 0 && (!F.grupoDe || F.grupoDe(i, F.AGORA(), [0, 1, 2, 3, 4, 5, 6]) !== 'rolou');   /* o que já acabou não conta (regra das 4 h) */
@@ -1524,7 +1528,7 @@ function listaHtml(p, f, modo){
       return '<article class="lc-ev">' + cab + '<div class="lc-acao">' + est + '</div></article>';
     }
     /* vista do promoter: tu (se pediste) + os outros pedidos */
-    const pessoa = (nome, estado, quem, acoes) => '<li class="lc-p"><span class="lc-av">' + esc(quem === 'eu' ? 'TU' : nome.split(' ').map(x => x[0]).join('').slice(0, 2)) + '</span><b>' + esc(nome) + (st.fav[quem] ? ' <span class="lc-fav on" title="Favorito">★</span>' : '') + '</b><span class="lc-st ' + estado + '">' + ({pendente:'pediu', aceite:'na lista', 'na-lista':'na lista · favorito', recusado:'recusado'})[estado] + '</span><span class="lc-acs">' + acoes + '</span></li>';
+    const pessoa = (nome, estado, quem, acoes) => '<li class="lc-p">' + (quem === 'eu' ? '<span class="lc-av">TU</span>' : '<span class="lc-av foto" style="background-image:url(' + FOTO_PESSOA(nome) + ')" aria-hidden="true"></span>') + '<b>' + esc(nome) + (st.fav[quem] ? ' <span class="lc-fav on" title="Favorito">★</span>' : '') + '</b><span class="lc-st ' + estado + '">' + ({pendente:'pediu', aceite:'na lista', 'na-lista':'na lista · favorito', recusado:'recusado'})[estado] + '</span><span class="lc-acs">' + acoes + '</span></li>';
     const ac = (lc, t, extra) => '<a href="#" class="lc-b ' + lc + '" data-lc="' + lc + '" data-pid="' + p.id + '" data-ev="' + esc(k) + '"' + extra + '>' + t + '</a>';
     let lis = '';
     if (meu) lis += pessoa('Tu (este aparelho)', meu, 'eu', (meu === 'pendente' ? ac('eu-aceitar', 'Aceitar', '') + ac('eu-recusar', 'Recusar', '') : '') + ac('fav', st.fav.eu ? '★ Favorito' : '☆ Favorito', ' data-quem="eu"'));
