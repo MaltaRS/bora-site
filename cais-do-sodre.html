@@ -399,6 +399,13 @@ img{max-width:100%;display:block}
   html.menu-aberto{overflow:hidden}
 }
 @media (max-width:640px){.s-nav .s-wrap > .s-burger{margin-left:auto}.s-nav .s-lang ~ .s-burger{margin-left:0}}
+/* faixa de dias com "Todas as datas" à frente */
+.hours:has(> button.todas){grid-template-columns:1.25fr repeat(7,1fr)}
+.hours button.todas{border-color:var(--ink);border-style:dashed}
+.hours button.todas b{font-size:16px;text-transform:uppercase}
+.hours button.todas.on{background:var(--mint);color:var(--ink);border-style:solid}
+.hours button.todas.on i{color:var(--ink)}
+@media (max-width:640px){.hours:has(> button.todas){grid-template-columns:repeat(4,1fr)}}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
