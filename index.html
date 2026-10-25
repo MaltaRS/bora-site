@@ -410,6 +410,11 @@ img{max-width:100%;display:block}
 .hours button.todas.on{background:var(--mint);color:var(--ink);border-style:solid}
 .hours button.todas.on i{color:var(--ink)}
 @media (max-width:640px){.hours:has(> button.todas){grid-template-columns:repeat(4,1fr)}}
+
+/* o coração fica fora da foto (que é a preto e branco), para o rosa de "gostei" não ficar cinzento */
+.card-l{position:relative}
+.card-l > .s-gosto{top:14px;right:14px}
+.card-l .s-gosto ~ .s-im .s-price{top:auto;bottom:12px}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -2347,7 +2352,7 @@ function cartaoPoster(i, k, t){
 function cartaoLista(i, k, t){
   const livre = i.preco === 0;
   const topo = livre ? (i.hora ? i.hora + ' · ' : '') + t.livre : (i.hora ? i.hora + ' · ' : '') + i.estilo;
-  return '<a class="card-l pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">' + coracao(i, t)
+  return '<a class="card-l pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '">' + coracao(i, t) + '<div class="s-im" style="background-image:url(' + im(i) + ')">'
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(topo) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + (livre ? '' : '<span class="s-price">' + esc(preco(i)) + '</span>') + '</div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ((i._fora || i.bairro) ? ' · ' + esc(i._fora || i.bairro) : '') + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
