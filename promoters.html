@@ -1137,6 +1137,12 @@ a.ev:hover .t{color:var(--pink)}
 .mapa-v5.mapa-fundo.sem-tiles::after{display:none}
 .mapa-v5.mapa-fundo .leaflet-interactive{cursor:default}
 .mapa-v5.mapa-fundo.escuro .leaflet-tile-pane{filter:invert(1) grayscale(1) brightness(.62) contrast(1.3);opacity:.95}
+
+/* como chegar, no balão do pino */
+.pp-v5 .ir{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px;min-width:170px}
+.pp-v5 .ir small{grid-column:1/-1;font:800 10px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.pp-v5 .ir a{display:block;text-align:center;background:var(--ink);color:#fff;border:2px solid var(--ink);border-radius:8px;padding:8px 6px;font-weight:800;font-size:12px;text-decoration:none;margin:0}
+.pp-v5 .ir a + a{background:#fff;color:var(--ink)}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2115,7 +2121,9 @@ const ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_
 const registo = new WeakMap();
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const icone = p => L.divIcon({className:'pin-v5' + (p.hot ? ' hot' : '') + (p.q ? ' q' : ''), html:'<i></i><b>' + esc(p.t) + (p.n ? ' · ' + esc(p.n) : '') + '</b>', iconSize:[0, 0], iconAnchor:[0, 0], popupAnchor:[0, -14]});
-const popup = p => '<div class="pp-v5"><b>' + esc(p.t) + '</b>' + (p.s ? '<span>' + esc(p.s) + '</span>' : '') + (p.href ? '<a href="' + esc(p.href) + '">Ver →</a>' : '') + '</div>';
+/* "ir": como chegar. Apple Maps abre no iPhone; Google Maps abre a app se existir, senão a web. Ambos com a direção para o pino. */
+const ir = p => { const d = p.lat + ',' + p.lng; return '<div class="ir"><small>Como chegar</small><a href="https://maps.apple.com/?daddr=' + d + '&q=' + encodeURIComponent(p.t) + '" target="_blank" rel="noopener">Apple Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=' + d + '" target="_blank" rel="noopener">Google Maps</a></div>'; };
+const popup = p => '<div class="pp-v5"><b>' + esc(p.t) + '</b>' + (p.s ? '<span>' + esc(p.s) + '</span>' : '') + (p.href ? '<a href="' + esc(p.href) + '">Ver →</a>' : '') + (p.ir ? ir(p) : '') + '</div>';
 
 function criar(el, cfg){
   cfg = cfg || {};
@@ -2140,7 +2148,7 @@ function criar(el, cfg){
       (pinos || []).forEach(p => {
         const m = L.marker([p.lat, p.lng], {icon:icone(p), zIndexOffset:p.hot ? 1000 : 0, keyboard:false}).addTo(grupo);
         m._bora = p;
-        if (!inerte && (p.s || p.href)) m.bindPopup(popup(p), {className:'popup-v5', closeButton:false, maxWidth:260});
+        if (!inerte && (p.s || p.href || p.ir)) m.bindPopup(popup(p), {className:'popup-v5', closeButton:false, maxWidth:260});
       });
       h.arrumar();
     },
