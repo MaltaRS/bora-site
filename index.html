@@ -332,6 +332,26 @@ img{max-width:100%;display:block}
 .ev-row .pr.mint{background:var(--mint);border-color:var(--mint);font-family:var(--fb);font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;transform:none}
 .ev-row .pres{font-size:12px;font-weight:800;color:var(--pink);white-space:nowrap}
 @media (max-width:640px){.ev-row{grid-template-columns:56px 1fr auto;gap:10px;padding:8px 10px 8px 8px}.ev-row .im{width:56px;height:56px}.ev-row h3{font-size:18px;white-space:normal}.ev-row .pr{font-size:16px}.fres .fvista button span{display:none}.fres .fvista button{padding:7px 10px}}
+
+/* gosto (coração) nos cartões e nas linhas; o que gostaste vem primeiro */
+.s-gosto{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:3px 3px 0 var(--ink);transition:transform .15s,color .15s}
+.s-gosto svg path{fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.s-gosto:hover{transform:scale(1.1)}
+.s-gosto.on{color:var(--pink);border-color:var(--pink);box-shadow:3px 3px 0 var(--pink)}
+.s-gosto.on svg path{fill:currentColor}
+.s-gosto:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.s-card .s-gosto ~ .s-pat{right:62px}
+.card-l .s-gosto ~ .s-price{top:auto;bottom:12px}
+.s-card.gostado{box-shadow:0 0 0 3px var(--pink)}
+.card-l.gostado,.ev-row.gostado{border-color:var(--pink)}
+.ev-row{grid-template-columns:72px 1fr auto auto}
+.ev-row .s-gosto{position:static;box-shadow:none;width:34px;height:34px}
+.ev-row .s-gosto.on{box-shadow:none}
+.fres .fgostos{display:inline-flex;align-items:center;gap:6px;color:var(--pink);font-weight:800}
+.fres .fgostos svg{width:14px;height:14px}
+.fres .fgostos svg path{fill:currentColor}
+@media (max-width:640px){.ev-row{grid-template-columns:56px 1fr auto auto}.ev-row .s-gosto{width:30px;height:30px}.ev-row .s-gosto svg{width:15px;height:15px}}
+.p-hero .fres .fvista button.on,.s-dark .fres .fvista button.on{background:var(--mint);color:var(--ink)}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -1981,10 +2001,10 @@ const ITENS = [
 
 /* ---------- textos ---------- */
 const L = {
- pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
+ pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', gosto:'Gosto', jaGosto:'Já gostas · tirar', gostos:n => n === 1 ? '1 gosto primeiro' : n + ' gostos primeiro', pelosGostos:'e pelo que gostas', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
    destaque:n => n + ' em destaque', limpar:'Limpar filtros', nada:'NADA COM ESTES FILTROS', nadaTxt:c => 'Em ' + c + ' nenhum lugar bate com tudo o que escolheste. Tira o tipo ou muda o dia.',
    naoAbriu:'AINDA NÃO ABRIU', breveTxt:(c, q) => 'O Streetfy chega a ' + c + ' ' + (q || 'em breve') + '. Deixa o e-mail e avisamos-te primeiro.', avisar:'Avisa-me quando abrir', agora:o => 'pessoas ' + o + ' agora', agoraNada:'pessoas aqui agora', tags:{}},
- en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
+ en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', gosto:'Like', jaGosto:'Liked · remove', gostos:n => n === 1 ? '1 like first' : n + ' likes first', pelosGostos:'and by what you like', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
    destaque:n => n + ' featured', limpar:'Clear filters', nada:'NOTHING MATCHES', nadaTxt:c => 'In ' + c + ' nothing matches all your filters. Drop the type or change the day.',
    naoAbriu:'NOT OPEN YET', breveTxt:(c, q) => 'Streetfy reaches ' + c + ' ' + (q || 'soon') + '. Leave your e-mail and we tell you first.', avisar:'Tell me when it opens', agora:o => 'people ' + o + ' right now', agoraNada:'people here right now',
    tags:{'Entrada livre':'Free entry', 'Bar · até às 3h':'Bar · open till 3am', 'Bar · até às 2h':'Bar · open till 2am', 'Bar a bar':'Bar to bar', 'Pôr do sol':'Sunset', 'Clássica':'Classical'}}
@@ -1999,10 +2019,24 @@ ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 const chaveNome = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 { const PERF = window.STREETFY_PERFIS || {}; ITENS.forEach(i => { if (!i.instagram) { const h = PERF[chaveNome(i.lugar)] || PERF[chaveNome(i.titulo)]; if (h) i.instagram = h; } }); }
 const camada = i => (CAMADA[i.origem] === undefined ? 1 : CAMADA[i.origem]);
+/* gostos (coração nos cartões): ficam no aparelho e mandam na ordem. O que gostaste vem primeiro; depois, dentro de cada
+   camada, sobe o que se parece com o que gostaste (mesmo lugar > mesmo estilo > mesmo tipo). No site real isto vem da conta. */
+const GOSTOS_K = 'streetfy:gostos';
+let GOSTOS = new Set(); try { GOSTOS = new Set(JSON.parse(localStorage.getItem(GOSTOS_K) || '[]')); } catch (e) {}
+const POR_ID = {}; ITENS.forEach(i => { POR_ID[i.id] = i; });
+const gosta = i => GOSTOS.has(i.id);
+function afinidade(i){
+  let a = 0;
+  GOSTOS.forEach(id => { const g = POR_ID[id]; if (!g || g === i) return; if (g.lugar && g.lugar === i.lugar) a += 10; if (g.estilo && g.estilo === i.estilo) a += 3; if ((g.tipos || []).some(t => (i.tipos || []).includes(t))) a += 1; });
+  return a;
+}
 function ordenar(lista){
   const l = lista.slice().sort((a, b) => camada(a) - camada(b));
   let n = 0; /* no máximo 2 patrocinados por ecrã; o resto desce para a camada do parceiro (R74) */
-  return l.map(i => (camada(i) === 0 && ++n > 2) ? Object.assign({}, i, {origem:'parceiro'}) : i).sort((a, b) => camada(a) - camada(b));
+  const base = l.map(i => (camada(i) === 0 && ++n > 2) ? Object.assign({}, i, {origem:'parceiro'}) : i);
+  if (!GOSTOS.size) return base.sort((a, b) => camada(a) - camada(b));
+  const af = new Map(base.map(i => [i.id, afinidade(i)]));
+  return base.sort((a, b) => (gosta(b) - gosta(a)) || (camada(a) - camada(b)) || (af.get(b.id) - af.get(a.id)));
 }
 const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
@@ -2012,8 +2046,10 @@ const PADRAO = {pais:'pt', cidade:'lisboa', tipo:'tudo', quando:'hoje', estilo:'
 let VISTA = 'cartoes'; try { if (localStorage.getItem('streetfy:vista') === 'lista') VISTA = 'lista'; } catch (e) {}
 const ICO = {
   grade:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor"/></svg>',
-  lista:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="4" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3" rx="1.5" fill="currentColor"/></svg>'
+  lista:'<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="4" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3" rx="1.5" fill="currentColor"/></svg>',
+  coracao:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21.3l-1.4-1.3C5.4 15.3 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.8-8.6 11.5L12 21.3z"/></svg>'
 };
+const coracao = (i, t) => '<button type="button" class="s-gosto' + (gosta(i) ? ' on' : '') + '" data-f="gosto" data-v="' + esc(i.id) + '" aria-pressed="' + gosta(i) + '" aria-label="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '" title="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '">' + ICO.coracao + '</button>';
 
 /* ---------- ajudantes ---------- */
 const lang = () => (document.documentElement.lang || 'pt').slice(0, 2) === 'en' ? 'en' : 'pt';
@@ -2072,9 +2108,10 @@ function barra(e, t){
   if (est.length) h += '<span class="fsep"></span>' + grupo('estilo', t.estilo, [['todos', t.todos]].concat(est.map(x => [x, cap(x)])), e.estilo === 'todos' ? ['todos'] : estilosSel(e));
   return h;
 }
-function linha(e, t, pais, cidade, n){
+function linha(e, t, pais, cidade, n, ng){
   let h = '<p class="fres"><b>' + (cidade.aberta ? t.destaque(n) : esc(nome(cidade)) + ' · ' + t.breve) + '</b><span>' + esc(nome(cidade)) + ', ' + esc(nome(pais)) + ' · ' + t[e.quando].toLowerCase()
     + (e.tipo !== 'tudo' ? ' · ' + tiposDe(e).map(x => t[x].toLowerCase()).join(' + ') : '') + (e.estilo !== 'todos' ? ' · ' + esc(estilosSel(e).join(' + ')) : '') + '</span>';
+  if (ng) h += '<span class="fgostos" title="' + esc(t.pelosGostos) + '">' + ICO.coracao + ' ' + esc(t.gostos(ng)) + '</span>';
   if (e.bairro) h += '<span class="bchip">' + esc(e.bairro) + '<button type="button" data-f="bairro" data-v="' + esc(e.bairro) + '" aria-label="remover bairro">×</button></span>';
   if (e.tipo !== 'tudo' || e.quando !== 'hoje' || e.estilo !== 'todos' || e.bairro) h += '<a href="#" data-f="limpar">' + t.limpar + '</a>';
   const vb = (v, ico, txt) => '<button type="button" data-f="vista" data-v="' + v + '"' + (VISTA === v ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + ' title="' + esc(txt) + '">' + ico + '<span>' + esc(txt) + '</span></button>';
@@ -2090,7 +2127,7 @@ function presenca(i, t){
 }
 function cartaoPoster(i, k, t){
   const livre = i.preco === 0;
-  return '<a class="s-card pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>'
+  return '<a class="s-card pop' + (gosta(i) ? ' gostado' : '') + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>' + coracao(i, t)
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(tag(i)) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + '<h3>' + esc(i.titulo) + '</h3>'
     + '<p><b>' + esc(i.lugar) + '</b>' + (i.hora ? ' · ' + esc(i.hora) : '') + (livre ? '' : ' · ' + esc(preco(i)))
     + (i.aqui ? ' <span class="s-here">● ' + i.aqui + ' ' + t.aqui + '</span>' : (i.vao ? ' <span class="s-here" style="color:#dcdcdc">' + i.vao + ' ' + t.vao + '</span>' : '')) + (i.origem === 'bot' ? '<span class="s-via">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + '</p></a>';
@@ -2098,7 +2135,7 @@ function cartaoPoster(i, k, t){
 function cartaoLista(i, k, t){
   const livre = i.preco === 0;
   const topo = livre ? (i.hora ? i.hora + ' · ' : '') + t.livre : (i.hora ? i.hora + ' · ' : '') + i.estilo;
-  return '<a class="card-l pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">'
+  return '<a class="card-l pop' + (gosta(i) ? ' gostado' : '') + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">' + coracao(i, t)
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(topo) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + (livre ? '' : '<span class="s-price">' + esc(preco(i)) + '</span>') + '</div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ' · ' + esc(i.bairro) + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
@@ -2107,10 +2144,10 @@ function cartaoLista(i, k, t){
 function cartaoLinha(i, k, t){
   const livre = i.preco === 0, pr = preco(i);
   const pres = i.aqui ? '● ' + i.aqui + ' ' + t.aqui : (i.vao ? i.vao + ' ' + t.vao : '');
-  return '<a class="ev-row pop" style="animation-delay:' + (Math.min(k, 12) * 40) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="im" style="background-image:url(' + im(i) + ')"></div>'
+  return '<a class="ev-row pop' + (gosta(i) ? ' gostado' : '') + '" style="animation-delay:' + (Math.min(k, 12) * 40) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="im" style="background-image:url(' + im(i) + ')"></div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p><b>' + esc(i.lugar) + '</b>' + (i.bairro ? ' · ' + esc(i.bairro) : '') + (i.hora ? ' · ' + esc(i.hora) : '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<p class="et">' + (i.origem === 'patrocinado' ? '<span class="ev-tag pat">' + t.patrocinado + '</span>' : '') + (i.origem === 'bot' ? '<span class="ev-tag">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + (i.instagram ? '<span class="ev-tag ig">@' + esc(i.instagram) + '</span>' : '') + (i.pp && i.origem !== 'bot' ? '<span class="pp">' + esc(i.pp) + '</span>' : '') + '</p></div>'
-    + '<div class="dir">' + (pr ? '<span class="pr' + (livre ? ' mint' : '') + '">' + esc(pr) + '</span>' : '') + (pres ? '<span class="pres">' + pres + '</span>' : '') + '</div></a>';
+    + '<div class="dir">' + (pr ? '<span class="pr' + (livre ? ' mint' : '') + '">' + esc(pr) + '</span>' : '') + (pres ? '<span class="pres">' + pres + '</span>' : '') + '</div>' + coracao(i, t) + '</a>';
 }
 function vazio(e, t, cidade){
   const espera = document.getElementById('espera') ? '#espera' : 'cidades.html#espera';
@@ -2131,7 +2168,7 @@ function montar(bar){
   function render(gravar){
     const t = T(), pais = paisDe(e.pais), cidade = cidadeDe(pais, e.cidade);
     const lista = cidade.aberta ? filtrar(e) : [];
-    bar.innerHTML = barra(e, t) + linha(e, t, pais, cidade, lista.length);
+    bar.innerHTML = barra(e, t) + linha(e, t, pais, cidade, lista.length, lista.filter(gosta).length);
     if (res) {
       const max = +(res.dataset.max || 12), emLista = VISTA === 'lista', tipo = emLista ? 'linha' : (res.dataset.cartao || 'poster');
       res.classList.toggle('vista-lista', emLista);
@@ -2160,6 +2197,7 @@ function montar(bar){
     else if (k === 'tipo') { if (v === 'tudo') e.tipo = 'tudo'; else { const ts = tiposDe(e), i = ts.indexOf(v); if (i >= 0) ts.splice(i, 1); else ts.push(v); e.tipo = ts.length ? ts.join(',') : 'tudo'; } }
     else if (k === 'dia') { e.quando = ['hoje', 'amanha', 'fds'][+v] || 'semana'; }
     else if (k === 'mais') { if (res) res.dataset.max = (+(res.dataset.max || 12)) + 24; render(false); return; }
+    else if (k === 'gosto') { if (GOSTOS.has(v)) GOSTOS.delete(v); else GOSTOS.add(v); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} render(false); return; }
     else if (k === 'vista') { VISTA = v === 'lista' ? 'lista' : 'cartoes'; try { localStorage.setItem('streetfy:vista', VISTA); } catch (x) {} render(false); return; }
     else if (k === 'bairro') { e.bairro = e.bairro === v ? '' : v; }
     else if (k === 'limpar') { e = Object.assign({}, PADRAO, {pais:e.pais, cidade:e.cidade}); }
@@ -2181,7 +2219,7 @@ function montar(bar){
 }
 window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
-window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados};
+window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, gostos:() => [...GOSTOS]};
 })();
 </script>
 </body></html>
