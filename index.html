@@ -856,7 +856,7 @@ img{max-width:100%;display:block}
 
 <section class="s-sec" id="hoje">
   <div class="s-wrap s-grid">
-    <div class="rv"><p class="s-eyebrow" data-i18n="t0">Sexta, 23 de outubro</p><h2 class="s-h" style="font-size:clamp(48px,7vw,104px)"><span data-i18n="t1">HOJE EM <em class="g-ring ink"><span data-f-cidade>LISBOA</span><svg viewBox="0 0 300 120" aria-hidden="true"><path d="M22 62 C 28 14, 262 4, 286 50 C 300 92, 70 124, 24 90 C 2 72, 48 28, 150 20"/></svg></em></span></h2><p class="s-lead" data-i18n="t2">O que está a acontecer agora, ordenado pelo que gostas. Cada cartão diz hora, preço, distância, quem vai e quantos já estão lá.</p><div class="fbar" data-filtros data-resultados="#hoje-cards"></div></div>
+    <div class="rv"><p class="s-eyebrow" data-i18n="t0" data-f-hoje>Sexta, 23 de outubro</p><h2 class="s-h" style="font-size:clamp(48px,7vw,104px)"><span data-i18n="t1">HOJE EM <em class="g-ring ink"><span data-f-cidade>LISBOA</span><svg viewBox="0 0 300 120" aria-hidden="true"><path d="M22 62 C 28 14, 262 4, 286 50 C 300 92, 70 124, 24 90 C 2 72, 48 28, 150 20"/></svg></em></span></h2><p class="s-lead" data-i18n="t2">O que está a acontecer agora, ordenado pelo que gostas. Cada cartão diz hora, preço, distância, quem vai e quantos já estão lá.</p><div class="fbar" data-filtros data-resultados="#hoje-cards"></div></div>
     <div class="s-stats">
       <div class="s-stat rv"><b><span data-count="1248" data-f-conta="lugares">0</span></b><span data-i18n="s1">lugares no catálogo</span></div>
       <div class="s-stat rv d1"><b><span data-count="150" data-f-conta="semana">0</span><em>/sem</em></b><span data-i18n="s2">eventos por semana</span></div>
@@ -1965,7 +1965,7 @@ document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click'
 let saved = 'pt'; try { saved = localStorage.getItem('bora-lang') || 'pt'; } catch (e) {}
 if (saved === 'en') setLang('en');
 })();
-</script><script src="dados-bot.js?v=1792954706" data-v="1792954706"></script><script>
+</script><script src="dados-bot.js?v=1792955976" data-v="1792955976"></script><script>
 /* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
@@ -2092,17 +2092,43 @@ const ICO_BUSCA = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="
    "Agora" é o relógio do aparelho; #agora=HH:MM no link finge outra hora, para testar e para fotografias. */
 const DUR = {clube:7, festa:6, bar:9, restaurante:4, concerto:2.5, livre:4};
 const DIA_PT = {seg:1, ter:2, qua:3, qui:4, sex:5, sab:6, dom:0};
-const AGORA = () => { const d = new Date(); const m = (new URLSearchParams(location.hash.slice(1)).get('agora') || '').match(/^(\d{1,2}):(\d{2})$/); if (m) d.setHours(+m[1], +m[2], 0, 0); return d; };
-function dataDe(i, agora){
-  const base = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
-  if (i.data) { const p = i.data.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
-  const q = i.quando || [], m = String(i.hora || '').match(/^(seg|ter|qua|qui|sex|s[áa]b|dom)\b/i), d = new Date(base);
-  if (m) { d.setDate(d.getDate() + (DIA_PT[m[1].toLowerCase().replace('á', 'a')] - d.getDay() + 7) % 7); return d; }
-  if (q.includes('hoje')) return base;
-  if (q.includes('amanha')) { d.setDate(d.getDate() + 1); return d; }
-  if (q.includes('fds')) { d.setDate(d.getDate() + (5 - d.getDay() + 7) % 7); return d; }
-  return base;
+const SEM = {pt:['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'], en:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']};
+const SEM_LONGO = {pt:['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'], en:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']};
+const MESES = {pt:['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'], en:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']};
+function AGORA(){ const d = new Date(); const m = (new URLSearchParams(location.hash.slice(1)).get('agora') || '').match(/^(\d{1,2}):(\d{2})$/); if (m) d.setHours(+m[1], +m[2], 0, 0); return d; }
+const HOJE0 = agora => new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+const maisDias = (d, k) => { const x = new Date(d); x.setDate(x.getDate() + k); return x; };
+const parseData = s => { const p = String(s).split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+/* "fim de semana" = sex, sáb e dom até ao primeiro domingo a partir de hoje (ao domingo é só hoje) */
+function fdsK(hoje){ const ks = []; for (let k = 0; k <= 6; k++) { const wd = (hoje.getDay() + k) % 7; if (wd === 5 || wd === 6 || wd === 0) { ks.push(k); if (wd === 0) break; } } return ks; }
+function diasDe(quando, hoje){ if (quando === 'hoje') return [0]; if (quando === 'amanha') return [1]; if (quando === 'fds') return fdsK(hoje); const m = /^d([0-6])$/.exec(quando); if (m) return [+m[1]]; return [0, 1, 2, 3, 4, 5, 6]; }
+function etiquetasDeK(k, hoje){ const q = ['semana', 'd' + k]; if (k === 0) q.push('hoje'); if (k === 1) q.push('amanha'); if (fdsK(hoje).includes(k)) q.push('fds'); return q; }
+const PREFIXO = h => String(h || '').match(/^(seg|ter|qua|qui|sex|s[áa]b|dom)\b/i);
+/* dias (0..6 a contar de hoje) em que o item acontece: datas do bot, ou o dia da semana no texto, ou as etiquetas do catálogo */
+function diasDoItem(i, hoje){
+  if (i.datas && i.datas.length) return i.datas.map(d => Math.round((parseData(d) - hoje) / 864e5)).filter(k => k >= 0 && k <= 6);
+  if (i.data) { const a = parseData(i.data), b = i.dataFim ? parseData(i.dataFim) : a; const ks = []; for (let k = 0; k <= 6; k++) { const d = maisDias(hoje, k); if (d >= a && d <= b) ks.push(k); } return ks; }
+  const m = PREFIXO(i.hora);
+  if (m) return [(DIA_PT[m[1].toLowerCase().replace('á', 'a')] - hoje.getDay() + 7) % 7];
+  const q = i.quando || [];
+  if (q.includes('hoje') && q.includes('amanha')) return [0, 1, 2, 3, 4, 5, 6];   /* casa aberta todos os dias */
+  if (q.includes('amanha')) return [1];
+  if (q.includes('fds')) return fdsK(hoje);
+  return [0];
 }
+/* corrige as etiquetas hoje/amanhã/fds/semana de todos os itens pela data real (a página deixa de viver numa sexta inventada) */
+function normalizaTempo(){
+  const hoje = HOJE0(AGORA());
+  ITENS.forEach(i => { if (!i._q0) i._q0 = (i.quando || []).slice(); const ks = diasDoItem(Object.assign({}, i, {quando:i._q0}), hoje); i._ks = ks; const tags = new Set(); ks.forEach(k => etiquetasDeK(k, hoje).forEach(t => tags.add(t))); i.quando = [...tags]; });
+}
+/* a ocorrência que interessa: a primeira dentro dos dias escolhidos; senão, a primeira que vem */
+function dataDe(i, agora, ks){
+  const hoje = HOJE0(agora), dias = i._ks || diasDoItem(i, hoje);
+  const k = ks ? dias.find(d => ks.includes(d)) : undefined;
+  return maisDias(hoje, k !== undefined ? k : (dias.length ? dias[0] : 0));
+}
+function rotuloQuando(q, t, hoje){ const m = /^d([0-6])$/.exec(q); if (!m) return String(t[q] || q).toLowerCase(); const d = maisDias(hoje, +m[1]); return SEM[lang()][d.getDay()] + ' ' + d.getDate(); }
+function textoHoje(hoje){ return lang() === 'en' ? SEM_LONGO.en[hoje.getDay()] + ', ' + hoje.getDate() + ' ' + MESES.en[hoje.getMonth()] : SEM_LONGO.pt[hoje.getDay()] + ', ' + hoje.getDate() + ' de ' + MESES.pt[hoje.getMonth()]; }
 function horasDe(i){
   const h = String(i.hora || ''), m = h.match(/(\d{1,2})[:h](\d{2})?/); if (!m) return null;
   const ini = +m[1] + (+(m[2] || 0)) / 60; let fim = null;
@@ -2113,14 +2139,15 @@ function horasDe(i){
   if (fim <= ini) fim += 24;
   return [ini, fim];
 }
-function grupoDe(i, agora){
-  const dia = dataDe(i, agora), hs = horasDe(i), hojeD = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+function grupoDe(i, agora, ks){
+  const dia = dataDe(i, agora, ks), hs = horasDe(i), hojeD = HOJE0(agora);
   if (!hs) { /* sem hora de fim não há "a rolar": exposições e casas sem hora marcada vão para "o dia todo" */
     const fimD = i.dataFim ? new Date(i.dataFim + 'T23:59:59') : new Date(dia.getTime() + 86399e3);
     return fimD < agora ? 'rolou' : 'diatodo';
   }
-  const H = 3600e3;
-  if (hs[1] > 24) { const ontem = dia.getTime() - 86400e3; if (agora >= ontem + hs[0] * H && agora < ontem + hs[1] * H) return 'rolando'; } /* noite que atravessou a meia-noite */
+  const H = 3600e3, kDia = Math.round((dia - hojeD) / 864e5);
+  /* noite que atravessou a meia-noite: só conta se o dia anterior também estiver no período escolhido (com "amanhã" escolhido, o bar aberto hoje não está "a rolar") */
+  if (hs[1] > 24 && (kDia === 0 || !ks || ks.includes(kDia - 1))) { const ontem = dia.getTime() - 86400e3; if (agora >= ontem + hs[0] * H && agora < ontem + hs[1] * H) return 'rolando'; }
   const ini = dia.getTime() + hs[0] * H, fim = dia.getTime() + hs[1] * H;
   if (agora >= fim) return 'rolou';
   if (agora >= ini) return 'rolando';
@@ -2174,7 +2201,7 @@ function lerUrl(){
   e.q = String(e.q || '').slice(0, 60);
   { const ts = String(e.tipo).split(',').filter(x => TIPOS.includes(x) && x !== 'tudo'); e.tipo = ts.length ? ts.join(',') : 'tudo'; }
   { const es = estilosSel(e); e.estilo = es.length ? es.join(',') : 'todos'; }
-  if (!QUANDO.includes(e.quando)) e.quando = 'hoje';
+  if (!QUANDO.includes(e.quando) && !/^d[0-6]$/.test(e.quando)) e.quando = 'hoje';
   const p = paisDe(e.pais); e.pais = p.id; e.cidade = cidadeDe(p, e.cidade).id;
   return e;
 }
@@ -2200,7 +2227,7 @@ function barra(e, t){
   return h;
 }
 function linha(e, t, pais, cidade, n, ng, lista){
-  let h = '<p class="fres"><b>' + (cidade.aberta ? t.destaque(n) : esc(nome(cidade)) + ' · ' + t.breve) + '</b><span>' + esc(nome(cidade)) + ', ' + esc(nome(pais)) + ' · ' + t[e.quando].toLowerCase()
+  let h = '<p class="fres"><b>' + (cidade.aberta ? t.destaque(n) : esc(nome(cidade)) + ' · ' + t.breve) + '</b><span>' + esc(nome(cidade)) + ', ' + esc(nome(pais)) + ' · ' + rotuloQuando(e.quando, t, HOJE0(AGORA()))
     + (e.tipo !== 'tudo' ? ' · ' + tiposDe(e).map(x => t[x].toLowerCase()).join(' + ') : '') + (e.estilo !== 'todos' ? ' · ' + esc(estilosSel(e).join(' + ')) : '') + (e.q ? ' · ' + t.procura + ' "' + esc(e.q) + '"' : '') + '</span>';
   if (e.q && lista && lista.length) { const ks = [...new Set(lista.map(lugarKey))]; if (ks.length === 1) h += '<a class="fperfil" href="perfil.html#lugar=' + encodeURIComponent(ks[0]) + '">' + t.perfilDe + ' ' + esc(lista[0].lugar || lista[0].titulo) + ' ›</a>'; }
   if (ng) h += '<span class="fgostos" title="' + esc(t.pelosGostos) + '">' + ICO.coracao + ' ' + esc(t.gostos(ng)) + '</span>';
@@ -2247,7 +2274,6 @@ function vazio(e, t, cidade){
   if (e.q && e.quando !== 'semana') { const n = filtrar(Object.assign({}, e, {quando:'semana'})).length; if (n) return '<div class="fempty pop"><b>' + t.nadaNome + '</b><p>' + esc(nome(cidade)) + ' · "' + esc(e.q) + '"</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button type="button" class="s-btn ink" data-f="quando" data-v="3">' + t.semanaToda(n) + '</button><button type="button" class="s-btn ghost" data-f="q" data-v="">' + t.limpar + '</button></div></div>'; }
   return '<div class="fempty pop"><b>' + t.nada + '</b><p>' + esc(t.nadaTxt(nome(cidade))) + '</p><button type="button" class="s-btn ink" data-f="limpar">' + t.limpar + '</button></div>';
 }
-const diaOn = (k, q) => q === 'hoje' ? k === 0 : q === 'amanha' ? k === 1 : q === 'fds' ? (k === 1 || k === 2) : true;
 
 /* ---------- montagem ---------- */
 function montar(bar){
@@ -2267,7 +2293,7 @@ function montar(bar){
       const max = +(res.dataset.max || 12), emLista = VISTA === 'lista', tipo = emLista ? 'linha' : (res.dataset.cartao || 'poster');
       res.classList.toggle('vista-lista', emLista);
       const cartao = tipo === 'linha' ? cartaoLinha : tipo === 'lista' ? cartaoLista : cartaoPoster;
-      const agora = AGORA(), por = {rolando:[], jaja:[], vai:[], diatodo:[], rolou:[]}; lista.forEach(i => por[grupoDe(i, agora)].push(i));
+      const agora = AGORA(), ks = diasDe(e.quando, HOJE0(agora)), por = {rolando:[], jaja:[], vai:[], diatodo:[], rolou:[]}; lista.forEach(i => por[grupoDe(i, agora, ks)].push(i));
       if (res.dataset.grupos !== undefined) {
         /* a rolar primeiro, o que já acabou no fundo (só com scroll); o corte do "mostrar mais" segue essa ordem */
         const seq = []; GRUPOS.forEach(g => por[g].forEach(i => seq.push([g, i])));
@@ -2275,7 +2301,7 @@ function montar(bar){
         res.innerHTML = (!cidade.aberta || !lista.length) ? vazio(e, t, cidade) : seq.slice(0, max).map(([g, i], k) => { let h = ''; if (g !== ultimo) { ultimo = g; h = cabecalhoGrupo(g, por[g].length, t); } return h + (g === 'rolou' ? cartao(i, k, t).replace(/^<a class="/, '<a class="passou ') : cartao(i, k, t)); }).join('')
           + (seq.length > max ? '<div class="fmais"><a href="#" class="s-btn ink" data-f="mais">' + t.mais(seq.length - max) + '</a></div>' : '');
       } else {
-        const vivos = lista.filter(i => grupoDe(i, agora) !== 'rolou'); /* na inicial, o que já acabou não aparece */
+        const vivos = lista.filter(i => grupoDe(i, agora, ks) !== 'rolou'); /* na inicial, o que já acabou não aparece */
         res.innerHTML = (!cidade.aberta || !vivos.length) ? vazio(e, t, cidade) : vivos.slice(0, max).map((i, k) => cartao(i, k, t)).join('')
           + (vivos.length > max ? '<div class="fmais"><a href="#" class="s-btn ink" data-f="mais">' + t.mais(vivos.length - max) + '</a></div>' : '');
       }
@@ -2284,7 +2310,9 @@ function montar(bar){
     document.querySelectorAll('[data-f-conta]').forEach(x => { const v = cidade.aberta ? cidade[x.dataset.fConta] : 0; if (v === undefined) return; x.dataset.count = v; x.textContent = fmt(v); });
     document.querySelectorAll('[data-f-agora]').forEach(x => { x.textContent = cidade.aberta ? t.agora(cidade.agoraOnde[lang()]) : t.agoraNada; });
     document.querySelectorAll('[data-f-link]').forEach(a => { a.href = a.dataset.fLink + '#' + hashDe(e); });
-    if (dias) dias.innerHTML = cidade.aberta ? cidade.dias.map((d, k) => '<button type="button" data-f="dia" data-v="' + k + '"' + (diaOn(k, e.quando) ? ' class="on"' : '') + ' aria-pressed="' + diaOn(k, e.quando) + '"><b>' + d[0] + '</b><small>' + d[1] + '</small><i>' + d[2] + '</i></button>').join('') : '';
+    { const hoje = HOJE0(AGORA()); document.querySelectorAll('[data-f-hoje]').forEach(x => { x.textContent = textoHoje(hoje); });
+      if (dias) { const ks = diasDe(e.quando, hoje), todos = ITENS.filter(i => i.cidade === cidade.id);
+        dias.innerHTML = cidade.aberta ? [0, 1, 2, 3, 4, 5, 6].map(k => { const d = maisDias(hoje, k), n = todos.filter(i => (i._ks || []).includes(k)).length, on = ks.includes(k); return '<button type="button" data-f="dia" data-v="' + k + '"' + (on ? ' class="on"' : '') + ' aria-pressed="' + on + '"><b>' + d.getDate() + '</b><small>' + SEM[lang()][d.getDay()] + '</small><i>' + n + '</i></button>'; }).join('') : ''; } }
     if (bairros) bairros.innerHTML = cidade.aberta ? cidade.bairros.map(b => '<a href="#' + hashDe(Object.assign({}, e, {bairro:b[0]})) + '" data-f="bairro" data-v="' + esc(b[0]) + '"' + (e.bairro === b[0] ? ' class="on"' : '') + '><span class="n">● ' + b[1] + ' ' + t.aqui + '</span><b>' + esc(b[0]) + '</b><span>' + esc(b[2]) + '</span></a>').join('') : '';
     if (mapa && window.BORA_MAPA && cidade.aberta) {
       const pinos = lista.filter(i => i.lat && i.lng).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:hrefPerfil(i),
@@ -2299,7 +2327,7 @@ function montar(bar){
     else if (k === 'cidade') { e.cidade = v; e.estilo = 'todos'; e.bairro = ''; }
     else if (k === 'estilo') { if (v === 'todos') e.estilo = 'todos'; else { const es = estilosSel(e), i = es.indexOf(v); if (i >= 0) es.splice(i, 1); else es.push(v); e.estilo = es.length ? es.join(',') : 'todos'; } }
     else if (k === 'tipo') { if (v === 'tudo') e.tipo = 'tudo'; else { const ts = tiposDe(e), i = ts.indexOf(v); if (i >= 0) ts.splice(i, 1); else ts.push(v); e.tipo = ts.length ? ts.join(',') : 'tudo'; } }
-    else if (k === 'dia') { e.quando = ['hoje', 'amanha', 'fds'][+v] || 'semana'; }
+    else if (k === 'dia') { e.quando = +v === 0 ? 'hoje' : +v === 1 ? 'amanha' : 'd' + (+v); }
     else if (k === 'mais') { if (res) res.dataset.max = (+(res.dataset.max || 12)) + 24; render(false); return; }
     else if (k === 'gosto') { if (GOSTOS.has(v)) GOSTOS.delete(v); else GOSTOS.add(v); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} render(false); return; }
     else if (k === 'vista') { VISTA = v === 'lista' ? 'lista' : 'cartoes'; try { localStorage.setItem('streetfy:vista', VISTA); } catch (x) {} render(false); return; }
@@ -2325,9 +2353,10 @@ function montar(bar){
   render(false);
   return {estado:() => e, set, render};
 }
+normalizaTempo();
 window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
-window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, gostos:() => [...GOSTOS], grupoDe, AGORA};
+window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
 /* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */
 window.STREETFY_GOSTOS = {tem:id => GOSTOS.has(id), lista:() => [...GOSTOS], icone:ICO.coracao,
   alternar(id){ if (GOSTOS.has(id)) GOSTOS.delete(id); else GOSTOS.add(id); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} montados.forEach(m => m.render(false)); return GOSTOS.has(id); }};
