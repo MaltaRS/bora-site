@@ -1570,6 +1570,18 @@ window.BORA_NEW.push(
    + field('Opcional', '<span style="color:var(--mu);font-weight:400">Uma linha para a Rita…</span>')
    + '<div class="spacer"></div>' + btn('Enviar', 'mint') + '<div style="text-align:center;font-size:11px;color:var(--mu);margin-top:8px">Não fui por ela · saltar</div>'
    + note('Só quem fez check-in no evento responde, uma vez. A Rita vê a média dos últimos 90 dias, nunca quem respondeu.')},
+ {c:'U42', n:'Perfil gerido pela IA', t:'19:44', f:() =>
+   '<div style="margin:-8px -12px 0;height:120px;background:#111 url(' + B.IMG.lux + ') center/cover;filter:grayscale(1) contrast(1.2);position:relative"></div>'
+   + '<div style="margin-top:-28px;position:relative;display:flex;gap:10px;align-items:flex-end"><div style="font-family:var(--fd);font-size:30px;line-height:.95;flex:1">CASA<br>CAPITÃO</div><span class="tag" style="border:1.5px dashed #0b0b0b;background:#fff;color:#0b0b0b">gerido pela IA</span></div>'
+   + '<div class="desc" style="margin-top:6px">Clube · festas · Santos · ainda não assumido</div>'
+   + '<div class="stats"><div><b>0</b><small>seguidores · começa ao assumir</small></div><div><b>61,7 mil</b><small>no Instagram</small></div><div><b>3</b><small>eventos · 0 passados</small></div><div><b>—</b><small>sem nota · só de quem esteve</small></div></div>'
+   + '<div class="guar" style="background:rgba(255,46,110,.12);border-color:var(--ac)">' + ico('pin', 'ic s') + '<span><b>Este perfil ainda não é de ninguém</b>A IA mantém a ficha com o que o Instagram e as fontes públicas dizem. Sem bilhete nem reserva aqui.</span></div>'
+   + lbl('Programação', 'o que tocaste vem primeiro')
+   + '<div class="ocard" style="border-color:var(--ac)"><div class="hd3"><b>Mount Kimbie · Tunnelvision</b><span style="font-size:10.5px;color:var(--mu)">sáb 24 · 00:00</span></div><div class="it">R/C: Mount Kimbie (dj set), re:ni, Adriana Ruas · Sótão: JASSS, CRUZ, Sheri Vari</div><div class="ac">' + btn('Ver no Instagram', 'mint') + '</div><div style="font-size:10.5px;color:var(--mu);margin-top:6px">via Instagram · @musicboxlisboa · abre fora porque aqui não há nada a fazer</div></div>'
+   + row('', 'APUPU', 'sex 23 · Rammie, Nai, Clemente, Sinnotsin, Décio', ['›'])
+   + row('', 'FOMO', 'qui 22 · Cipriana, Sinnotsin, Runnan, Kloh', ['›'])
+   + '<div class="spacer"></div>' + '<a class="btn" href="#" onclick="return false" style="background:#111;color:#fff">É o teu lugar? Assume o perfil</a>'
+   + note('Assumido e aprovado, o dono controla a ficha e abre bilhetes e reservas. Até lá, todo o evento abre aqui e só depois sai para a fonte.')},
  {c:'U38', n:'Farol', t:'00:44', dark:true, f:() =>
    '<div style="position:absolute;inset:-8px -12px -12px;background:var(--ac)"></div>'
    + '<div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;gap:6px;min-height:100%">'
@@ -1778,7 +1790,7 @@ const cell = s => '<div class="cell v5" id="' + s.c + '"><div class="ph' + (s.da
 const flows = {
   entrar:[N.U01, N.U02, N.U34, N.U03, N.U32],
   descobrir:[ex('U04', 'Hoje em Lisboa', 'home', 0), N.U35, N.U31, N.U36, N.U05, N.U20, N.U21],
-  lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U37, N.U38],
+  lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U42, N.U37, N.U38],
   gente:[ex('U14', 'A pergunta', 'ask'), ex('U18', 'Quem está aqui', 'here'), N.U17, N.U19, N.U33, N.U25, N.U26, N.U39, N.U40, N.U41],
   agenda:[N.U13, ex('U15', 'Meu perfil', 'profile', 4), N.U16, N.U22, N.U23, N.U24, N.U27, N.U28, N.U29, N.U30],
   equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10]
@@ -1968,6 +1980,8 @@ function ordenar(lista){
   return l.map(i => (camada(i) === 0 && ++n > 2) ? Object.assign({}, i, {origem:'parceiro'}) : i).sort((a, b) => camada(a) - camada(b));
 }
 const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
+const hrefPerfil = i => 'perfil.html#lugar=' + encodeURIComponent(lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
 const PADRAO = {pais:'pt', cidade:'lisboa', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:''};
 
 /* ---------- ajudantes ---------- */
@@ -2043,7 +2057,7 @@ function presenca(i, t){
 }
 function cartaoPoster(i, k, t){
   const livre = i.preco === 0;
-  return '<a class="s-card pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(i.href) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>'
+  return '<a class="s-card pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>'
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(tag(i)) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + '<h3>' + esc(i.titulo) + '</h3>'
     + '<p><b>' + esc(i.lugar) + '</b>' + (i.hora ? ' · ' + esc(i.hora) : '') + (livre ? '' : ' · ' + esc(preco(i)))
     + (i.aqui ? ' <span class="s-here">● ' + i.aqui + ' ' + t.aqui + '</span>' : (i.vao ? ' <span class="s-here" style="color:#dcdcdc">' + i.vao + ' ' + t.vao + '</span>' : '')) + (i.origem === 'bot' ? '<span class="s-via">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + '</p></a>';
@@ -2051,7 +2065,7 @@ function cartaoPoster(i, k, t){
 function cartaoLista(i, k, t){
   const livre = i.preco === 0;
   const topo = livre ? (i.hora ? i.hora + ' · ' : '') + t.livre : (i.hora ? i.hora + ' · ' : '') + i.estilo;
-  return '<a class="card-l pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(i.href) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">'
+  return '<a class="card-l pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">'
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(topo) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + (livre ? '' : '<span class="s-price">' + esc(preco(i)) + '</span>') + '</div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ' · ' + esc(i.bairro) + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
@@ -2088,7 +2102,7 @@ function montar(bar){
     if (dias) dias.innerHTML = cidade.aberta ? cidade.dias.map((d, k) => '<button type="button" data-f="dia" data-v="' + k + '"' + (diaOn(k, e.quando) ? ' class="on"' : '') + ' aria-pressed="' + diaOn(k, e.quando) + '"><b>' + d[0] + '</b><small>' + d[1] + '</small><i>' + d[2] + '</i></button>').join('') : '';
     if (bairros) bairros.innerHTML = cidade.aberta ? cidade.bairros.map(b => '<a href="#' + hashDe(Object.assign({}, e, {bairro:b[0]})) + '" data-f="bairro" data-v="' + esc(b[0]) + '"' + (e.bairro === b[0] ? ' class="on"' : '') + '><span class="n">● ' + b[1] + ' ' + t.aqui + '</span><b>' + esc(b[0]) + '</b><span>' + esc(b[2]) + '</span></a>').join('') : '';
     if (mapa && window.BORA_MAPA && cidade.aberta) {
-      const pinos = lista.filter(i => i.lat && i.lng).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:i.href,
+      const pinos = lista.filter(i => i.lat && i.lng).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:hrefPerfil(i),
         s:i.lugar + (i.hora ? ' · ' + i.hora : '') + (i.preco === 0 ? ' · ' + t.livre : (typeof i.preco === 'number' ? ' · €' + i.preco : '')) + (i.bairro ? ' · ' + i.bairro : '')}));
       const trocou = cidadeNoMapa !== cidade.id; cidadeNoMapa = cidade.id;
       window.BORA_MAPA.atualizar(mapa, pinos, cidade.centro, cidade.zoom, e.bairro ? 'pinos' : trocou);
@@ -2120,6 +2134,7 @@ function montar(bar){
   render(false);
   return {estado:() => e, set, render};
 }
+window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
 window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados};
 })();
