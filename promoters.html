@@ -2301,6 +2301,14 @@ function criar(el, cfg){
   [60, 600, 1500].forEach(ms => setTimeout(() => { map.invalidateSize(false); if (h.focar) h.focar(); }, ms));
   return h;
 }
+/* raio da cidade escolhida: círculo tracejado e o mapa enquadra-o; sem raio (todas as cidades), tira o círculo */
+function raio(el, centro, km){
+  const h = registo.get(el); if (!h) return;
+  if (h._raio) { h.map.removeLayer(h._raio); h._raio = null; }
+  if (!centro || !km) return;
+  h._raio = L.circle(centro, {radius:km * 1000, color:'#ff2e6e', weight:2, dashArray:'6 10', fillColor:'#ff2e6e', fillOpacity:.05, interactive:false}).addTo(h.map);
+  h.map.fitBounds(h._raio.getBounds(), {animate:false, padding:[10, 10]});
+}
 function atualizar(el, pinos, centro, zoom, ajustar){
   const h = registo.get(el) || criar(el, {centro, zoom});
   if (!h) return null;
@@ -2327,7 +2335,7 @@ function auto(){
   document.querySelectorAll('[data-mapa]').forEach(el => { if (!registo.has(el)) criar(el, cfgDe(el)); });
   telefones();
 }
-window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
+window.BORA_MAPA = {criar, atualizar, raio, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
 })();

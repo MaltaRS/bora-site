@@ -1006,6 +1006,14 @@ function criar(el, cfg){
   [60, 600, 1500].forEach(ms => setTimeout(() => { map.invalidateSize(false); if (h.focar) h.focar(); }, ms));
   return h;
 }
+/* raio da cidade escolhida: círculo tracejado e o mapa enquadra-o; sem raio (todas as cidades), tira o círculo */
+function raio(el, centro, km){
+  const h = registo.get(el); if (!h) return;
+  if (h._raio) { h.map.removeLayer(h._raio); h._raio = null; }
+  if (!centro || !km) return;
+  h._raio = L.circle(centro, {radius:km * 1000, color:'#ff2e6e', weight:2, dashArray:'6 10', fillColor:'#ff2e6e', fillOpacity:.05, interactive:false}).addTo(h.map);
+  h.map.fitBounds(h._raio.getBounds(), {animate:false, padding:[10, 10]});
+}
 function atualizar(el, pinos, centro, zoom, ajustar){
   const h = registo.get(el) || criar(el, {centro, zoom});
   if (!h) return null;
@@ -1032,7 +1040,7 @@ function auto(){
   document.querySelectorAll('[data-mapa]').forEach(el => { if (!registo.has(el)) criar(el, cfgDe(el)); });
   telefones();
 }
-window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
+window.BORA_MAPA = {criar, atualizar, raio, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
 })();
@@ -1432,10 +1440,12 @@ function montar(bar){
         dias.innerHTML = cidade.aberta ? '<button type="button" class="todas' + (todasOn ? ' on' : '') + '" data-f="dia" data-v="todas" aria-pressed="' + todasOn + '"><b>' + t.todasCurto + '</b><small>' + t.todasSub + '</small><i>' + todos.filter(i => grupoDe(i, AGORA(), [0, 1, 2, 3, 4, 5, 6]) !== 'rolou').length + '</i></button>' + [0, 1, 2, 3, 4, 5, 6].map(k => { const d = maisDias(hoje, k), n = todos.filter(i => (i._ks || []).includes(k)).length, on = !todasOn && ks.includes(k); return '<button type="button" data-f="dia" data-v="' + k + '"' + (on ? ' class="on"' : '') + ' aria-pressed="' + on + '"><b>' + d.getDate() + '</b><small>' + SEM[lang()][d.getDay()] + '</small><i>' + n + '</i></button>'; }).join('') : ''; } }
     if (bairros) bairros.innerHTML = cidade.aberta ? (cidade.bairros || []).map(b => '<a href="#' + hashDe(Object.assign({}, e, {bairro:b[0]})) + '" data-f="bairro" data-v="' + esc(b[0]) + '"' + (e.bairro === b[0] ? ' class="on"' : '') + '><span class="n">● ' + b[1] + ' ' + t.aqui + '</span><b>' + esc(b[0]) + '</b><span>' + esc(b[2]) + '</span></a>').join('') : '';
     if (mapa && window.BORA_MAPA && cidade.aberta) {
-      const pinos = lista.filter(i => i.lat && i.lng).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:hrefPerfil(i),
+      const pinos = lista.filter(i => i.lat && i.lng && (cidade.id === 'todas' || !cidade.centro || km(cidade.centro[0], cidade.centro[1], i.lat, i.lng) <= RAIO_KM)).map(i => ({lat:i.lat, lng:i.lng, t:i.titulo, hot:!!i.aqui && i.aqui >= 100, n:i.aqui ? i.aqui + ' ' + t.aqui : '', href:hrefPerfil(i),
         s:i.lugar + (i.hora ? ' · ' + i.hora : '') + (i.preco === 0 ? ' · ' + t.livre : (typeof i.preco === 'number' ? ' · €' + i.preco : '')) + (i.bairro ? ' · ' + i.bairro : '')}));
       const trocou = cidadeNoMapa !== cidade.id; cidadeNoMapa = cidade.id;
-      window.BORA_MAPA.atualizar(mapa, pinos, cidade.centro, cidade.zoom, e.bairro ? 'pinos' : trocou);
+      const comRaio = window.BORA_MAPA.raio && cidade.id !== 'todas' && cidade.centro;
+      window.BORA_MAPA.atualizar(mapa, pinos, cidade.centro, cidade.zoom, e.bairro ? 'pinos' : (trocou && !comRaio));
+      if (window.BORA_MAPA.raio && !e.bairro && trocou) window.BORA_MAPA.raio(mapa, comRaio ? cidade.centro : null, RAIO_KM);   /* o mesmo raio de 25 km da lista; o mapa enquadra o círculo */
     }
     if (gravar) history.replaceState(null, '', '#' + hashDe(e));
   }
