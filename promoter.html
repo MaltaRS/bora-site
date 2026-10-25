@@ -869,6 +869,8 @@ html.lb-aberta{overflow:hidden}
 .lc-b{display:inline-block;margin-right:8px;font-weight:800;font-size:12px;text-decoration:none;border:2px solid var(--ink);border-radius:999px;padding:6px 11px;color:var(--ink);background:#fff}
 .lc-b.aceitar,.lc-b.eu-aceitar{background:var(--mint);border-color:var(--mint)}
 .lc-b.fav{border-style:dashed}
+.lc-acs{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:8px}
+.lc-acs .lc-b{margin:0}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1522,7 +1524,7 @@ function listaHtml(p, f, modo){
       return '<article class="lc-ev">' + cab + '<div class="lc-acao">' + est + '</div></article>';
     }
     /* vista do promoter: tu (se pediste) + os outros pedidos */
-    const pessoa = (nome, estado, quem, acoes) => '<li class="lc-p"><span class="lc-av">' + esc(quem === 'eu' ? 'TU' : nome.split(' ').map(x => x[0]).join('').slice(0, 2)) + '</span><b>' + esc(nome) + (st.fav[quem] ? ' <span class="lc-fav on" title="Favorito">★</span>' : '') + '</b><span class="lc-st ' + estado + '">' + ({pendente:'pediu', aceite:'na lista', 'na-lista':'na lista · favorito', recusado:'recusado'})[estado] + '</span>' + acoes + '</li>';
+    const pessoa = (nome, estado, quem, acoes) => '<li class="lc-p"><span class="lc-av">' + esc(quem === 'eu' ? 'TU' : nome.split(' ').map(x => x[0]).join('').slice(0, 2)) + '</span><b>' + esc(nome) + (st.fav[quem] ? ' <span class="lc-fav on" title="Favorito">★</span>' : '') + '</b><span class="lc-st ' + estado + '">' + ({pendente:'pediu', aceite:'na lista', 'na-lista':'na lista · favorito', recusado:'recusado'})[estado] + '</span><span class="lc-acs">' + acoes + '</span></li>';
     const ac = (lc, t, extra) => '<a href="#" class="lc-b ' + lc + '" data-lc="' + lc + '" data-pid="' + p.id + '" data-ev="' + esc(k) + '"' + extra + '>' + t + '</a>';
     let lis = '';
     if (meu) lis += pessoa('Tu (este aparelho)', meu, 'eu', (meu === 'pendente' ? ac('eu-aceitar', 'Aceitar', '') + ac('eu-recusar', 'Recusar', '') : '') + ac('fav', st.fav.eu ? '★ Favorito' : '☆ Favorito', ' data-quem="eu"'));
