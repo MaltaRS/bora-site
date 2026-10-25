@@ -1953,7 +1953,7 @@ document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click'
 let saved = 'pt'; try { saved = localStorage.getItem('bora-lang') || 'pt'; } catch (e) {}
 if (saved === 'en') setLang('en');
 })();
-</script><script src="dados-bot.js?v=1792954302"></script><script>
+</script><script src="dados-bot.js?v=1792954706" data-v="1792954706"></script><script>
 /* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
@@ -1965,6 +1965,12 @@ if (saved === 'en') setLang('en');
    No site real a lista vem da API: GET /catalogo?pais=pt&cidade=porto&tipo=clube&quando=hoje&bairro=Ribeira */
 (function(){
 'use strict';
+/* cache: a página sabe que versão do dados-bot.js espera (data-v); se o navegador serviu uma velha, recarrega uma vez */
+{ const sc = document.querySelector('script[src^="dados-bot.js"]'), esperado = sc && sc.dataset.v;
+  if (esperado && esperado !== '0' && window.STREETFY_DADOS_V !== esperado) {
+    let ja = false; try { ja = sessionStorage.getItem('streetfy:dados-recarregado') === esperado; if (!ja) sessionStorage.setItem('streetfy:dados-recarregado', esperado); } catch (e) {}
+    if (!ja) location.reload();
+  } }
 const SEMPRE = ['hoje', 'amanha', 'fds'];
 
 /* ---------- catálogo (hoje local; amanhã, API) ---------- */

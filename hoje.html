@@ -2252,7 +2252,7 @@ window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
 })();
-</script><script src="dados-bot.js?v=1792954302"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
+</script><script src="dados-bot.js?v=1792954706" data-v="1792954706"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
      <div id="lista" data-resultados data-cartao="poster|lista" data-max="12"></div>
@@ -2263,6 +2263,12 @@ window.addEventListener('load', () => { telefones(); document.querySelectorAll('
    No site real a lista vem da API: GET /catalogo?pais=pt&cidade=porto&tipo=clube&quando=hoje&bairro=Ribeira */
 (function(){
 'use strict';
+/* cache: a página sabe que versão do dados-bot.js espera (data-v); se o navegador serviu uma velha, recarrega uma vez */
+{ const sc = document.querySelector('script[src^="dados-bot.js"]'), esperado = sc && sc.dataset.v;
+  if (esperado && esperado !== '0' && window.STREETFY_DADOS_V !== esperado) {
+    let ja = false; try { ja = sessionStorage.getItem('streetfy:dados-recarregado') === esperado; if (!ja) sessionStorage.setItem('streetfy:dados-recarregado', esperado); } catch (e) {}
+    if (!ja) location.reload();
+  } }
 const SEMPRE = ['hoje', 'amanha', 'fds'];
 
 /* ---------- catálogo (hoje local; amanhã, API) ---------- */
