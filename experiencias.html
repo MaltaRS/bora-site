@@ -297,6 +297,11 @@ img{max-width:100%;display:block}
 
 .s-logo em{font-style:normal;color:var(--pink)}
 
+/* camadas da lista: etiqueta de patrocinado e crédito da fonte do bot (R73, R76) */
+.s-pat{position:absolute;top:18px;right:18px;background:var(--mint);color:var(--ink);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 8px;border-radius:5px}
+.s-via{display:block;font-size:11px;color:#bdbdbd;margin-top:4px;font-weight:600}
+.card-l .s-pat{top:auto;bottom:12px;left:12px;right:auto}
+
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
 .p-hero .s-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.3) brightness(.6)}
@@ -1627,7 +1632,7 @@ window.BORA_NEW.push(
    P('<em>EVENTOS</em>', 46) + '<div class="chips"><span class="on">' + ico('pin', 'ic xs') + ' Lisboa, PT ▾</span><span>sex 23 out ▾</span></div>'
    + '<div class="cal7"><span class="on"><b>23</b>sex</span><span><b>24</b>sáb</span><span><b>25</b>dom</span><span><b>26</b>seg</span><span><b>27</b>ter</span><span><b>28</b>qua</span><span><b>29</b>qui</span></div>'
    + chips(['*Tudo', 'Festa', 'Concerto', 'Bar', 'Restaurante', 'Clube'])
-   + [['21:00', 'Sexta no Mercado', 'Time Out Market · entrada livre', 'livre', 'mu'], ['22:30', 'Baile do B.Leza', 'kizomba ao vivo · Cais do Sodré', '€8', ''], ['23:00', 'Noite X', 'Lux Frágil · techno · 214 aqui', '€15', 'ac'], ['23:30', 'Sessão de jazz', 'Hot Clube de Portugal', '€12', '']].map(e => '<div class="row"><div style="width:40px;font-weight:800;font-size:12px;flex:0 0 auto">' + e[0] + '</div><div><div class="t">' + e[1] + '</div><div class="s">' + e[2] + '</div></div><span class="end ' + e[4] + '">' + e[3] + '</span></div>').join('')
+   + [['23:00', 'Noite X <span class="tag" style="background:var(--ac2);color:#0b0b0b">Patrocinado</span>', 'Lux Frágil · techno · 214 aqui', '€15', 'ac'], ['21:00', 'Sexta no Mercado', 'Time Out Market · entrada livre', 'livre', 'mu'], ['22:30', 'Baile do B.Leza', 'kizomba ao vivo · Cais do Sodré', '€8', ''], ['23:30', 'Sessão de jazz', 'Hot Clube de Portugal', '€12', ''], ['21:30', 'Orquestra Gulbenkian', 'via Agenda Cultural de Lisboa · Gulbenkian', '€14', 'mu']].map(e => '<div class="row"><div style="width:40px;font-weight:800;font-size:12px;flex:0 0 auto">' + e[0] + '</div><div><div class="t">' + e[1] + '</div><div class="s">' + e[2] + '</div></div><span class="end ' + e[4] + '">' + e[3] + '</span></div>').join('')
    + '<div class="seg" style="margin-top:auto"><span class="on">Lista</span><span>Mapa</span></div>'},
  {c:'U36', n:'Eventos por dia · Porto', t:'21:10', nav:1, f:() =>
    P('<em>EVENTOS</em>', 46) + '<div class="chips"><span class="on">' + ico('pin', 'ic xs') + ' Porto, PT ▾</span><span>sex 23 out ▾</span></div>'
