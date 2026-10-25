@@ -837,6 +837,12 @@ html.lb-aberta{overflow:hidden}
 .site-ph .ph .body{overflow:hidden}
 .site-ph{flex:0 0 auto;max-width:100%}
 
+/* retratos ilustrados: cor, sem o filtro preto e branco das fotos */
+.pr-foto{background-position:center 20%}
+.pr-card .pr-foto,.pr-av{filter:none}
+.pr-card:hover .pr-foto{filter:saturate(1.15)}
+.pr-av{background-color:#fff}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}

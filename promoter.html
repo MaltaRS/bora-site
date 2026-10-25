@@ -836,6 +836,12 @@ html.lb-aberta{overflow:hidden}
 .site-ph .ph{width:272px;height:740px;max-height:none;overflow:hidden;flex:none}
 .site-ph .ph .body{overflow:hidden}
 .site-ph{flex:0 0 auto;max-width:100%}
+
+/* retratos ilustrados: cor, sem o filtro preto e branco das fotos */
+.pr-foto{background-position:center 20%}
+.pr-card .pr-foto,.pr-av{filter:none}
+.pr-card:hover .pr-foto{filter:saturate(1.15)}
+.pr-av{background-color:#fff}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1402,6 +1408,7 @@ const P = [
  {id:'ana-r', nome:'Ana R.', foto:'club', cidade:'braga', zona:['braga', 'guimaraes', 'barcelos', 'vila-nova-de-famalicao'], nivel:'rua', nota:'4,3', resp:27, seg:140, pres:44, valeu:87, estilos:['música', 'festa', 'concertos'], bio:'Braga e Guimarães: salas pequenas, DJs locais e festas de associação.', ids:[], comissao:[]},
  {id:'rui-v', nome:'Rui V.', foto:'dj', cidade:'funchal', nivel:'rua', nota:'4,0', resp:12, seg:64, pres:15, valeu:83, estilos:['música', 'festa'], bio:'Funchal à noite: Zona Velha, concertos e festas de praia.', ids:[], comissao:[]}
 ];
+const RETRATO = p => 'img/promoters/' + p.id + '.svg';
 const NOME_CID = id => { const c = ((window.BORA_FILTROS || {}).PAISES || [{cidades:[]}])[0].cidades.find(x => x.id === id); return c ? c.nome : cap(id); };
 const F = window.BORA_FILTROS || {};
 const ativo = i => (i._ks || []).length > 0 && (!F.grupoDe || F.grupoDe(i, F.AGORA(), [0, 1, 2, 3, 4, 5, 6]) !== 'rolou');   /* o que já acabou não conta (regra das 4 h) */
@@ -1434,7 +1441,7 @@ function grelha(el){
     const lista = P.filter(p => filtro === 'todas' || p.cidade === filtro);
     el.innerHTML = '<div class="fchips pr-chips" role="group" aria-label="Cidade"><small>Cidade</small>' + cids.map(c => '<button type="button" data-pc="' + c + '"' + (c === filtro ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + (c === 'todas' ? 'Todas' : esc(NOME_CID(c))) + '</button>').join('') + '</div>'
       + '<div class="pr-grid">' + lista.map(p => { const f = festasDe(p); return '<a class="pr-card" href="promoter.html#p=' + p.id + '">'
-        + '<div class="pr-foto" style="background-image:url(img/' + p.foto + '.jpg)"><span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span></div>'
+        + '<div class="pr-foto" style="background-image:url(' + RETRATO(p) + ')"><span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span></div>'
         + '<div class="pr-bd"><h3>' + esc(p.nome) + '</h3><p class="pr-num">★ ' + p.nota + ' · ' + fmt(p.seg) + ' seguidores · ' + esc(NOME_CID(p.cidade)) + '</p>'
         + '<p class="pr-est">' + p.estilos.map(cap).join(' · ') + '</p>'
         + '<div class="pr-prox"><small>Promove · ' + f.length + (f.length === 1 ? ' festa' : ' festas') + '</small>' + (f.slice(0, 2).map(i => '<span><b>' + esc(i.titulo) + '</b> · ' + esc(quando(i)) + (i.hora ? ' ' + esc(i.hora.replace(/^\D+\s/, '')) : '') + '</span>').join('') || '<span>sem festas esta semana</span>') + '</div>'
@@ -1452,7 +1459,7 @@ function perfil(el){
     const url = location.origin + location.pathname + '#p=' + p.id;
     el.innerHTML = '<section class="p-hero perfil pr-hero"><div class="s-bg" style="background-image:url(img/' + p.foto + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
       + '<div class="crumbs"><a href="index.html">Streetfy</a> › <a href="promoters.html#lista">Promoters</a> › <span>' + esc(p.nome) + '</span></div>'
-      + '<div class="pr-cab"><div class="pr-av" style="background-image:url(img/' + p.foto + '.jpg)"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(p.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
+      + '<div class="pr-cab"><div class="pr-av" style="background-image:url(' + RETRATO(p) + ')"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(p.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
       + '<span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span> <span class="p-meta">' + esc(NOME_CID(p.cidade)) + ' · ' + p.estilos.map(cap).join(', ') + '</span></div></div>'
       + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(p.bio) + '</p>'
       + '<div class="p-acoes"><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-p="' + p.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="app.html">Lista de convidados</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-p data-titulo="' + esc(p.nome) + '">Compartilhar</a></div>'
@@ -1462,7 +1469,7 @@ function perfil(el){
           + '<h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + (i.vao ? ' · ' + i.vao + ' vão' : '') + '</p>' + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '') + '<span class="p-ev-abrir">bilhete ›</span></a>').join('')
           : '<p class="p-vazio">Sem festas marcadas esta semana.</p>')
       + '</div><div><p class="s-eyebrow">Como funciona</p><div class="inc" style="margin-top:12px"><div><h4>Regra da casa</h4><ul><li>O promoter só indica festas do catálogo; não inventa eventos.</li><li>Comissão declarada pelo parceiro aparece sempre no cartão (R71). O bilhete pelo link dele custa o mesmo.</li><li>A nota só vem de quem esteve lá, com check-in.</li><li>Sobe e desce de nível sozinho: seguidores, presenças e nota dos últimos 30 dias.</li></ul></div></div>'
-      + '<p class="s-eyebrow" style="margin-top:26px">Outros promoters</p><div class="pr-outros">' + P.filter(x => x.id !== p.id && x.cidade === p.cidade).concat(P.filter(x => x.cidade !== p.cidade)).slice(0, 4).map(x => '<a href="promoter.html#p=' + x.id + '"><span class="pr-av mini" style="background-image:url(img/' + x.foto + '.jpg)"></span><b>' + esc(x.nome) + '</b><small>' + NIVEL[x.nivel] + ' · ' + esc(NOME_CID(x.cidade)) + '</small></a>').join('') + '</div>'
+      + '<p class="s-eyebrow" style="margin-top:26px">Outros promoters</p><div class="pr-outros">' + P.filter(x => x.id !== p.id && x.cidade === p.cidade).concat(P.filter(x => x.cidade !== p.cidade)).slice(0, 4).map(x => '<a href="promoter.html#p=' + x.id + '"><span class="pr-av mini" style="background-image:url(' + RETRATO(x) + ')"></span><b>' + esc(x.nome) + '</b><small>' + NIVEL[x.nivel] + ' · ' + esc(NOME_CID(x.cidade)) + '</small></a>').join('') + '</div>'
       + '</div></div></div></section>';
   };
   el.addEventListener('click', ev => {

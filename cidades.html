@@ -836,6 +836,12 @@ html.lb-aberta{overflow:hidden}
 .site-ph .ph{width:272px;height:740px;max-height:none;overflow:hidden;flex:none}
 .site-ph .ph .body{overflow:hidden}
 .site-ph{flex:0 0 auto;max-width:100%}
+
+/* retratos ilustrados: cor, sem o filtro preto e branco das fotos */
+.pr-foto{background-position:center 20%}
+.pr-card .pr-foto,.pr-av{filter:none}
+.pr-card:hover .pr-foto{filter:saturate(1.15)}
+.pr-av{background-color:#fff}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
