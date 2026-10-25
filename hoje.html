@@ -759,6 +759,19 @@ a.ev:hover .t{color:var(--pink)}
   .det.det-compra > aside > [data-p="bilhete"],.det.det-compra > aside > .book{order:1}
 }
 
+/* perfil no telemóvel: a programação (com o Bilhetes do evento escolhido) vem logo a seguir às ações; os números descem */
+.so-movel-nums{display:none}
+@media (max-width:900px){.p-hero.perfil .p-nums{display:none}.so-movel-nums{display:flex;margin:0 0 26px}.p-hero.perfil .p-nota{margin-bottom:4px}}
+
+/* perfil no telemóvel: a nota e os números saem do cabeçalho e ficam depois da programação, para o evento selecionado subir */
+.so-movel-bloco{display:none}
+.p-nota.ink{color:var(--grey)}
+@media (max-width:900px){
+  .p-hero.perfil .p-nota,.p-hero.perfil .p-nums{display:none}
+  .so-movel-bloco{display:block;margin-top:22px}
+  .so-movel-bloco .p-nums{margin-top:12px}
+}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2304,7 +2317,7 @@ window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
 })();
-</script><script src="dados-bot.js?v=1792955976" data-v="1792955976"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
+</script><script src="dados-bot.js?v=1792959373" data-v="1792959373"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
      <div id="lista" data-resultados data-cartao="poster|lista" data-max="12"></div>
