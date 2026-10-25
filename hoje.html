@@ -302,6 +302,7 @@ img{max-width:100%;display:block}
 .s-via{display:block;font-size:11px;color:#bdbdbd;margin-top:4px;font-weight:600}
 .card-l .s-pat{top:auto;bottom:12px;left:12px;right:auto}
 .fmais{grid-column:1/-1;display:flex;justify-content:center;padding:18px 0 4px}
+.s-ig{display:inline-block;margin-left:8px;font-weight:800;font-size:11px;color:var(--ink);background:var(--mint);padding:2px 7px;border-radius:5px}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
@@ -2163,6 +2164,9 @@ const estilosSel = e => e.estilo === 'todos' ? [] : String(e.estilo).split(',').
 const CAMADA = {patrocinado:0, parceiro:1, promoter:2, bot:3};
 ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 (window.STREETFY_BOT || []).forEach(i => ITENS.push(i));
+/* R85: sem conta ligada no portal, o Instagram do lugar vem da lista manual (perfis.json → STREETFY_PERFIS) */
+const chaveNome = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+{ const PERF = window.STREETFY_PERFIS || {}; ITENS.forEach(i => { if (!i.instagram) { const h = PERF[chaveNome(i.lugar)] || PERF[chaveNome(i.titulo)]; if (h) i.instagram = h; } }); }
 const camada = i => (CAMADA[i.origem] === undefined ? 1 : CAMADA[i.origem]);
 function ordenar(lista){
   const l = lista.slice().sort((a, b) => camada(a) - camada(b));
@@ -2256,7 +2260,7 @@ function cartaoLista(i, k, t){
   return '<a class="card-l pop" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(i.href) + '"><div class="s-im" style="background-image:url(' + im(i) + ')">'
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(topo) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + (livre ? '' : '<span class="s-price">' + esc(preco(i)) + '</span>') + '</div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ' · ' + esc(i.bairro) + (i.star ? ' · ★ ' + i.star : '') + '</p>'
-    + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + '</span></div></a>';
+    + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
 }
 function vazio(e, t, cidade){
   const espera = document.getElementById('espera') ? '#espera' : 'cidades.html#espera';
