@@ -1904,6 +1904,18 @@ window.BORA_NEW.push(
    + '<div class="ocard"><div class="hd3"><b>B-48</b><span style="font-size:10.5px;color:var(--mu)">01:22 · há 1 min</span></div><div class="it">1 × Vodka com Red Bull · 2 × Água</div><div class="ac">' + btn('Preparando', 'ghost') + btn('Pronto', 'mint') + '</div></div>'
    + '<div class="tog"><span><span class="t">Pausar cardápio</span><span class="s">para quando o bar não dá conta</span></span>' + swt(false) + '</div>'
    + '<div class="spacer"></div><div class="stats"><div><b>212</b><small>pedidos hoje</small></div><div><b>€1.930</b><small>vendidos</small></div><div><b>6 min</b><small>tempo médio</small></div></div>'},
+ {c:'E10', n:'Publicação lida', t:'10:12', dark:true, f:() =>
+   bar('back', 'Instagram ligado', null)
+   + '<div class="guar" style="background:rgba(111,227,165,.14);border-color:var(--ac2)">' + ico('check', 'ic s') + '<span><b>Nova publicação no @djunnsteakhouse</b>A IA leu a legenda e o cartaz. Confirma ou corrige antes de publicar.</span></div>'
+   + '<div class="ocard" style="border-color:var(--ac2)"><div class="hd3"><b>Tardezinha do Djunn</b><span style="font-size:10.5px;color:var(--mu)">confiança 0,92</span></div><div class="it">Todos os domingos · 12:00 às 02:00 · samba e pagode</div><div class="it" style="color:var(--mu)">Pagode Mistura, Bate Palma Aí, DJ San Diego, Oriana, Erick Louredo, DJ Mattos</div></div>'
+   + lbl('O que a IA percebeu', 'toca para corrigir')
+   + row('', 'Quando', 'todos os domingos, a partir de hoje', ['12:00 → 02:00'])
+   + row('', 'Onde', 'Djunn Steakhouse & Bar · Odivelas', ['no mapa ✓'])
+   + row('', 'Preço', 'feijoada à discrição', ['10 €'])
+   + row('', 'Tipo e estilo', 'festa · música ao vivo', ['pagode'])
+   + '<div class="row"><div><div class="t">Fora da ficha</div><div class="s">"serviço de shisha" e promoções de bebida não entram (R79)</div></div><span class="end mu">ok</span></div>'
+   + '<div style="display:flex;gap:8px;margin-top:6px">' + btn('Publicar', 'mint') + btn('Corrigir', 'ghost') + '</div>'
+   + note('Publicado entra como evento do parceiro, com bilhete e reserva. Sem confirmação, fica rascunho 7 dias e some. A IA nunca publica bebida nem inventa hora ou preço.')},
  {c:'E09', n:'Modo bandeja', t:'00:41', dark:true, f:() =>
    bar('back', 'Bandeja · Rui · Pista 1', null)
    + '<div class="stats"><div><b>26</b><small>na bandeja</small></div><div><b>9</b><small>reservadas</small></div><div><b>€71</b><small>já pagos</small></div></div>'
@@ -1927,7 +1939,7 @@ const flows = {
   lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U37, N.U38],
   gente:[ex('U14', 'A pergunta', 'ask'), ex('U18', 'Quem está aqui', 'here'), N.U17, N.U19, N.U33, N.U25, N.U26, N.U39, N.U40, N.U41],
   agenda:[N.U13, ex('U15', 'Meu perfil', 'profile', 4), N.U16, N.U22, N.U23, N.U24, N.U27, N.U28, N.U29, N.U30],
-  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09]
+  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10]
 };
 Object.keys(flows).forEach(k => { const el = document.querySelector('.stage[data-flow="' + k + '"]'); if (el) el.innerHTML = flows[k].map(cell).join(''); });
 const groups = []; XP.S.forEach(s => { if (!groups.includes(s.g)) groups.push(s.g); });
