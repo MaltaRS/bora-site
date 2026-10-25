@@ -667,6 +667,16 @@ a.ev:hover .t{color:var(--pink)}
 .p-ev.mini{padding:12px 14px;margin-bottom:8px} .p-ev.mini h3{font-size:20px;margin:4px 0 2px}
 .lineup .bd b.nome{font-size:18px}
 
+/* gosto nas páginas do evento e do perfil */
+.p-ev .s-gosto{position:absolute;top:12px;right:12px;width:34px;height:34px;box-shadow:none}
+.p-ev .s-gosto.on{box-shadow:none}
+.p-ev .p-ev-h{padding-right:44px}
+.s-btn.gosto{display:inline-flex;align-items:center;gap:8px}
+.s-btn.gosto svg{width:18px;height:18px}
+.s-btn.gosto svg path{fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.s-btn.gosto.on{background:#fff;color:var(--pink);border-color:var(--pink)}
+.s-btn.gosto.on svg path{fill:currentColor}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2480,5 +2490,8 @@ function montar(bar){
 window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
 window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, gostos:() => [...GOSTOS]};
+/* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */
+window.STREETFY_GOSTOS = {tem:id => GOSTOS.has(id), lista:() => [...GOSTOS], icone:ICO.coracao,
+  alternar(id){ if (GOSTOS.has(id)) GOSTOS.delete(id); else GOSTOS.add(id); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} montados.forEach(m => m.render(false)); return GOSTOS.has(id); }};
 })();
 </script></body></html>
