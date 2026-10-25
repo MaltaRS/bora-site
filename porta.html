@@ -604,6 +604,10 @@ img{max-width:100%;display:block}
 .p-ev[role="button"]:not(.on):hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
 .p-ev[role="button"]:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
 .p-ev-abrir{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.s-btn.icone{width:46px;height:46px;padding:0;display:inline-flex;align-items:center;justify-content:center;position:relative}
+.s-btn.icone.ok{background:var(--mint);color:var(--ink);border-color:var(--ink)}
+.s-btn.icone.ok::after{content:"Copiado";position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:var(--ink);color:#fff;font:800 10px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;padding:6px 8px;border-radius:6px;white-space:nowrap}
+.s-btn.icone.falhou{opacity:.5}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

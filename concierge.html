@@ -604,6 +604,10 @@ img{max-width:100%;display:block}
 .p-ev[role="button"]:not(.on):hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
 .p-ev[role="button"]:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
 .p-ev-abrir{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.s-btn.icone{width:46px;height:46px;padding:0;display:inline-flex;align-items:center;justify-content:center;position:relative}
+.s-btn.icone.ok{background:var(--mint);color:var(--ink);border-color:var(--ink)}
+.s-btn.icone.ok::after{content:"Copiado";position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:var(--ink);color:#fff;font:800 10px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;padding:6px 8px;border-radius:6px;white-space:nowrap}
+.s-btn.icone.falhou{opacity:.5}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
