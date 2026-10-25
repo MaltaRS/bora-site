@@ -349,14 +349,13 @@ img{max-width:100%;display:block}
 @media (max-width:640px){.ev-row{grid-template-columns:56px 1fr auto auto}.ev-row .s-gosto{width:30px;height:30px}.ev-row .s-gosto svg{width:15px;height:15px}}
 .p-hero .fres .fvista button.on,.s-dark .fres .fvista button.on{background:var(--mint);color:var(--ink)}
 
-/* grupos por tempo na lista da Hoje: a rolar · já já rola · vai rolar · já rolou */
-.fgrupo{grid-column:1/-1;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin:14px 0 -6px;font-family:var(--fd);font-weight:400;font-size:clamp(26px,3vw,34px);text-transform:uppercase;line-height:1}
+/* grupos por tempo na lista da Hoje: o nome do grupo é o título grande da secção */
+.fgrupo{grid-column:1/-1;display:grid;gap:8px;margin:30px 0 -4px;font-family:var(--fd);font-weight:400;font-size:clamp(34px,5vw,72px);text-transform:uppercase;line-height:.92;letter-spacing:.01em}
 .fgrupo:first-child{margin-top:0}
-.fgrupo small{font:700 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
-.fgrupo.rolando b{color:var(--pink)}
-.fgrupo.rolando b::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--pink);margin-right:10px;vertical-align:middle;animation:fpulse 1.4s infinite}
+.fgrupo .tit em{color:var(--pink);font-style:normal}
+.fgrupo.rolando .tit::before{content:"";display:inline-block;width:.32em;height:.32em;border-radius:50%;background:var(--pink);margin-right:.22em;vertical-align:.2em;animation:fpulse 1.4s infinite}
 @keyframes fpulse{0%,100%{opacity:1}50%{opacity:.3}}
-.fgrupo.rolou b{color:var(--grey)}
+.fgrupo.rolou .tit{color:var(--grey)}
 .s-cards .passou,.cards-l .passou,.vista-lista .passou{opacity:.55}
 .s-card.passou .s-im,.card-l.passou .s-im,.ev-row.passou .im{filter:grayscale(1) contrast(1)}
 
