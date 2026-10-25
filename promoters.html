@@ -379,6 +379,27 @@ img{max-width:100%;display:block}
 .p-hero .fbar .fbusca.on input,.s-dark .fbar .fbusca.on input{color:var(--ink)}
 .p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:var(--ink)}
 
+/* menu do cabeçalho no telemóvel */
+.s-burger{display:none;width:44px;height:44px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0;flex:0 0 auto;box-shadow:3px 3px 0 var(--ink)}
+.s-burger i{display:block;width:20px;height:2.5px;background:currentColor;border-radius:2px;transition:transform .2s,opacity .2s}
+.s-nav.aberto .s-burger i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.s-nav.aberto .s-burger i:nth-child(2){opacity:0}
+.s-nav.aberto .s-burger i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.s-menu .so-movel{display:none}
+@media (max-width:900px){
+  .s-burger{display:flex;margin-left:auto}
+  .s-nav .s-lang,.s-nav .s-btn{margin-left:auto}
+  .s-nav .s-lang ~ .s-burger,.s-nav .s-btn ~ .s-burger{margin-left:0}
+  .s-nav.aberto{background:var(--paper);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .s-nav.aberto .s-menu{display:flex;flex-direction:column;gap:2px;position:absolute;left:0;right:0;top:100%;margin:0;background:var(--paper);color:var(--ink);padding:10px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));border-bottom:2px solid var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.14);max-height:calc(100vh - 72px);overflow:auto}
+  .s-nav.aberto .s-menu a{display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}
+  .s-nav.aberto .s-menu a::after{display:none}
+  .s-nav.aberto .s-menu .so-movel{display:block;margin-top:14px}
+  .s-nav.aberto .s-menu .so-movel a{display:inline-block;font:inherit;font-weight:800;font-size:14px;text-transform:none;border-bottom:0;padding:12px 18px}
+  html.menu-aberto{overflow:hidden}
+}
+@media (max-width:640px){.s-nav .s-wrap > .s-burger{margin-left:auto}.s-nav .s-lang ~ .s-burger{margin-left:0}}
+
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
 .p-hero .s-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.3) brightness(.6)}
@@ -1228,8 +1249,9 @@ a.ev:hover .t{color:var(--pink)}
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
 <a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
-<ul class="s-menu"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li></ul>
+<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
+<button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><section class="p-hero" style="min-height:600px"><div class="s-bg" style="background-image:url(img/club.jpg)"></div><div class="s-tint"></div><div class="s-wrap"><span class="g spray mint" style="right:4%;top:14%;font-size:clamp(44px,7vw,120px);transform:rotate(-8deg)" aria-hidden="true">quem manda</span><div class="crumbs"><a href="index.html">Streetfy</a> › <span>Promoters</span></div><h1 class="s-h">QUEM MANDA<br><em>NA NOITE</em></h1><p class="s-lead">Promoters indicam o que vale hoje, com cara e nota. A nota só vem de quem esteve lá, e o nível sobe e desce sozinho, toda a semana.</p></div></section><section class="s-sec tight ph-map"><div class="mapa-v5 mapa-fundo" id="mapa-promoters" data-mapa role="region" aria-label="Mapa com as indicações de hoje dos promoters"><script type="application/json">{"centro": [38.7095, -9.142], "zoom": 16, "tema": "claro", "pinos": [{"lat": 38.7066, "lng": -9.1443, "t": "Pensão Amor", "hot": true, "n": "Marco S."}, {"lat": 38.7057, "lng": -9.1486, "t": "B.Leza", "n": "Rita M."}, {"lat": 38.7111, "lng": -9.148, "t": "Park Bar", "n": "Tiago R."}, {"lat": 38.7099, "lng": -9.1304, "t": "Clube de Fado", "n": "Inês C."}, {"lat": 38.7141, "lng": -9.121, "t": "Lux Frágil", "n": "Rita M."}, {"lat": 38.7128, "lng": -9.1448, "t": "Bairro Alto"}], "fundo": true, "foco": [38.7066, -9.1443], "focoX": 0.88, "focoY": 0.6}</script></div><div class="placa " style="left:4%;top:9%;transform:rotate(-3deg)" aria-hidden="true"><small>Rua</small>Nova do Carvalho</div><div class="placa mint" style="left:5%;bottom:12%;transform:rotate(3deg)" aria-hidden="true"><small>4 promoters</small>Hoje indicam</div><span class="coord" style="right:4%;bottom:12%" aria-hidden="true"><i></i>38°42′24″N · 9°08′39″W · 3 PROMOTERS QUE SEGUES</span><div class="s-wrap"><div class="ph-row rv"><div class="v5 site-ph" data-screen="U39"></div><div class="v5 site-ph" data-screen="U40"></div><div class="v5 site-ph" data-screen="U41"></div></div></div><a class="osm" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></section><section class="s-sec tight"><div class="s-wrap"><p class="s-eyebrow rv">Como funciona</p><h2 class="s-h rv d1" style="font-size:clamp(40px,6vw,88px)">INDICA, VAI, <em>VALEU?</em></h2><div class="steps5" style="margin-top:26px"><div class="rv"><i>01</i><b>INDICA</b><span>O promoter escolhe até 3 eventos do catálogo por dia em "Hoje vou a". Nada de texto livre, nada de bebida.</span></div><div class="rv d1"><i>02</i><b>SEGUE</b><span>Quem o segue recebe um resumo diário e vê "indicado por 4 promoters que segues" no cartão do evento.</span></div><div class="rv d2"><i>03</i><b>VAI</b><span>Chegas, o app pergunta "Estás no Lux?", fazes check-in. É isso que conta como presença verificada.</span></div><div class="rv d3"><i>04</i><b>VALEU?</b><span>No dia seguinte, só quem esteve lá responde de 1 a 5. O promoter vê a média, nunca quem respondeu.</span></div></div></div></section><section class="s-sec tight"><div class="s-wrap"><p class="s-eyebrow rv">Níveis</p><h2 class="s-h rv d1" style="font-size:clamp(40px,6vw,88px)">SOBE <em>SOZINHO</em>, DESCE TAMBÉM</h2><div class="tbl-l rv" style="margin-top:22px"><table><thead><tr><th>Nível</th><th>Para chegar (30 dias)</th><th>O que abre</th></tr></thead><tbody><tr><td><b>Gente</b></td><td>qualquer pessoa</td><td>"Vou" e "quero ir", como hoje</td></tr><tr><td><b>Promoter da rua</b></td><td>50 seguidores · 10 presenças verificadas · nota 4,0</td><td>selo, 3 indicações por dia, lista de convidados</td></tr><tr><td><b>Promoter do bairro</b></td><td>300 · 100 · 4,3</td><td>5 indicações, comissão nos bilhetes pelo teu link, mesa</td></tr><tr><td><b>Promoter da cidade</b></td><td>2.000 · 600 · 4,5</td><td>topo da página, convites de parceiros, "A tua festa" até 500</td></tr></tbody></table></div><p class="s-lead rv" style="margin-top:16px;font-size:16px">Recalculado toda a semana. Trinta dias sem indicar, ou nota abaixo do piso, desce um degrau. Seguidor comprado ou indicação falsa confirmada tira o selo.</p></div></section><section class="s-sec tight"><div class="s-wrap"><p class="s-eyebrow rv">As regras</p><h2 class="s-h rv d1" style="font-size:clamp(40px,6vw,88px)">SEM <em>CARTAZ ESCONDIDO</em></h2><div class="prom-l" style="margin-top:26px">
 <div class="rv"><span class="code">R67</span><b>COMISSÃO <em>À VISTA</em></b><span>Indicação de lugar que paga ao promoter leva a etiqueta "comissão". O parceiro declara por evento; sem declaração, não há comissão.</span></div>
 <div class="rv d1"><span class="code">R68</span><b>NOTA DE QUEM <em>ESTEVE</em></b><span>Só quem fez check-in no evento indicado responde, uma vez. Média de 90 dias, pública a partir de 10 respostas.</span></div>
@@ -2277,5 +2299,16 @@ function auto(){
 window.BORA_MAPA = {criar, atualizar, telefones, auto, registo};
 auto();
 window.addEventListener('load', () => { telefones(); document.querySelectorAll('.leaflet-container').forEach(el => { const h = registo.get(el); if (h) h.map.invalidateSize(false); }); });
+})();
+</script><script>/* Streetfy · nav.js — menu do cabeçalho no telemóvel: o botão abre e fecha a lista; fecha ao tocar num link, com Escape ou ao alargar o ecrã. */
+(function(){
+'use strict';
+const nav = document.getElementById('nav'); if (!nav) return;
+const b = nav.querySelector('.s-burger'); if (!b) return;
+const abrir = v => { nav.classList.toggle('aberto', v); b.setAttribute('aria-expanded', String(v)); document.documentElement.classList.toggle('menu-aberto', v); };
+b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
+nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
+window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
 })();
 </script></body></html>

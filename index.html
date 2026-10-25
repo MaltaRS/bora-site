@@ -382,6 +382,27 @@ img{max-width:100%;display:block}
 .p-hero .fbar .fbusca button,.s-dark .fbar .fbusca button{background:#fff;color:var(--ink)}
 .p-hero .fbar .fbusca.on input,.s-dark .fbar .fbusca.on input{color:var(--ink)}
 .p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:var(--ink)}
+
+/* menu do cabeçalho no telemóvel */
+.s-burger{display:none;width:44px;height:44px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0;flex:0 0 auto;box-shadow:3px 3px 0 var(--ink)}
+.s-burger i{display:block;width:20px;height:2.5px;background:currentColor;border-radius:2px;transition:transform .2s,opacity .2s}
+.s-nav.aberto .s-burger i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.s-nav.aberto .s-burger i:nth-child(2){opacity:0}
+.s-nav.aberto .s-burger i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.s-menu .so-movel{display:none}
+@media (max-width:900px){
+  .s-burger{display:flex;margin-left:auto}
+  .s-nav .s-lang,.s-nav .s-btn{margin-left:auto}
+  .s-nav .s-lang ~ .s-burger,.s-nav .s-btn ~ .s-burger{margin-left:0}
+  .s-nav.aberto{background:var(--paper);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .s-nav.aberto .s-menu{display:flex;flex-direction:column;gap:2px;position:absolute;left:0;right:0;top:100%;margin:0;background:var(--paper);color:var(--ink);padding:10px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));border-bottom:2px solid var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.14);max-height:calc(100vh - 72px);overflow:auto}
+  .s-nav.aberto .s-menu a{display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}
+  .s-nav.aberto .s-menu a::after{display:none}
+  .s-nav.aberto .s-menu .so-movel{display:block;margin-top:14px}
+  .s-nav.aberto .s-menu .so-movel a{display:inline-block;font:inherit;font-weight:800;font-size:14px;text-transform:none;border-bottom:0;padding:12px 18px}
+  html.menu-aberto{overflow:hidden}
+}
+@media (max-width:640px){.s-nav .s-wrap > .s-burger{margin-left:auto}.s-nav .s-lang ~ .s-burger{margin-left:0}}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -826,16 +847,17 @@ img{max-width:100%;display:block}
 </svg><header class="s-nav" id="nav">
   <div class="s-wrap">
     <a class="s-logo" href="#top"><i></i><span>STREET<em>FY</em></span></a>
-    <ul class="s-menu">
+    <ul class="s-menu" id="menu-nav">
       <li><a href="hoje.html" data-i18n="m1">Hoje</a></li>
       <li><a href="#como" data-i18n="m2">Como funciona</a></li>
       <li><a href="experiencias.html" data-i18n="m3">Experiências</a></li>
       <li><a href="festa.html" data-i18n="m4">A tua festa</a></li>
       <li><a href="promoters.html" data-i18n="m6">Promoters</a></li>
       <li><a href="parceiros.html" data-i18n="m5">Parceiros</a></li>
-    </ul>
+    <li class="so-movel"><a class="s-btn ink" href="app.html" data-i18n="cta0">Descarregar</a></li></ul>
     <div class="s-lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
     <a class="s-btn ink" href="app.html" data-i18n="cta0">Descarregar</a>
+  <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
   </div>
 </header>
 
@@ -1971,6 +1993,18 @@ function setLang(l){
 document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', ev => { ev.preventDefault(); setLang(b.dataset.lang); }));
 let saved = 'pt'; try { saved = localStorage.getItem('bora-lang') || 'pt'; } catch (e) {}
 if (saved === 'en') setLang('en');
+})();
+</script><script>
+/* Streetfy · nav.js — menu do cabeçalho no telemóvel: o botão abre e fecha a lista; fecha ao tocar num link, com Escape ou ao alargar o ecrã. */
+(function(){
+'use strict';
+const nav = document.getElementById('nav'); if (!nav) return;
+const b = nav.querySelector('.s-burger'); if (!b) return;
+const abrir = v => { nav.classList.toggle('aberto', v); b.setAttribute('aria-expanded', String(v)); document.documentElement.classList.toggle('menu-aberto', v); };
+b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
+nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
+window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
 })();
 </script><script src="dados-bot.js?v=1792955976" data-v="1792955976"></script><script>
 /* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.

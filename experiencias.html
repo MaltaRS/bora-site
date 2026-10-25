@@ -379,6 +379,27 @@ img{max-width:100%;display:block}
 .p-hero .fbar .fbusca.on input,.s-dark .fbar .fbusca.on input{color:var(--ink)}
 .p-hero .fbar .fbusca.on svg,.s-dark .fbar .fbusca.on svg{color:var(--ink)}
 
+/* menu do cabeçalho no telemóvel */
+.s-burger{display:none;width:44px;height:44px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0;flex:0 0 auto;box-shadow:3px 3px 0 var(--ink)}
+.s-burger i{display:block;width:20px;height:2.5px;background:currentColor;border-radius:2px;transition:transform .2s,opacity .2s}
+.s-nav.aberto .s-burger i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.s-nav.aberto .s-burger i:nth-child(2){opacity:0}
+.s-nav.aberto .s-burger i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.s-menu .so-movel{display:none}
+@media (max-width:900px){
+  .s-burger{display:flex;margin-left:auto}
+  .s-nav .s-lang,.s-nav .s-btn{margin-left:auto}
+  .s-nav .s-lang ~ .s-burger,.s-nav .s-btn ~ .s-burger{margin-left:0}
+  .s-nav.aberto{background:var(--paper);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+  .s-nav.aberto .s-menu{display:flex;flex-direction:column;gap:2px;position:absolute;left:0;right:0;top:100%;margin:0;background:var(--paper);color:var(--ink);padding:10px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));border-bottom:2px solid var(--ink);box-shadow:0 18px 40px rgba(0,0,0,.14);max-height:calc(100vh - 72px);overflow:auto}
+  .s-nav.aberto .s-menu a{display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}
+  .s-nav.aberto .s-menu a::after{display:none}
+  .s-nav.aberto .s-menu .so-movel{display:block;margin-top:14px}
+  .s-nav.aberto .s-menu .so-movel a{display:inline-block;font:inherit;font-weight:800;font-size:14px;text-transform:none;border-bottom:0;padding:12px 18px}
+  html.menu-aberto{overflow:hidden}
+}
+@media (max-width:640px){.s-nav .s-wrap > .s-burger{margin-left:auto}.s-nav .s-lang ~ .s-burger{margin-left:0}}
+
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
 .p-hero .s-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.3) brightness(.6)}
@@ -1168,8 +1189,9 @@ a.ev:hover .t{color:var(--pink)}
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
 <a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
-<ul class="s-menu"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li></ul>
+<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
+<button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><section class="p-hero" style="min-height:640px"><div class="s-bg" style="background-image:url(img/aereo.jpg)"></div><div class="s-tint"></div><div class="s-wrap"><span class="g spray mint" style="right:2%;top:14%;font-size:clamp(60px,9vw,150px);transform:rotate(-9deg)" aria-hidden="true">voa</span><div class="crumbs"><a href="index.html">Streetfy</a> › <span>Experiências</span></div><h1 class="s-h">LISBOA DE <em>CIMA</em>,<br>DO RIO E DA NOITE</h1><p class="s-lead">Helicóptero, lancha, balão, mesa VIP, chef em casa, after privado e um concierge humano para o resto. Operador licenciado, preço final no primeiro toque e garantia do tempo em tudo.</p><div class="fbar"><span class="f"><small>Onde</small>Lisboa, PT</span><span class="f"><small>Tipo</small>Céu, água, noite</span><span class="f"><small>Quando</small>sáb 25 out</span><span class="f"><small>Pessoas</small>2</span><span class="f on"><small>Como</small>Instantânea</span></div><div class="s-ctas" style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap"><a class="s-btn mint" href="ceu.html">Procurar</a><a class="s-btn ghost-dark" href="concierge.html">Pedir ao concierge</a></div></div></section><section class="s-sec "><div class="s-wrap"><p class="s-eyebrow rv">Oito famílias</p><h2 class="s-h rv d1" style="font-size:clamp(40px,6vw,88px)">ESCOLHE <em>A TUA</em> NOITE</h2>
 <div class="fam" style="margin-top:26px">
 <a class="rv" href="ceu.html"><div class="s-im" style="background-image:url(img/heli.jpg)"></div><span class="n">14</span><h3>CÉU</h3><p>Helicóptero, avião e balão. Do Tejo a Monsaraz.</p></a>
@@ -2122,5 +2144,16 @@ if(window.BORA&&window.BORA_XP){
   const SC=window.BORA_SCREENS||[],R=window.BORA_R||{},K5=(window.BORA_NEWH&&window.BORA_NEWH.skin5)||(B.SKINS||[]).find(x=>x.id==='v5');
   document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
+})();
+</script><script>/* Streetfy · nav.js — menu do cabeçalho no telemóvel: o botão abre e fecha a lista; fecha ao tocar num link, com Escape ou ao alargar o ecrã. */
+(function(){
+'use strict';
+const nav = document.getElementById('nav'); if (!nav) return;
+const b = nav.querySelector('.s-burger'); if (!b) return;
+const abrir = v => { nav.classList.toggle('aberto', v); b.setAttribute('aria-expanded', String(v)); document.documentElement.classList.toggle('menu-aberto', v); };
+b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
+nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
+window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
 })();
 </script></body></html>
