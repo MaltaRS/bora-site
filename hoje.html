@@ -2168,7 +2168,7 @@ const nome = x => (lang() === 'en' && x.nomeEn) ? x.nomeEn : x.nome;
 const paisDe = id => PAISES.find(p => p.id === id) || PAISES[0];
 const cidadeDe = (pais, id) => pais.cidades.find(c => c.id === id) || pais.cidades[0];
 /* estilos nos chips: primeiro os do catálogo do parceiro, só depois os que o bot trouxe (R75) */
-const estilosDe = cid => { const n = {}; ITENS.filter(i => i.cidade === cid).forEach(i => { n[i.estilo] = (n[i.estilo] || 0) + (i.origem === 'bot' ? 0.01 : 1); }); return Object.keys(n).sort((a, b) => n[b] - n[a]).slice(0, 8); };
+const estilosDe = cid => { const n = {}; ITENS.filter(i => i.cidade === cid).forEach(i => { n[i.estilo] = (n[i.estilo] || 0) + (i.origem === 'bot' ? 0.001 : 1); }); return Object.keys(n).sort((a, b) => n[b] - n[a]).slice(0, 8); };
 const preco = i => i.preco === 0 ? T().livre : (typeof i.preco === 'number' ? '€' + i.preco : i.preco);
 const tag = i => T().tags[i.tag] || i.tag;
 
