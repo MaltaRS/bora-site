@@ -677,6 +677,26 @@ a.ev:hover .t{color:var(--pink)}
 .s-btn.gosto.on{background:#fff;color:var(--pink);border-color:var(--pink)}
 .s-btn.gosto.on svg path{fill:currentColor}
 
+/* álbum do Instagram · últimos 30 dias, em blocos (R91–R93) */
+.al{display:grid;gap:14px}
+.al-top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.al-cred{font-size:12px;color:var(--grey);font-weight:600}
+.al-bloco{border:2px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;min-width:0}
+.al-bloco.evento{box-shadow:5px 5px 0 var(--ink)}
+.al-bloco.on{box-shadow:5px 5px 0 var(--pink)}
+.al-bloco header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.al-bloco header b{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:22px;line-height:1;display:block}
+.al-bloco header span{font-size:12px;color:var(--grey);display:block;margin-top:4px}
+.al-ir{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink);text-decoration:none;white-space:nowrap;padding-top:4px}
+.al-fotos{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:thin}
+.al-foto{flex:0 0 118px;scroll-snap-align:start;text-decoration:none;color:inherit;min-width:0}
+.al-foto .im{aspect-ratio:4/5;border-radius:10px;border:2px solid var(--ink);background-size:cover;background-position:center;background-color:#f3f3f3;filter:grayscale(1) contrast(1.2);transition:filter .3s}
+.al-foto:hover .im{filter:none}
+.al-foto .im.txt{display:grid;place-items:center;padding:10px;background:var(--ink);color:#fff;font-size:11px;line-height:1.3;text-align:center;filter:none;overflow:hidden}
+.al-foto figcaption{font-size:10px;color:var(--grey);margin-top:4px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.al-mais{font:800 12px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--pink);text-decoration:none}
+.al-nota{font-size:12px;color:var(--grey);margin:0}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -2044,6 +2064,16 @@ window.BORA_NEW.push(
    + '<div class="row"><div><div class="t">Fora da ficha</div><div class="s">"serviço de shisha" e promoções de bebida não entram (R79)</div></div><span class="end mu">ok</span></div>'
    + '<div style="display:flex;gap:8px;margin-top:6px">' + btn('Publicar', 'mint') + btn('Corrigir', 'ghost') + '</div>'
    + note('Publicado entra como evento do parceiro, com bilhete e reserva. Sem confirmação, fica rascunho 7 dias e some. A IA nunca publica bebida nem inventa hora ou preço.')},
+ {c:'E11', n:'Álbum do Instagram', t:'10:20', dark:true, f:() =>
+   bar('back', 'Fotos · últimos 30 dias', null)
+   + '<div class="guar" style="background:rgba(111,227,165,.14);border-color:var(--ac2)">' + ico('check', 'ic s') + '<span><b>A IA montou 3 blocos com 6 publicações do @djunnsteakhouse</b>Aprova, edita ou tira. Sem resposta, sai assim com a etiqueta "montado pela IA".</span></div>'
+   + [['Tardezinha do Djunn', 'evento · dom 12 out · ligado ao evento', ['dj', 'club'], true], ['Halloween no Djunn', 'evento · sex 31 out', ['noite'], true], ['Cozinha', 'tema · prato do dia, menu executivo, feijoada', ['ribeira', 'alfama', 'pink'], false]].map(b =>
+     '<div class="ocard"' + (b[3] ? ' style="border-color:var(--ac2)"' : '') + '><div class="hd3"><b>' + b[0] + '</b><span style="font-size:10.5px;color:var(--mu)">' + b[2].length + (b[2].length === 1 ? ' foto' : ' fotos') + '</span></div><div class="it" style="color:var(--mu)">' + b[1] + '</div>'
+     + '<div style="display:flex;gap:6px;margin:8px 0 2px">' + b[2].map(n => av(n, 'width:50px;height:62px;border-radius:8px;flex:0 0 auto')).join('') + '<span style="width:50px;height:62px;border-radius:8px;border:1.5px dashed var(--ln);display:grid;place-items:center;color:var(--mu);font-size:18px">+</span></div>'
+     + '<div style="display:flex;gap:6px;margin-top:6px">' + btn('Aprovar', 'mint') + btn('Editar', 'ghost') + btn('Tirar', 'ghost') + '</div></div>').join('')
+   + '<div class="tog"><span><span class="t">Fixar "Tardezinha do Djunn"</span><span class="s">não cai ao passar dos 30 dias</span></span>' + swt(true) + '</div>'
+   + '<div style="display:flex;gap:8px;margin-top:6px">' + btn('Aprovar tudo', 'mint') + btn('Reordenar', 'ghost') + '</div>'
+   + note('Só entra o que a conta ligada publicou nos últimos 30 dias. Podes renomear, trocar fotos de bloco, tirar ou fixar. Cada foto leva crédito e abre a publicação. Foto apagada no Instagram sai daqui na montagem seguinte.')},
  {c:'E09', n:'Modo bandeja', t:'00:41', dark:true, f:() =>
    bar('back', 'Bandeja · Rui · Pista 1', null)
    + '<div class="stats"><div><b>26</b><small>na bandeja</small></div><div><b>9</b><small>reservadas</small></div><div><b>€71</b><small>já pagos</small></div></div>'
@@ -2067,7 +2097,7 @@ const flows = {
   lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U42, N.U37, N.U38],
   gente:[ex('U14', 'A pergunta', 'ask'), ex('U18', 'Quem está aqui', 'here'), N.U17, N.U19, N.U33, N.U25, N.U26, N.U39, N.U40, N.U41],
   agenda:[N.U13, ex('U15', 'Meu perfil', 'profile', 4), N.U16, N.U22, N.U23, N.U24, N.U27, N.U28, N.U29, N.U30],
-  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10]
+  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10, N.E11]
 };
 Object.keys(flows).forEach(k => { const el = document.querySelector('.stage[data-flow="' + k + '"]'); if (el) el.innerHTML = flows[k].map(cell).join(''); });
 const groups = []; XP.S.forEach(s => { if (!groups.includes(s.g)) groups.push(s.g); });
