@@ -1334,6 +1334,12 @@ html.cm-t-cabare .ca-hero.com-logo .s-wrap::before{display:none}
 .pt-modo{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}.pt-modo button{all:unset;cursor:pointer;padding:5px 10px;font:800 12px var(--fb);background:#fff}.pt-modo button.on{background:var(--ink);color:#fff}
 .pt-mm .mm-h img{max-height:26px;max-width:80%;object-fit:contain;justify-self:start;margin-bottom:2px}
 .pt-mm.cm-t-fino .mm-h img,.pt-mm.cm-t-cabare .mm-h img{justify-self:center}
+.cm-gj{display:flex;align-items:center;gap:6px;width:100%;border:2px solid var(--ink);border-radius:12px;padding:4px 12px;background:var(--card,#fff);box-sizing:border-box}
+.cm-gj span{font-weight:800;font-size:18px}
+.cm-gj input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:20px;font-weight:800;padding:6px 0;color:var(--ink);font-variant-numeric:tabular-nums;outline:none}
+.cm-gj:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--pink) 45%,transparent)}
+html.cm-tpl .cm-gj{border-width:var(--bw);border-radius:var(--r)}html.cm-t-esplanada .cm-gj{border:1.5px solid var(--line)}
+html.cm-tpl .cm-op>div:not(.cm-q) button.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1511,7 +1517,7 @@ const precoDe = p => { const m = /^€\s*(\d+(?:[.,]\d+)?)$/.exec(String(p || ''
 const supDe = p => { const m = /^\+\s*€\s*(\d+(?:[.,]\d+)?)/.exec(String(p || '')); return m ? parseFloat(m[1].replace(',', '.')) : 0; };
 let k = '', c = null, S = null, vista = null, fixo = {};
 const chave = () => 'streetfy:mesa:' + k;
-const novo = () => ({mesa:'', desde:0, cart:[], pedidos:[], chamadas:[], pago:null, gorjeta:10, pessoas:1, fatura:false, nifs:[], tudoEu:false});
+const novo = () => ({mesa:'', desde:0, cart:[], pedidos:[], chamadas:[], pago:null, gorjeta:10, gjTxt:'', pessoas:1, fatura:false, nifs:[], tudoEu:false});
 /* NIF português: 9 dígitos, prefixo válido e dígito de controlo (módulo 11), como no e-fatura */
 const nifOk = n => { if (!/^\d{9}$/.test(n) || !/^(1|2|3|45|5|6|70|71|72|74|75|77|79|8|90|91|98|99)/.test(n)) return false; let t = 0; for (let i = 0; i < 8; i++) t += +n[i] * (9 - i); const r = t % 11, d = r < 2 ? 0 : 11 - r; return d === +n[8]; };
 const nifFmt = n => n.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
@@ -1533,6 +1539,9 @@ const grava = () => { try { localStorage.setItem(chave(), JSON.stringify(S)); } 
 const SV = () => CA.servico(k);
 const qtdCart = () => S.cart.reduce((a, i) => a + i.q, 0), totCart = () => S.cart.reduce((a, i) => a + i.q * i.p, 0);
 const enviados = () => S.pedidos.flatMap(p => p.itens), totConta = () => enviados().reduce((a, i) => a + i.q * i.p, 0);
+/* gorjeta: percentagem fixa ou "Outro", um valor em euros escrito à mão (no máximo o valor da conta) */
+const gjNum = () => { const v = parseFloat(String(S.gjTxt || '').replace(',', '.')); return isFinite(v) && v > 0 ? v : 0; };
+const gjDe = sub => S.gorjeta === 'outro' ? Math.min(gjNum(), sub) : Math.round(sub * S.gorjeta) / 100;
 const ESTADOS = [[20, 'Recebido', 'a casa já viu o teu pedido'], [60, 'A preparar', 'na cozinha ou no bar'], [90, 'A caminho', 'vai já para a mesa'], [1e12, 'Entregue', 'bom proveito']];
 const estado = p => { const s = (Date.now() - p.t) / 1000; return ESTADOS.findIndex(e => s < e[0]); };
 
@@ -1612,7 +1621,7 @@ function folha(v){
       + '<form class="cm-outro" data-cm-outro><input name="m" placeholder="Outro pedido (ex.: cadeira de bebé)" aria-label="Outro pedido"><button class="s-btn ink" type="submit">Chamar</button></form>';
   } else if (v === 'conta') {
     t = 'A conta · mesa ' + S.mesa;
-    const itens = enviados(), sub = totConta(), gj = sv.pagar ? Math.round(sub * S.gorjeta) / 100 : 0, tot = sub + gj, pp = S.tudoEu ? tot : tot / S.pessoas;
+    const itens = enviados(), sub = totConta(), gj = sv.pagar ? gjDe(sub) : 0, tot = sub + gj, pp = S.tudoEu ? tot : tot / S.pessoas;
     const dividir = '<div class="cm-op"><span>Dividir</span><div class="cm-q"><button type="button" data-cm="pessoas" data-d="-1">−</button><b>' + S.pessoas + '</b><button type="button" data-cm="pessoas" data-d="1">+</button></div>'
       + (S.pessoas > 1 ? '<div class="cm-modo">' + [[false, 'Cada um paga a sua'], [true, 'Pago tudo eu']].map(([v, n]) => '<button type="button" data-cm="tudo" data-v="' + v + '" class="' + (S.tudoEu === v ? 'on' : '') + '">' + n + '</button>').join('') + '</div><small>' + (S.tudoEu ? 'pagas tudo, com ' + S.pessoas + ' faturas separadas de ' + eur(tot / S.pessoas) : 'cada um paga ' + eur(tot / S.pessoas) + ' no próprio telemóvel') + '</small>' : '<small>uma só fatura</small>') + '</div>';
     const faturas = p => p.f ? '<ul class="cm-fat">' + p.f.map((x, i) => '<li><span>Fatura ' + (i + 1) + ' · ' + (x.nif && nifOk(x.nif) ? 'NIF ' + nifFmt(x.nif) + (x.nome ? ' · ' + esc(x.nome) : '') : 'consumidor final') + '</span><b>' + eur(p.tot / p.f.length) + '</b></li>').join('') + '</ul>' : '';
@@ -1621,7 +1630,8 @@ function folha(v){
       + '<div class="cm-tot"><span>Subtotal</span><b>' + eur(sub) + '</b></div>'
       + (S.pago ? '<div class="cm-ok">✓ <b>Conta paga às ' + hora(S.pago.t) + '</b> · ' + eur(S.pago.v) + ' com ' + esc(S.pago.m) + (S.pago.p > 1 && !S.pago.tudo ? ' · a tua parte, de ' + S.pago.p + ' (cada um paga a sua no próprio telemóvel)' : '') + '.</div>' + faturas(S.pago) + '<p class="al-nota">' + (S.pago.f ? 'Faturas certificadas enviadas para o app e para o e-fatura.' : 'Fatura simplificada, sem NIF, no app.') + '</p><button type="button" class="s-btn ink cm-go" data-cm="fechar-mesa">Fechar mesa</button>'
         : sv.pagar && itens.length
-        ? '<div class="cm-op"><span>Gorjeta</span><div>' + [0, 5, 10, 15].map(g => '<button type="button" data-cm="gorjeta" data-g="' + g + '" class="' + (S.gorjeta === g ? 'on' : '') + '">' + (g ? g + '%' : 'sem') + '</button>').join('') + '</div></div>'
+        ? '<div class="cm-op"><span>Gorjeta</span><div>' + [0, 5, 10, 15, 'outro'].map(g => '<button type="button" data-cm="gorjeta" data-g="' + g + '" class="' + (S.gorjeta === g ? 'on' : '') + '" aria-pressed="' + (S.gorjeta === g) + '">' + (g === 'outro' ? 'Outro' : g ? g + '%' : 'sem') + '</button>').join('') + '</div>'
+          + (S.gorjeta === 'outro' ? '<label class="cm-gj"><span>€</span><input data-cm-gj inputmode="decimal" autocomplete="off" placeholder="0,00" value="' + esc(S.gjTxt) + '" aria-label="Valor da gorjeta em euros"></label><small>' + (gjNum() > sub ? 'no máximo o valor da conta: fica ' + eur(sub) : gjNum() ? 'são ' + String(Math.round(gjNum() / sub * 1000) / 10).replace('.', ',') + '% da conta' + (S.pessoas > 1 && !S.tudoEu ? ', dividida pelas ' + S.pessoas + ' partes' : '') : 'escreve quanto queres deixar · vai inteira para a equipa') + '</small>' : '') + '</div>'
           + dividir + blocoNif()
           + '<div class="cm-tot grande"><span>' + (S.pessoas > 1 && !S.tudoEu ? 'A tua parte' : 'Total') + (gj ? ' · com ' + eur(S.pessoas > 1 && !S.tudoEu ? gj / S.pessoas : gj) + ' de gorjeta' : '') + '</span><b>' + eur(pp) + '</b></div>'
           + '<p class="cm-nif-aviso"' + (nifErro() ? '' : ' hidden') + '>Corrige o NIF inválido ou apaga-o para pagar.</p><div class="cm-pay">' + ['Apple Pay', 'Google Pay', 'MB WAY', 'Cartão guardado'].map(m => '<button type="button" class="s-btn ' + (m === 'Apple Pay' ? 'ink' : 'ghost') + '" data-cm="pagar" data-m="' + m + '"' + (nifErro() ? ' disabled' : '') + '>' + m + '</button>').join('') + '</div><p class="al-nota">Protótipo: nenhum pagamento é feito. No app, o pagamento confirma na carteira do telemóvel e a mesa fecha sozinha.</p>'
@@ -1641,10 +1651,11 @@ function montar(){
 }
 function fechaFolha(){ const sh = el.querySelector('.cm-sh'); if (sh) sh.hidden = true; vista = null; document.documentElement.classList.remove('lb-aberta'); }
 function desenha(){
-  const y = window.scrollY, v = vista;
+  const y = window.scrollY, v = vista, sb = el.querySelector('.cm-sh-b'), sy = sb ? sb.scrollTop : 0;
   el.innerHTML = pagina();
   window.scrollTo(0, y);
   if (v === 'montar') montar(); else if (v) folha(v);
+  const nb = el.querySelector('.cm-sh-b'); if (nb && sy) nb.scrollTop = sy;
 }
 
 /* ---------- ações ---------- */
@@ -1661,15 +1672,24 @@ el.addEventListener('click', ev => {
   if (a === 'mais' || a === 'menos') { const i = S.cart.find(x => x.id === b.dataset.id); if (i) { i.q += a === 'mais' ? 1 : -1; if (i.q < 1) S.cart = S.cart.filter(x => x !== i); } }
   if (a === 'enviar' && S.cart.length) { S.pedidos.push({n:S.pedidos.length + 1, t:Date.now(), itens:S.cart.map(i => Object.assign({}, i))}); S.cart = []; vista = 'acomp'; }
   if (a === 'chamar' || a === 'garcom-item') { S.chamadas.push({t:Date.now(), m:a === 'chamar' ? b.dataset.m : 'quero pedir: ' + b.dataset.n}); vista = 'garcom'; }
-  if (a === 'gorjeta') S.gorjeta = +b.dataset.g;
+  if (a === 'gorjeta') S.gorjeta = b.dataset.g === 'outro' ? 'outro' : +b.dataset.g;
   if (a === 'pessoas') { S.pessoas = Math.max(1, Math.min(12, S.pessoas + +b.dataset.d)); if (S.pessoas === 1) S.tudoEu = false; }
   if (a === 'tudo') S.tudoEu = b.dataset.v === 'true';
   if (a === 'pedir-conta') { if (nifErro()) return; S.chamadas.push({t:Date.now(), m:'Trazer a conta' + (S.pessoas > 1 ? ' · dividida em ' + S.pessoas : '') + (S.fatura ? ' · ' + resumoNif() : '')}); vista = 'garcom'; }
-  if (a === 'pagar') { if (nifErro()) return; const sub = totConta(), tot = sub + Math.round(sub * S.gorjeta) / 100; S.pago = {t:Date.now(), m:b.dataset.m, v:S.tudoEu ? tot : tot / S.pessoas, p:S.pessoas, tudo:S.tudoEu, tot, f:S.fatura ? nifsAtivos() : null}; }
+  if (a === 'pagar') { if (nifErro()) return; const sub = totConta(), tot = sub + gjDe(sub); S.pago = {t:Date.now(), m:b.dataset.m, v:S.tudoEu ? tot : tot / S.pessoas, p:S.pessoas, tudo:S.tudoEu, tot, f:S.fatura ? nifsAtivos() : null}; }
   if (a === 'fechar-mesa') { S = novo(); vista = null; document.documentElement.classList.remove('lb-aberta'); try { localStorage.removeItem(chave()); } catch (e) {} desenha(); return; }
   grava(); desenha();
+  if (a === 'gorjeta' && S.gorjeta === 'outro') { const n = el.querySelector('[data-cm-gj]'); if (n) n.focus({preventScroll:true}); }
 });
 el.addEventListener('input', ev => {
+  const gi = ev.target.closest('[data-cm-gj]');
+  if (gi) {
+    let t = gi.value.replace(/\./g, ',').replace(/[^\d,]/g, ''); const i = t.indexOf(',');
+    if (i >= 0) t = t.slice(0, i + 1) + t.slice(i + 1).replace(/,/g, '').slice(0, 2);
+    S.gjTxt = t.slice(0, 7); grava(); desenha();
+    const n = el.querySelector('[data-cm-gj]'); if (n) { n.focus({preventScroll:true}); n.setSelectionRange(n.value.length, n.value.length); }
+    return;
+  }
   const n = ev.target.closest('[data-cm-nif]');
   if (n) {
     const i = +n.dataset.cmNif; if (n.dataset.f === 'nif') n.value = n.value.replace(/\D/g, '').slice(0, 9);
