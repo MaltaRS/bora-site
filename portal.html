@@ -1312,6 +1312,28 @@ html.cm-t-esplanada .s-btn.ghost{border:1.5px solid var(--line)}
 .ca-casa{grid-template-columns:minmax(0,1fr)}
 html.cm-t-fino .cm-nav{justify-content:safe center}
 @media (max-width:640px){.pt-tpls{grid-auto-flow:column;grid-auto-columns:150px;grid-template-columns:none;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}.pt-tpl{scroll-snap-align:start}.pt-sv{margin-left:4px}}
+/* menu · logo da casa por cima da capa */
+.ca-logo{display:block;max-height:96px;max-width:min(260px,70%);object-fit:contain;margin-bottom:14px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
+.ca-logo.so{max-height:150px;max-width:min(360px,80%);margin-bottom:10px}
+.s-h.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html.cm-t-fino .ca-logo,html.cm-t-cabare .ca-logo{margin-inline:auto}
+html.cm-t-cabare .ca-hero.com-logo .s-wrap::before{display:none}
+/* portal · capa e logo */
+.pt-marca{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.pt-mc{display:grid;gap:8px;align-content:start;min-width:0}
+.pt-capas{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:thin}
+.pt-capa{all:unset;cursor:pointer;flex:0 0 auto;width:64px;height:44px;border-radius:8px;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);position:relative}
+.pt-capa.on{outline:3px solid var(--pink);outline-offset:2px}.pt-capa:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.pt-capa span{position:absolute;left:4px;bottom:3px;font:800 9px var(--fb);text-transform:uppercase;letter-spacing:.08em;color:#fff;background:rgba(0,0,0,.6);border-radius:4px;padding:1px 4px}
+.pt-up{justify-self:start;padding:8px 14px!important;font-size:13px!important;cursor:pointer;box-shadow:none!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:#fff!important}
+.pt-dica{color:var(--grey);font-size:11px;font-weight:600;line-height:1.35}
+.pt-logo-l{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pt-logo{width:84px;height:84px;border-radius:12px;display:grid;place-items:center;background:repeating-conic-gradient(#e6e6e6 0 25%,#fff 0 50%) 0 0/14px 14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);flex:0 0 auto}
+.pt-logo img{max-width:76px;max-height:76px;object-fit:contain}.pt-logo.vazio{font-size:11px;font-weight:700;color:var(--grey);background:#f4f4f4}
+.pt-logo-a{display:grid;gap:6px;justify-items:start}
+.pt-modo{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}.pt-modo button{all:unset;cursor:pointer;padding:5px 10px;font:800 12px var(--fb);background:#fff}.pt-modo button.on{background:var(--ink);color:#fff}
+.pt-mm .mm-h img{max-height:26px;max-width:80%;object-fit:contain;justify-self:start;margin-bottom:2px}
+.pt-mm.cm-t-fino .mm-h img,.pt-mm.cm-t-cabare .mm-h img{justify-self:center}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2139,7 +2161,7 @@ function fonte(id){
   const m = MODELOS.find(x => x.id === id); if (!m || !m.gf || vistas[id]) return; vistas[id] = 1;
   const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?' + m.gf + '&display=swap'; document.head.appendChild(l);
 }
-const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
+const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico', LM = 'streetfy:cardapio-marca';
 const ler = () => { try { return JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) { return {}; } };
 window.STREETFY_CARDAPIOS = {
   dados:D,
@@ -2150,6 +2172,11 @@ window.STREETFY_CARDAPIOS = {
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
   servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} },
+  /* marca da casa: capa (foto do Streetfy ou carregada pela casa) e logo; carregadas ficam como data: URL neste aparelho */
+  marca:k => { try { return JSON.parse(localStorage.getItem(LM) || '{}')[k] || {}; } catch (e) { return {}; } },
+  mudarMarca:(k, campo, val) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LM) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:val}); if (!val) delete v[k][campo]; try { localStorage.setItem(LM, JSON.stringify(v)); return true; } catch (e) { return false; } },
+  capa:k => { const m = window.STREETFY_CARDAPIOS.marca(k), v = m.capa || (D[k] || {}).img || 'noite'; return /^data:/.test(v) ? v : 'img/' + v + '.jpg'; },
+  CAPAS:['alfama', 'fado', 'mesa', 'pmercado', 'cocktail', 'shots', 'noite', 'club', 'lux', 'lx', 'pribeira', 'tejo', 'bairro', 'cascais'],
   modelos:MODELOS,
   modelo:id => MODELOS.find(m => m.id === id) || MODELOS[0],
   tema, fonte, contraste
@@ -2243,11 +2270,44 @@ function listas(){
 /* aparência do menu: o modelo mais parecido com a casa e as cores; a miniatura mostra já como fica */
 const estilo = vars => Object.entries(vars).map(([n, v]) => n + ':' + v.replace(/"/g, "'")).join(';');
 function miniatura(k, cfg){
-  const CA = window.STREETFY_CARDAPIOS, c = CA.dados[k], t = CA.tema(cfg);
+  const CA = window.STREETFY_CARDAPIOS, c = CA.dados[k], t = CA.tema(cfg), mc = CA.marca(k);
   const todos = c.secoes.filter(x => !/couvert|bebidas/i.test(x[0])).flatMap(x => x[2].map(i => [x[0], i]));
   const its = todos.filter(([, i]) => /^€\s*\d+([.,]\d+)?$/.test(i[1] || '')).concat(todos).slice(0, 2);
-  return '<span class="pt-mm cm-t-' + t.m.id + '" style="' + esc(estilo(t.vars)) + '" aria-hidden="true"><i class="mm-h" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"><i>Menu</i><b>' + esc(c.nome) + '</b></i>'
+  return '<span class="pt-mm cm-t-' + t.m.id + '" style="' + esc(estilo(t.vars)) + '" aria-hidden="true"><i class="mm-h" style="background-image:url(' + esc(CA.capa(k)) + ')">' + (mc.logo ? '<img src="' + esc(mc.logo) + '" alt="">' : '') + (mc.logo && mc.logoModo === 'so' ? '' : '<i>Menu</i><b>' + esc(c.nome) + '</b>') + '</i>'
     + '<i class="mm-s">' + esc(its[0] ? its[0][0] : '') + '</i>' + its.map(([, i]) => '<i class="mm-l"><span>' + esc(i[0]) + '</span>' + (/^€/.test(i[1] || '') ? '<b>' + esc(i[1]) + '</b>' : '') + '<em>+</em></i>').join('') + '<i class="mm-bar"><i></i><i class="on"></i><i></i></i></span>';
+}
+function marca(k){
+  const CA = window.STREETFY_CARDAPIOS, mc = CA.marca(k), atual = mc.capa || CA.dados[k].img || 'noite', propria = /^data:/.test(atual), nome = esc(CA.dados[k].nome);
+  return '<div class="pt-marca"><div class="pt-mc"><span class="pt-cores-t">Capa</span><div class="pt-capas" role="radiogroup" aria-label="Capa do menu · ' + nome + '">'
+    + (propria ? '<button type="button" role="radio" aria-checked="true" class="pt-capa on" data-pt-capa="' + esc(k) + '" data-v="" title="A tua foto" style="background-image:url(' + esc(atual) + ')"><span>a tua</span></button>' : '')
+    + CA.CAPAS.map(n => { const on = !propria && n === atual; return '<button type="button" role="radio" aria-checked="' + on + '" class="pt-capa' + (on ? ' on' : '') + '" data-pt-capa="' + esc(k) + '" data-v="' + n + '" title="' + n + '" style="background-image:url(img/' + n + '.jpg)"></button>'; }).join('')
+    + '</div><label class="pt-up s-btn ghost">Carregar foto da casa<input type="file" accept="image/*" data-pt-up="' + esc(k) + '" data-f="capa" hidden></label><small class="pt-dica">Horizontal, pelo menos 1600 px de largura. Fica por trás do nome, um pouco escurecida para o texto ler bem.</small></div>'
+    + '<div class="pt-mc"><span class="pt-cores-t">Logo</span><div class="pt-logo-l"><span class="pt-logo' + (mc.logo ? '' : ' vazio') + '">' + (mc.logo ? '<img src="' + esc(mc.logo) + '" alt="Logo de ' + nome + '">' : 'sem logo') + '</span>'
+    + '<div class="pt-logo-a"><label class="pt-up s-btn ghost">' + (mc.logo ? 'Trocar logo' : 'Adicionar logo') + '<input type="file" accept="image/png,image/svg+xml,image/webp,image/jpeg" data-pt-up="' + esc(k) + '" data-f="logo" hidden></label>'
+    + (mc.logo ? '<div class="pt-modo" role="group" aria-label="Como mostrar o logo">' + [['', 'Logo e nome'], ['so', 'Só o logo']].map(([v, n]) => '<button type="button" data-pt-logomodo="' + esc(k) + '" data-v="' + v + '" class="' + ((mc.logoModo || '') === v ? 'on' : '') + '" aria-pressed="' + ((mc.logoModo || '') === v) + '">' + n + '</button>').join('') + '</div><button type="button" class="pt-mini" data-pt-semlogo="' + esc(k) + '">Remover logo</button>' : '')
+    + '</div></div><small class="pt-dica">PNG ou SVG com fundo transparente fica melhor. Aparece no topo do menu, por cima da capa.</small></div>'
+    + '<p class="pt-aviso" data-pt-erro hidden></p></div>';
+}
+/* foto carregada: reduz no próprio aparelho antes de guardar (capa até 1600 px em JPEG, logo até 480 px mantendo a transparência) */
+function carregaImagem(file, f){
+  return new Promise((ok, falha) => {
+    if (!file || !/^image\//.test(file.type)) return falha('Escolhe um ficheiro de imagem.');
+    const r = new FileReader();
+    r.onerror = () => falha('Não deu para ler o ficheiro.');
+    r.onload = () => {
+      if (file.type === 'image/svg+xml') return r.result.length < 300000 ? ok(r.result) : falha('O SVG é grande demais (máx. 300 KB).');
+      const im = new Image();
+      im.onerror = () => falha('Não deu para abrir esta imagem.');
+      im.onload = () => {
+        const max = f === 'capa' ? 1600 : 480, e = Math.min(1, max / Math.max(im.width, im.height)), cv = document.createElement('canvas');
+        cv.width = Math.round(im.width * e); cv.height = Math.round(im.height * e);
+        cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+        ok(f === 'capa' ? cv.toDataURL('image/jpeg', .82) : cv.toDataURL('image/png'));
+      };
+      im.src = r.result;
+    };
+    r.readAsDataURL(file);
+  });
 }
 function aparencia(k){
   const CA = window.STREETFY_CARDAPIOS, sv = CA.servico(k), t = CA.tema(sv), id = t.m.id, nome = esc(CA.dados[k].nome);
@@ -2255,6 +2315,7 @@ function aparencia(k){
   const ac = t.vars['--pink'], bg = t.vars['--paper'];
   return '<div class="pt-ap" data-pt-ap="' + esc(k) + '"><div class="pt-ap-h"><b>Aparência do menu</b><small>Escolhe o modelo mais parecido com a tua casa. O cliente vê só a tua casa, sem nada do Streetfy à volta.</small></div>'
     + '<div class="pt-tpls" role="radiogroup" aria-label="Modelo do menu · ' + nome + '">' + CA.modelos.map(m => { const on = m.id === id; return '<button type="button" role="radio" aria-checked="' + on + '" class="pt-tpl' + (on ? ' on' : '') + '" data-pt-tpl="' + esc(k) + '" data-id="' + m.id + '">' + miniatura(k, on ? sv : {tpl:m.id}) + '<b>' + esc(m.nome) + '</b><small>' + esc(m.para) + '</small></button>'; }).join('') + '</div>'
+    + marca(k)
     + '<div class="pt-cores"><span class="pt-cores-t">Cores</span><div class="pt-pals">' + t.m.paletas.map(([n, b, a]) => { const on = b.toLowerCase() === bg.toLowerCase() && a.toLowerCase() === ac.toLowerCase(); return '<button type="button" class="pt-pal' + (on ? ' on' : '') + '" data-pt-pal="' + esc(k) + '" data-bg="' + b + '" data-ac="' + a + '" aria-pressed="' + on + '" title="' + esc(n) + '"><i style="background:' + b + '"><i style="background:' + a + '"></i></i>' + esc(n) + '</button>'; }).join('') + '</div>'
     + '<div class="pt-cor"><label>Destaque <input type="color" data-pt-cor="' + esc(k) + '" data-f="ac" value="' + ac + '" aria-label="Cor de destaque · ' + nome + '"></label><label>Fundo <input type="color" data-pt-cor="' + esc(k) + '" data-f="bg" value="' + bg + '" aria-label="Cor de fundo · ' + nome + '"></label>'
     + (sv.ac || sv.bg ? '<button type="button" class="pt-mini" data-pt-repor-cor="' + esc(k) + '">Repor as cores do modelo</button>' : '') + '</div>' + '</div>'
@@ -2304,7 +2365,15 @@ function desenha(){
   if (f) f.addEventListener('change', () => { const ind = f.tipo.value === 'ind'; f.querySelector('.pt-ev').hidden = ind; f.querySelector('.pt-ind').hidden = !ind; });
 }
 el.addEventListener('click', ev => {
-  const CA = window.STREETFY_CARDAPIOS, tp = ev.target.closest('[data-pt-tpl],[data-pt-pal],[data-pt-repor-cor]');
+  const CA = window.STREETFY_CARDAPIOS, mk = ev.target.closest('[data-pt-capa],[data-pt-logomodo],[data-pt-semlogo]');
+  if (mk && CA) {
+    const k = mk.dataset.ptCapa || mk.dataset.ptLogomodo || mk.dataset.ptSemlogo;
+    if (mk.dataset.ptCapa !== undefined && mk.dataset.v) CA.mudarMarca(k, 'capa', mk.dataset.v);
+    if (mk.dataset.ptLogomodo !== undefined) CA.mudarMarca(k, 'logoModo', mk.dataset.v);
+    if (mk.dataset.ptSemlogo !== undefined) { CA.mudarMarca(k, 'logo', ''); CA.mudarMarca(k, 'logoModo', ''); }
+    redesenhaAp(k); return;
+  }
+  const tp = ev.target.closest('[data-pt-tpl],[data-pt-pal],[data-pt-repor-cor]');
   if (tp && CA) {
     const k = tp.dataset.ptTpl || tp.dataset.ptPal || tp.dataset.ptReporCor;
     if (tp.dataset.ptTpl) { CA.mudarServico(k, 'tpl', tp.dataset.id); CA.mudarServico(k, 'ac', ''); CA.mudarServico(k, 'bg', ''); }
@@ -2331,7 +2400,7 @@ el.addEventListener('click', ev => {
 /* troca só o bloco da casa, para a página não saltar; o foco volta ao mesmo controlo */
 function redesenhaAp(k){
   const ap = [...el.querySelectorAll('[data-pt-ap]')].find(x => x.dataset.ptAp === k); if (!ap) return;
-  const a = document.activeElement, sel = a && ap.contains(a) ? (a.dataset.id ? '[data-id="' + a.dataset.id + '"]' : a.dataset.f ? '[data-f="' + a.dataset.f + '"]' : a.dataset.bg ? '[data-bg="' + a.dataset.bg + '"][data-ac="' + a.dataset.ac + '"]' : '') : '';
+  const a = document.activeElement, sel = a && ap.contains(a) ? (a.dataset.id ? '[data-id="' + a.dataset.id + '"]' : a.dataset.v !== undefined ? '[data-v="' + a.dataset.v + '"]' + (a.dataset.ptCapa !== undefined ? '[data-pt-capa]' : '[data-pt-logomodo]') : a.dataset.f ? '[data-f="' + a.dataset.f + '"]' : a.dataset.bg ? '[data-bg="' + a.dataset.bg + '"][data-ac="' + a.dataset.ac + '"]' : '') : '';
   const novo = document.createElement('div'); novo.innerHTML = aparencia(k); const n = novo.firstElementChild; ap.replaceWith(n);
   if (sel) { const f = n.querySelector(sel); if (f) f.focus({preventScroll:true}); }
 }
@@ -2346,6 +2415,12 @@ el.addEventListener('input', ev => {
 el.addEventListener('change', ev => {
   const CA = window.STREETFY_CARDAPIOS; if (!CA) return;
   const cor = ev.target.closest('[data-pt-cor]'); if (cor) { redesenhaAp(cor.dataset.ptCor); return; }
+  const up = ev.target.closest('[data-pt-up]');
+  if (up) {
+    const k = up.dataset.ptUp, f = up.dataset.f, erro = m => { const p = up.closest('[data-pt-ap]').querySelector('[data-pt-erro]'); p.textContent = m; p.hidden = false; };
+    carregaImagem(up.files[0], f).then(url => { if (!CA.mudarMarca(k, f, url)) return erro('Sem espaço neste aparelho para guardar a imagem. Tenta uma mais pequena.'); redesenhaAp(k); }, erro);
+    return;
+  }
   const t = ev.target.closest('[data-pt-ca]'); if (t) { CA.mudar(t.dataset.ptCa, t.checked); desenha(); return; }
   const v = ev.target.closest('[data-pt-sv]'); if (v) { CA.mudarServico(v.dataset.ptSv, v.dataset.f, v.tagName === 'SELECT' ? v.value : v.checked); if (v.tagName === 'SELECT') { try { const o = JSON.parse(localStorage.getItem('streetfy:cardapio-vista') || '{}'); delete o[v.dataset.ptSv]; localStorage.setItem('streetfy:cardapio-vista', JSON.stringify(o)); } catch (e) {} } }
 });
