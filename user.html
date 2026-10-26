@@ -773,13 +773,13 @@ a.ev:hover .t{color:var(--pink)}
 
 /* perfil no telemóvel: a programação (com o Bilhetes do evento escolhido) vem logo a seguir às ações; os números descem */
 .so-movel-nums{display:none}
-@media (max-width:900px){.p-hero.perfil .p-nums{display:none}.so-movel-nums{display:flex;margin:0 0 26px}.p-hero.perfil .p-nota{margin-bottom:4px}}
+@media (max-width:900px){.p-hero.perfil:not(.pr-hero) .p-nums{display:none}.so-movel-nums{display:flex;margin:0 0 26px}.p-hero.perfil .p-nota{margin-bottom:4px}}
 
 /* perfil no telemóvel: a nota e os números saem do cabeçalho e ficam depois da programação, para o evento selecionado subir */
 .so-movel-bloco{display:none}
 .p-nota.ink{color:var(--grey)}
 @media (max-width:900px){
-  .p-hero.perfil .p-nota,.p-hero.perfil .p-nums{display:none}
+  .p-hero.perfil:not(.pr-hero) .p-nota,.p-hero.perfil:not(.pr-hero) .p-nums{display:none}
   .so-movel-bloco{display:block;margin-top:22px}
   .so-movel-bloco .p-nums{margin-top:12px}
 }
@@ -963,6 +963,8 @@ html.lb-aberta{overflow:hidden}
 .u-pn-av.redondo{border-radius:50%}
 .u-pn-l b{font-size:14px}.u-pn-l small{color:var(--grey);font-size:12px}
 .u-pn-priv{margin:20px 0;padding:16px;border:2px dashed var(--ink);border-radius:12px;background:#fff;font-weight:700}
+.u-privado{display:grid;gap:6px;padding:22px;border:2px dashed var(--ink);border-radius:16px;background:#fff;max-width:640px}.u-privado b{font-family:var(--fd);font-weight:400;font-size:30px;text-transform:uppercase}.u-privado span{color:var(--grey)}
+@media (max-width:640px){.pr-hero .p-nums{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.pr-hero .p-num{min-width:0}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1691,8 +1693,8 @@ const hrefLugar = i => 'perfil.html#lugar=' + encodeURIComponent(C.lugarKey(i));
 const quando = i => { const ks = (i._ks || []).slice().sort((a, b) => a - b); if (!ks.length) return 'esta semana'; if (ks[0] === 0) return 'hoje'; if (ks[0] === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + ks[0]); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate(); };
 const VIS = {pub:['Público', 'pub'], seg:['Seguidores', 'seg'], eu:['Só eu', 'eu']};
 const NIVEL = {pub:0, seg:1, eu:2};
-const U = {
-  nome:'Mariana Costa', user:'mari.costa', cidade:'Lisboa', foto:'retrato', capa:'noite', bio:'Techno às sextas, kizomba aos sábados, petiscos ao domingo.',
+const MARI = {
+  id:'mari-costa', nome:'Mariana Costa', user:'mari.costa', cidade:'Lisboa', foto:'retrato', capa:'noite', bio:'Techno às sextas, kizomba aos sábados, petiscos ao domingo.',
   estilos:['Techno', 'Kizomba', 'House', 'Rooftop', 'Petiscos'], redes:[['Instagram', '@mari.costa'], ['Spotify', 'a ouvir: Peggy Gou'], ['TikTok', '@maricosta']],
   numeros:[['112', 'eventos'], ['48', 'lugares'], ['320', 'seguidores'], ['180', 'seguindo']],
   vis:{aSeguir:'seg', jaFui:'seg', fotos:'pub', aval:'pub', gostos:'pub', seguindo:'seg', listas:'eu', presenca:'eu', nEventos:'seg', nLugares:'pub', nSeguidores:'seg', nSeguindo:'pub'},
@@ -1703,22 +1705,64 @@ const U = {
   seguindo:{pessoas:[['Leonor S.', 'tram', 'Lux Frágil · techno', true], ['Hugo M.', 'dj', 'B.Leza · kizomba', true], ['Inês C.', 'alfama', '3 amigos em comum', true], ['Duarte P.', 'shots', 'perfil privado', false], ['Sara D.', 'noite', 'Park Bar · rooftop', true], ['Kiko R.', 'club', 'perfil privado', false]], lugares:['Lux Frágil', 'B.Leza', 'Park Bar', 'Hot Clube de Portugal'], promoters:['rita-m', 'tiago-r'], concierges:[['Lara V.', 'lara-v'], ['João R.', 'joao-r']]},
   listas:[['l4', 'Rita M.', 'na lista · favorita'], ['l11', 'Rita M.', 'na lista · favorita'], ['p1', 'Joana P.', 'à espera']]
 };
-let ver = 'eu';
 /* listas atrás dos números (no protótipo, uma amostra; o total é o do número) */
-const SEGUIDORES = [['Rita M.', 'retrato', 'promoter · Lisboa'], ['Tiago R.', 'pink', 'segue-te de volta'], ['Inês C.', 'alfama', '3 amigos em comum'], ['Leonor S.', 'tram', 'Lux Frágil · 4 vezes'], ['Hugo M.', 'dj', 'B.Leza · kizomba'], ['Bruna T.', 'cocktail', 'segue-te de volta'], ['Kiko R.', 'club', '2 amigos em comum'], ['Sara D.', 'noite', 'Park Bar']];
-const PAINEL = {eventos:['nEventos', 'EVENTOS', 'onde esteve e o que vem aí'], lugares:['nLugares', 'LUGARES', 'onde já esteve'], seguidores:['nSeguidores', 'SEGUIDORES', 'quem segue a Mariana'], seguindo:['nSeguindo', 'SEGUINDO', 'pessoas, lugares, promoters e concierges']};
+MARI.seguidores = [['Rita M.', 'retrato', 'promoter · Lisboa'], ['Tiago R.', 'pink', 'segue-te de volta'], ['Inês C.', 'alfama', '3 amigos em comum'], ['Leonor S.', 'tram', 'Lux Frágil · 4 vezes'], ['Hugo M.', 'dj', 'B.Leza · kizomba'], ['Bruna T.', 'cocktail', 'segue-te de volta'], ['Kiko R.', 'club', '2 amigos em comum'], ['Sara D.', 'noite', 'Park Bar']];
+/* ---------- as outras pessoas (fictícias) ---------- */
+const VIS_PADRAO = {aSeguir:'seg', jaFui:'seg', fotos:'pub', aval:'pub', gostos:'pub', seguindo:'seg', listas:'eu', presenca:'eu', nEventos:'seg', nLugares:'pub', nSeguidores:'seg', nSeguindo:'pub'};
+const pessoa = (id, nome, foto, capa, bio, estilos, num, aSeguir, jaFui, fotos, aval, extra) => Object.assign({id, nome, user:id.replace('-', '.'), cidade:'Lisboa', foto, capa, bio, estilos, redes:[['Instagram', '@' + id.replace('-', '')]],
+  numeros:[[num[0], 'eventos'], [num[1], 'lugares'], [num[2], 'seguidores'], [num[3], 'seguindo']], vis:Object.assign({}, VIS_PADRAO), aSeguir, jaFui, fotos, aval,
+  seguindo:{pessoas:[['Mariana Costa', 'retrato', 'Lux Frágil · techno', true]], lugares:jaFui.map(x => x[0]).filter((v, k, a) => a.indexOf(v) === k).slice(0, 3), promoters:['rita-m'], concierges:[]},
+  seguidores:[['Mariana Costa', 'retrato', 'segue-te de volta']], listas:[]}, extra || {});
+const OUTRAS = [
+ pessoa('leonor-s', 'Leonor Santos', 'tram', 'lux', 'Techno até de manhã. Se é no Lux, eu vou.', ['Techno', 'House', 'Disco'], ['86', '31', '540', '210'],
+   [['l4', 'bilhete'], ['l11', 'quero ir'], ['l13', 'quero ir']], [['Lux Frágil', 'sex 17 out', 'Noite X', true], ['Lux Frágil', 'sáb 11 out', 'Lux Sessions', true], ['Ministerium Club', 'sex 10 out', 'Ministerium Sessions', true]],
+   [['lux', 'Lux Frágil · 17 out'], ['club', 'Ministerium · 10 out'], ['dj', 'Lux · 11 out']], [['Lux Frágil', 5, 'Melhor som de Lisboa. Terraço ao nascer do sol vale a noite toda.', '']]),
+ pessoa('hugo-m', 'Hugo Martins', 'dj', 'dj', 'Kizomba, semba e um bom grogue. B.Leza é a minha casa.', ['Kizomba', 'Semba', 'Afrobeats'], ['64', '22', '310', '190'],
+   [['l3', 'quero ir'], ['l7', 'reserva · 21:00']], [['B.Leza', 'sáb 18 out', 'Baile do B.Leza', true], ['B.Leza', 'sáb 11 out', 'Baile do B.Leza', true], ['Clube de Fado', 'qui 9 out', 'Noite de fado', false]],
+   [['dj', 'B.Leza · 18 out'], ['alfama', 'Alfama · 9 out']], [['B.Leza', 5, 'Banda ao vivo e pista cheia até às 4h. Sem stress à porta.', 'Obrigado Hugo, até sábado! — B.Leza']]),
+ pessoa('ines-c', 'Inês Carvalho', 'alfama', 'alfama', 'Fado, jazz e jantares que acabam tarde.', ['Fado', 'Jazz', 'Concertos'], ['58', '27', '402', '233'],
+   [['l7', 'reserva · 4 pessoas'], ['l5', 'bilhete']], [['Clube de Fado', 'sex 17 out', 'Noite de fado', true], ['Hot Clube de Portugal', 'qui 16 out', 'Sessão de jazz', true]],
+   [['alfama', 'Alfama · 17 out'], ['noite', 'Príncipe Real · 16 out'], ['mesa', 'Jantar · 12 out']], [['Clube de Fado', 5, 'Fado sem pressa, jantar honesto. Pedir mesa perto do palco.', ''], ['Hot Clube de Portugal', 4, 'Sala pequena e quente, chegar cedo.', '']]),
+ pessoa('sara-d', 'Sara Dias', 'noite', 'bairro', 'Rooftops ao pôr do sol e depois logo se vê.', ['Rooftop', 'Cocktails', 'Indie'], ['41', '25', '268', '150'],
+   [['l10', 'quero ir'], ['l8', 'bilhete']], [['Park Bar', 'dom 19 out', 'Pôr do sol', true], ['Pensão Amor', 'sex 10 out', 'Cocktails', true]],
+   [['bairro', 'Park Bar · 19 out'], ['cocktail', 'Pensão Amor · 10 out'], ['pink', 'Pink Street · 10 out']], [['Park Bar', 4, 'Vista incrível; ao domingo enche cedo.', '']]),
+ pessoa('bruna-t', 'Bruna Teixeira', 'cocktail', 'pink', 'Bar a bar no Cais do Sodré, sempre com amigas.', ['Bar a bar', 'Cocktails', 'Disco'], ['37', '19', '205', '160'],
+   [['l2', 'quero ir'], ['l9', 'quero ir']], [['Pensão Amor', 'sáb 18 out', 'Cocktails', true], ['Time Out Market', 'sex 10 out', 'Sexta no Mercado', true]],
+   [['pink', 'Pink Street · 18 out'], ['cocktail', 'Pensão Amor · 18 out']], [['Pensão Amor', 5, 'Cocktails criativos e o espetáculo de burlesco à quinta.', '']]),
+ pessoa('kiko-r', 'Kiko Rocha', 'club', 'club', 'House e disco, de preferência num armazém.', ['House', 'Disco'], ['52', '20', '188', '140'],
+   [['l6', 'bilhete']], [['Ministerium Club', 'sex 17 out', 'Ministerium Sessions', true]], [['club', 'Ministerium · 17 out']], [], {privado:true}),
+ pessoa('duarte-p', 'Duarte Pinto', 'shots', 'shots', 'Shots, amigos e o que estiver aberto.', ['Bar a bar', 'Festas'], ['29', '14', '96', '120'],
+   [], [['Bairro Alto', 'sáb 18 out', 'Bar a bar', false]], [['shots', 'Bairro Alto · 18 out']], [], {privado:true})
+];
+const PESSOAS = {'mari-costa':MARI}; OUTRAS.forEach(x => { PESSOAS[x.id] = x; });
+const PROMOTER_DE = {'Rita M.':'rita-m', 'Tiago R.':'tiago-r'};
+const ID_DE = n => { const k = n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); return Object.keys(PESSOAS).find(id => PESSOAS[id].nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').startsWith(k.replace(/\.$/, '').split(' ')[0]) && PESSOAS[id].nome.split(' ')[1][0].toLowerCase() === (k.split(' ')[1] || ' ')[0]); };
+const hrefPessoa = n => PROMOTER_DE[n] ? 'promoter.html#p=' + PROMOTER_DE[n] : (ID_DE(n) ? 'user.html#u=' + ID_DE(n) : '#');
+/* quem a Mariana (tu) segue; Duarte tem pedido pendente (perfil privado) */
+const SEGUE_K = 'streetfy:segue-pessoas';
+let SEGUE = {'leonor-s':'sim', 'hugo-m':'sim', 'ines-c':'sim', 'sara-d':'sim', 'kiko-r':'sim', 'duarte-p':'pedido'};
+try { SEGUE = Object.assign(SEGUE, JSON.parse(localStorage.getItem(SEGUE_K) || '{}')); } catch (e) {}
+const gravaSegue = () => { try { localStorage.setItem(SEGUE_K, JSON.stringify(SEGUE)); } catch (e) {} };
+let U = MARI, ver = 'eu', souEu = true;
+function carrega(){
+  const id = new URLSearchParams(location.hash.slice(1)).get('u') || 'mari-costa';
+  U = PESSOAS[id] || MARI; souEu = U === MARI;
+  ver = souEu ? 'eu' : (SEGUE[U.id] === 'sim' ? 'seg' : 'pub');
+}
+const primeiro = () => U.nome.split(' ')[0];
+const PAINEL = {eventos:['nEventos', 'EVENTOS', 'onde esteve e o que vem aí'], lugares:['nLugares', 'LUGARES', 'onde já esteve'], seguidores:['nSeguidores', 'SEGUIDORES', 'quem segue este perfil'], seguindo:['nSeguindo', 'SEGUINDO', 'pessoas, lugares, promoters e concierges']};
 function painel(tipo){
   const [vis, titulo, sub] = PAINEL[tipo], total = U.numeros[['eventos', 'lugares', 'seguidores', 'seguindo'].indexOf(tipo)][0];
   const lugarPorNome = nome => C.itens.find(i => (i.lugar || '') === nome);
   let corpo;
-  if (!pode(vis)) corpo = '<p class="u-pn-priv">A Mariana mostra isto só a ' + (U.vis[vis] === 'eu' ? 'ela própria' : 'quem a segue') + '.</p>';
+  if (!pode(vis)) corpo = '<p class="u-pn-priv">' + esc(primeiro()) + ' mostra isto só a ' + (U.vis[vis] === 'eu' ? 'si mesmo' : 'quem segue o perfil') + '.</p>';
   else if (tipo === 'eventos') corpo = U.aSeguir.map(([id, est]) => { const i = porId(id); return i ? '<a class="u-pn-l" href="' + esc(hrefEv(i)) + '"><span class="u-pn-av" style="background-image:url(' + esc(img(i)) + ')"></span><b>' + esc(i.titulo) + '</b><small>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + ' · ' + esc(est) + '</small></a>' : ''; }).join('')
       + U.jaFui.map(([lugar, data, ev, ok]) => { const i = lugarPorNome(lugar); return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(ev) + '</b><small>' + esc(lugar) + ' · ' + esc(data) + ' · ' + (ok ? 'check-in ✓' : 'estive lá') + '</small></a>'; }).join('');
   else if (tipo === 'lugares') corpo = [...new Set(U.jaFui.map(x => x[0]).concat(U.seguindo.lugares))].map(n => { const i = lugarPorNome(n), vezes = U.jaFui.filter(x => x[0] === n).length; return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(n) + '</b><small>' + (i && i.bairro ? esc(i.bairro) + ' · ' : '') + (vezes ? vezes + (vezes === 1 ? ' vez' : ' vezes') + ' este mês' : 'segue') + '</small></a>'; }).join('');
-  else if (tipo === 'seguidores') corpo = SEGUIDORES.map(([n, f, s]) => '<a class="u-pn-l" href="' + (n === 'Rita M.' ? 'promoter.html#p=rita-m' : n === 'Tiago R.' ? 'promoter.html#p=tiago-r' : '#') + '"><span class="u-pn-av redondo" style="background-image:url(img/' + f + '.jpg)"></span><b>' + esc(n) + '</b><small>' + esc(s) + '</small></a>').join('');
+  else if (tipo === 'seguidores') corpo = U.seguidores.map(([n, f, s]) => '<a class="u-pn-l" href="' + hrefPessoa(n) + '"><span class="u-pn-av redondo" style="background-image:url(img/' + f + '.jpg)"></span><b>' + esc(n) + '</b><small>' + esc(s) + '</small></a>').join('');
   else { const prom = ((window.STREETFY_PROMOTERS || {}).lista || []);
     const pub = U.seguindo.pessoas.filter(x => x[3]), priv = U.seguindo.pessoas.length - pub.length;
-    corpo = '<p class="u-sub">Pessoas</p>' + pub.map(([n, f, s]) => '<a class="u-pn-l" href="#"><span class="u-pn-av redondo" style="background-image:url(img/' + f + '.jpg)"></span><b>' + esc(n) + '</b><small>' + esc(s) + '</small></a>').join('')
+    corpo = '<p class="u-sub">Pessoas</p>' + pub.map(([n, f, s]) => '<a class="u-pn-l" href="' + hrefPessoa(n) + '"><span class="u-pn-av redondo" style="background-image:url(img/' + f + '.jpg)"></span><b>' + esc(n) + '</b><small>' + esc(s) + '</small></a>').join('')
       + (priv ? '<p class="al-nota">+ ' + priv + (priv === 1 ? ' pessoa' : ' pessoas') + ' com o perfil privado: contam no número, mas não aparecem na lista.</p>' : '')
       + '<p class="u-sub">Lugares</p>' + U.seguindo.lugares.map(n => { const i = lugarPorNome(n); return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(n) + '</b><small>lugar</small></a>'; }).join('')
       + '<p class="u-sub">Promoters</p>' + U.seguindo.promoters.map(id => prom.find(p => p.id === id)).filter(Boolean).map(p => '<a class="u-pn-l" href="promoter.html#p=' + p.id + '"><span class="u-pn-av redondo" style="background-image:url(img/' + p.foto + '.jpg)"></span><b>' + esc(p.nome) + '</b><small>promoter · ★ ' + p.nota + '</small></a>').join('')
@@ -1743,24 +1787,25 @@ function desenha(){
   document.title = 'Streetfy · ' + U.nome;
   el.innerHTML = '<section class="p-hero perfil pr-hero"><div class="s-bg" style="background-image:url(img/' + U.capa + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
     + '<div class="crumbs"><a href="index.html">Streetfy</a> › <span>@' + esc(U.user) + '</span></div>'
-    + '<div class="pr-cab"><div class="pr-av" style="background-image:url(img/' + U.foto + '.jpg)"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">MARIANA <em>COSTA</em></h1>'
+    + '<div class="pr-cab"><div class="pr-av" style="background-image:url(img/' + U.foto + '.jpg)"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(U.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
     + '<span class="p-meta">@' + esc(U.user) + ' · ' + esc(U.cidade) + '</span></div></div>'
     + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(U.bio) + '</p>'
     + '<div class="fbar" style="margin-top:12px">' + U.estilos.map(s => '<span class="f on">' + esc(s) + '</span>').join('') + '</div>'
     + '<div class="u-redes">' + U.redes.map(r => '<span><b>' + r[0] + '</b> ' + esc(r[1]) + '</span>').join('') + '</div>'
     + (ver === 'eu' ? '<div class="p-acoes"><a class="s-btn mint" href="#" data-u="editar">Editar perfil</a><a class="s-btn ghost" href="#privacidade">Privacidade</a><a class="s-btn ghost" href="#" data-u="partilhar">Compartilhar</a></div>'
-       : '<div class="p-acoes"><a class="s-btn ' + (ver === 'seg' ? 'mint' : 'ghost') + '" href="#" data-u="seguir">' + (ver === 'seg' ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="#" data-u="partilhar">Compartilhar</a></div>')
+       : '<div class="p-acoes"><a class="s-btn ' + (SEGUE[U.id] === 'sim' ? 'mint' : 'ghost') + '" href="#" data-u="seguir">' + (SEGUE[U.id] === 'sim' ? 'A seguir ✓' : SEGUE[U.id] === 'pedido' ? 'Pedido enviado · cancelar' : (U.privado ? 'Pedir para seguir' : 'Seguir')) + '</a><a class="s-btn ghost" href="user.html">← O meu perfil</a><a class="s-btn ghost" href="#" data-u="partilhar">Compartilhar</a></div>')
     + '<div class="p-nums">' + U.numeros.map((n, k) => '<button type="button" class="p-num u-num" data-lista="' + ['eventos', 'lugares', 'seguidores', 'seguindo'][k] + '"><b>' + n[0] + '</b><span>' + n[1] + (pode(PAINEL[['eventos', 'lugares', 'seguidores', 'seguindo'][k]][0]) ? ' ›' : ' · 🔒') + '</span></button>').join('') + '</div></div></section>'
     + '<section class="s-sec tight"><div class="s-wrap">'
-    + '<div class="u-ver"><small>Ver como</small>' + [['eu', 'Eu'], ['seg', 'Um seguidor'], ['pub', 'Público']].map(v => '<button type="button" data-ver="' + v[0] + '"' + (ver === v[0] ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + v[1] + '</button>').join('') + '<span class="u-ver-nota">' + (ver === 'eu' ? 'Vês tudo, com a etiqueta de quem vê cada bloco.' : ocultos + (ocultos === 1 ? ' bloco escondido' : ' blocos escondidos') + ' para ' + (ver === 'seg' ? 'um seguidor' : 'quem não te segue') + '.') + '</span></div>'
+    + (!souEu && U.privado && SEGUE[U.id] !== 'sim' ? '<div class="u-privado"><b>🔒 Perfil privado</b><span>' + esc(primeiro()) + ' escolheu mostrar a atividade só a quem segue o perfil. ' + (SEGUE[U.id] === 'pedido' ? 'O teu pedido está à espera de resposta.' : 'Pede para seguir; quando aceitar, vês o resto.') + '</span></div></div></section>' : '')
+    + (!souEu && U.privado && SEGUE[U.id] !== 'sim' ? '' : (souEu ? '<div class="u-ver"><small>Ver como</small>' + [['eu', 'Eu'], ['seg', 'Um seguidor'], ['pub', 'Público']].map(v => '<button type="button" data-ver="' + v[0] + '"' + (ver === v[0] ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + v[1] + '</button>').join('') + '<span class="u-ver-nota">' + (ver === 'eu' ? 'Vês tudo, com a etiqueta de quem vê cada bloco.' : ocultos + (ocultos === 1 ? ' bloco escondido' : ' blocos escondidos') + ' para ' + (ver === 'seg' ? 'um seguidor' : 'quem não te segue') + '.') + '</span></div>' : '<p class="u-ver-nota" style="margin:0 0 18px">' + (ver === 'seg' ? 'Segues ' + esc(primeiro()) + ': vês o que mostra a seguidores.' : 'Não segues ' + esc(primeiro()) + ': vês só o que é público.') + '</p>')
     + '<div class="u-grid"><div class="u-col">'
     + bloco('aSeguir', 'A seguir', 'VOU <em>A ESTAS</em>', aSeguir.map(([i, est]) => '<a class="p-ev pr-ev" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</span><span class="u-est">' + esc(est) + '</span></div><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + '</p></a>').join(''))
     + bloco('jaFui', 'Já fui', 'ONDE <em>ESTIVE</em>', '<ul class="u-hist">' + U.jaFui.map(([lugar, data, ev, check]) => { const i = lugarPorNome(lugar); return '<li><a href="' + (i ? esc(hrefLugar(i)) : '#') + '"><b>' + esc(lugar) + '</b><span>' + esc(ev) + ' · ' + esc(data) + '</span></a><span class="u-chk ' + (check ? 'ok' : '') + '">' + (check ? 'check-in ✓' : 'estive lá') + '</span></li>'; }).join('') + '</ul><p class="al-nota">"Check-in ✓" foi confirmado no local; "estive lá" foi marcado depois, sem confirmação.</p>')
     + bloco('fotos', 'Fotos', 'DAS <em>NOITES</em>', '<div class="p-fotos pr-galeria" data-p="fotos">' + U.fotos.map(f => '<figure class="p-foto"><div style="background-image:url(img/' + f[0] + '.jpg)"></div><figcaption>' + esc(f[1]) + '</figcaption></figure>').join('') + '</div>')
     + bloco('aval', 'Avaliações', 'O QUE <em>ACHOU</em>', U.aval.map(([lugar, n, txt, resp]) => '<div class="u-aval"><div class="u-aval-h"><b>' + esc(lugar) + '</b><span>' + '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i></span></div><p>' + esc(txt) + '</p>' + (resp ? '<p class="u-resp"><b>Resposta do lugar</b> ' + esc(resp) + '</p>' : '') + '<small>check-in confirmado · só avalia quem esteve</small></div>').join(''))
     + '</div><div class="u-col">'
-    + bloco('gostos', 'Gostos', 'O QUE <em>CURTE</em>', '<div class="u-gostos">' + C.itens.filter(i => i.img && (i._ks || []).length && /techno|house|kizomba|rooftop/.test(i.estilo || '')).slice(0, 6).map(i => '<a href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(img(i)) + ')"><span>♥ ' + esc(i.titulo) + '</span></a>').join('') + '</div>')
-    + bloco('seguindo', 'Seguindo', 'QUEM <em>SEGUE</em>', '<p class="u-sub">Lugares</p><div class="u-chips">' + U.seguindo.lugares.map(n => { const i = lugarPorNome(n); return '<a href="' + (i ? esc(hrefLugar(i)) : '#') + '">' + esc(n) + '</a>'; }).join('') + '</div>'
+    + bloco('gostos', 'Gostos', 'O QUE <em>CURTE</em>', '<div class="u-gostos">' + C.itens.filter(i => i.img && (i._ks || []).length && new RegExp(U.estilos.map(x => x.toLowerCase()).join('|')).test(i.estilo || '')).slice(0, 6).map(i => '<a href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(img(i)) + ')"><span>♥ ' + esc(i.titulo) + '</span></a>').join('') + '</div>')
+    + bloco('seguindo', 'Seguindo', 'QUEM <em>SEGUE</em>', '<p class="u-sub">Pessoas</p><div class="u-chips">' + U.seguindo.pessoas.filter(x => x[3]).map(x => '<a href="' + hrefPessoa(x[0]) + '">' + esc(x[0]) + '</a>').join('') + '</div><p class="u-sub">Lugares</p><div class="u-chips">' + U.seguindo.lugares.map(n => { const i = lugarPorNome(n); return '<a href="' + (i ? esc(hrefLugar(i)) : '#') + '">' + esc(n) + '</a>'; }).join('') + '</div>'
         + '<p class="u-sub">Promoters</p><div class="pr-outros">' + U.seguindo.promoters.map(id => promoters.find(p => p.id === id)).filter(Boolean).map(p => '<a href="promoter.html#p=' + p.id + '"><span class="pr-av mini" style="background-image:url(img/' + p.foto + '.jpg)"></span><b>' + esc(p.nome) + '</b><small>promoter · ★ ' + p.nota + '</small></a>').join('') + '</div>'
         + '<p class="u-sub">Concierges</p><div class="u-chips">' + U.seguindo.concierges.map(c => '<a href="concierge-perfil.html#c=' + c[1] + '">' + esc(c[0]) + '</a>').join('') + '</div>')
     + bloco('listas', 'Listas de convidados', 'NAS <em>LISTAS</em>', U.listas.map(([id, prom, est]) => { const i = porId(id); return i ? '<div class="u-lista"><div><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + ' · lista de ' + esc(prom) + '</span></div><span class="u-est ' + (/na lista/.test(est) ? 'ok' : '') + '">' + esc(est) + '</span></div>' : ''; }).join('') + '<p class="al-nota">Só tu vês os teus pedidos. Pedidos recusados nunca aparecem a ninguém.</p>')
@@ -1769,15 +1814,17 @@ function desenha(){
         + '<li><span>Aparecer em "Quem esteve" dos lugares</span><span class="u-seg"><button type="button" class="on">Sim</button><button type="button">Não</button></span></li>'
         + '<li><span>Aparecer em "Quem está aqui" (por noite)</span><span class="u-seg"><button type="button">Todos</button><button type="button" class="on">Seguidores</button><button type="button">Ninguém</button></span></li></ul>'
         + '<p class="al-nota">Nunca é público: localização em segundo plano, o que pagaste, pedidos recusados. Muda um bloco e usa "Ver como" para conferir.</p></section>' : '')
-    + '</div></div></div></section>';
+    + '</div></div></div></section>');
 }
 el.addEventListener('click', ev => {
   const ln = ev.target.closest('[data-lista]'); if (ln) { painel(ln.dataset.lista); return; }
   const v = ev.target.closest('[data-ver]'); if (v) { ver = v.dataset.ver; desenha(); return; }
   const vb = ev.target.closest('[data-vis]'); if (vb) { U.vis[vb.dataset.vis] = vb.dataset.v; desenha(); return; }
-  const u = ev.target.closest('[data-u]'); if (u) { ev.preventDefault(); if (u.dataset.u === 'partilhar') { const url = location.href; if (navigator.share) navigator.share({title:U.nome + ' no Streetfy', url}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(U.nome + ' no Streetfy · ' + url), '_blank', 'noopener'); } }
+  const u = ev.target.closest('[data-u]'); if (u && u.dataset.u === 'seguir') { ev.preventDefault(); SEGUE[U.id] = SEGUE[U.id] ? '' : (U.privado ? 'pedido' : 'sim'); if (!SEGUE[U.id]) delete SEGUE[U.id]; gravaSegue(); carrega(); desenha(); return; }
+  if (u) { ev.preventDefault(); if (u.dataset.u === 'partilhar') { const url = location.href; if (navigator.share) navigator.share({title:U.nome + ' no Streetfy', url}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(U.nome + ' no Streetfy · ' + url), '_blank', 'noopener'); } }
 });
-desenha();
+window.addEventListener('hashchange', () => { const pn = document.querySelector('.u-pn'); if (pn) { pn.hidden = true; document.documentElement.classList.remove('lb-aberta'); } carrega(); desenha(); window.scrollTo({top:0}); });
+carrega(); desenha();
 })();
 </script><script>/* Streetfy · lightbox.js — tocar numa foto amplia-a; com várias, desliza-se (ou setas/teclado) para ver todas ampliadas.
    Grupos: as fotos do perfil e do evento ([data-p="fotos"]: cartazes e álbum do Instagram) e a galeria do evento (.gal).

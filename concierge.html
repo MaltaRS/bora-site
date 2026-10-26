@@ -773,13 +773,13 @@ a.ev:hover .t{color:var(--pink)}
 
 /* perfil no telemóvel: a programação (com o Bilhetes do evento escolhido) vem logo a seguir às ações; os números descem */
 .so-movel-nums{display:none}
-@media (max-width:900px){.p-hero.perfil .p-nums{display:none}.so-movel-nums{display:flex;margin:0 0 26px}.p-hero.perfil .p-nota{margin-bottom:4px}}
+@media (max-width:900px){.p-hero.perfil:not(.pr-hero) .p-nums{display:none}.so-movel-nums{display:flex;margin:0 0 26px}.p-hero.perfil .p-nota{margin-bottom:4px}}
 
 /* perfil no telemóvel: a nota e os números saem do cabeçalho e ficam depois da programação, para o evento selecionado subir */
 .so-movel-bloco{display:none}
 .p-nota.ink{color:var(--grey)}
 @media (max-width:900px){
-  .p-hero.perfil .p-nota,.p-hero.perfil .p-nums{display:none}
+  .p-hero.perfil:not(.pr-hero) .p-nota,.p-hero.perfil:not(.pr-hero) .p-nums{display:none}
   .so-movel-bloco{display:block;margin-top:22px}
   .so-movel-bloco .p-nums{margin-top:12px}
 }
@@ -899,6 +899,72 @@ html.lb-aberta{overflow:hidden}
 .pr-seguir:hover{transform:translate(-1px,-1px)}
 .pr-seguir.on{background:var(--mint);border-color:var(--ink)}
 .pr-seguir:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+
+/* quem esteve: avatares sobrepostos */
+.qe{display:flex;align-items:center;gap:12px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.qe-avs{display:inline-flex;align-items:center}
+.qe-avs i{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center;border:3px solid #fff;margin-left:-12px;box-shadow:0 0 0 1px var(--line);filter:grayscale(.3)}
+.qe-avs i:first-child{margin-left:0}
+.qe-avs b{margin-left:-12px;min-width:38px;height:38px;padding:0 8px;border-radius:999px;background:var(--ink);color:#fff;border:3px solid #fff;display:grid;place-items:center;font:800 12px/1 var(--fb)}
+.qe-txt{font-weight:800;font-size:14px;color:var(--ink);display:grid;gap:2px}
+.qe-txt small{font-weight:600;font-size:11px;color:var(--grey)}
+.pr-galeria{grid-template-columns:repeat(4,1fr)}@media (max-width:600px){.pr-galeria{grid-template-columns:repeat(2,1fr)}}
+/* telemóvel: os números do lugar logo a seguir à caixa de compra (o mapa continua no fim) */
+@media (max-width:980px){ .det.det-compra > aside > [data-p="numeros"]{order:1;margin-top:0!important} }
+
+/* perfil do utilizador */
+.u-redes{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:#dcdcdc}.u-redes b{color:#fff}
+.u-ver{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px;padding:12px 14px;border:2px dashed var(--ink);border-radius:14px;background:#fff}
+.u-ver small{font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-right:4px}
+.u-ver button,.u-seg button{font:800 12px/1 var(--fb);padding:8px 12px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.u-ver button.on,.u-seg button.on{background:var(--ink);color:#fff}
+.u-ver-nota{font-size:13px;color:var(--grey);margin-left:6px}
+.u-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+@media (max-width:900px){.u-grid{grid-template-columns:1fr}}
+.u-col{display:grid;gap:30px;min-width:0}
+.u-bloco{display:grid;gap:12px;min-width:0}
+.u-bh{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.u-vis{font:800 10px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;padding:6px 8px;border-radius:5px;white-space:nowrap}
+.u-vis.pub{background:var(--mint);color:var(--ink)}.u-vis.seg{background:var(--ink);color:#fff}.u-vis.eu{background:#fff;color:var(--ink);border:2px dashed var(--ink)}
+.u-est{font:800 10px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:5px 7px;border-radius:5px;background:#efefef;color:var(--ink)}
+.u-est.ok{background:var(--mint)}
+.u-hist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.u-hist li{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px}
+.u-hist a{text-decoration:none;color:var(--ink);display:grid;gap:2px;min-width:0}.u-hist a span{color:var(--grey);font-size:13px}
+.u-chk{font:800 10px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);white-space:nowrap}.u-chk.ok{color:#1f8a52}
+.u-aval{border:2px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;display:grid;gap:6px}
+.u-aval-h{display:flex;justify-content:space-between;gap:10px}.u-aval-h span{color:var(--pink);letter-spacing:.1em}.u-aval-h i{font-style:normal;color:#ddd}
+.u-aval p{margin:0;font-size:14px}.u-aval small{color:var(--grey);font-size:11px}
+.u-resp{background:#f4f4f4;border-radius:10px;padding:8px 10px;color:var(--grey)}.u-resp b{color:var(--ink);margin-right:6px}
+.u-gostos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.u-gostos a{aspect-ratio:1;border-radius:12px;border:2px solid var(--ink);background-size:cover;background-position:center;position:relative;overflow:hidden;filter:grayscale(1) contrast(1.2)}
+.u-gostos a span{position:absolute;left:0;right:0;bottom:0;padding:6px;font-size:11px;font-weight:800;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.85));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u-sub{margin:4px 0 0;font:800 11px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.u-chips{display:flex;flex-wrap:wrap;gap:8px}.u-chips a{border:2px solid var(--ink);border-radius:999px;padding:7px 12px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none;background:#fff}
+.u-lista{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px}
+.u-lista div{display:grid;gap:2px;min-width:0}.u-lista span{color:var(--grey);font-size:13px}
+.u-priv{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.u-priv li{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding:8px 0;font-weight:700;font-size:14px}
+.u-seg{display:inline-flex;gap:4px;flex-wrap:wrap}.u-seg button{padding:6px 9px;font-size:11px}
+
+/* números clicáveis do perfil e o painel da lista */
+.u-num{font:inherit;text-align:left;cursor:pointer;color:inherit;transition:transform .15s,background .15s}
+.u-num:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}
+.u-num:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+.u-pn{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.6);display:flex;justify-content:flex-end}
+.u-pn[hidden]{display:none}
+.u-pn-cx{width:min(440px,100%);height:100%;background:var(--paper);display:flex;flex-direction:column;box-shadow:-20px 0 40px rgba(0,0,0,.25)}
+.u-pn-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 12px;border-bottom:2px solid var(--ink)}
+.u-pn-x{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:800;flex:0 0 auto}
+.u-pn-b{overflow:auto;padding:12px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;align-content:start}
+.u-pn-l{display:grid;grid-template-columns:48px 1fr;column-gap:12px;align-items:center;text-decoration:none;color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 10px}
+.u-pn-l:hover{box-shadow:4px 4px 0 var(--pink)}
+.u-pn-av{grid-row:span 2;width:48px;height:48px;border-radius:10px;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.2)}
+.u-pn-av.redondo{border-radius:50%}
+.u-pn-l b{font-size:14px}.u-pn-l small{color:var(--grey);font-size:12px}
+.u-pn-priv{margin:20px 0;padding:16px;border:2px dashed var(--ink);border-radius:12px;background:#fff;font-weight:700}
+.u-privado{display:grid;gap:6px;padding:22px;border:2px dashed var(--ink);border-radius:16px;background:#fff;max-width:640px}.u-privado b{font-family:var(--fd);font-weight:400;font-size:30px;text-transform:uppercase}.u-privado span{color:var(--grey)}
+@media (max-width:640px){.pr-hero .p-nums{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.pr-hero .p-num{min-width:0}}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
