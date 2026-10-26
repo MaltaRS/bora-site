@@ -1969,7 +1969,7 @@ window.STREETFY_CARDAPIOS = {
   tem:k => !!D[k],
   visivel:k => !!D[k] && ler()[k] !== false,
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
-  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
+  href:k => 'menu.html#lugar=' + encodeURIComponent(k),
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
   servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
@@ -2059,7 +2059,7 @@ function render(){
     if (fl && !/instagram\.com/.test(fl)) acoes.push('<a class="s-btn ' + (instagram ? 'ghost' : 'mint') + '" href="' + esc(fl) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(prox.fonte || 'origem') + '</a>');
     acoes.push('<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>');
   }
-  const CA = window.STREETFY_CARDAPIOS; if (CA && CA.visivel(chaveLugar)) acoes.push('<a class="s-btn ink" href="' + esc(CA.href(chaveLugar)) + '">Cardápio</a>');
+  const CA = window.STREETFY_CARDAPIOS; if (CA && CA.visivel(chaveLugar)) acoes.push('<a class="s-btn ink" href="' + esc(CA.href(chaveLugar)) + '">Menu</a>');
   acoes.push('<a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a>');
   acoes.push('<a class="s-btn ghost" href="' + esc(urlPerfil) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>');
   acoes.push('<a class="s-btn ghost icone" href="' + esc(urlPerfil) + '" data-copiar title="Copiar link" aria-label="Copiar link do perfil">' + COPIAR + '</a>');

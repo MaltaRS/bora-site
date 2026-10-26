@@ -1930,7 +1930,7 @@ window.STREETFY_CARDAPIOS = {
   tem:k => !!D[k],
   visivel:k => !!D[k] && ler()[k] !== false,
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
-  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
+  href:k => 'menu.html#lugar=' + encodeURIComponent(k),
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
   servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
@@ -2024,11 +2024,11 @@ function listas(){
 function cardapio(){
   const CA = window.STREETFY_CARDAPIOS; if (!CA) return '';
   const ks = Object.keys(CA.dados);
-  return '<div class="pt-card"><div class="pt-ch"><h3>Cardápio e mesa</h3><span class="pt-mini-t">o botão "Cardápio" no perfil e o que o cliente pode fazer na mesa</span></div><div class="pt-ca">'
-    + ks.map(k => { const c = CA.dados[k], on = CA.visivel(k); return '<label><span>' + esc(c.nome) + '<small>' + esc(c.tipo) + ' · <a href="' + esc(CA.href(k)) + '">ver cardápio</a> · <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">ver perfil</a></small></span><input type="checkbox" class="pt-sw" data-pt-ca="' + esc(k) + '"' + (on ? ' checked' : '') + ' aria-label="Mostrar cardápio de ' + esc(c.nome) + '"></label>'
+  return '<div class="pt-card"><div class="pt-ch"><h3>Menu e mesa</h3><span class="pt-mini-t">o botão "Menu" no perfil e o que o cliente pode fazer na mesa</span></div><div class="pt-ca">'
+    + ks.map(k => { const c = CA.dados[k], on = CA.visivel(k); return '<label><span>' + esc(c.nome) + '<small>' + esc(c.tipo) + ' · <a href="' + esc(CA.href(k)) + '">ver menu</a> · <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">ver perfil</a></small></span><input type="checkbox" class="pt-sw" data-pt-ca="' + esc(k) + '"' + (on ? ' checked' : '') + ' aria-label="Mostrar menu de ' + esc(c.nome) + '"></label>'
       + (on ? '<div class="pt-sv">' + [['pedidos', 'Pedidos pela mesa', 'o cliente abre a mesa pelo QR e pede da app'], ['garcom', 'Chamar o garçom', 'água, pão, vir à mesa, trazer a conta'], ['pagar', 'Pagar a conta pela app', 'gorjeta, dividir e pagar no telemóvel']].map(([f, n, d]) => '<label><span>' + n + '<small>' + d + '</small></span><input type="checkbox" class="pt-sw" data-pt-sv="' + esc(k) + '" data-f="' + f + '"' + (CA.servico(k)[f] ? ' checked' : '') + ' aria-label="' + n + ' · ' + esc(c.nome) + '"></label>').join('') + '<label><span>Visualização que abre primeiro<small>simples: lista rápida · completa: cartões com foto e ingredientes. O cliente pode trocar.</small></span><select class="pt-sel" data-pt-sv="' + esc(k) + '" data-f="vista"><option value="simples"' + (CA.servico(k).vista === 'simples' ? ' selected' : '') + '>Simples</option><option value="completa"' + (CA.servico(k).vista === 'completa' ? ' selected' : '') + '>Completa</option></select></label>' + '<a class="pt-mini" href="' + esc(CA.href(k)) + '&mesa=12">Testar como cliente na mesa 12</a></div>' : ''); }).join('')
-    + '<label><span>Lux Frágil<small>sem cardápio carregado · carrega em PDF, foto ou à mão e a IA passa a texto para aprovares</small></span><input type="checkbox" class="pt-sw" disabled aria-label="Sem cardápio"></label>'
-    + '</div><p class="al-nota">No app cada parceiro vê só a sua casa; aqui estão todas as casas do protótipo que têm cardápio. Desligado, o botão some do perfil e a página do cardápio deixa de abrir. A escolha fica neste aparelho.</p></div>';
+    + '<label><span>Lux Frágil<small>sem menu carregado · carrega em PDF, foto ou à mão e a IA passa a texto para aprovares</small></span><input type="checkbox" class="pt-sw" disabled aria-label="Sem menu"></label>'
+    + '</div><p class="al-nota">No app cada parceiro vê só a sua casa; aqui estão todas as casas do protótipo que têm menu. Desligado, o botão some do perfil e a página do menu deixa de abrir. A escolha fica neste aparelho.</p></div>';
 }
 function parceiro(){
   const d = D.parceiro;
