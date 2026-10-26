@@ -1051,6 +1051,60 @@ html.lb-aberta{overflow:hidden}
 .pt-ca{display:grid;gap:8px}.pt-ca label{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;font-size:14px;flex-wrap:wrap}
 .pt-ca label small{display:block;color:var(--grey);font-weight:600;font-size:12px}
 .pt-sw{appearance:none;width:46px;height:26px;border-radius:999px;background:#ccc;position:relative;cursor:pointer;flex:0 0 auto;margin:0}.pt-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}.pt-sw:checked{background:var(--pink)}.pt-sw:checked::after{left:23px}
+
+/* cardápio de mesa */
+.cm.com-barra{padding-bottom:120px}
+.cm-mesa{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:2px solid var(--ink);border-radius:16px;padding:14px 16px;background:#fff;box-shadow:5px 5px 0 var(--mint)}
+.cm-mesa.on{background:var(--mint)}.cm-mesa b{display:block;font-size:17px}.cm-mesa span{font-size:13px;color:var(--ink);opacity:.75}
+.cm-abrir{display:flex;gap:8px;flex-wrap:wrap}.cm-abrir input{width:130px;font:inherit;font-size:16px;padding:10px 12px;border:2px solid var(--ink);border-radius:10px}
+.cm-nav{position:sticky;top:64px;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 0;background:var(--paper,#eee);scrollbar-width:none}
+.cm-nav a{flex:0 0 auto;padding:7px 12px;border:2px solid var(--ink);border-radius:999px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none;background:#fff}
+.cm-montar{margin-top:10px}
+.ca-sec li{flex-wrap:nowrap}.ca-sec li > span{flex:1}
+.cm-add{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:0 0 auto;align-self:center}
+.cm-add:hover{background:var(--pink)}
+.cm-q{display:inline-flex;align-items:center;border:2px solid var(--ink);border-radius:999px;background:#fff;flex:0 0 auto;align-self:center}
+.cm-q button{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;font-size:18px;font-weight:800}.cm-q b{min-width:20px;text-align:center}
+.cm-pg{all:unset;cursor:pointer;font:800 11px var(--fb);border:2px solid var(--ink);border-radius:999px;padding:6px 10px;white-space:nowrap;align-self:center}
+.cm-barra{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);padding-bottom:env(safe-area-inset-bottom,0px)}
+.cm-barra .s-wrap{display:flex;gap:8px;padding-block:10px}
+.cm-b{all:unset;cursor:pointer;flex:1;min-width:0;border:2px solid #444;border-radius:12px;padding:8px 10px;color:#fff;display:grid;gap:2px}
+.cm-b span{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:#aaa}.cm-b b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-b.cm-ped{flex:1.4;background:#2a2a2a}.cm-b.cm-ped.on{background:var(--pink);border-color:var(--pink)}.cm-b.cm-ped.on span{color:#fff}
+.cm-sh{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.6);display:flex;justify-content:flex-end}
+.cm-sh[hidden]{display:none}
+.cm-sh-cx{width:min(460px,100%);height:100%;background:var(--paper,#f4f4f4);display:flex;flex-direction:column}
+.cm-sh-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 12px;border-bottom:2px solid var(--ink)}
+.cm-sh-h h2{margin:0;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;line-height:1}
+.cm-sh-b{overflow:auto;padding:14px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;align-content:start}
+@media (max-width:640px){.cm-sh{align-items:flex-end}.cm-sh-cx{height:auto;max-height:88vh;border-radius:18px 18px 0 0}}
+.cm-l{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.cm-l li{display:flex;gap:10px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 11px}
+.cm-l li > div{flex:1;min-width:0;display:grid;gap:3px}.cm-l small{color:var(--grey);font-size:12px}.cm-l em{font-style:normal;font-weight:800;white-space:nowrap}
+.cm-l input{font:inherit;font-size:13px;border:1px solid #ccc;border-radius:8px;padding:6px 8px;width:100%;box-sizing:border-box}
+.cm-tot{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}.cm-tot b{font-size:20px}
+.cm-tot.grande{border-top:2px solid var(--ink);padding-top:10px}.cm-tot.grande b{font-family:var(--fd);font-weight:400;font-size:40px}
+.cm-go{width:100%;text-align:center;justify-content:center;box-sizing:border-box}
+.cm-vazio{margin:0;color:var(--grey)}
+.cm-pd{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;display:grid;gap:8px}.cm-pd p{margin:0;font-size:14px}
+.cm-pd-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cm-st{font:800 11px var(--fb);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 9px;background:#eee}.cm-st.e1,.cm-st.e2{background:var(--pink);color:#fff}.cm-st.e3{background:var(--mint)}
+.cm-passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.cm-passos li{font-size:11px;font-weight:700;color:#999;border-top:4px solid #ddd;padding-top:4px}.cm-passos li.ok{color:var(--ink);border-color:var(--pink)}
+.cm-ok{background:var(--mint);border:2px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:14px}
+.cm-mot{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cm-mot button{all:unset;cursor:pointer;text-align:center;border:2px solid var(--ink);border-radius:12px;padding:12px 8px;background:#fff;font-weight:800;font-size:14px}
+.cm-mot button:hover{background:var(--ink);color:#fff}
+.cm-outro{display:flex;gap:8px}.cm-outro input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:2px solid var(--ink);border-radius:10px}
+.cm-op{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700}.cm-op > div{display:flex;gap:6px}
+.cm-op > div:not(.cm-q) button{all:unset;cursor:pointer;border:2px solid var(--ink);border-radius:999px;padding:6px 11px;font-weight:800;font-size:13px;background:#fff}.cm-op button.on{background:var(--ink);color:#fff}
+.cm-op small{width:100%;color:var(--grey);font-weight:600}
+.cm-pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cm-pay .s-btn{justify-content:center;text-align:center}
+.cm-fixo fieldset{border:2px solid var(--ink);border-radius:12px;padding:8px 12px 12px;margin:0;background:#fff;display:grid;gap:4px}
+.cm-fixo legend{font:800 12px var(--fb);letter-spacing:.1em;text-transform:uppercase;padding:0 6px}
+.cm-op1{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:5px 0;cursor:pointer}.cm-op1 input{margin-top:3px;accent-color:var(--pink)}.cm-op1 small{color:var(--pink);font-weight:800}
+.pt-sv{display:grid;gap:6px;margin:-2px 0 6px 18px;padding-left:12px;border-left:3px solid var(--pink)}
+.pt-sv label{padding:8px 10px;border-width:1px}.pt-sv .pt-mini{justify-self:start}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1157,7 +1211,8 @@ window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(fal
 'use strict';
 const D = {
  'lisboa/clube de fado':{nome:'Clube de Fado', tipo:'Restaurante com fado ao vivo · Alfama', fonte:['clubedefado.pt', 'https://www.clubedefado.pt/gastronomia/'], img:'alfama',
-  menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.'},
+  menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.', cursos:[['Entrada', ['Entradas']], ['Prato', ['Peixe', 'Carne', 'Vegetariano']], ['Sobremesa', ['Sobremesas']]]},
+  servico:{pedidos:true, garcom:true, pagar:false},
   horario:'Todos os dias · cozinha às 19h30 · fado às 20h30 · fecha à 01h00',
   secoes:[
    ['Couvert', 'incluído', [['Pão, azeite, azeitonas, manteiga aromatizada e enchidos']]],
@@ -1168,7 +1223,7 @@ const D = {
    ['Sobremesas', 'escolhe uma', [['Pudim Abade de Priscos', '', 'da casa'], ['Bolo de chocolate'], ['Pêra bêbada'], ['Gelado'], ['Fruta da época'], ['Cheesecake com frutos silvestres'], ['Tábua de queijos']]],
    ['Bebidas', 'à parte', [['Vinho português a copo', 'desde €9'], ['Carta de bar · do Porto seco ao Aperol Spritz', '€8 a €15'], ['Petiscos fora do menu', '€4 a €20']]]],
   notas:['Sala pequena: convém reservar.', 'Alergénios: pergunta à equipa.']},
- 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail',
+ 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', servico:{pedidos:true, garcom:true, pagar:true},
   horario:'Dom a qua 17h00–03h00 · qui a sáb 17h00–04h00',
   secoes:[
    ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50'], ['Isabel das Caldas, Artista do Falo', '€10,00'], ['Maria Fadista, A Boca Linda', '€11,00'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00']]],
@@ -1176,43 +1231,183 @@ const D = {
    ['Sem álcool', '', [["Shi'so Cute", '€7,00'], ['Gumball BJ', '€6,00'], ['Strawberrys and Cream', '€6,00'], ['Beefeater 0% & Tonic', '€9,00']]]],
   notas:['A casa não publica carta de comida.']}
 };
-const LK = 'streetfy:cardapio-visivel';
+const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
 const ler = () => { try { return JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) { return {}; } };
 window.STREETFY_CARDAPIOS = {
   dados:D,
   tem:k => !!D[k],
   visivel:k => !!D[k] && ler()[k] !== false,
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
-  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k)
+  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
+  /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
+  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false}, (D[k] || {}).servico, v); },
+  mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
 };
 })();
-</script><script>/* Streetfy · cardapio.js — página do cardápio: cardapio.html#lugar=<cidade/lugar> — só o cardápio da casa dona do perfil */
+</script><script>/* Streetfy · cardapio.js — cardápio de mesa: cardapio.html#lugar=<cidade/lugar>[&mesa=12]
+   Só o cardápio da casa dona do perfil. Com a mesa aberta: pedir, acompanhar, chamar o garçom e, se a casa ligar, pagar a conta.
+   O QR da mesa abre este link já com &mesa=. Protótipo: nada é cobrado; o estado fica neste aparelho. */
 (function(){
 'use strict';
 const el = document.querySelector('[data-cardapio]'); if (!el) return;
 const CA = window.STREETFY_CARDAPIOS;
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-function casa(k, c){
-  return '<div class="ca-casa">'
-    + (c.menu ? '<div class="ca-menu"><div><p class="s-eyebrow">' + esc(c.menu.titulo) + '</p><p>' + esc(c.menu.inclui) + '</p></div><b>€' + c.menu.preco + '<small>por pessoa</small></b></div>' : '')
-    + (c.semPreco ? '<p class="ca-aviso">A casa não publica preços. Faixa de preço: <b>' + esc(c.semPreco) + '</b>. Os pratos abaixo são os que a fonte confirma.</p>' : '')
-    + '<div class="ca-secs">' + c.secoes.map(([t, sub, itens]) => '<section class="ca-sec"><h3>' + esc(t) + (sub ? ' <small>' + esc(sub) + '</small>' : '') + '</h3><ul>'
-        + itens.map(([n, p, tag]) => '<li><span>' + esc(n) + (tag ? ' <i>' + esc(tag) + '</i>' : '') + '</span><b>' + esc(p || '') + '</b></li>').join('') + '</ul></section>').join('') + '</div>'
-    + '<div class="ca-pe"><p><b>Horário</b> ' + esc(c.horario || '') + '</p>' + (c.notas || []).map(n => '<p>' + esc(n) + '</p>').join('')
-    + '<p class="al-nota">Fonte: <a href="' + esc(c.fonte[1]) + '" target="_blank" rel="noopener">' + esc(c.fonte[0]) + '</a>, consultada a 26/10/2026. Preços e pratos podem mudar; quem manda é a casa.</p></div></div>';
+const eur = n => '€' + n.toFixed(2).replace('.', ',');
+const hora = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+const precoDe = p => { const m = /^€\s*(\d+(?:[.,]\d+)?)$/.exec(String(p || '').trim()); return m ? parseFloat(m[1].replace(',', '.')) : null; };
+const supDe = p => { const m = /^\+\s*€\s*(\d+(?:[.,]\d+)?)/.exec(String(p || '')); return m ? parseFloat(m[1].replace(',', '.')) : 0; };
+let k = '', c = null, S = null, vista = null, fixo = {};
+const chave = () => 'streetfy:mesa:' + k;
+const novo = () => ({mesa:'', desde:0, cart:[], pedidos:[], chamadas:[], pago:null, gorjeta:10, pessoas:1});
+const ler = () => { try { return Object.assign(novo(), JSON.parse(localStorage.getItem(chave()) || 'null') || {}); } catch (e) { return novo(); } };
+const grava = () => { try { localStorage.setItem(chave(), JSON.stringify(S)); } catch (e) {} };
+const SV = () => CA.servico(k);
+const qtdCart = () => S.cart.reduce((a, i) => a + i.q, 0), totCart = () => S.cart.reduce((a, i) => a + i.q * i.p, 0);
+const enviados = () => S.pedidos.flatMap(p => p.itens), totConta = () => enviados().reduce((a, i) => a + i.q * i.p, 0);
+const ESTADOS = [[20, 'Recebido', 'a casa já viu o teu pedido'], [60, 'A preparar', 'na cozinha ou no bar'], [90, 'A caminho', 'vai já para a mesa'], [1e12, 'Entregue', 'bom proveito']];
+const estado = p => { const s = (Date.now() - p.t) / 1000; return ESTADOS.findIndex(e => s < e[0]); };
+
+/* ---------- cardápio ---------- */
+function linha(si, ii, it, cursoFixo){
+  const [n, p, tag] = it, preco = precoDe(p), id = si + '-' + ii, noCart = S.cart.find(x => x.id === id);
+  const pedir = S.mesa && !S.pago && SV().pedidos;
+  let acao = '';
+  if (pedir && preco != null && !cursoFixo) acao = noCart ? '<span class="cm-q"><button type="button" data-cm="menos" data-id="' + id + '" aria-label="Menos">−</button><b>' + noCart.q + '</b><button type="button" data-cm="mais" data-id="' + id + '" aria-label="Mais">+</button></span>' : '<button type="button" class="cm-add" data-cm="add" data-si="' + si + '" data-ii="' + ii + '" aria-label="Juntar ' + esc(n) + '">+</button>';
+  else if (S.mesa && !S.pago && SV().garcom && preco == null && p && !cursoFixo && !/^\+/.test(p)) acao = '<button type="button" class="cm-pg" data-cm="garcom-item" data-n="' + esc(n) + '">Pedir ao garçom</button>';
+  return '<li><span>' + esc(n) + (tag ? ' <i>' + esc(tag) + '</i>' : '') + '</span><b>' + esc(p || '') + '</b>' + acao + '</li>';
 }
-function desenha(){
-  const q = new URLSearchParams(location.hash.slice(1)), k = q.get('lugar') || '', c = CA.dados[k];
-  if (!c || !CA.visivel(k)) { document.title = 'Streetfy · Cardápio'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>CARDÁPIO</em></h1><p class="s-lead">Este lugar não mostra cardápio no Streetfy.</p><p><a class="s-btn ink" href="perfil.html#lugar=' + encodeURIComponent(k) + '">Voltar ao perfil</a></p></div></section>'; return; }
-  document.title = 'Streetfy · Cardápio · ' + c.nome;
-  el.innerHTML = '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
+function pagina(){
+  const sv = SV(), temServico = sv.pedidos || sv.garcom || sv.pagar;
+  const cursos = c.menu && c.menu.cursos ? c.menu.cursos.flatMap(x => x[1]) : [];
+  const abrir = !temServico ? '' : S.mesa
+    ? '<div class="cm-mesa on"><div><b>Mesa ' + esc(S.mesa) + '</b><span>' + (S.pago ? 'conta paga às ' + hora(S.pago.t) : 'aberta às ' + hora(S.desde) + (sv.pedidos ? ' · pede daqui, sem esperar' : '')) + '</span></div><button type="button" class="s-btn ghost" data-cm="fechar-mesa">' + (S.pago ? 'Fechar mesa' : 'Sair da mesa') + '</button></div>'
+    : '<form class="cm-mesa" data-cm-abrir><div><b>Estás na casa? Abre a tua mesa</b><span>Lê o QR da mesa com a câmara, ou escreve o número. ' + [sv.pedidos && 'pedes', sv.garcom && 'chamas o garçom', sv.pagar && 'pagas'].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' e $1') + ' daqui.</span></div><div class="cm-abrir"><input name="mesa" inputmode="numeric" placeholder="n.º da mesa" aria-label="Número da mesa" required maxlength="4"><button class="s-btn mint" type="submit">Abrir mesa</button></div></form>';
+  const nav = '<nav class="cm-nav" aria-label="Secções">' + c.secoes.map((s, i) => '<a href="#" data-cm="ir" data-i="' + i + '">' + esc(s[0]) + '</a>').join('') + '</nav>';
+  const menuFixo = c.menu ? '<div class="ca-menu"><div><p class="s-eyebrow">' + esc(c.menu.titulo) + '</p><p>' + esc(c.menu.inclui) + '</p>' + (S.mesa && !S.pago && sv.pedidos && c.menu.cursos ? '<button type="button" class="s-btn mint cm-montar" data-cm="montar">Montar menu e pedir</button>' : '') + '</div><b>€' + c.menu.preco + '<small>por pessoa</small></b></div>' : '';
+  return '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
     + '<div class="crumbs"><a href="index.html">Streetfy</a> › <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">' + esc(c.nome) + '</a> › <span>Cardápio</span></div>'
-    + '<h1 class="s-h" style="font-size:clamp(48px,8vw,104px)">CARDÁPIO<br><em>' + esc(c.nome.toUpperCase()) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
-    + '<div class="p-acoes"><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(k) + '">← Perfil</a>' + '</div></div></section>'
-    + '<section class="s-sec tight"><div class="s-wrap">'
-    + casa(k, c) + '</div></section>';
+    + '<h1 class="s-h" style="font-size:clamp(44px,8vw,104px)">CARDÁPIO<br><em>' + esc(c.nome.toUpperCase()) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
+    + '<div class="p-acoes"><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(k) + '">← Perfil</a></div></div></section>'
+    + '<section class="s-sec tight cm' + (S.mesa ? ' com-barra' : '') + '"><div class="s-wrap"><div class="ca-casa">' + abrir + nav + menuFixo
+    + '<div class="ca-secs">' + c.secoes.map(([t, sub, itens], si) => '<section class="ca-sec" id="cm-s' + si + '"><h3>' + esc(t) + (sub ? ' <small>' + esc(sub) + '</small>' : '') + '</h3><ul>' + itens.map((it, ii) => linha(si, ii, it, cursos.includes(t))).join('') + '</ul></section>').join('') + '</div>'
+    + '<div class="ca-pe"><p><b>Horário</b> ' + esc(c.horario || '') + '</p>' + (c.notas || []).map(n => '<p>' + esc(n) + '</p>').join('')
+    + '<p class="al-nota">Fonte do cardápio: <a href="' + esc(c.fonte[1]) + '" target="_blank" rel="noopener">' + esc(c.fonte[0]) + '</a>, consultada a 26/10/2026. Protótipo: pedidos, chamadas e pagamento são simulados e nada é cobrado.</p></div></div></div></section>'
+    + barra() + '<div class="cm-sh" hidden></div>';
 }
-window.addEventListener('hashchange', () => { desenha(); window.scrollTo({top:0}); });
-desenha();
+function barra(){
+  if (!S.mesa) return '';
+  const sv = SV(), n = qtdCart(), conta = totConta();
+  const ult = S.pedidos.length ? ESTADOS[estado(S.pedidos[S.pedidos.length - 1])][1] : '';
+  return '<div class="cm-barra"><div class="s-wrap">'
+    + (sv.garcom && !S.pago ? '<button type="button" class="cm-b" data-cm="ver" data-v="garcom"><span>Garçom</span><b>🔔</b></button>' : '')
+    + (S.pedidos.length ? '<button type="button" class="cm-b" data-cm="ver" data-v="acomp"><span>Pedidos</span><b>' + esc(ult) + '</b></button>' : '')
+    + ((S.pedidos.length || sv.pagar) ? '<button type="button" class="cm-b" data-cm="ver" data-v="conta"><span>Conta</span><b>' + (S.pago ? 'paga ✓' : eur(conta)) + '</b></button>' : '')
+    + (sv.pedidos && !S.pago ? '<button type="button" class="cm-b cm-ped' + (n ? ' on' : '') + '" data-cm="ver" data-v="pedido"><span>O meu pedido</span><b>' + (n ? n + ' · ' + eur(totCart()) : 'vazio') + '</b></button>' : '')
+    + '</div></div>';
+}
+
+/* ---------- folhas ---------- */
+function folha(v){
+  vista = v;
+  const sh = el.querySelector('.cm-sh'), sv = SV();
+  let t = '', b = '';
+  if (v === 'pedido') {
+    t = 'O meu pedido';
+    b = S.cart.length ? '<ul class="cm-l">' + S.cart.map(i => '<li><div><b>' + esc(i.n) + '</b>' + (i.det ? '<small>' + esc(i.det) + '</small>' : '') + '<input data-cm-obs="' + i.id + '" value="' + esc(i.obs || '') + '" placeholder="nota para a cozinha (sem gelo, bem passado…)" aria-label="Nota"></div><span class="cm-q"><button type="button" data-cm="menos" data-id="' + i.id + '">−</button><b>' + i.q + '</b><button type="button" data-cm="mais" data-id="' + i.id + '">+</button></span><em>' + eur(i.q * i.p) + '</em></li>').join('') + '</ul>'
+        + '<div class="cm-tot"><span>Total deste pedido</span><b>' + eur(totCart()) + '</b></div><button type="button" class="s-btn ink cm-go" data-cm="enviar">Enviar para a mesa ' + esc(S.mesa) + '</button><p class="al-nota">Vai direto para a cozinha e para o bar. Paga-se no fim, na conta.</p>'
+      : '<p class="cm-vazio">Ainda não juntaste nada. Toca no + ao lado de cada item.</p>';
+  } else if (v === 'acomp') {
+    t = 'Os teus pedidos';
+    b = S.pedidos.slice().reverse().map(p => { const e = estado(p); return '<div class="cm-pd"><div class="cm-pd-h"><b>Pedido ' + p.n + ' · ' + hora(p.t) + '</b><span class="cm-st e' + e + '">' + ESTADOS[e][1] + '</span></div><ol class="cm-passos">' + ESTADOS.map((x, j) => '<li class="' + (j <= e ? 'ok' : '') + '">' + x[1] + '</li>').join('') + '</ol><p>' + p.itens.map(i => i.q + '× ' + esc(i.n)).join(' · ') + '</p></div>'; }).join('')
+      + '<p class="al-nota">O estado muda quando a cozinha ou o bar marcam no painel deles.</p>';
+  } else if (v === 'garcom') {
+    t = 'Chamar o garçom';
+    const ult = S.chamadas[S.chamadas.length - 1];
+    b = (ult && Date.now() - ult.t < 120000 ? '<div class="cm-ok">🔔 <b>Avisado às ' + hora(ult.t) + '</b> · ' + esc(ult.m) + '. O garçom da tua zona vem à mesa ' + esc(S.mesa) + '.</div>' : '')
+      + '<div class="cm-mot">' + ['Vir à mesa', 'Água', 'Mais pão', 'Talheres ou guardanapos', 'Carta de vinhos', 'Ajuda com o cardápio', 'Trazer a conta'].map(m => '<button type="button" data-cm="chamar" data-m="' + m + '">' + m + '</button>').join('') + '</div>'
+      + '<form class="cm-outro" data-cm-outro><input name="m" placeholder="Outro pedido (ex.: cadeira de bebé)" aria-label="Outro pedido"><button class="s-btn ink" type="submit">Chamar</button></form>';
+  } else if (v === 'conta') {
+    t = 'A conta · mesa ' + S.mesa;
+    const itens = enviados(), sub = totConta(), gj = Math.round(sub * S.gorjeta) / 100, tot = sub + gj, pp = tot / S.pessoas;
+    b = (itens.length ? '<ul class="cm-l conta">' + itens.map(i => '<li><div><b>' + i.q + '× ' + esc(i.n) + '</b>' + (i.det || i.obs ? '<small>' + esc([i.det, i.obs && 'nota: ' + i.obs].filter(Boolean).join(' · ')) + '</small>' : '') + '</div><em>' + eur(i.q * i.p) + '</em></li>').join('') + '</ul>' : '<p class="cm-vazio">Ainda não há nada na conta.</p>')
+      + (c.menu ? '<p class="al-nota">Couvert incluído no menu.</p>' : '')
+      + '<div class="cm-tot"><span>Subtotal</span><b>' + eur(sub) + '</b></div>'
+      + (S.pago ? '<div class="cm-ok">✓ <b>Conta paga às ' + hora(S.pago.t) + '</b> · ' + eur(S.pago.v) + ' com ' + esc(S.pago.m) + (S.pago.p > 1 ? ' · a tua parte, de ' + S.pago.p + ' (cada um paga a sua no próprio telemóvel)' : '') + '. O recibo com NIF fica no app.</div><button type="button" class="s-btn ink cm-go" data-cm="fechar-mesa">Fechar mesa</button>'
+        : sv.pagar && itens.length
+        ? '<div class="cm-op"><span>Gorjeta</span><div>' + [0, 5, 10, 15].map(g => '<button type="button" data-cm="gorjeta" data-g="' + g + '" class="' + (S.gorjeta === g ? 'on' : '') + '">' + (g ? g + '%' : 'sem') + '</button>').join('') + '</div></div>'
+          + '<div class="cm-op"><span>Dividir</span><div class="cm-q"><button type="button" data-cm="pessoas" data-d="-1">−</button><b>' + S.pessoas + '</b><button type="button" data-cm="pessoas" data-d="1">+</button></div><small>' + (S.pessoas > 1 ? 'cada um paga a sua parte no próprio telemóvel' : 'pagas tudo') + '</small></div>'
+          + '<div class="cm-tot grande"><span>' + (S.pessoas > 1 ? 'A tua parte' : 'Total') + (gj ? ' · com ' + eur(S.pessoas > 1 ? gj / S.pessoas : gj) + ' de gorjeta' : '') + '</span><b>' + eur(pp) + '</b></div>'
+          + '<div class="cm-pay">' + ['Apple Pay', 'Google Pay', 'MB WAY', 'Cartão guardado'].map(m => '<button type="button" class="s-btn ' + (m === 'Apple Pay' ? 'ink' : 'ghost') + '" data-cm="pagar" data-m="' + m + '">' + m + '</button>').join('') + '</div><p class="al-nota">Protótipo: nenhum pagamento é feito. No app, o pagamento confirma na carteira do telemóvel e a mesa fecha sozinha.</p>'
+        : (sv.garcom ? '<button type="button" class="s-btn ink cm-go" data-cm="chamar" data-m="Trazer a conta">Pedir a conta ao garçom</button>' : '') + (sv.pagar ? '' : '<p class="al-nota">Esta casa recebe na mesa: o pagamento pela app está desligado.</p>'));
+  }
+  sh.innerHTML = '<div class="cm-sh-cx" role="dialog" aria-modal="true" aria-label="' + esc(t) + '"><div class="cm-sh-h"><h2>' + esc(t) + '</h2><button type="button" class="u-pn-x" data-cm="fechar" aria-label="Fechar">×</button></div><div class="cm-sh-b">' + b + '</div></div>';
+  sh.hidden = false; document.documentElement.classList.add('lb-aberta');
+}
+function montar(){
+  vista = 'montar';
+  const sh = el.querySelector('.cm-sh'), secs = {};
+  c.secoes.forEach(s => { secs[s[0]] = s[2]; });
+  sh.innerHTML = '<div class="cm-sh-cx" role="dialog" aria-modal="true" aria-label="Montar menu"><div class="cm-sh-h"><h2>' + esc(c.menu.titulo) + ' · €' + c.menu.preco + '</h2><button type="button" class="u-pn-x" data-cm="fechar" aria-label="Fechar">×</button></div><form class="cm-sh-b cm-fixo" data-cm-fixo>'
+    + c.menu.cursos.map(([curso, de], ci) => '<fieldset><legend>' + esc(curso) + ' · escolhe 1</legend>' + de.map(sn => (de.length > 1 ? '<p class="u-sub">' + esc(sn) + '</p>' : '') + (secs[sn] || []).map(([n, p]) => '<label class="cm-op1"><input type="radio" name="c' + ci + '" value="' + esc(n) + '" data-sup="' + supDe(p) + '"' + (fixo['c' + ci] === n ? ' checked' : '') + ' required><span>' + esc(n) + (p ? ' <small>' + esc(p) + '</small>' : '') + '</span></label>').join('')).join('') + '</fieldset>').join('')
+    + '<button class="s-btn ink cm-go" type="submit">Juntar ao pedido</button><p class="al-nota">Um menu por pessoa. Para a mesa toda, monta um de cada vez.</p></form></div>';
+  sh.hidden = false; document.documentElement.classList.add('lb-aberta');
+}
+function fechaFolha(){ const sh = el.querySelector('.cm-sh'); if (sh) sh.hidden = true; vista = null; document.documentElement.classList.remove('lb-aberta'); }
+function desenha(){
+  const y = window.scrollY, v = vista;
+  el.innerHTML = pagina();
+  window.scrollTo(0, y);
+  if (v === 'montar') montar(); else if (v) folha(v);
+}
+
+/* ---------- ações ---------- */
+el.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-cm]');
+  if (!b) { if (ev.target.classList.contains('cm-sh')) fechaFolha(); return; }
+  const a = b.dataset.cm; ev.preventDefault();
+  if (a === 'ir') { const s = document.getElementById('cm-s' + b.dataset.i); if (s) window.scrollTo({top:s.getBoundingClientRect().top + window.scrollY - 140, behavior:'smooth'}); return; }
+  if (a === 'fechar') { fechaFolha(); return; }
+  if (a === 'ver') { folha(b.dataset.v); return; }
+  if (a === 'montar') { montar(); return; }
+  if (a === 'add') { const [n, p] = c.secoes[+b.dataset.si][2][+b.dataset.ii]; S.cart.push({id:b.dataset.si + '-' + b.dataset.ii, n, p:precoDe(p), q:1}); }
+  if (a === 'mais' || a === 'menos') { const i = S.cart.find(x => x.id === b.dataset.id); if (i) { i.q += a === 'mais' ? 1 : -1; if (i.q < 1) S.cart = S.cart.filter(x => x !== i); } }
+  if (a === 'enviar' && S.cart.length) { S.pedidos.push({n:S.pedidos.length + 1, t:Date.now(), itens:S.cart.map(i => Object.assign({}, i))}); S.cart = []; vista = 'acomp'; }
+  if (a === 'chamar' || a === 'garcom-item') { S.chamadas.push({t:Date.now(), m:a === 'chamar' ? b.dataset.m : 'quero pedir: ' + b.dataset.n}); vista = 'garcom'; }
+  if (a === 'gorjeta') S.gorjeta = +b.dataset.g;
+  if (a === 'pessoas') S.pessoas = Math.max(1, Math.min(12, S.pessoas + +b.dataset.d));
+  if (a === 'pagar') { const sub = totConta(), tot = sub + Math.round(sub * S.gorjeta) / 100; S.pago = {t:Date.now(), m:b.dataset.m, v:tot / S.pessoas, p:S.pessoas}; }
+  if (a === 'fechar-mesa') { S = novo(); vista = null; document.documentElement.classList.remove('lb-aberta'); try { localStorage.removeItem(chave()); } catch (e) {} desenha(); return; }
+  grava(); desenha();
+});
+el.addEventListener('input', ev => { const o = ev.target.closest('[data-cm-obs]'); if (o) { const i = S.cart.find(x => x.id === o.dataset.cmObs); if (i) { i.obs = o.value; grava(); } } });
+el.addEventListener('change', ev => { const r = ev.target.closest('[data-cm-fixo] input[type=radio]'); if (r) fixo[r.name] = r.value; });
+el.addEventListener('submit', ev => {
+  ev.preventDefault();
+  const f = ev.target;
+  if (f.matches('[data-cm-abrir]')) { const m = f.mesa.value.trim(); if (m) { S.mesa = m; S.desde = Date.now(); grava(); desenha(); } return; }
+  if (f.matches('[data-cm-outro]')) { const m = f.m.value.trim(); if (m) { S.chamadas.push({t:Date.now(), m}); grava(); vista = 'garcom'; desenha(); } return; }
+  if (f.matches('[data-cm-fixo]')) {
+    const esc1 = c.menu.cursos.map((_, ci) => f.querySelector('input[name=c' + ci + ']:checked'));
+    if (esc1.some(x => !x)) return;
+    const sup = esc1.reduce((a, x) => a + (+x.dataset.sup || 0), 0);
+    S.cart.push({id:'m' + Date.now().toString(36), n:c.menu.titulo, det:esc1.map(x => x.value).join(' · '), p:c.menu.preco + sup, q:1});
+    fixo = {}; vista = 'pedido'; grava(); desenha();
+  }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && vista) fechaFolha(); });
+setInterval(() => { if (S && S.pedidos.length && S.pedidos.some(p => estado(p) < 3)) { const sh = el.querySelector('.cm-sh'); const ae = document.activeElement; if (!(ae && ae.matches && ae.matches('input'))) desenha(); } }, 5000);
+
+function carrega(){
+  const q = new URLSearchParams(location.hash.slice(1));
+  k = q.get('lugar') || ''; c = CA.dados[k];
+  if (!c || !CA.visivel(k)) { document.title = 'Streetfy · Cardápio'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>CARDÁPIO</em></h1><p class="s-lead">Este lugar não mostra cardápio no Streetfy.</p><p><a class="s-btn ink" href="perfil.html#lugar=' + encodeURIComponent(k) + '">Voltar ao perfil</a></p></div></section>'; S = null; return; }
+  document.title = 'Streetfy · Cardápio · ' + c.nome;
+  S = ler(); vista = null;
+  const m = q.get('mesa'); const sv = SV();
+  if (m && (sv.pedidos || sv.garcom || sv.pagar) && S.mesa !== m && !S.pedidos.length) { S = novo(); S.mesa = m; S.desde = Date.now(); grava(); }
+  desenha();
+}
+window.addEventListener('hashchange', () => { fechaFolha(); carrega(); window.scrollTo({top:0}); });
+carrega();
 })();
 </script></body></html>

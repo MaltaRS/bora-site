@@ -1051,6 +1051,60 @@ html.lb-aberta{overflow:hidden}
 .pt-ca{display:grid;gap:8px}.pt-ca label{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;font-size:14px;flex-wrap:wrap}
 .pt-ca label small{display:block;color:var(--grey);font-weight:600;font-size:12px}
 .pt-sw{appearance:none;width:46px;height:26px;border-radius:999px;background:#ccc;position:relative;cursor:pointer;flex:0 0 auto;margin:0}.pt-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}.pt-sw:checked{background:var(--pink)}.pt-sw:checked::after{left:23px}
+
+/* cardápio de mesa */
+.cm.com-barra{padding-bottom:120px}
+.cm-mesa{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:2px solid var(--ink);border-radius:16px;padding:14px 16px;background:#fff;box-shadow:5px 5px 0 var(--mint)}
+.cm-mesa.on{background:var(--mint)}.cm-mesa b{display:block;font-size:17px}.cm-mesa span{font-size:13px;color:var(--ink);opacity:.75}
+.cm-abrir{display:flex;gap:8px;flex-wrap:wrap}.cm-abrir input{width:130px;font:inherit;font-size:16px;padding:10px 12px;border:2px solid var(--ink);border-radius:10px}
+.cm-nav{position:sticky;top:64px;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 0;background:var(--paper,#eee);scrollbar-width:none}
+.cm-nav a{flex:0 0 auto;padding:7px 12px;border:2px solid var(--ink);border-radius:999px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none;background:#fff}
+.cm-montar{margin-top:10px}
+.ca-sec li{flex-wrap:nowrap}.ca-sec li > span{flex:1}
+.cm-add{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:0 0 auto;align-self:center}
+.cm-add:hover{background:var(--pink)}
+.cm-q{display:inline-flex;align-items:center;border:2px solid var(--ink);border-radius:999px;background:#fff;flex:0 0 auto;align-self:center}
+.cm-q button{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;font-size:18px;font-weight:800}.cm-q b{min-width:20px;text-align:center}
+.cm-pg{all:unset;cursor:pointer;font:800 11px var(--fb);border:2px solid var(--ink);border-radius:999px;padding:6px 10px;white-space:nowrap;align-self:center}
+.cm-barra{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);padding-bottom:env(safe-area-inset-bottom,0px)}
+.cm-barra .s-wrap{display:flex;gap:8px;padding-block:10px}
+.cm-b{all:unset;cursor:pointer;flex:1;min-width:0;border:2px solid #444;border-radius:12px;padding:8px 10px;color:#fff;display:grid;gap:2px}
+.cm-b span{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:#aaa}.cm-b b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-b.cm-ped{flex:1.4;background:#2a2a2a}.cm-b.cm-ped.on{background:var(--pink);border-color:var(--pink)}.cm-b.cm-ped.on span{color:#fff}
+.cm-sh{position:fixed;inset:0;z-index:200;background:rgba(8,8,8,.6);display:flex;justify-content:flex-end}
+.cm-sh[hidden]{display:none}
+.cm-sh-cx{width:min(460px,100%);height:100%;background:var(--paper,#f4f4f4);display:flex;flex-direction:column}
+.cm-sh-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 12px;border-bottom:2px solid var(--ink)}
+.cm-sh-h h2{margin:0;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;line-height:1}
+.cm-sh-b{overflow:auto;padding:14px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;align-content:start}
+@media (max-width:640px){.cm-sh{align-items:flex-end}.cm-sh-cx{height:auto;max-height:88vh;border-radius:18px 18px 0 0}}
+.cm-l{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.cm-l li{display:flex;gap:10px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 11px}
+.cm-l li > div{flex:1;min-width:0;display:grid;gap:3px}.cm-l small{color:var(--grey);font-size:12px}.cm-l em{font-style:normal;font-weight:800;white-space:nowrap}
+.cm-l input{font:inherit;font-size:13px;border:1px solid #ccc;border-radius:8px;padding:6px 8px;width:100%;box-sizing:border-box}
+.cm-tot{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}.cm-tot b{font-size:20px}
+.cm-tot.grande{border-top:2px solid var(--ink);padding-top:10px}.cm-tot.grande b{font-family:var(--fd);font-weight:400;font-size:40px}
+.cm-go{width:100%;text-align:center;justify-content:center;box-sizing:border-box}
+.cm-vazio{margin:0;color:var(--grey)}
+.cm-pd{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;display:grid;gap:8px}.cm-pd p{margin:0;font-size:14px}
+.cm-pd-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cm-st{font:800 11px var(--fb);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 9px;background:#eee}.cm-st.e1,.cm-st.e2{background:var(--pink);color:#fff}.cm-st.e3{background:var(--mint)}
+.cm-passos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.cm-passos li{font-size:11px;font-weight:700;color:#999;border-top:4px solid #ddd;padding-top:4px}.cm-passos li.ok{color:var(--ink);border-color:var(--pink)}
+.cm-ok{background:var(--mint);border:2px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:14px}
+.cm-mot{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cm-mot button{all:unset;cursor:pointer;text-align:center;border:2px solid var(--ink);border-radius:12px;padding:12px 8px;background:#fff;font-weight:800;font-size:14px}
+.cm-mot button:hover{background:var(--ink);color:#fff}
+.cm-outro{display:flex;gap:8px}.cm-outro input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:2px solid var(--ink);border-radius:10px}
+.cm-op{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-weight:700}.cm-op > div{display:flex;gap:6px}
+.cm-op > div:not(.cm-q) button{all:unset;cursor:pointer;border:2px solid var(--ink);border-radius:999px;padding:6px 11px;font-weight:800;font-size:13px;background:#fff}.cm-op button.on{background:var(--ink);color:#fff}
+.cm-op small{width:100%;color:var(--grey);font-weight:600}
+.cm-pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}.cm-pay .s-btn{justify-content:center;text-align:center}
+.cm-fixo fieldset{border:2px solid var(--ink);border-radius:12px;padding:8px 12px 12px;margin:0;background:#fff;display:grid;gap:4px}
+.cm-fixo legend{font:800 12px var(--fb);letter-spacing:.1em;text-transform:uppercase;padding:0 6px}
+.cm-op1{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:5px 0;cursor:pointer}.cm-op1 input{margin-top:3px;accent-color:var(--pink)}.cm-op1 small{color:var(--pink);font-weight:800}
+.pt-sv{display:grid;gap:6px;margin:-2px 0 6px 18px;padding-left:12px;border-left:3px solid var(--pink)}
+.pt-sv label{padding:8px 10px;border-width:1px}.pt-sv .pt-mini{justify-self:start}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1818,7 +1872,8 @@ window.STREETFY_PROMOTERS = {lista:P, festasDe};
 'use strict';
 const D = {
  'lisboa/clube de fado':{nome:'Clube de Fado', tipo:'Restaurante com fado ao vivo · Alfama', fonte:['clubedefado.pt', 'https://www.clubedefado.pt/gastronomia/'], img:'alfama',
-  menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.'},
+  menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.', cursos:[['Entrada', ['Entradas']], ['Prato', ['Peixe', 'Carne', 'Vegetariano']], ['Sobremesa', ['Sobremesas']]]},
+  servico:{pedidos:true, garcom:true, pagar:false},
   horario:'Todos os dias · cozinha às 19h30 · fado às 20h30 · fecha à 01h00',
   secoes:[
    ['Couvert', 'incluído', [['Pão, azeite, azeitonas, manteiga aromatizada e enchidos']]],
@@ -1829,7 +1884,7 @@ const D = {
    ['Sobremesas', 'escolhe uma', [['Pudim Abade de Priscos', '', 'da casa'], ['Bolo de chocolate'], ['Pêra bêbada'], ['Gelado'], ['Fruta da época'], ['Cheesecake com frutos silvestres'], ['Tábua de queijos']]],
    ['Bebidas', 'à parte', [['Vinho português a copo', 'desde €9'], ['Carta de bar · do Porto seco ao Aperol Spritz', '€8 a €15'], ['Petiscos fora do menu', '€4 a €20']]]],
   notas:['Sala pequena: convém reservar.', 'Alergénios: pergunta à equipa.']},
- 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail',
+ 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', servico:{pedidos:true, garcom:true, pagar:true},
   horario:'Dom a qua 17h00–03h00 · qui a sáb 17h00–04h00',
   secoes:[
    ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50'], ['Isabel das Caldas, Artista do Falo', '€10,00'], ['Maria Fadista, A Boca Linda', '€11,00'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00']]],
@@ -1837,14 +1892,17 @@ const D = {
    ['Sem álcool', '', [["Shi'so Cute", '€7,00'], ['Gumball BJ', '€6,00'], ['Strawberrys and Cream', '€6,00'], ['Beefeater 0% & Tonic', '€9,00']]]],
   notas:['A casa não publica carta de comida.']}
 };
-const LK = 'streetfy:cardapio-visivel';
+const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
 const ler = () => { try { return JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) { return {}; } };
 window.STREETFY_CARDAPIOS = {
   dados:D,
   tem:k => !!D[k],
   visivel:k => !!D[k] && ler()[k] !== false,
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
-  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k)
+  href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
+  /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
+  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false}, (D[k] || {}).servico, v); },
+  mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
 };
 })();
 </script><script>/* Streetfy · portal.js — dashboard do parceiro (lugar) e do promoter. portal.html#parceiro | #promoter
@@ -1935,8 +1993,9 @@ function listas(){
 function cardapio(){
   const CA = window.STREETFY_CARDAPIOS; if (!CA) return '';
   const ks = Object.keys(CA.dados);
-  return '<div class="pt-card"><div class="pt-ch"><h3>Cardápio no perfil</h3><span class="pt-mini-t">liga ou desliga o botão "Cardápio" no perfil público</span></div><div class="pt-ca">'
-    + ks.map(k => { const c = CA.dados[k], on = CA.visivel(k); return '<label><span>' + esc(c.nome) + '<small>' + esc(c.tipo) + ' · <a href="' + esc(CA.href(k)) + '">ver cardápio</a> · <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">ver perfil</a></small></span><input type="checkbox" class="pt-sw" data-pt-ca="' + esc(k) + '"' + (on ? ' checked' : '') + ' aria-label="Mostrar cardápio de ' + esc(c.nome) + '"></label>'; }).join('')
+  return '<div class="pt-card"><div class="pt-ch"><h3>Cardápio e mesa</h3><span class="pt-mini-t">o botão "Cardápio" no perfil e o que o cliente pode fazer na mesa</span></div><div class="pt-ca">'
+    + ks.map(k => { const c = CA.dados[k], on = CA.visivel(k); return '<label><span>' + esc(c.nome) + '<small>' + esc(c.tipo) + ' · <a href="' + esc(CA.href(k)) + '">ver cardápio</a> · <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">ver perfil</a></small></span><input type="checkbox" class="pt-sw" data-pt-ca="' + esc(k) + '"' + (on ? ' checked' : '') + ' aria-label="Mostrar cardápio de ' + esc(c.nome) + '"></label>'
+      + (on ? '<div class="pt-sv">' + [['pedidos', 'Pedidos pela mesa', 'o cliente abre a mesa pelo QR e pede da app'], ['garcom', 'Chamar o garçom', 'água, pão, vir à mesa, trazer a conta'], ['pagar', 'Pagar a conta pela app', 'gorjeta, dividir e pagar no telemóvel']].map(([f, n, d]) => '<label><span>' + n + '<small>' + d + '</small></span><input type="checkbox" class="pt-sw" data-pt-sv="' + esc(k) + '" data-f="' + f + '"' + (CA.servico(k)[f] ? ' checked' : '') + ' aria-label="' + n + ' · ' + esc(c.nome) + '"></label>').join('') + '<a class="pt-mini" href="' + esc(CA.href(k)) + '&mesa=12">Testar como cliente na mesa 12</a></div>' : ''); }).join('')
     + '<label><span>Lux Frágil<small>sem cardápio carregado · carrega em PDF, foto ou à mão e a IA passa a texto para aprovares</small></span><input type="checkbox" class="pt-sw" disabled aria-label="Sem cardápio"></label>'
     + '</div><p class="al-nota">No app cada parceiro vê só a sua casa; aqui estão todas as casas do protótipo que têm cardápio. Desligado, o botão some do perfil e a página do cardápio deixa de abrir. A escolha fica neste aparelho.</p></div>';
 }
@@ -1990,7 +2049,11 @@ el.addEventListener('click', ev => {
   if (a === 'naoimpl') { b.textContent = 'No protótipo, não'; return; }
   grava(); desenha();
 });
-el.addEventListener('change', ev => { const t = ev.target.closest('[data-pt-ca]'); if (t && window.STREETFY_CARDAPIOS) window.STREETFY_CARDAPIOS.mudar(t.dataset.ptCa, t.checked); });
+el.addEventListener('change', ev => {
+  const CA = window.STREETFY_CARDAPIOS; if (!CA) return;
+  const t = ev.target.closest('[data-pt-ca]'); if (t) { CA.mudar(t.dataset.ptCa, t.checked); desenha(); return; }
+  const v = ev.target.closest('[data-pt-sv]'); if (v) CA.mudarServico(v.dataset.ptSv, v.dataset.f, v.checked);
+});
 el.addEventListener('submit', ev => {
   ev.preventDefault();
   const f = ev.target;
