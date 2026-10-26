@@ -1022,6 +1022,14 @@ html.lb-aberta{overflow:hidden}
 .pt-link{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0}.pt-link code{font-size:15px;font-weight:800;background:#f4f4f4;padding:8px 10px;border-radius:8px}
 .pt-qr{display:grid;grid-template-columns:repeat(7,14px);gap:2px;width:max-content}.pt-qr i{width:14px;height:14px;background:var(--ink)}
 .pt-qr i:nth-child(3n),.pt-qr i:nth-child(5n+2),.pt-qr i:nth-child(7n+4){background:#fff;outline:1px solid #eee}
+
+/* painel dos números do promoter */
+.pr-pn-b{display:grid;grid-template-columns:110px 1fr 44px;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.pr-pn-b i{height:12px;background:#ececec;border-radius:0 4px 4px 0;display:block}.pr-pn-b em{display:block;height:100%;background:var(--pink);border-radius:0 4px 4px 0}
+.pr-pn-b b{text-align:right;font-variant-numeric:tabular-nums}
+.pr-pn-av{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 11px;display:grid;gap:4px}
+.pr-pn-av div{display:flex;justify-content:space-between;gap:8px}.pr-pn-av a{color:var(--ink);text-decoration:none}
+.pr-pn-av span{color:var(--pink)}.pr-pn-av span i{color:#ddd;font-style:normal}.pr-pn-av p{margin:0;font-size:14px}.pr-pn-av small{color:var(--grey);font-size:12px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

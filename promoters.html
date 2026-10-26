@@ -1023,6 +1023,14 @@ html.lb-aberta{overflow:hidden}
 .pt-qr{display:grid;grid-template-columns:repeat(7,14px);gap:2px;width:max-content}.pt-qr i{width:14px;height:14px;background:var(--ink)}
 .pt-qr i:nth-child(3n),.pt-qr i:nth-child(5n+2),.pt-qr i:nth-child(7n+4){background:#fff;outline:1px solid #eee}
 
+/* painel dos números do promoter */
+.pr-pn-b{display:grid;grid-template-columns:110px 1fr 44px;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.pr-pn-b i{height:12px;background:#ececec;border-radius:0 4px 4px 0;display:block}.pr-pn-b em{display:block;height:100%;background:var(--pink);border-radius:0 4px 4px 0}
+.pr-pn-b b{text-align:right;font-variant-numeric:tabular-nums}
+.pr-pn-av{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 11px;display:grid;gap:4px}
+.pr-pn-av div{display:flex;justify-content:space-between;gap:8px}.pr-pn-av a{color:var(--ink);text-decoration:none}
+.pr-pn-av span{color:var(--pink)}.pr-pn-av span i{color:#ddd;font-style:normal}.pr-pn-av p{margin:0;font-size:14px}.pr-pn-av small{color:var(--grey);font-size:12px}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -3185,7 +3193,7 @@ function perfil(el){
       + '<span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span> <span class="p-meta">' + esc(NOME_CID(p.cidade)) + ' · ' + p.estilos.map(cap).join(', ') + '</span></div></div>'
       + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(p.bio) + '</p>'
       + '<div class="p-acoes"><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-seguir-p="' + p.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ' + (lista ? 'mint' : 'ghost') + '" href="#p=' + p.id + (lista ? '' : '&lista=1') + '">' + (lista ? '← Festas promovidas' : 'Lista de convidados') + '</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar-p data-titulo="' + esc(p.nome) + '">Compartilhar</a></div>'
-      + '<div class="p-nums"><div class="p-num"><b>★ ' + p.nota + '</b><span>nota · ' + p.resp + ' respostas de quem foi</span></div><div class="p-num"><b>' + fmt(p.seg + (s ? 1 : 0)) + '</b><span>seguidores' + (s ? ' · tu incluído' : '') + '</span></div><div class="p-num"><b>' + p.pres + '</b><span>presenças verificadas · 30 dias</span></div><div class="p-num"><b>' + p.valeu + '%</b><span>dizem que valeu</span></div></div></div></section>'
+      + '<div class="p-nums">' + [['nota', '★ ' + p.nota, 'nota · ' + p.resp + ' respostas de quem foi'], ['seguidores', fmt(p.seg + (s ? 1 : 0)), 'seguidores' + (s ? ' · tu incluído' : '')], ['presencas', p.pres, 'presenças verificadas · 30 dias'], ['valeu', p.valeu + '%', 'dizem que valeu']].map(([t, b, sp]) => '<button type="button" class="p-num u-num" data-pn="' + t + '" data-pn-id="' + p.id + '"><b>' + b + '</b><span>' + sp + ' ›</span></button>').join('') + '</div></div></section>'
       + (lista ? listaHtml(p, f, modo) : '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div><p class="s-eyebrow">O que promove</p><h2 class="s-h h2s" style="margin-bottom:18px">FESTAS <em>PROMOVIDAS</em></h2>'
       + (f.length ? f.map(i => '<a class="p-ev pr-ev" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(i.hora) : '') + '</span>' + (p.comissao.includes(i.id) ? '<span class="pr-com">comissão</span>' : '<span class="pr-com sem">sem comissão</span>') + '</div>'
           + '<h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (precoTxt(i) ? ' · ' + esc(precoTxt(i)) : '') + (i.vao ? ' · ' + i.vao + ' vão' : '') + '</p>' + (i.origem === 'bot' ? '<span class="s-via">via ' + esc(i.fonte) + '</span>' : '') + '<span class="p-ev-abrir">bilhete ›</span></a>').join('')
@@ -3196,12 +3204,60 @@ function perfil(el){
       + '</div></div></div></section>');
   };
   el.addEventListener('click', ev => {
+    const pn = ev.target.closest('[data-pn]'); if (pn) { painelP(P.find(x => x.id === pn.dataset.pnId), pn.dataset.pn); return; }
     const a = ev.target.closest('[data-lc]'); if (a) { ev.preventDefault(); acaoLista(a.dataset); desenha(); return; }
     const s = ev.target.closest('[data-seguir-p]'); if (s) { ev.preventDefault(); const id = s.dataset.seguirP; if (segue[id]) delete segue[id]; else segue[id] = 1; guarda(); desenha(); return; }
     const sh = ev.target.closest('[data-partilhar-p]'); if (sh) { ev.preventDefault(); const t = sh.dataset.titulo + ' · promoter no Streetfy'; if (navigator.share) navigator.share({title:t, url:sh.href}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(t + ' · ' + sh.href), '_blank', 'noopener'); }
   });
   window.addEventListener('hashchange', () => { desenha(); window.scrollTo({top:0}); });
   desenha();
+}
+/* painel dos números do perfil do promoter (nota, seguidores, presenças, valeu) */
+const GENTE = [['mari-costa', 'Mariana Costa', 'retrato'], ['leonor-s', 'Leonor Santos', 'tram'], ['hugo-m', 'Hugo Martins', 'dj'], ['ines-c', 'Inês Carvalho', 'alfama'], ['sara-d', 'Sara Dias', 'noite'], ['bruna-t', 'Bruna Teixeira', 'cocktail']];
+const semente = id => { let h = 7; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % 9973; return h; };
+const FRASES = [['Indicou e acertou. Fila curta, som ótimo.', 5], ['A lista funcionou na porta, entrei sem stress.', 5], ['Boa festa, mas o bar estava lento.', 4], ['Exatamente o que prometeu. Volto.', 5], ['Ambiente bom; acabou mais cedo do que esperava.', 3]];
+const MOTIVOS = [['Música', .92], ['Ambiente', .84], ['Entrada rápida', .71], ['Preço justo', .58], ['Bar', .43]];
+function painelP(p, tipo){
+  if (!p) return;
+  let seg = 0; try { seg = JSON.parse(localStorage.getItem('streetfy:segue-promoters') || '{}')[p.id] ? 1 : 0; } catch (e) {}
+  const h = semente(p.id), fs = festasDe(p).slice(0, 6);
+  const pessoa = g => '<a class="u-pn-l" href="user.html#u=' + g[0] + '"><span class="u-pn-av redondo" style="background-image:url(img/' + g[2] + '.jpg)"></span><b>' + esc(g[1]) + '</b><small>@' + g[0].replace('-', '.') + '</small></a>';
+  const evL = (i, txt) => '<a class="u-pn-l" href="' + esc(hrefEv(i)) + '"><span class="u-pn-av" style="background-image:url(' + esc(imgDe(i)) + ')"></span><b>' + esc(i.titulo) + '</b><small>' + txt + '</small></a>';
+  const barra = (n, pct) => '<div class="pr-pn-b"><span>' + esc(n) + '</span><i><em style="width:' + Math.round(pct * 100) + '%"></em></i><b>' + Math.round(pct * 100) + '%</b></div>';
+  let titulo = '', total = '', corpo = '';
+  if (tipo === 'seguidores') {
+    const g = GENTE.slice(h % 3).concat(GENTE.slice(0, h % 3)).slice(0, Math.min(6, p.seg)), outros = P.filter(x => x.id !== p.id && x.cidade === p.cidade).slice(0, 2);
+    total = fmt(p.seg + seg); titulo = 'SEGUIDORES';
+    corpo = '<p class="u-sub">Pessoas</p>' + g.map(pessoa).join('')
+      + (outros.length ? '<p class="u-sub">Promoters</p>' + outros.map(x => '<a class="u-pn-l" href="promoter.html#p=' + x.id + '"><span class="u-pn-av redondo" style="background-image:url(' + RETRATO(x) + ')"></span><b>' + esc(x.nome) + '</b><small>' + esc(NIVEL[x.nivel]) + '</small></a>').join('') : '')
+      + '<p class="al-nota">+ ' + fmt(Math.max(0, p.seg + seg - g.length - outros.length)) + ' perfis privados ou que não mostram quem seguem.</p>';
+  } else if (tipo === 'nota') {
+    total = '★ ' + p.nota; titulo = 'NOTA';
+    corpo = '<p class="u-sub">' + p.resp + ' respostas de quem foi pelo link ou pela lista</p>' + (() => { const n = parseFloat(String(p.nota).replace(',', '.')), c5 = Math.max(.25, Math.min(.85, (n - 3) * .45)), c4 = (1 - c5) * .65, c3 = (1 - c5 - c4) * .6, c2 = (1 - c5 - c4 - c3) * .7; return [[5, c5], [4, c4], [3, c3], [2, c2], [1, 1 - c5 - c4 - c3 - c2]]; })().map(([e, f]) => barra(e + ' ★', f)).join('')
+      + '<p class="u-sub">Últimas respostas</p>' + FRASES.map((f, k) => { const g = GENTE[(h + k) % GENTE.length], i = fs[k % (fs.length || 1)];
+          return '<div class="pr-pn-av"><div><a href="user.html#u=' + g[0] + '"><b>' + esc(g[1]) + '</b></a><span>' + '★'.repeat(f[1]) + '<i>' + '★'.repeat(5 - f[1]) + '</i></span></div><p>' + esc(f[0]) + '</p>' + (i ? '<small>' + esc(i.titulo) + (i.lugar ? ' · ' + esc(i.lugar) : '') + '</small>' : '') + '</div>'; }).join('')
+      + '<p class="al-nota">Só responde quem fez check-in. O promoter não apaga nem escolhe as respostas.</p>';
+  } else if (tipo === 'presencas') {
+    total = p.pres; titulo = 'PRESENÇAS';
+    const pesos = fs.map((_, k) => 1 / (k + 1.4)), soma = pesos.reduce((a, b) => a + b, 0) || 1;
+    corpo = '<p class="u-sub">Últimos 30 dias · check-in na porta com bilhete ou lista deste promoter</p>'
+      + fs.map((i, k) => evL(i, (q => q + (q === 1 ? ' presença · ' : ' presenças · '))(Math.max(1, Math.round(p.pres * .6 * pesos[k] / soma))) + esc(quando(i)))).join('')
+      + '<div class="pr-pn-av"><div><b>Noites anteriores</b><b>' + Math.round(p.pres * (fs.length ? .4 : 1)) + '</b></div><p>Festas que já acabaram neste período.</p></div>'
+      + '<p class="al-nota">Conta só quem entrou de facto: compra pelo link sem check-in não conta. É o número que decide o nível (R70).</p>';
+  } else {
+    total = p.valeu + '%'; titulo = 'DIZEM QUE VALEU';
+    corpo = barra('Valeu', p.valeu / 100) + barra('Não valeu', 1 - p.valeu / 100)
+      + '<p class="u-sub">O que mais pesou</p>' + MOTIVOS.map(([n, f]) => barra(n, Math.min(.98, f * p.valeu / 92))).join('')
+      + (fs.length ? '<p class="u-sub">Por festa</p>' + fs.slice(0, 4).map((i, k) => evL(i, Math.max(70, Math.min(99, p.valeu + ((h + k * 7) % 9) - 4)) + '% dizem que valeu')).join('') : '')
+      + '<p class="al-nota">Pergunta feita no dia seguinte a quem fez check-in: valeu ou não valeu?</p>';
+  }
+  let pn = document.querySelector('.u-pn');
+  const fecha = () => { pn.hidden = true; document.documentElement.classList.remove('lb-aberta'); };
+  if (!pn) { pn = document.createElement('div'); pn.className = 'u-pn'; pn.setAttribute('role', 'dialog'); pn.setAttribute('aria-modal', 'true'); document.body.appendChild(pn);
+    pn.addEventListener('click', ev => { if (ev.target === pn || ev.target.closest('.u-pn-x') || ev.target.closest('a')) fecha(); });
+    document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !pn.hidden) fecha(); }); }
+  pn.innerHTML = '<div class="u-pn-cx"><div class="u-pn-h"><div><p class="s-eyebrow">' + esc(p.nome) + '</p><h2 class="s-h h2s">' + total + ' <em>' + titulo + '</em></h2></div><button type="button" class="u-pn-x" aria-label="Fechar">×</button></div><div class="u-pn-b">' + corpo + '</div></div>';
+  pn.hidden = false; document.documentElement.classList.add('lb-aberta'); pn.querySelector('.u-pn-x').focus();
 }
 document.querySelectorAll('[data-promoters]').forEach(grelha);
 document.querySelectorAll('[data-promoter]').forEach(perfil);

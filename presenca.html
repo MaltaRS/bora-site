@@ -1023,6 +1023,14 @@ html.lb-aberta{overflow:hidden}
 .pt-qr{display:grid;grid-template-columns:repeat(7,14px);gap:2px;width:max-content}.pt-qr i{width:14px;height:14px;background:var(--ink)}
 .pt-qr i:nth-child(3n),.pt-qr i:nth-child(5n+2),.pt-qr i:nth-child(7n+4){background:#fff;outline:1px solid #eee}
 
+/* painel dos números do promoter */
+.pr-pn-b{display:grid;grid-template-columns:110px 1fr 44px;gap:10px;align-items:center;font-size:13px;font-weight:700}
+.pr-pn-b i{height:12px;background:#ececec;border-radius:0 4px 4px 0;display:block}.pr-pn-b em{display:block;height:100%;background:var(--pink);border-radius:0 4px 4px 0}
+.pr-pn-b b{text-align:right;font-variant-numeric:tabular-nums}
+.pr-pn-av{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:9px 11px;display:grid;gap:4px}
+.pr-pn-av div{display:flex;justify-content:space-between;gap:8px}.pr-pn-av a{color:var(--ink);text-decoration:none}
+.pr-pn-av span{color:var(--pink)}.pr-pn-av span i{color:#ddd;font-style:normal}.pr-pn-av p{margin:0;font-size:14px}.pr-pn-av small{color:var(--grey);font-size:12px}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
