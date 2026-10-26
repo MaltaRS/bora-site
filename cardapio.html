@@ -1174,21 +1174,7 @@ const D = {
    ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50'], ['Isabel das Caldas, Artista do Falo', '€10,00'], ['Maria Fadista, A Boca Linda', '€11,00'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00']]],
    ["Madame's Twist", 'clássicos', [['Mai-Tai', '€12,50'], ['Pornstar Martini', '€11,00'], ['Pisco Sour', '€11,50'], ['Old Fashioned', '€14,00']]],
    ['Sem álcool', '', [["Shi'so Cute", '€7,00'], ['Gumball BJ', '€6,00'], ['Strawberrys and Cream', '€6,00'], ['Beefeater 0% & Tonic', '€9,00']]]],
-  notas:['A casa não publica carta de comida.']},
- 'porto/taberna dos mercadores':{nome:'Taberna dos Mercadores', tipo:'Cozinha tradicional · Ribeira', fonte:['Time Out Porto', 'https://www.timeout.com/porto/restaurants/taberna-dos-mercadores'], img:'pribeira', semPreco:'até €30 por pessoa',
-  horario:'Ter a dom 12h30–15h30 e 19h00–23h00 · Rua dos Mercadores 36',
-  secoes:[
-   ['Do mar', '', [['Açorda de marisco', '', 'da casa'], ['Açorda de gambas'], ['Polvo'], ['Robalo grelhado'], ['Arroz de línguas de bacalhau', 'por encomenda']]],
-   ['Da terra', '', [['Rojões'], ['Panela de carne arouquesa'], ['Cabrito assado', 'por encomenda']]],
-   ['Para começar', '', [['Bolinhos de bacalhau']]]],
-  notas:['Sala pequena: reserva com dias de antecedência.']},
- 'porto/wine quay bar':{nome:'Wine Quay Bar', tipo:'Bar de vinhos · Cais da Ribeira', fonte:['Tablejourney', 'https://tablejourney.com/portugal/porto/wine-bars/wine-quay-bar/'], img:'pponte', semPreco:'€€€',
-  horario:'Seg a sáb 16h00–23h00 · sem cozinha quente',
-  secoes:[
-   ['Vinhos', 'mais de 150 referências portuguesas', [['60 vinhos a copo'], ['Vinho do Porto · tawny e outros']]],
-   ['Para petiscar', '', [['Tábua de queijos'], ['Tábua de enchidos'], ['Sardinhas']]]],
-  notas:['Esplanada sobre o Douro, sem reservas.']},
- 'porto/14 bares e esplanadas':{nome:'Cais da Ribeira', tipo:'14 bares e esplanadas · Porto', grupo:['porto/taberna dos mercadores', 'porto/wine quay bar']}
+  notas:['A casa não publica carta de comida.']}
 };
 const LK = 'streetfy:cardapio-visivel';
 const ler = () => { try { return JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) { return {}; } };
@@ -1200,7 +1186,7 @@ window.STREETFY_CARDAPIOS = {
   href:k => 'cardapio.html#lugar=' + encodeURIComponent(k)
 };
 })();
-</script><script>/* Streetfy · cardapio.js — página do cardápio: cardapio.html#lugar=<cidade/lugar>[&casa=<chave>] */
+</script><script>/* Streetfy · cardapio.js — página do cardápio: cardapio.html#lugar=<cidade/lugar> — só o cardápio da casa dona do perfil */
 (function(){
 'use strict';
 const el = document.querySelector('[data-cardapio]'); if (!el) return;
@@ -1217,17 +1203,14 @@ function casa(k, c){
 }
 function desenha(){
   const q = new URLSearchParams(location.hash.slice(1)), k = q.get('lugar') || '', c = CA.dados[k];
-  if (!c || !CA.visivel(k)) { el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>CARDÁPIO</em></h1><p class="s-lead">Este lugar não mostra cardápio no Streetfy.</p><p><a class="s-btn ink" href="perfil.html#lugar=' + encodeURIComponent(k) + '">Voltar ao perfil</a></p></div></section>'; return; }
-  const grupo = c.grupo ? c.grupo.filter(g => CA.dados[g]) : null, ativa = grupo ? (grupo.includes(q.get('casa')) ? q.get('casa') : grupo[0]) : k;
-  const a = CA.dados[ativa];
+  if (!c || !CA.visivel(k)) { document.title = 'Streetfy · Cardápio'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>CARDÁPIO</em></h1><p class="s-lead">Este lugar não mostra cardápio no Streetfy.</p><p><a class="s-btn ink" href="perfil.html#lugar=' + encodeURIComponent(k) + '">Voltar ao perfil</a></p></div></section>'; return; }
   document.title = 'Streetfy · Cardápio · ' + c.nome;
-  el.innerHTML = '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc((a.img || c.img || 'noite')) + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
+  el.innerHTML = '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
     + '<div class="crumbs"><a href="index.html">Streetfy</a> › <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">' + esc(c.nome) + '</a> › <span>Cardápio</span></div>'
-    + '<h1 class="s-h" style="font-size:clamp(48px,8vw,104px)">CARDÁPIO<br><em>' + esc((grupo ? a.nome : c.nome).toUpperCase()) + '</em></h1><p class="p-meta">' + esc(a.tipo) + '</p>'
-    + '<div class="p-acoes"><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(k) + '">← Perfil</a>' + (a.menu || !grupo ? '' : '') + '</div></div></section>'
+    + '<h1 class="s-h" style="font-size:clamp(48px,8vw,104px)">CARDÁPIO<br><em>' + esc(c.nome.toUpperCase()) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
+    + '<div class="p-acoes"><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(k) + '">← Perfil</a>' + '</div></div></section>'
     + '<section class="s-sec tight"><div class="s-wrap">'
-    + (grupo ? '<p class="s-eyebrow">' + esc(c.tipo) + ' · casas com cardápio</p><div class="ca-abas">' + grupo.map(g => '<a href="#lugar=' + encodeURIComponent(k) + '&casa=' + encodeURIComponent(g) + '" class="' + (g === ativa ? 'on' : '') + '">' + esc(CA.dados[g].nome) + '</a>').join('') + '</div>' : '')
-    + casa(ativa, a) + '</div></section>';
+    + casa(k, c) + '</div></section>';
 }
 window.addEventListener('hashchange', () => { desenha(); window.scrollTo({top:0}); });
 desenha();
