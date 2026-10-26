@@ -1136,6 +1136,22 @@ html.lb-aberta{overflow:hidden}
 .ca-hero{min-height:0}
 .cm-topo{top:0;top:env(safe-area-inset-top,0px)}
 
+/* fatura com NIF */
+.cm-nif{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px;display:grid;gap:8px}
+.cm-chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer}.cm-chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--pink);flex:0 0 auto}
+.cm-chk span{display:grid;gap:2px}.cm-chk small{color:var(--grey);font-size:12px}.cm-chk.mini{font-size:13px;font-weight:600}.cm-chk.mini input{width:16px;height:16px}
+.cm-nif-l{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:center;border-top:1px dashed #ccc;padding-top:8px}
+.cm-nif-p{grid-column:1/-1;font:800 11px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.cm-nif-l input{font:inherit;font-size:15px;min-width:0;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink)}
+.cm-nif-l input[data-f=nif]{font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.cm-nif-st{grid-column:1/-1;font-style:normal;font-size:12px;font-weight:800;color:var(--grey)}.cm-nif-st.ok{color:#1f8a52}.cm-nif-st.erro{color:#d12a2a}
+.cm-nif-aviso{margin:0;color:#d12a2a;font-weight:800;font-size:13px}
+.cm-pay .s-btn[disabled],.cm-go[disabled]{opacity:.4;pointer-events:none}
+.cm-modo{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.cm-modo button{all:unset;cursor:pointer;padding:6px 10px;font:800 12px var(--fb);background:#fff}.cm-modo button.on{background:var(--ink);color:#fff}
+.cm-fat{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.cm-fat li{display:flex;justify-content:space-between;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:13px;font-weight:700}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}

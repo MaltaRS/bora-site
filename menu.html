@@ -1135,6 +1135,22 @@ html.lb-aberta{overflow:hidden}
 .ca-hero .s-wrap{padding-block:calc(48px + env(safe-area-inset-top,0px)) 36px}
 .ca-hero{min-height:0}
 .cm-topo{top:0;top:env(safe-area-inset-top,0px)}
+
+/* fatura com NIF */
+.cm-nif{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px;display:grid;gap:8px}
+.cm-chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer}.cm-chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--pink);flex:0 0 auto}
+.cm-chk span{display:grid;gap:2px}.cm-chk small{color:var(--grey);font-size:12px}.cm-chk.mini{font-size:13px;font-weight:600}.cm-chk.mini input{width:16px;height:16px}
+.cm-nif-l{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:center;border-top:1px dashed #ccc;padding-top:8px}
+.cm-nif-p{grid-column:1/-1;font:800 11px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.cm-nif-l input{font:inherit;font-size:15px;min-width:0;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink)}
+.cm-nif-l input[data-f=nif]{font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.cm-nif-st{grid-column:1/-1;font-style:normal;font-size:12px;font-weight:800;color:var(--grey)}.cm-nif-st.ok{color:#1f8a52}.cm-nif-st.erro{color:#d12a2a}
+.cm-nif-aviso{margin:0;color:#d12a2a;font-weight:800;font-size:13px}
+.cm-pay .s-btn[disabled],.cm-go[disabled]{opacity:.4;pointer-events:none}
+.cm-modo{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.cm-modo button{all:unset;cursor:pointer;padding:6px 10px;font:800 12px var(--fb);background:#fff}.cm-modo button.on{background:var(--ink);color:#fff}
+.cm-fat{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.cm-fat li{display:flex;justify-content:space-between;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:13px;font-weight:700}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1265,7 +1281,23 @@ const precoDe = p => { const m = /^€\s*(\d+(?:[.,]\d+)?)$/.exec(String(p || ''
 const supDe = p => { const m = /^\+\s*€\s*(\d+(?:[.,]\d+)?)/.exec(String(p || '')); return m ? parseFloat(m[1].replace(',', '.')) : 0; };
 let k = '', c = null, S = null, vista = null, fixo = {};
 const chave = () => 'streetfy:mesa:' + k;
-const novo = () => ({mesa:'', desde:0, cart:[], pedidos:[], chamadas:[], pago:null, gorjeta:10, pessoas:1});
+const novo = () => ({mesa:'', desde:0, cart:[], pedidos:[], chamadas:[], pago:null, gorjeta:10, pessoas:1, fatura:false, nifs:[], tudoEu:false});
+/* NIF português: 9 dígitos, prefixo válido e dígito de controlo (módulo 11), como no e-fatura */
+const nifOk = n => { if (!/^\d{9}$/.test(n) || !/^(1|2|3|45|5|6|70|71|72|74|75|77|79|8|90|91|98|99)/.test(n)) return false; let t = 0; for (let i = 0; i < 8; i++) t += +n[i] * (9 - i); const r = t % 11, d = r < 2 ? 0 : 11 - r; return d === +n[8]; };
+const nifFmt = n => n.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
+const NIFK = 'streetfy:nif';
+const nParts = () => S.pessoas > 1 ? S.pessoas : 1;
+const nifsAtivos = () => { const r = []; for (let i = 0; i < nParts(); i++) r.push(Object.assign({nif:'', nome:''}, S.nifs[i] || {})); return r; };
+const nifErro = () => S.fatura && nifsAtivos().some(x => x.nif && !nifOk(x.nif));
+const nifEstado = n => !n ? ['', 'consumidor final'] : nifOk(n) ? ['ok', '✓ NIF válido'] : n.length < 9 ? ['', n.length + '/9 dígitos'] : ['erro', '✗ NIF inválido'];
+function blocoNif(){
+  const ps = nifsAtivos(), dividido = nParts() > 1;
+  let lembrado = ''; try { lembrado = localStorage.getItem(NIFK) || ''; } catch (e) {}
+  return '<div class="cm-nif"><label class="cm-chk"><input type="checkbox" data-cm-fatura' + (S.fatura ? ' checked' : '') + '> <span><b>Fatura com NIF</b><small>' + (dividido ? 'uma fatura por parte, cada uma com o seu NIF' : 'a fatura sai em teu nome e vai para o e-fatura') + '</small></span></label>'
+    + (S.fatura ? ps.map((x, i) => { const [cl, tx] = nifEstado(x.nif); return '<div class="cm-nif-l"><span class="cm-nif-p">' + (dividido ? 'Parte ' + (i + 1) + (i === 0 ? ' · tu' : '') : 'O teu NIF') + '</span><input data-cm-nif="' + i + '" data-f="nif" value="' + esc(x.nif) + '" inputmode="numeric" maxlength="9" placeholder="NIF (9 dígitos)" aria-label="NIF da parte ' + (i + 1) + '"><input data-cm-nif="' + i + '" data-f="nome" value="' + esc(x.nome) + '" placeholder="nome (opcional)" aria-label="Nome na fatura da parte ' + (i + 1) + '"><em class="cm-nif-st ' + cl + '" data-st="' + i + '">' + tx + '</em></div>'; }).join('')
+      + '<label class="cm-chk mini"><input type="checkbox" data-cm-lembrar' + (lembrado && lembrado === ps[0].nif ? ' checked' : '') + '> <span>Lembrar o meu NIF neste aparelho</span></label><p class="al-nota">Parte sem NIF sai como consumidor final. A fatura certificada (AT) chega ao app e ao e-mail.</p>' : '') + '</div>';
+}
+const resumoNif = () => S.fatura ? nifsAtivos().map((x, i) => (nParts() > 1 ? 'parte ' + (i + 1) + ': ' : '') + (x.nif && nifOk(x.nif) ? 'NIF ' + nifFmt(x.nif) + (x.nome ? ' (' + x.nome + ')' : '') : 'consumidor final')).join(' · ') : '';
 const ler = () => { try { return Object.assign(novo(), JSON.parse(localStorage.getItem(chave()) || 'null') || {}); } catch (e) { return novo(); } };
 const grava = () => { try { localStorage.setItem(chave(), JSON.stringify(S)); } catch (e) {} };
 const SV = () => CA.servico(k);
@@ -1348,17 +1380,20 @@ function folha(v){
       + '<form class="cm-outro" data-cm-outro><input name="m" placeholder="Outro pedido (ex.: cadeira de bebé)" aria-label="Outro pedido"><button class="s-btn ink" type="submit">Chamar</button></form>';
   } else if (v === 'conta') {
     t = 'A conta · mesa ' + S.mesa;
-    const itens = enviados(), sub = totConta(), gj = Math.round(sub * S.gorjeta) / 100, tot = sub + gj, pp = tot / S.pessoas;
+    const itens = enviados(), sub = totConta(), gj = sv.pagar ? Math.round(sub * S.gorjeta) / 100 : 0, tot = sub + gj, pp = S.tudoEu ? tot : tot / S.pessoas;
+    const dividir = '<div class="cm-op"><span>Dividir</span><div class="cm-q"><button type="button" data-cm="pessoas" data-d="-1">−</button><b>' + S.pessoas + '</b><button type="button" data-cm="pessoas" data-d="1">+</button></div>'
+      + (S.pessoas > 1 ? '<div class="cm-modo">' + [[false, 'Cada um paga a sua'], [true, 'Pago tudo eu']].map(([v, n]) => '<button type="button" data-cm="tudo" data-v="' + v + '" class="' + (S.tudoEu === v ? 'on' : '') + '">' + n + '</button>').join('') + '</div><small>' + (S.tudoEu ? 'pagas tudo, com ' + S.pessoas + ' faturas separadas de ' + eur(tot / S.pessoas) : 'cada um paga ' + eur(tot / S.pessoas) + ' no próprio telemóvel') + '</small>' : '<small>uma só fatura</small>') + '</div>';
+    const faturas = p => p.f ? '<ul class="cm-fat">' + p.f.map((x, i) => '<li><span>Fatura ' + (i + 1) + ' · ' + (x.nif && nifOk(x.nif) ? 'NIF ' + nifFmt(x.nif) + (x.nome ? ' · ' + esc(x.nome) : '') : 'consumidor final') + '</span><b>' + eur(p.tot / p.f.length) + '</b></li>').join('') + '</ul>' : '';
     b = (itens.length ? '<ul class="cm-l conta">' + itens.map(i => '<li><div><b>' + i.q + '× ' + esc(i.n) + '</b>' + (i.det || i.obs ? '<small>' + esc([i.det, i.obs && 'nota: ' + i.obs].filter(Boolean).join(' · ')) + '</small>' : '') + '</div><em>' + eur(i.q * i.p) + '</em></li>').join('') + '</ul>' : '<p class="cm-vazio">Ainda não há nada na conta.</p>')
       + (c.menu ? '<p class="al-nota">Couvert incluído no menu.</p>' : '')
       + '<div class="cm-tot"><span>Subtotal</span><b>' + eur(sub) + '</b></div>'
-      + (S.pago ? '<div class="cm-ok">✓ <b>Conta paga às ' + hora(S.pago.t) + '</b> · ' + eur(S.pago.v) + ' com ' + esc(S.pago.m) + (S.pago.p > 1 ? ' · a tua parte, de ' + S.pago.p + ' (cada um paga a sua no próprio telemóvel)' : '') + '. O recibo com NIF fica no app.</div><button type="button" class="s-btn ink cm-go" data-cm="fechar-mesa">Fechar mesa</button>'
+      + (S.pago ? '<div class="cm-ok">✓ <b>Conta paga às ' + hora(S.pago.t) + '</b> · ' + eur(S.pago.v) + ' com ' + esc(S.pago.m) + (S.pago.p > 1 && !S.pago.tudo ? ' · a tua parte, de ' + S.pago.p + ' (cada um paga a sua no próprio telemóvel)' : '') + '.</div>' + faturas(S.pago) + '<p class="al-nota">' + (S.pago.f ? 'Faturas certificadas enviadas para o app e para o e-fatura.' : 'Fatura simplificada, sem NIF, no app.') + '</p><button type="button" class="s-btn ink cm-go" data-cm="fechar-mesa">Fechar mesa</button>'
         : sv.pagar && itens.length
         ? '<div class="cm-op"><span>Gorjeta</span><div>' + [0, 5, 10, 15].map(g => '<button type="button" data-cm="gorjeta" data-g="' + g + '" class="' + (S.gorjeta === g ? 'on' : '') + '">' + (g ? g + '%' : 'sem') + '</button>').join('') + '</div></div>'
-          + '<div class="cm-op"><span>Dividir</span><div class="cm-q"><button type="button" data-cm="pessoas" data-d="-1">−</button><b>' + S.pessoas + '</b><button type="button" data-cm="pessoas" data-d="1">+</button></div><small>' + (S.pessoas > 1 ? 'cada um paga a sua parte no próprio telemóvel' : 'pagas tudo') + '</small></div>'
-          + '<div class="cm-tot grande"><span>' + (S.pessoas > 1 ? 'A tua parte' : 'Total') + (gj ? ' · com ' + eur(S.pessoas > 1 ? gj / S.pessoas : gj) + ' de gorjeta' : '') + '</span><b>' + eur(pp) + '</b></div>'
-          + '<div class="cm-pay">' + ['Apple Pay', 'Google Pay', 'MB WAY', 'Cartão guardado'].map(m => '<button type="button" class="s-btn ' + (m === 'Apple Pay' ? 'ink' : 'ghost') + '" data-cm="pagar" data-m="' + m + '">' + m + '</button>').join('') + '</div><p class="al-nota">Protótipo: nenhum pagamento é feito. No app, o pagamento confirma na carteira do telemóvel e a mesa fecha sozinha.</p>'
-        : (sv.garcom ? '<button type="button" class="s-btn ink cm-go" data-cm="chamar" data-m="Trazer a conta">Pedir a conta ao garçom</button>' : '') + (sv.pagar ? '' : '<p class="al-nota">Esta casa recebe na mesa: o pagamento pela app está desligado.</p>'));
+          + dividir + blocoNif()
+          + '<div class="cm-tot grande"><span>' + (S.pessoas > 1 && !S.tudoEu ? 'A tua parte' : 'Total') + (gj ? ' · com ' + eur(S.pessoas > 1 && !S.tudoEu ? gj / S.pessoas : gj) + ' de gorjeta' : '') + '</span><b>' + eur(pp) + '</b></div>'
+          + '<p class="cm-nif-aviso"' + (nifErro() ? '' : ' hidden') + '>Corrige o NIF inválido ou apaga-o para pagar.</p><div class="cm-pay">' + ['Apple Pay', 'Google Pay', 'MB WAY', 'Cartão guardado'].map(m => '<button type="button" class="s-btn ' + (m === 'Apple Pay' ? 'ink' : 'ghost') + '" data-cm="pagar" data-m="' + m + '"' + (nifErro() ? ' disabled' : '') + '>' + m + '</button>').join('') + '</div><p class="al-nota">Protótipo: nenhum pagamento é feito. No app, o pagamento confirma na carteira do telemóvel e a mesa fecha sozinha.</p>'
+        : (itens.length ? dividir + blocoNif() : '') + (sv.garcom ? '<p class="cm-nif-aviso"' + (nifErro() ? '' : ' hidden') + '>Corrige o NIF inválido ou apaga-o.</p><button type="button" class="s-btn ink cm-go" data-cm="pedir-conta"' + (nifErro() ? ' disabled' : '') + '>Pedir a conta ao garçom</button>' : '') + (sv.pagar ? '' : '<p class="al-nota">Esta casa recebe na mesa: o pagamento pela app está desligado.</p>'));
   }
   sh.innerHTML = '<div class="cm-sh-cx" role="dialog" aria-modal="true" aria-label="' + esc(t) + '"><div class="cm-sh-h"><h2>' + esc(t) + '</h2><button type="button" class="u-pn-x" data-cm="fechar" aria-label="Fechar">×</button></div><div class="cm-sh-b">' + b + '</div></div>';
   sh.hidden = false; document.documentElement.classList.add('lb-aberta');
@@ -1395,13 +1430,25 @@ el.addEventListener('click', ev => {
   if (a === 'enviar' && S.cart.length) { S.pedidos.push({n:S.pedidos.length + 1, t:Date.now(), itens:S.cart.map(i => Object.assign({}, i))}); S.cart = []; vista = 'acomp'; }
   if (a === 'chamar' || a === 'garcom-item') { S.chamadas.push({t:Date.now(), m:a === 'chamar' ? b.dataset.m : 'quero pedir: ' + b.dataset.n}); vista = 'garcom'; }
   if (a === 'gorjeta') S.gorjeta = +b.dataset.g;
-  if (a === 'pessoas') S.pessoas = Math.max(1, Math.min(12, S.pessoas + +b.dataset.d));
-  if (a === 'pagar') { const sub = totConta(), tot = sub + Math.round(sub * S.gorjeta) / 100; S.pago = {t:Date.now(), m:b.dataset.m, v:tot / S.pessoas, p:S.pessoas}; }
+  if (a === 'pessoas') { S.pessoas = Math.max(1, Math.min(12, S.pessoas + +b.dataset.d)); if (S.pessoas === 1) S.tudoEu = false; }
+  if (a === 'tudo') S.tudoEu = b.dataset.v === 'true';
+  if (a === 'pedir-conta') { if (nifErro()) return; S.chamadas.push({t:Date.now(), m:'Trazer a conta' + (S.pessoas > 1 ? ' · dividida em ' + S.pessoas : '') + (S.fatura ? ' · ' + resumoNif() : '')}); vista = 'garcom'; }
+  if (a === 'pagar') { if (nifErro()) return; const sub = totConta(), tot = sub + Math.round(sub * S.gorjeta) / 100; S.pago = {t:Date.now(), m:b.dataset.m, v:S.tudoEu ? tot : tot / S.pessoas, p:S.pessoas, tudo:S.tudoEu, tot, f:S.fatura ? nifsAtivos() : null}; }
   if (a === 'fechar-mesa') { S = novo(); vista = null; document.documentElement.classList.remove('lb-aberta'); try { localStorage.removeItem(chave()); } catch (e) {} desenha(); return; }
   grava(); desenha();
 });
-el.addEventListener('input', ev => { const o = ev.target.closest('[data-cm-obs]'); if (o) { const i = S.cart.find(x => x.id === o.dataset.cmObs); if (i) { i.obs = o.value; grava(); } } });
-el.addEventListener('change', ev => { const r = ev.target.closest('[data-cm-fixo] input[type=radio]'); if (r) fixo[r.name] = r.value; });
+el.addEventListener('input', ev => {
+  const n = ev.target.closest('[data-cm-nif]');
+  if (n) {
+    const i = +n.dataset.cmNif; if (n.dataset.f === 'nif') n.value = n.value.replace(/\D/g, '').slice(0, 9);
+    S.nifs[i] = Object.assign({nif:'', nome:''}, S.nifs[i] || {}, {[n.dataset.f]:n.value.trim()}); grava();
+    const st = el.querySelector('[data-st="' + i + '"]'); if (st) { const [cl, tx] = nifEstado(S.nifs[i].nif); st.className = 'cm-nif-st ' + cl; st.textContent = tx; }
+    const erro = nifErro(); el.querySelectorAll('[data-cm=pagar],[data-cm=pedir-conta]').forEach(x => { x.disabled = erro; }); el.querySelectorAll('.cm-nif-aviso').forEach(x => { x.hidden = !erro; });
+    return;
+  } const o = ev.target.closest('[data-cm-obs]'); if (o) { const i = S.cart.find(x => x.id === o.dataset.cmObs); if (i) { i.obs = o.value; grava(); } } });
+el.addEventListener('change', ev => {
+  if (ev.target.matches('[data-cm-fatura]')) { S.fatura = ev.target.checked; if (S.fatura && !(S.nifs[0] && S.nifs[0].nif)) { try { const l = localStorage.getItem(NIFK); if (l) S.nifs[0] = Object.assign({nome:''}, S.nifs[0] || {}, {nif:l}); } catch (e) {} } grava(); desenha(); return; }
+  if (ev.target.matches('[data-cm-lembrar]')) { try { const n = (S.nifs[0] || {}).nif || ''; if (ev.target.checked && nifOk(n)) localStorage.setItem(NIFK, n); else { localStorage.removeItem(NIFK); ev.target.checked = false; } } catch (e) {} return; } const r = ev.target.closest('[data-cm-fixo] input[type=radio]'); if (r) fixo[r.name] = r.value; });
 el.addEventListener('submit', ev => {
   ev.preventDefault();
   const f = ev.target;
@@ -1416,7 +1463,7 @@ el.addEventListener('submit', ev => {
   }
 });
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && vista) fechaFolha(); });
-setInterval(() => { if (S && S.pedidos.length && S.pedidos.some(p => estado(p) < 3)) { const sh = el.querySelector('.cm-sh'); const ae = document.activeElement; if (!(ae && ae.matches && ae.matches('input'))) desenha(); } }, 5000);
+setInterval(() => { if (S && (vista === null || vista === 'acomp') && S.pedidos.length && S.pedidos.some(p => estado(p) < 3)) { const sh = el.querySelector('.cm-sh'); const ae = document.activeElement; if (!(ae && ae.matches && ae.matches('input'))) desenha(); } }, 5000);
 
 function carrega(){
   const q = new URLSearchParams(location.hash.slice(1));
