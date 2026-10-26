@@ -1105,6 +1105,31 @@ html.lb-aberta{overflow:hidden}
 .cm-op1{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:5px 0;cursor:pointer}.cm-op1 input{margin-top:3px;accent-color:var(--pink)}.cm-op1 small{color:var(--pink);font-weight:800}
 .pt-sv{display:grid;gap:6px;margin:-2px 0 6px 18px;padding-left:12px;border-left:3px solid var(--pink)}
 .pt-sv label{padding:8px 10px;border-width:1px}.pt-sv .pt-mini{justify-self:start}
+
+/* cardápio: simples × completa */
+.cm-topo{position:sticky;top:64px;z-index:5;display:flex;gap:10px;align-items:center;background:var(--paper,#eee);padding:8px 0}
+.cm-topo .cm-nav{position:static;flex:1;min-width:0;padding:0}
+.cm-vis{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;flex:0 0 auto;background:#fff}
+.cm-vis button{all:unset;cursor:pointer;padding:7px 12px;font:800 12px var(--fb)}.cm-vis button.on{background:var(--ink);color:#fff}
+.cm-full{display:grid;gap:30px}
+.cm-cs{display:grid;gap:14px}
+.cm-cs-h{position:relative;min-height:150px;border-radius:18px;background-size:cover;background-position:center;display:flex;align-items:flex-end;overflow:hidden;border:2px solid var(--ink)}
+.cm-cs-h::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.82))}
+.cm-cs-h div{position:relative;padding:14px 18px;color:#fff}
+.cm-cs-h h3{margin:0;font-family:var(--fd);font-weight:400;font-size:clamp(34px,5vw,54px);text-transform:uppercase;line-height:.95}
+.cm-cs-h small{font:800 11px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.cm-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.cm-card{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.cm-card:hover{transform:translateY(-3px);box-shadow:6px 6px 0 var(--pink)}
+.cm-ph{aspect-ratio:4/3;max-width:100%;background-size:cover;background-position:center;position:relative;border-bottom:2px solid var(--ink)}
+.cm-ph span{position:absolute;top:10px;left:10px;font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;background:var(--pink);color:#fff;border-radius:999px;padding:4px 9px}
+.cm-cb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cm-cb h4{margin:0;font-family:var(--fd);font-weight:400;font-size:22px;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+.cm-cb p{margin:0;font-size:13px;color:var(--grey);line-height:1.4}
+.cm-cf{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cm-cf b{font-size:13px;color:var(--grey)}.cm-cf b.num{font-family:var(--fd);font-weight:400;font-size:28px;color:var(--ink)}
+.pt-sel{font:inherit;font-size:14px;padding:6px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff}
+@media (max-width:640px){.cm-topo{flex-wrap:wrap}.cm-topo .cm-nav{flex-basis:100%;order:2}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1212,7 +1237,8 @@ window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(fal
 const D = {
  'lisboa/clube de fado':{nome:'Clube de Fado', tipo:'Restaurante com fado ao vivo · Alfama', fonte:['clubedefado.pt', 'https://www.clubedefado.pt/gastronomia/'], img:'alfama',
   menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.', cursos:[['Entrada', ['Entradas']], ['Prato', ['Peixe', 'Carne', 'Vegetariano']], ['Sobremesa', ['Sobremesas']]]},
-  servico:{pedidos:true, garcom:true, pagar:false},
+  fotos:{Couvert:['mesa'], Entradas:['mesa', 'pmercado'], Peixe:['pmercado', 'mesa'], Carne:['mesa', 'pmercado'], Vegetariano:['pmercado', 'mesa'], Sobremesas:['mesa', 'pmercado'], Bebidas:['cocktail', 'fado']},
+  servico:{pedidos:true, garcom:true, pagar:false, vista:'completa'},
   horario:'Todos os dias · cozinha às 19h30 · fado às 20h30 · fecha à 01h00',
   secoes:[
    ['Couvert', 'incluído', [['Pão, azeite, azeitonas, manteiga aromatizada e enchidos']]],
@@ -1223,12 +1249,12 @@ const D = {
    ['Sobremesas', 'escolhe uma', [['Pudim Abade de Priscos', '', 'da casa'], ['Bolo de chocolate'], ['Pêra bêbada'], ['Gelado'], ['Fruta da época'], ['Cheesecake com frutos silvestres'], ['Tábua de queijos']]],
    ['Bebidas', 'à parte', [['Vinho português a copo', 'desde €9'], ['Carta de bar · do Porto seco ao Aperol Spritz', '€8 a €15'], ['Petiscos fora do menu', '€4 a €20']]]],
   notas:['Sala pequena: convém reservar.', 'Alergénios: pergunta à equipa.']},
- 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', servico:{pedidos:true, garcom:true, pagar:true},
+ 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', fotos:{'Cocktails da casa':['cocktail', 'shots'], "Madame's Twist":['shots', 'cocktail'], 'Sem álcool':['cocktail', 'shots']}, servico:{pedidos:true, garcom:true, pagar:true, vista:'completa'},
   horario:'Dom a qua 17h00–03h00 · qui a sáb 17h00–04h00',
   secoes:[
-   ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50'], ['Isabel das Caldas, Artista do Falo', '€10,00'], ['Maria Fadista, A Boca Linda', '€11,00'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00']]],
-   ["Madame's Twist", 'clássicos', [['Mai-Tai', '€12,50'], ['Pornstar Martini', '€11,00'], ['Pisco Sour', '€11,50'], ['Old Fashioned', '€14,00']]],
-   ['Sem álcool', '', [["Shi'so Cute", '€7,00'], ['Gumball BJ', '€6,00'], ['Strawberrys and Cream', '€6,00'], ['Beefeater 0% & Tonic', '€9,00']]]],
+   ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00', '', 'Rum branco · coulis de framboesa · cordial de laranja · sumo cítrico'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50', '', 'Gin · Chartreuse · cordial de pepino e lima · xarope de hortelã'], ['Isabel das Caldas, Artista do Falo', '€10,00', '', 'Aperol · hortelã · espumante · espuma de maracujá'], ['Maria Fadista, A Boca Linda', '€11,00', '', 'Bourbon · pisco com leite vegetal · orgeat de amêndoa · laranja · café'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00', '', 'Mezcal · tequila · Lillet Blanc · xarope de açúcar · infusão de jasmim, baunilha e café'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00', '', 'Tequila reposado · manga · pimento vermelho em pó · tintura de toranja'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00', '', 'Cachaça · doce de banana · cordial de laranja · sumo cítrico · coentros · caramelo']]],
+   ["Madame's Twist", 'clássicos', [['Mai-Tai', '€12,50', '', 'Blend de rum · falernum · curaçau seco · yuzu · pistácio'], ['Pornstar Martini', '€11,00', '', 'Vodka · creme de cacau · maracujá · espumante'], ['Pisco Sour', '€11,50', '', 'Pisco · licor de milho · tres leches · lima · camomila'], ['Old Fashioned', '€14,00', '', 'Mezcal reposado · rum de ananás · cascas de ananás · bitter de folha de tabaco']]],
+   ['Sem álcool', '', [["Shi'so Cute", '€7,00', '', 'Lima · wasabi · ananás · shiso'], ['Gumball BJ', '€6,00', '', 'Pepino · hortelã-pimenta · pimenta verde · tónica'], ['Strawberrys and Cream', '€6,00', '', 'Morango · tomate cherry · limão · iogurte'], ['Beefeater 0% & Tonic', '€9,00']]]],
   notas:['A casa não publica carta de comida.']}
 };
 const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
@@ -1240,7 +1266,7 @@ window.STREETFY_CARDAPIOS = {
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
   href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
-  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false}, (D[k] || {}).servico, v); },
+  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
 };
 })();
@@ -1268,13 +1294,24 @@ const ESTADOS = [[20, 'Recebido', 'a casa já viu o teu pedido'], [60, 'A prepar
 const estado = p => { const s = (Date.now() - p.t) / 1000; return ESTADOS.findIndex(e => s < e[0]); };
 
 /* ---------- cardápio ---------- */
+function acaoDe(si, ii, it, cursoFixo){
+  const [n, p] = it, preco = precoDe(p), id = si + '-' + ii, noCart = S.cart.find(x => x.id === id);
+  if (S.mesa && !S.pago && SV().pedidos && preco != null && !cursoFixo) return noCart ? '<span class="cm-q"><button type="button" data-cm="menos" data-id="' + id + '" aria-label="Menos">−</button><b>' + noCart.q + '</b><button type="button" data-cm="mais" data-id="' + id + '" aria-label="Mais">+</button></span>' : '<button type="button" class="cm-add" data-cm="add" data-si="' + si + '" data-ii="' + ii + '" aria-label="Juntar ' + esc(n) + '">+</button>';
+  if (S.mesa && !S.pago && SV().garcom && preco == null && p && !cursoFixo && !/^\+/.test(p)) return '<button type="button" class="cm-pg" data-cm="garcom-item" data-n="' + esc(n) + '">Pedir ao garçom</button>';
+  return '';
+}
 function linha(si, ii, it, cursoFixo){
-  const [n, p, tag] = it, preco = precoDe(p), id = si + '-' + ii, noCart = S.cart.find(x => x.id === id);
-  const pedir = S.mesa && !S.pago && SV().pedidos;
-  let acao = '';
-  if (pedir && preco != null && !cursoFixo) acao = noCart ? '<span class="cm-q"><button type="button" data-cm="menos" data-id="' + id + '" aria-label="Menos">−</button><b>' + noCart.q + '</b><button type="button" data-cm="mais" data-id="' + id + '" aria-label="Mais">+</button></span>' : '<button type="button" class="cm-add" data-cm="add" data-si="' + si + '" data-ii="' + ii + '" aria-label="Juntar ' + esc(n) + '">+</button>';
-  else if (S.mesa && !S.pago && SV().garcom && preco == null && p && !cursoFixo && !/^\+/.test(p)) acao = '<button type="button" class="cm-pg" data-cm="garcom-item" data-n="' + esc(n) + '">Pedir ao garçom</button>';
-  return '<li><span>' + esc(n) + (tag ? ' <i>' + esc(tag) + '</i>' : '') + '</span><b>' + esc(p || '') + '</b>' + acao + '</li>';
+  const [n, p, tag] = it;
+  return '<li><span>' + esc(n) + (tag ? ' <i>' + esc(tag) + '</i>' : '') + '</span><b>' + esc(p || '') + '</b>' + acaoDe(si, ii, it, cursoFixo) + '</li>';
+}
+const VK = 'streetfy:cardapio-vista';
+const vistaDe = () => { try { return JSON.parse(localStorage.getItem(VK) || '{}')[k] || SV().vista; } catch (e) { return SV().vista; } };
+const mudaVista = v => { try { const o = JSON.parse(localStorage.getItem(VK) || '{}'); o[k] = v; localStorage.setItem(VK, JSON.stringify(o)); } catch (e) {} };
+function cartao(si, ii, it, cursoFixo, t){
+  const [n, p, tag, desc] = it, pool = (c.fotos || {})[t] || [c.img || 'noite'], foto = pool[ii % pool.length];
+  const preco = precoDe(p), precoTxt = cursoFixo ? (p ? p : 'no menu') : (p || '');
+  return '<article class="cm-card"><div class="cm-ph" style="background-image:url(img/' + esc(foto) + '.jpg)">' + (tag ? '<span>' + esc(tag) + '</span>' : '') + '</div><div class="cm-cb"><h4>' + esc(n) + '</h4>'
+    + (desc ? '<p>' + esc(desc) + '</p>' : '') + '<div class="cm-cf"><b class="' + (preco != null ? 'num' : '') + '">' + esc(precoTxt) + '</b>' + acaoDe(si, ii, it, cursoFixo) + '</div></div></article>';
 }
 function pagina(){
   const sv = SV(), temServico = sv.pedidos || sv.garcom || sv.pagar;
@@ -1282,14 +1319,17 @@ function pagina(){
   const abrir = !temServico ? '' : S.mesa
     ? '<div class="cm-mesa on"><div><b>Mesa ' + esc(S.mesa) + '</b><span>' + (S.pago ? 'conta paga às ' + hora(S.pago.t) : 'aberta às ' + hora(S.desde) + (sv.pedidos ? ' · pede daqui, sem esperar' : '')) + '</span></div><button type="button" class="s-btn ghost" data-cm="fechar-mesa">' + (S.pago ? 'Fechar mesa' : 'Sair da mesa') + '</button></div>'
     : '<form class="cm-mesa" data-cm-abrir><div><b>Estás na casa? Abre a tua mesa</b><span>Lê o QR da mesa com a câmara, ou escreve o número. ' + [sv.pedidos && 'pedes', sv.garcom && 'chamas o garçom', sv.pagar && 'pagas'].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' e $1') + ' daqui.</span></div><div class="cm-abrir"><input name="mesa" inputmode="numeric" placeholder="n.º da mesa" aria-label="Número da mesa" required maxlength="4"><button class="s-btn mint" type="submit">Abrir mesa</button></div></form>';
-  const nav = '<nav class="cm-nav" aria-label="Secções">' + c.secoes.map((s, i) => '<a href="#" data-cm="ir" data-i="' + i + '">' + esc(s[0]) + '</a>').join('') + '</nav>';
+  const V = vistaDe();
+  const nav = '<div class="cm-topo"><nav class="cm-nav" aria-label="Secções">' + c.secoes.map((s, i) => '<a href="#" data-cm="ir" data-i="' + i + '">' + esc(s[0]) + '</a>').join('') + '</nav><div class="cm-vis" role="group" aria-label="Visualização">' + [['simples', 'Simples'], ['completa', 'Completa']].map(([v, n]) => '<button type="button" data-cm="vista" data-v="' + v + '" class="' + (V === v ? 'on' : '') + '" aria-pressed="' + (V === v) + '">' + n + '</button>').join('') + '</div></div>';
   const menuFixo = c.menu ? '<div class="ca-menu"><div><p class="s-eyebrow">' + esc(c.menu.titulo) + '</p><p>' + esc(c.menu.inclui) + '</p>' + (S.mesa && !S.pago && sv.pedidos && c.menu.cursos ? '<button type="button" class="s-btn mint cm-montar" data-cm="montar">Montar menu e pedir</button>' : '') + '</div><b>€' + c.menu.preco + '<small>por pessoa</small></b></div>' : '';
   return '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
     + '<div class="crumbs"><a href="index.html">Streetfy</a> › <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">' + esc(c.nome) + '</a> › <span>Cardápio</span></div>'
     + '<h1 class="s-h" style="font-size:clamp(44px,8vw,104px)">CARDÁPIO<br><em>' + esc(c.nome.toUpperCase()) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
     + '<div class="p-acoes"><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(k) + '">← Perfil</a></div></div></section>'
     + '<section class="s-sec tight cm' + (S.mesa ? ' com-barra' : '') + '"><div class="s-wrap"><div class="ca-casa">' + abrir + nav + menuFixo
-    + '<div class="ca-secs">' + c.secoes.map(([t, sub, itens], si) => '<section class="ca-sec" id="cm-s' + si + '"><h3>' + esc(t) + (sub ? ' <small>' + esc(sub) + '</small>' : '') + '</h3><ul>' + itens.map((it, ii) => linha(si, ii, it, cursos.includes(t))).join('') + '</ul></section>').join('') + '</div>'
+    + (V === 'completa'
+      ? '<div class="cm-full">' + c.secoes.map(([t, sub, itens], si) => { const f = ((c.fotos || {})[t] || [c.img || 'noite'])[0]; return '<section class="cm-cs" id="cm-s' + si + '"><div class="cm-cs-h" style="background-image:url(img/' + esc(f) + '.jpg)"><div><h3>' + esc(t) + '</h3>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div></div><div class="cm-cards">' + itens.map((it, ii) => cartao(si, ii, it, cursos.includes(t), t)).join('') + '</div></section>'; }).join('') + '<p class="al-nota">Fotos ilustrativas do Streetfy até a casa carregar as suas no portal. Pratos, ingredientes e preços são os da casa.</p></div>'
+      : '<div class="ca-secs">' + c.secoes.map(([t, sub, itens], si) => '<section class="ca-sec" id="cm-s' + si + '"><h3>' + esc(t) + (sub ? ' <small>' + esc(sub) + '</small>' : '') + '</h3><ul>' + itens.map((it, ii) => linha(si, ii, it, cursos.includes(t))).join('') + '</ul></section>').join('') + '</div>')
     + '<div class="ca-pe"><p><b>Horário</b> ' + esc(c.horario || '') + '</p>' + (c.notas || []).map(n => '<p>' + esc(n) + '</p>').join('')
     + '<p class="al-nota">Fonte do cardápio: <a href="' + esc(c.fonte[1]) + '" target="_blank" rel="noopener">' + esc(c.fonte[0]) + '</a>, consultada a 26/10/2026. Protótipo: pedidos, chamadas e pagamento são simulados e nada é cobrado.</p></div></div></div></section>'
     + barra() + '<div class="cm-sh" hidden></div>';
@@ -1367,6 +1407,7 @@ el.addEventListener('click', ev => {
   const a = b.dataset.cm; ev.preventDefault();
   if (a === 'ir') { const s = document.getElementById('cm-s' + b.dataset.i); if (s) window.scrollTo({top:s.getBoundingClientRect().top + window.scrollY - 140, behavior:'smooth'}); return; }
   if (a === 'fechar') { fechaFolha(); return; }
+  if (a === 'vista') { mudaVista(b.dataset.v); desenha(); return; }
   if (a === 'ver') { folha(b.dataset.v); return; }
   if (a === 'montar') { montar(); return; }
   if (a === 'add') { const [n, p] = c.secoes[+b.dataset.si][2][+b.dataset.ii]; S.cart.push({id:b.dataset.si + '-' + b.dataset.ii, n, p:precoDe(p), q:1}); }

@@ -1105,6 +1105,31 @@ html.lb-aberta{overflow:hidden}
 .cm-op1{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:5px 0;cursor:pointer}.cm-op1 input{margin-top:3px;accent-color:var(--pink)}.cm-op1 small{color:var(--pink);font-weight:800}
 .pt-sv{display:grid;gap:6px;margin:-2px 0 6px 18px;padding-left:12px;border-left:3px solid var(--pink)}
 .pt-sv label{padding:8px 10px;border-width:1px}.pt-sv .pt-mini{justify-self:start}
+
+/* cardápio: simples × completa */
+.cm-topo{position:sticky;top:64px;z-index:5;display:flex;gap:10px;align-items:center;background:var(--paper,#eee);padding:8px 0}
+.cm-topo .cm-nav{position:static;flex:1;min-width:0;padding:0}
+.cm-vis{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;flex:0 0 auto;background:#fff}
+.cm-vis button{all:unset;cursor:pointer;padding:7px 12px;font:800 12px var(--fb)}.cm-vis button.on{background:var(--ink);color:#fff}
+.cm-full{display:grid;gap:30px}
+.cm-cs{display:grid;gap:14px}
+.cm-cs-h{position:relative;min-height:150px;border-radius:18px;background-size:cover;background-position:center;display:flex;align-items:flex-end;overflow:hidden;border:2px solid var(--ink)}
+.cm-cs-h::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.82))}
+.cm-cs-h div{position:relative;padding:14px 18px;color:#fff}
+.cm-cs-h h3{margin:0;font-family:var(--fd);font-weight:400;font-size:clamp(34px,5vw,54px);text-transform:uppercase;line-height:.95}
+.cm-cs-h small{font:800 11px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.cm-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.cm-card{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.cm-card:hover{transform:translateY(-3px);box-shadow:6px 6px 0 var(--pink)}
+.cm-ph{aspect-ratio:4/3;max-width:100%;background-size:cover;background-position:center;position:relative;border-bottom:2px solid var(--ink)}
+.cm-ph span{position:absolute;top:10px;left:10px;font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;background:var(--pink);color:#fff;border-radius:999px;padding:4px 9px}
+.cm-cb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cm-cb h4{margin:0;font-family:var(--fd);font-weight:400;font-size:22px;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+.cm-cb p{margin:0;font-size:13px;color:var(--grey);line-height:1.4}
+.cm-cf{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cm-cf b{font-size:13px;color:var(--grey)}.cm-cf b.num{font-family:var(--fd);font-weight:400;font-size:28px;color:var(--ink)}
+.pt-sel{font:inherit;font-size:14px;padding:6px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff}
+@media (max-width:640px){.cm-topo{flex-wrap:wrap}.cm-topo .cm-nav{flex-basis:100%;order:2}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

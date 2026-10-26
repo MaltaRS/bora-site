@@ -1105,6 +1105,31 @@ html.lb-aberta{overflow:hidden}
 .cm-op1{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:5px 0;cursor:pointer}.cm-op1 input{margin-top:3px;accent-color:var(--pink)}.cm-op1 small{color:var(--pink);font-weight:800}
 .pt-sv{display:grid;gap:6px;margin:-2px 0 6px 18px;padding-left:12px;border-left:3px solid var(--pink)}
 .pt-sv label{padding:8px 10px;border-width:1px}.pt-sv .pt-mini{justify-self:start}
+
+/* cardápio: simples × completa */
+.cm-topo{position:sticky;top:64px;z-index:5;display:flex;gap:10px;align-items:center;background:var(--paper,#eee);padding:8px 0}
+.cm-topo .cm-nav{position:static;flex:1;min-width:0;padding:0}
+.cm-vis{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden;flex:0 0 auto;background:#fff}
+.cm-vis button{all:unset;cursor:pointer;padding:7px 12px;font:800 12px var(--fb)}.cm-vis button.on{background:var(--ink);color:#fff}
+.cm-full{display:grid;gap:30px}
+.cm-cs{display:grid;gap:14px}
+.cm-cs-h{position:relative;min-height:150px;border-radius:18px;background-size:cover;background-position:center;display:flex;align-items:flex-end;overflow:hidden;border:2px solid var(--ink)}
+.cm-cs-h::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.82))}
+.cm-cs-h div{position:relative;padding:14px 18px;color:#fff}
+.cm-cs-h h3{margin:0;font-family:var(--fd);font-weight:400;font-size:clamp(34px,5vw,54px);text-transform:uppercase;line-height:.95}
+.cm-cs-h small{font:800 11px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.cm-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.cm-card{border:2px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s}
+.cm-card:hover{transform:translateY(-3px);box-shadow:6px 6px 0 var(--pink)}
+.cm-ph{aspect-ratio:4/3;max-width:100%;background-size:cover;background-position:center;position:relative;border-bottom:2px solid var(--ink)}
+.cm-ph span{position:absolute;top:10px;left:10px;font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;background:var(--pink);color:#fff;border-radius:999px;padding:4px 9px}
+.cm-cb{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cm-cb h4{margin:0;font-family:var(--fd);font-weight:400;font-size:22px;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+.cm-cb p{margin:0;font-size:13px;color:var(--grey);line-height:1.4}
+.cm-cf{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cm-cf b{font-size:13px;color:var(--grey)}.cm-cf b.num{font-family:var(--fd);font-weight:400;font-size:28px;color:var(--ink)}
+.pt-sel{font:inherit;font-size:14px;padding:6px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff}
+@media (max-width:640px){.cm-topo{flex-wrap:wrap}.cm-topo .cm-nav{flex-basis:100%;order:2}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1873,7 +1898,8 @@ window.STREETFY_PROMOTERS = {lista:P, festasDe};
 const D = {
  'lisboa/clube de fado':{nome:'Clube de Fado', tipo:'Restaurante com fado ao vivo · Alfama', fonte:['clubedefado.pt', 'https://www.clubedefado.pt/gastronomia/'], img:'alfama',
   menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.', cursos:[['Entrada', ['Entradas']], ['Prato', ['Peixe', 'Carne', 'Vegetariano']], ['Sobremesa', ['Sobremesas']]]},
-  servico:{pedidos:true, garcom:true, pagar:false},
+  fotos:{Couvert:['mesa'], Entradas:['mesa', 'pmercado'], Peixe:['pmercado', 'mesa'], Carne:['mesa', 'pmercado'], Vegetariano:['pmercado', 'mesa'], Sobremesas:['mesa', 'pmercado'], Bebidas:['cocktail', 'fado']},
+  servico:{pedidos:true, garcom:true, pagar:false, vista:'completa'},
   horario:'Todos os dias · cozinha às 19h30 · fado às 20h30 · fecha à 01h00',
   secoes:[
    ['Couvert', 'incluído', [['Pão, azeite, azeitonas, manteiga aromatizada e enchidos']]],
@@ -1884,12 +1910,12 @@ const D = {
    ['Sobremesas', 'escolhe uma', [['Pudim Abade de Priscos', '', 'da casa'], ['Bolo de chocolate'], ['Pêra bêbada'], ['Gelado'], ['Fruta da época'], ['Cheesecake com frutos silvestres'], ['Tábua de queijos']]],
    ['Bebidas', 'à parte', [['Vinho português a copo', 'desde €9'], ['Carta de bar · do Porto seco ao Aperol Spritz', '€8 a €15'], ['Petiscos fora do menu', '€4 a €20']]]],
   notas:['Sala pequena: convém reservar.', 'Alergénios: pergunta à equipa.']},
- 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', servico:{pedidos:true, garcom:true, pagar:true},
+ 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', fotos:{'Cocktails da casa':['cocktail', 'shots'], "Madame's Twist":['shots', 'cocktail'], 'Sem álcool':['cocktail', 'shots']}, servico:{pedidos:true, garcom:true, pagar:true, vista:'completa'},
   horario:'Dom a qua 17h00–03h00 · qui a sáb 17h00–04h00',
   secoes:[
-   ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50'], ['Isabel das Caldas, Artista do Falo', '€10,00'], ['Maria Fadista, A Boca Linda', '€11,00'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00']]],
-   ["Madame's Twist", 'clássicos', [['Mai-Tai', '€12,50'], ['Pornstar Martini', '€11,00'], ['Pisco Sour', '€11,50'], ['Old Fashioned', '€14,00']]],
-   ['Sem álcool', '', [["Shi'so Cute", '€7,00'], ['Gumball BJ', '€6,00'], ['Strawberrys and Cream', '€6,00'], ['Beefeater 0% & Tonic', '€9,00']]]],
+   ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00', '', 'Rum branco · coulis de framboesa · cordial de laranja · sumo cítrico'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50', '', 'Gin · Chartreuse · cordial de pepino e lima · xarope de hortelã'], ['Isabel das Caldas, Artista do Falo', '€10,00', '', 'Aperol · hortelã · espumante · espuma de maracujá'], ['Maria Fadista, A Boca Linda', '€11,00', '', 'Bourbon · pisco com leite vegetal · orgeat de amêndoa · laranja · café'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00', '', 'Mezcal · tequila · Lillet Blanc · xarope de açúcar · infusão de jasmim, baunilha e café'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00', '', 'Tequila reposado · manga · pimento vermelho em pó · tintura de toranja'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00', '', 'Cachaça · doce de banana · cordial de laranja · sumo cítrico · coentros · caramelo']]],
+   ["Madame's Twist", 'clássicos', [['Mai-Tai', '€12,50', '', 'Blend de rum · falernum · curaçau seco · yuzu · pistácio'], ['Pornstar Martini', '€11,00', '', 'Vodka · creme de cacau · maracujá · espumante'], ['Pisco Sour', '€11,50', '', 'Pisco · licor de milho · tres leches · lima · camomila'], ['Old Fashioned', '€14,00', '', 'Mezcal reposado · rum de ananás · cascas de ananás · bitter de folha de tabaco']]],
+   ['Sem álcool', '', [["Shi'so Cute", '€7,00', '', 'Lima · wasabi · ananás · shiso'], ['Gumball BJ', '€6,00', '', 'Pepino · hortelã-pimenta · pimenta verde · tónica'], ['Strawberrys and Cream', '€6,00', '', 'Morango · tomate cherry · limão · iogurte'], ['Beefeater 0% & Tonic', '€9,00']]]],
   notas:['A casa não publica carta de comida.']}
 };
 const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
@@ -1901,7 +1927,7 @@ window.STREETFY_CARDAPIOS = {
   mudar:(k, on) => { const v = ler(); if (on) delete v[k]; else v[k] = false; try { localStorage.setItem(LK, JSON.stringify(v)); } catch (e) {} },
   href:k => 'cardapio.html#lugar=' + encodeURIComponent(k),
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
-  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false}, (D[k] || {}).servico, v); },
+  servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
 };
 })();
@@ -1995,7 +2021,7 @@ function cardapio(){
   const ks = Object.keys(CA.dados);
   return '<div class="pt-card"><div class="pt-ch"><h3>Cardápio e mesa</h3><span class="pt-mini-t">o botão "Cardápio" no perfil e o que o cliente pode fazer na mesa</span></div><div class="pt-ca">'
     + ks.map(k => { const c = CA.dados[k], on = CA.visivel(k); return '<label><span>' + esc(c.nome) + '<small>' + esc(c.tipo) + ' · <a href="' + esc(CA.href(k)) + '">ver cardápio</a> · <a href="perfil.html#lugar=' + encodeURIComponent(k) + '">ver perfil</a></small></span><input type="checkbox" class="pt-sw" data-pt-ca="' + esc(k) + '"' + (on ? ' checked' : '') + ' aria-label="Mostrar cardápio de ' + esc(c.nome) + '"></label>'
-      + (on ? '<div class="pt-sv">' + [['pedidos', 'Pedidos pela mesa', 'o cliente abre a mesa pelo QR e pede da app'], ['garcom', 'Chamar o garçom', 'água, pão, vir à mesa, trazer a conta'], ['pagar', 'Pagar a conta pela app', 'gorjeta, dividir e pagar no telemóvel']].map(([f, n, d]) => '<label><span>' + n + '<small>' + d + '</small></span><input type="checkbox" class="pt-sw" data-pt-sv="' + esc(k) + '" data-f="' + f + '"' + (CA.servico(k)[f] ? ' checked' : '') + ' aria-label="' + n + ' · ' + esc(c.nome) + '"></label>').join('') + '<a class="pt-mini" href="' + esc(CA.href(k)) + '&mesa=12">Testar como cliente na mesa 12</a></div>' : ''); }).join('')
+      + (on ? '<div class="pt-sv">' + [['pedidos', 'Pedidos pela mesa', 'o cliente abre a mesa pelo QR e pede da app'], ['garcom', 'Chamar o garçom', 'água, pão, vir à mesa, trazer a conta'], ['pagar', 'Pagar a conta pela app', 'gorjeta, dividir e pagar no telemóvel']].map(([f, n, d]) => '<label><span>' + n + '<small>' + d + '</small></span><input type="checkbox" class="pt-sw" data-pt-sv="' + esc(k) + '" data-f="' + f + '"' + (CA.servico(k)[f] ? ' checked' : '') + ' aria-label="' + n + ' · ' + esc(c.nome) + '"></label>').join('') + '<label><span>Visualização que abre primeiro<small>simples: lista rápida · completa: cartões com foto e ingredientes. O cliente pode trocar.</small></span><select class="pt-sel" data-pt-sv="' + esc(k) + '" data-f="vista"><option value="simples"' + (CA.servico(k).vista === 'simples' ? ' selected' : '') + '>Simples</option><option value="completa"' + (CA.servico(k).vista === 'completa' ? ' selected' : '') + '>Completa</option></select></label>' + '<a class="pt-mini" href="' + esc(CA.href(k)) + '&mesa=12">Testar como cliente na mesa 12</a></div>' : ''); }).join('')
     + '<label><span>Lux Frágil<small>sem cardápio carregado · carrega em PDF, foto ou à mão e a IA passa a texto para aprovares</small></span><input type="checkbox" class="pt-sw" disabled aria-label="Sem cardápio"></label>'
     + '</div><p class="al-nota">No app cada parceiro vê só a sua casa; aqui estão todas as casas do protótipo que têm cardápio. Desligado, o botão some do perfil e a página do cardápio deixa de abrir. A escolha fica neste aparelho.</p></div>';
 }
@@ -2052,7 +2078,7 @@ el.addEventListener('click', ev => {
 el.addEventListener('change', ev => {
   const CA = window.STREETFY_CARDAPIOS; if (!CA) return;
   const t = ev.target.closest('[data-pt-ca]'); if (t) { CA.mudar(t.dataset.ptCa, t.checked); desenha(); return; }
-  const v = ev.target.closest('[data-pt-sv]'); if (v) CA.mudarServico(v.dataset.ptSv, v.dataset.f, v.checked);
+  const v = ev.target.closest('[data-pt-sv]'); if (v) { CA.mudarServico(v.dataset.ptSv, v.dataset.f, v.tagName === 'SELECT' ? v.value : v.checked); if (v.tagName === 'SELECT') { try { const o = JSON.parse(localStorage.getItem('streetfy:cardapio-vista') || '{}'); delete o[v.dataset.ptSv]; localStorage.setItem('streetfy:cardapio-vista', JSON.stringify(o)); } catch (e) {} } }
 });
 el.addEventListener('submit', ev => {
   ev.preventDefault();
