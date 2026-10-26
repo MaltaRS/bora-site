@@ -1131,6 +1131,11 @@ html.lb-aberta{overflow:hidden}
 .pt-sel{font:inherit;font-size:14px;padding:6px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff}
 @media (max-width:640px){.cm-topo{flex-wrap:wrap}.cm-topo .cm-nav{flex-basis:100%;order:2}}
 
+/* cardápio sem cabeçalho do site */
+.ca-hero .s-wrap{padding-block:calc(48px + env(safe-area-inset-top,0px)) 36px}
+.ca-hero{min-height:0}
+.cm-topo{top:0;top:env(safe-area-inset-top,0px)}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
