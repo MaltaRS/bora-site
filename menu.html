@@ -1151,6 +1151,167 @@ html.lb-aberta{overflow:hidden}
 .cm-modo button{all:unset;cursor:pointer;padding:6px 10px;font:800 12px var(--fb);background:#fff}.cm-modo button.on{background:var(--ink);color:#fff}
 .cm-fat{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .cm-fat li{display:flex;justify-content:space-between;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:13px;font-weight:700}
+/* ===== menu · cinco modelos (o dono escolhe no portal) =====
+   As cores chegam como variáveis do cardapios.js (tema): --paper fundo, --ink texto, --card superfícies, --pink destaque,
+   --on-ac texto sobre o destaque, --on-ink texto sobre a tinta, --mint destaque suave, --bar/--on-bar barra de baixo. */
+html.cm-tpl{--r:16px;--rb:999px;--bw:2px;--sh:none;--sh-h:none;--card:#fff;background:var(--paper)}
+html.cm-tpl body{background:var(--paper);color:var(--ink);font-family:var(--fb)}
+html.cm-tpl:not(.cm-t-rua) body::after{display:none}
+html.cm-escuro{color-scheme:dark}
+html.cm-tpl .s-btn{background:var(--card);color:var(--ink);border-color:var(--ink);border-radius:var(--rb);border-width:var(--bw)}
+html.cm-tpl .s-btn.ink{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+html.cm-tpl .s-btn.mint{background:var(--pink);border-color:var(--pink);color:var(--on-ac)}
+html.cm-tpl .s-btn.ghost{background:transparent}
+html.cm-tpl:not(.cm-t-rua) .s-btn{box-shadow:none}
+html.cm-tpl .p-hero .s-tint{background:linear-gradient(160deg,color-mix(in srgb,var(--pink) 50%,transparent),transparent 50%),linear-gradient(to top,rgba(11,11,11,.95) 0%,rgba(11,11,11,.35) 60%,rgba(11,11,11,.1) 100%)}
+html.cm-tpl .ca-hero .s-h em{color:var(--pink)}
+html.cm-tpl .cm-topo,html.cm-tpl .cm-nav{background:var(--paper)}
+html.cm-tpl :is(.cm-mesa,.cm-abrir input,.cm-nav a,.cm-q,.cm-vis,.cm-card,.cm-l li,.cm-l input,.cm-pd,.cm-mot button,.cm-outro input,.cm-op>div:not(.cm-q) button,.cm-fixo fieldset,.cm-nif,.cm-nif-l input,.cm-modo button,.cm-fat li,.ca-aviso){background:var(--card);color:var(--ink)}
+html.cm-tpl :is(.cm-mesa,.cm-abrir input,.cm-nav a,.cm-q,.cm-pg,.cm-vis,.cm-card,.cm-cs-h,.cm-ph,.cm-l li,.cm-pd,.cm-mot button,.cm-outro input,.cm-op>div:not(.cm-q) button,.cm-fixo fieldset,.cm-nif,.cm-nif-l input,.cm-modo,.cm-fat li,.cm-ok,.ca-aviso){border-width:var(--bw)}
+html.cm-tpl :is(.cm-mesa,.cm-card,.cm-cs-h,.cm-l li,.cm-pd,.cm-mot button,.cm-fixo fieldset,.cm-nif,.cm-fat li,.cm-ok,.ca-menu,.ca-aviso){border-radius:var(--r)}
+html.cm-tpl :is(.cm-nav a,.cm-vis,.cm-q,.cm-pg,.cm-modo){border-radius:var(--rb)}
+html.cm-tpl .cm-mesa{box-shadow:var(--sh)}html.cm-tpl .cm-mesa.on{background:var(--mint)}
+html.cm-tpl .cm-card{box-shadow:var(--sh)}html.cm-tpl .cm-card:hover{box-shadow:var(--sh-h)}
+html.cm-tpl .cm-vis button.on,html.cm-tpl .cm-modo button.on,html.cm-tpl .cm-op button.on{background:var(--ink);color:var(--on-ink)}
+html.cm-tpl .cm-add{background:var(--pink);color:var(--on-ac)}html.cm-tpl .cm-add:hover{background:var(--ink);color:var(--on-ink)}
+html.cm-tpl .cm-mot button:hover{background:var(--ink);color:var(--on-ink)}
+html.cm-tpl .ca-sec li{border-bottom-color:var(--line)}
+html.cm-tpl .ca-sec li i,html.cm-tpl .cm-ph span{background:var(--pink);color:var(--on-ac)}
+html.cm-tpl .ca-menu{background:var(--bar);color:var(--on-bar);border-color:var(--bar)}html.cm-tpl .ca-menu b small{color:color-mix(in srgb,var(--on-bar) 70%,transparent)}html.cm-tpl .ca-menu .s-eyebrow{color:var(--ac-bar)}
+html.cm-tpl .cm-barra{background:var(--bar);box-shadow:0 -1px 0 color-mix(in srgb,var(--pink) 50%,transparent)}
+html.cm-tpl .cm-b{color:var(--on-bar);border-color:color-mix(in srgb,var(--on-bar) 25%,transparent);border-radius:calc(var(--r) * .75)}
+html.cm-tpl .cm-b span{color:color-mix(in srgb,var(--on-bar) 65%,transparent)}
+html.cm-tpl .cm-b.cm-ped{background:color-mix(in srgb,var(--on-bar) 10%,transparent)}
+html.cm-tpl .cm-b.cm-ped.on{background:var(--pink);border-color:var(--pink);color:var(--on-ac)}html.cm-tpl .cm-b.cm-ped.on span{color:var(--on-ac)}
+html.cm-tpl .cm-sh-cx{background:var(--paper);color:var(--ink)}html.cm-tpl .cm-sh-h{border-bottom-color:var(--line)}
+html.cm-tpl .cm-st{background:var(--line);color:var(--ink)}html.cm-tpl .cm-st.e1,html.cm-tpl .cm-st.e2{background:var(--pink);color:var(--on-ac)}html.cm-tpl .cm-st.e3{background:var(--mint)}
+html.cm-tpl .cm-passos li{border-top-color:var(--line);color:var(--grey)}html.cm-tpl .cm-passos li.ok{color:var(--ink);border-color:var(--pink)}
+html.cm-tpl .cm-ok{background:var(--mint);color:var(--ink)}
+html.cm-tpl .cm-nif-l{border-top-color:var(--line)}
+html.cm-tpl :is(.cm-chk,.cm-op1) input{accent-color:var(--pink)}html.cm-tpl .cm-op1 small{color:var(--pink)}
+html.cm-tpl .cm-cb p,html.cm-tpl .al-nota,html.cm-tpl .cm-vazio{color:var(--grey)}
+html.cm-tpl .cm-cf b.num{color:var(--ink)}
+html.cm-tpl a{color:inherit}
+/* 1 · cartaz de rua: o visual do Streetfy, tinta grossa e sombra dura */
+html.cm-t-rua{--sh:5px 5px 0 var(--mint);--sh-h:6px 6px 0 var(--pink)}
+/* 2 · tasca: papel creme, serifa, faixa de azulejo e preço com pontinhos */
+html.cm-t-tasca{--r:6px;--rb:6px;--bw:1.5px;--sh:0 1px 0 var(--line);--sh-h:0 6px 18px rgba(0,0,0,.12)}
+html.cm-t-tasca .s-h,html.cm-t-tasca .ca-sec h3,html.cm-t-tasca .cm-cb h4,html.cm-t-tasca .cm-cs-h h3,html.cm-t-tasca .cm-sh-h h2{text-transform:none;font-weight:700;letter-spacing:-.01em}
+html.cm-t-tasca .ca-hero .s-h{line-height:.95}html.cm-t-tasca .ca-hero .s-h em{font-style:italic;font-weight:500}
+html.cm-t-tasca .p-hero .s-bg{filter:sepia(.55) contrast(1.05) brightness(.55)}
+html.cm-t-tasca .ca-hero::after{content:"";display:block;height:14px;background:repeating-conic-gradient(from 45deg,var(--pink) 0 25%,transparent 0 50%) 0 0/14px 14px,var(--paper);opacity:.9}
+html.cm-t-tasca .ca-hero::after{position:absolute;left:0;right:0;bottom:0}
+html.cm-t-tasca .ca-sec h3{font-size:28px;border-bottom:3px double var(--pink);color:var(--ink)}
+html.cm-t-tasca .ca-sec h3 small{font-family:var(--fb);font-style:italic;text-transform:none;letter-spacing:0;font-weight:400;font-size:14px}
+html.cm-t-tasca .ca-sec li{border-bottom:0;padding:6px 0}
+html.cm-t-tasca .ca-sec li>span:first-child{display:flex;gap:6px;align-items:baseline}html.cm-t-tasca .ca-sec li>span:first-child::after{content:"";flex:1;border-bottom:2px dotted var(--line);transform:translateY(-4px);min-width:16px}
+html.cm-t-tasca .ca-sec li b{font-family:var(--fd)}
+html.cm-t-tasca .cm-ph{filter:sepia(.25) saturate(.9)}
+html.cm-t-tasca .cm-cs-h h3{font-style:italic}
+html.cm-t-tasca .cm-cf b.num{font-size:24px}
+/* 3 · fine dining: muito ar, serifa fina, linhas de cabelo, tudo centrado */
+html.cm-t-fino{--r:0px;--rb:0px;--bw:1px;--sh:none;--sh-h:0 18px 40px -20px rgba(0,0,0,.35)}
+html.cm-t-fino body{font-weight:300}
+html.cm-t-fino .s-h,html.cm-t-fino .cm-cb h4,html.cm-t-fino .cm-cs-h h3,html.cm-t-fino .cm-sh-h h2{text-transform:none;font-weight:500;letter-spacing:0}
+html.cm-t-fino .ca-hero{text-align:center}html.cm-t-fino .ca-hero .s-h{font-size:clamp(46px,7vw,92px)!important;line-height:1}html.cm-t-fino .ca-hero .s-h em{font-style:italic;color:#fff}
+html.cm-t-fino .ca-hero .p-meta{letter-spacing:.3em;text-transform:uppercase;font-size:12px}
+html.cm-t-fino .p-hero .s-bg{filter:saturate(.7) brightness(.5)}
+html.cm-t-fino .p-hero .s-tint{background:linear-gradient(to top,rgba(10,10,10,.85),rgba(10,10,10,.25))}
+html.cm-t-fino .ca-secs{columns:1;max-width:640px;margin-inline:auto}
+html.cm-t-fino .ca-sec{margin-bottom:40px}
+html.cm-t-fino .ca-sec h3{text-align:center;font-family:var(--fb);font-weight:500;font-size:13px;letter-spacing:.32em;border-bottom:0;padding-bottom:14px;color:var(--pink)}
+html.cm-t-fino .ca-sec h3::after{content:"";display:block;width:40px;height:1px;background:var(--pink);margin:12px auto 0}
+html.cm-t-fino .ca-sec h3 small{letter-spacing:.14em}
+html.cm-t-fino .ca-sec li{border-bottom:0;padding:9px 0;font-family:var(--fd);font-size:20px}
+html.cm-t-fino .ca-sec li b{font-family:var(--fb);font-weight:400;font-size:15px;color:var(--grey)}
+html.cm-t-fino .cm-nav{justify-content:center}html.cm-t-fino .cm-nav a{border-color:transparent;background:transparent;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:11px}html.cm-t-fino .cm-nav a:hover{border-bottom-color:var(--pink)}
+html.cm-t-fino .cm-card{border-color:var(--line)}html.cm-t-fino .cm-ph{border-bottom:0}
+html.cm-t-fino .cm-cb{text-align:center;padding:16px 18px 18px}html.cm-t-fino .cm-cb h4{font-size:24px}html.cm-t-fino .cm-cf{justify-content:center;gap:14px}
+html.cm-t-fino .cm-cf b.num{font-family:var(--fb);font-weight:400;font-size:18px}
+html.cm-t-fino .cm-cs-h{min-height:200px;border:0}html.cm-t-fino .cm-cs-h div{width:100%;text-align:center}
+html.cm-t-fino .cm-cs-h small{letter-spacing:.3em}
+html.cm-t-fino .ca-menu{text-align:center;justify-content:center}html.cm-t-fino .ca-menu b{text-align:center;font-size:44px}
+html.cm-t-fino .cm-add{width:30px;height:30px;font-size:18px;font-weight:400}
+/* 4 · cabaré: fundo de veludo, ouro, itálico e moldura dupla art déco */
+html.cm-t-cabare{--r:2px;--rb:2px;--bw:1px;--sh:inset 0 0 0 3px var(--card),inset 0 0 0 4px color-mix(in srgb,var(--pink) 45%,transparent);--sh-h:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--pink),0 10px 30px -10px color-mix(in srgb,var(--pink) 60%,transparent)}
+html.cm-t-cabare .s-h,html.cm-t-cabare .cm-cs-h h3,html.cm-t-cabare .cm-sh-h h2{text-transform:none;font-style:italic;font-weight:600;letter-spacing:0}
+html.cm-t-cabare .ca-hero{text-align:center}html.cm-t-cabare .ca-hero .s-h{line-height:1}html.cm-t-cabare .ca-hero .p-meta{letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:var(--pink)}
+html.cm-t-cabare .p-hero .s-bg{filter:grayscale(.3) contrast(1.15) brightness(.45)}
+html.cm-t-cabare .p-hero .s-tint{background:radial-gradient(ellipse at 50% 120%,color-mix(in srgb,var(--paper) 95%,transparent) 30%,transparent 75%),linear-gradient(to top,var(--paper),transparent 70%)}
+html.cm-t-cabare .ca-hero .s-wrap::before{content:"✦  ✦  ✦";display:block;color:var(--pink);letter-spacing:.4em;font-size:12px;margin-bottom:10px}
+html.cm-t-cabare :is(.cm-mesa,.cm-card,.cm-nav a,.cm-vis,.cm-q,.cm-pg,.cm-l li,.cm-pd,.cm-nif,.cm-fixo fieldset,.cm-cs-h,.s-btn:not(.mint):not(.ink)){border-color:color-mix(in srgb,var(--pink) 60%,transparent)}
+html.cm-t-cabare .ca-sec h3{text-align:center;font-style:italic;text-transform:none;font-size:30px;border-bottom:0;color:var(--pink)}
+html.cm-t-cabare .ca-sec h3::before,html.cm-t-cabare .ca-sec h3::after{content:"";display:block;height:5px;border-block:1px solid var(--pink);margin:6px auto;width:60%;opacity:.7}
+html.cm-t-cabare .ca-sec h3 small{color:var(--grey);font-style:normal;letter-spacing:.24em}
+html.cm-t-cabare .ca-sec li{border-bottom-style:solid}html.cm-t-cabare .ca-sec li b{color:var(--pink)}
+html.cm-t-cabare .cm-cb h4{font-family:var(--fd);font-style:italic;text-transform:none;font-weight:600}
+html.cm-t-cabare .cm-cf b.num{color:var(--pink);font-size:24px}
+html.cm-t-cabare .cm-ph{border-bottom-color:color-mix(in srgb,var(--pink) 60%,transparent)}
+html.cm-t-cabare .cm-nav a,html.cm-t-cabare .cm-vis button{letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+html.cm-t-cabare .ca-menu{border:1px solid var(--pink);box-shadow:var(--sh)}
+/* 5 · esplanada: redondo, sem tinta, sombra macia e cor de verão */
+html.cm-t-esplanada{--r:22px;--rb:999px;--bw:0px;--sh:0 6px 22px -8px rgba(60,40,20,.22);--sh-h:0 14px 30px -10px rgba(60,40,20,.32)}
+html.cm-t-esplanada .s-h,html.cm-t-esplanada .ca-sec h3,html.cm-t-esplanada .cm-cb h4,html.cm-t-esplanada .cm-cs-h h3,html.cm-t-esplanada .cm-sh-h h2{text-transform:none;font-weight:700;letter-spacing:-.01em}
+html.cm-t-esplanada .ca-hero{border-radius:0 0 34px 34px}html.cm-t-esplanada .ca-hero .s-h{line-height:.95}
+html.cm-t-esplanada .p-hero .s-bg{filter:saturate(1.1) brightness(.62)}
+html.cm-t-esplanada .p-hero .s-tint{background:linear-gradient(to top,color-mix(in srgb,var(--pink) 55%,rgba(0,0,0,.6)),transparent 75%)}
+html.cm-t-esplanada .ca-hero .s-h em{color:#fff}
+html.cm-t-esplanada .ca-sec{background:var(--card);border-radius:var(--r);padding:16px 18px 8px;box-shadow:var(--sh)}
+html.cm-t-esplanada .ca-sec h3{border-bottom:0;font-size:26px;color:var(--pink)}
+html.cm-t-esplanada .ca-sec h3 small{text-transform:none;letter-spacing:0;font-size:13px;font-weight:600}
+html.cm-t-esplanada .ca-sec li{border-bottom-style:solid}html.cm-t-esplanada .ca-sec li:last-child{border-bottom:0}
+html.cm-t-esplanada .cm-nav a{background:var(--mint)}html.cm-t-esplanada .cm-vis{box-shadow:var(--sh)}
+html.cm-t-esplanada .cm-ph{border-radius:calc(var(--r) - 6px);margin:8px 8px 0}
+html.cm-t-esplanada .cm-cs-h{min-height:130px}
+html.cm-t-esplanada .cm-cf b.num{font-family:var(--fd);font-weight:700;font-size:22px;color:var(--pink)}
+html.cm-t-esplanada .ca-menu{background:var(--pink);color:var(--on-ac);border:0}html.cm-t-esplanada .ca-menu .s-eyebrow{color:var(--on-ac)}
+html.cm-t-esplanada .s-btn{box-shadow:var(--sh)}
+html.cm-t-esplanada :is(.cm-l li,.cm-pd,.cm-nif,.cm-fat li,.cm-mesa,.cm-fixo fieldset,.cm-mot button){box-shadow:var(--sh)}
+html.cm-t-esplanada .cm-q,html.cm-t-esplanada .cm-pg,html.cm-t-esplanada .cm-modo,html.cm-t-esplanada .cm-abrir input,html.cm-t-esplanada .cm-nif-l input,html.cm-t-esplanada .cm-outro input{border-width:1.5px;border-color:var(--line)}
+/* portal · aparência do menu */
+.pt-ap{display:grid;gap:10px;border:1px solid var(--ink);border-radius:12px;padding:12px;background:#fff}
+.pt-ap-h b{display:block;font-size:15px}.pt-ap-h small{color:var(--grey);font-size:12px;font-weight:600}
+.pt-tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.pt-tpl{all:unset;cursor:pointer;display:grid;gap:4px;align-content:start;padding:6px;border:2px solid transparent;border-radius:14px;min-width:0}
+.pt-tpl:hover{border-color:var(--line)}.pt-tpl.on{border-color:var(--pink);background:#fff5f8}
+.pt-tpl:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.pt-tpl>b{font-size:14px;padding:0 2px}.pt-tpl>small{font-size:11px;line-height:1.3;color:var(--grey);font-weight:600;padding:0 2px}
+.pt-mm{display:grid;grid-template-columns:minmax(0,1fr);gap:5px;background:var(--paper);color:var(--ink);font-family:var(--fb);border-radius:10px;overflow:hidden;padding-bottom:0;height:178px;align-content:start;grid-template-rows:auto auto auto auto 1fr;box-shadow:0 0 0 1px rgba(0,0,0,.12);font-style:normal}
+.pt-mm i{font-style:normal}
+.pt-mm .mm-h{display:grid;align-content:end;height:62px;padding:8px;background-size:cover;background-position:center;position:relative;color:#fff;isolation:isolate}
+.pt-mm .mm-h::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.15));z-index:-1}
+.pt-mm .mm-h i{font:700 9px var(--fb);letter-spacing:.2em;text-transform:uppercase;color:var(--pink)}
+.pt-mm .mm-h b{font-family:var(--fd);font-size:17px;line-height:1;text-transform:uppercase;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pt-mm .mm-s{margin:2px 8px 0;font:400 13px var(--fd);text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:2px}
+.pt-mm .mm-l{display:flex;align-items:center;gap:5px;margin:0 8px;padding:4px 5px;font-size:10px;background:var(--card);border:var(--bw) solid var(--ink);border-radius:calc(var(--r) * .5)}
+.pt-mm .mm-l span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pt-mm .mm-l b{font-size:10px}
+.pt-mm .mm-l em{width:14px;height:14px;border-radius:50%;background:var(--pink);color:var(--on-ac);display:grid;place-items:center;font:800 11px/1 var(--fb);font-style:normal}
+.pt-mm .mm-bar{align-self:end;display:flex;gap:4px;padding:6px 8px;background:var(--bar)}.pt-mm .mm-bar i{flex:1;height:10px;border-radius:4px;background:color-mix(in srgb,var(--on-bar) 25%,transparent)}.pt-mm .mm-bar i.on{background:var(--pink);flex:1.4}
+.pt-mm.cm-t-rua{--r:16px;--bw:2px}
+.pt-mm.cm-t-tasca{--r:6px;--bw:1px}.pt-mm.cm-t-tasca .mm-h b,.pt-mm.cm-t-tasca .mm-s{text-transform:none;font-weight:700}.pt-mm.cm-t-tasca .mm-s{border-bottom:3px double var(--pink)}
+.pt-mm.cm-t-tasca .mm-h{filter:sepia(.4)}.pt-mm.cm-t-tasca .mm-h::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-conic-gradient(from 45deg,var(--pink) 0 25%,var(--paper) 0 50%) 0 0/6px 6px}
+.pt-mm.cm-t-fino{--r:0px;--bw:1px}.pt-mm.cm-t-fino .mm-h{text-align:center}.pt-mm.cm-t-fino .mm-h b{text-transform:none;font-weight:500;font-size:18px}.pt-mm.cm-t-fino .mm-s{text-align:center;font:500 8px var(--fb);letter-spacing:.3em;color:var(--pink);border:0}.pt-mm.cm-t-fino .mm-l{border-color:transparent;background:transparent;font-family:var(--fd);font-size:12px}
+.pt-mm.cm-t-cabare{--r:2px;--bw:1px}.pt-mm.cm-t-cabare .mm-h{text-align:center}.pt-mm.cm-t-cabare .mm-h b{text-transform:none;font-style:italic;font-weight:600}.pt-mm.cm-t-cabare .mm-s{text-align:center;text-transform:none;font-style:italic;color:var(--pink);border-bottom:0;border-top:3px double var(--pink);padding-top:2px}.pt-mm.cm-t-cabare .mm-l{border-color:color-mix(in srgb,var(--pink) 60%,transparent)}.pt-mm.cm-t-cabare .mm-l b{color:var(--pink)}
+.pt-mm.cm-t-esplanada{--r:16px;--bw:0px}.pt-mm.cm-t-esplanada .mm-h{border-radius:0 0 14px 14px}.pt-mm.cm-t-esplanada .mm-h b,.pt-mm.cm-t-esplanada .mm-s{text-transform:none;font-weight:700}.pt-mm.cm-t-esplanada .mm-s{border:0;color:var(--pink)}.pt-mm.cm-t-esplanada .mm-l{box-shadow:0 2px 8px -3px rgba(0,0,0,.25)}
+.pt-cores{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.pt-cores-t{font:800 11px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);width:100%}
+.pt-pals{display:flex;flex-wrap:wrap;gap:6px}
+.pt-pal{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:4px 10px 4px 4px;font-size:12px;font-weight:700;background:#fff}
+.pt-pal.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}.pt-pal:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.pt-pal>i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}.pt-pal>i>i{width:10px;height:10px;border-radius:50%}
+.pt-cor{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.pt-cor label{display:inline-flex!important;align-items:center;gap:6px;border:0!important;padding:0!important;background:none!important;font-size:13px;font-weight:700}
+.pt-cor input[type=color]{width:38px;height:30px;padding:0;border:1.5px solid var(--ink);border-radius:8px;background:none;cursor:pointer}
+.pt-aviso{margin:0;font-size:12px;font-weight:800;color:#b3261e}
+html.cm-tpl button,html.cm-tpl input,html.cm-tpl select{font-family:inherit}
+html.cm-t-fino .ca-menu{flex-direction:column;gap:10px}
+html.cm-t-fino .cm-nav a{background:transparent!important}
+html.cm-t-esplanada .cm-cs-h small{color:#fff;opacity:.9}
+html.cm-t-esplanada .s-btn.ghost{border:1.5px solid var(--line)}
+.ca-sec li>.cm-q{flex:0 0 auto}
+.ca-casa{grid-template-columns:minmax(0,1fr)}
+html.cm-t-fino .cm-nav{justify-content:safe center}
+@media (max-width:640px){.pt-tpls{grid-auto-flow:column;grid-auto-columns:150px;grid-template-columns:none;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}.pt-tpl{scroll-snap-align:start}.pt-sv{margin-left:4px}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1235,7 +1396,7 @@ const D = {
  'lisboa/clube de fado':{nome:'Clube de Fado', tipo:'Restaurante com fado ao vivo · Alfama', fonte:['clubedefado.pt', 'https://www.clubedefado.pt/gastronomia/'], img:'alfama',
   menu:{titulo:'Menu com espetáculo', preco:78, inclui:'couvert, entrada, prato e sobremesa, com o fado incluído. IVA incluído. Bebidas à parte.', cursos:[['Entrada', ['Entradas']], ['Prato', ['Peixe', 'Carne', 'Vegetariano']], ['Sobremesa', ['Sobremesas']]]},
   fotos:{Couvert:['mesa'], Entradas:['mesa', 'pmercado'], Peixe:['pmercado', 'mesa'], Carne:['mesa', 'pmercado'], Vegetariano:['pmercado', 'mesa'], Sobremesas:['mesa', 'pmercado'], Bebidas:['cocktail', 'fado']},
-  servico:{pedidos:true, garcom:true, pagar:false, vista:'completa'},
+  servico:{pedidos:true, garcom:true, pagar:false, vista:'completa', tpl:'tasca'},
   horario:'Todos os dias · cozinha às 19h30 · fado às 20h30 · fecha à 01h00',
   secoes:[
    ['Couvert', 'incluído', [['Pão, azeite, azeitonas, manteiga aromatizada e enchidos']]],
@@ -1246,7 +1407,7 @@ const D = {
    ['Sobremesas', 'escolhe uma', [['Pudim Abade de Priscos', '', 'da casa'], ['Bolo de chocolate'], ['Pêra bêbada'], ['Gelado'], ['Fruta da época'], ['Cheesecake com frutos silvestres'], ['Tábua de queijos']]],
    ['Bebidas', 'à parte', [['Vinho português a copo', 'desde €9'], ['Carta de bar · do Porto seco ao Aperol Spritz', '€8 a €15'], ['Petiscos fora do menu', '€4 a €20']]]],
   notas:['Sala pequena: convém reservar.', 'Alergénios: pergunta à equipa.']},
- 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', fotos:{'Cocktails da casa':['cocktail', 'shots'], "Madame's Twist":['shots', 'cocktail'], 'Sem álcool':['cocktail', 'shots']}, servico:{pedidos:true, garcom:true, pagar:true, vista:'completa'},
+ 'lisboa/pensao amor':{nome:'Pensão Amor', tipo:'Bar · Cais do Sodré · 1.º andar', fonte:['pensaoamor.com', 'https://pensaoamor.com/bar-pensao-amor/'], img:'cocktail', fotos:{'Cocktails da casa':['cocktail', 'shots'], "Madame's Twist":['shots', 'cocktail'], 'Sem álcool':['cocktail', 'shots']}, servico:{pedidos:true, garcom:true, pagar:true, vista:'completa', tpl:'cabare'},
   horario:'Dom a qua 17h00–03h00 · qui a sáb 17h00–04h00',
   secoes:[
    ['Cocktails da casa', 'com o nome das senhoras da antiga pensão', [['Raquel A Gulosa, A Desdentada Boca de Seda', '€10,00', '', 'Rum branco · coulis de framboesa · cordial de laranja · sumo cítrico'], ['Valéria dos Filmes, Para Finais Felizes', '€10,50', '', 'Gin · Chartreuse · cordial de pepino e lima · xarope de hortelã'], ['Isabel das Caldas, Artista do Falo', '€10,00', '', 'Aperol · hortelã · espumante · espuma de maracujá'], ['Maria Fadista, A Boca Linda', '€11,00', '', 'Bourbon · pisco com leite vegetal · orgeat de amêndoa · laranja · café'], ['Misaki, Dona da Mais "Linda Flor"', '€12,00', '', 'Mezcal · tequila · Lillet Blanc · xarope de açúcar · infusão de jasmim, baunilha e café'], ['Gordinha Esperança, A Costureira do Mau Feitio', '€10,00', '', 'Tequila reposado · manga · pimento vermelho em pó · tintura de toranja'], ['Zu, A Contorcionista, Para Dicar de Tenda Armada', '€11,00', '', 'Cachaça · doce de banana · cordial de laranja · sumo cítrico · coentros · caramelo']]],
@@ -1254,6 +1415,45 @@ const D = {
    ['Sem álcool', '', [["Shi'so Cute", '€7,00', '', 'Lima · wasabi · ananás · shiso'], ['Gumball BJ', '€6,00', '', 'Pepino · hortelã-pimenta · pimenta verde · tónica'], ['Strawberrys and Cream', '€6,00', '', 'Morango · tomate cherry · limão · iogurte'], ['Beefeater 0% & Tonic', '€9,00']]]],
   notas:['A casa não publica carta de comida.']}
 };
+/* ---------- aparência do menu: cinco modelos e as cores da casa ----------
+   O dono escolhe o modelo mais parecido com a casa e, se quiser, a cor de destaque e a de fundo.
+   O resto (texto, cartões, linhas, botões) sai destas duas cores com contraste garantido. */
+const MODELOS = [
+ {id:'rua', nome:'Cartaz de rua', para:'bares, discotecas e festas', bg:'#f2f2f2', fg:'#0b0b0b', ac:'#ff2e6e', fd:'"Anton",Impact,"Arial Narrow",sans-serif', fb:'"Work Sans","Segoe UI",Helvetica,Arial,sans-serif', gf:'',
+  paletas:[['Rosa', '#f2f2f2', '#ff2e6e'], ['Menta', '#f2f2f2', '#14a061'], ['Amarelo', '#fff4c7', '#111111'], ['Noite', '#0e0e0e', '#ff2e6e']]},
+ {id:'tasca', nome:'Tasca', para:'tascas, casas de fado e cozinha portuguesa', bg:'#f5eedf', fg:'#1d1a16', ac:'#1d4f9c', fd:'"Fraunces",Georgia,serif', fb:'"Lora",Georgia,serif', gf:'family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Lora:ital,wght@0,400;0,600;0,700;1,400',
+  paletas:[['Azulejo', '#f5eedf', '#1d4f9c'], ['Vinho', '#f5eedf', '#8c1c2c'], ['Oliveira', '#f1efe3', '#55622a'], ['Noite de fado', '#191512', '#d9a441']]},
+ {id:'fino', nome:'Fine dining', para:'restaurantes de autor e de hotel', bg:'#fbfaf6', fg:'#1c1c1a', ac:'#94733a', fd:'"Cormorant Garamond",Garamond,Georgia,serif', fb:'"Jost","Segoe UI",Helvetica,Arial,sans-serif', gf:'family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600',
+  paletas:[['Dourado', '#fbfaf6', '#94733a'], ['Grafite', '#f4f4f2', '#2f3a3a'], ['Salva', '#f3f4ef', '#4f6a4c'], ['Noite', '#121212', '#c8a96a']]},
+ {id:'cabare', nome:'Cabaré', para:'cocktail bars, speakeasies e clubes', bg:'#1a0c10', fg:'#f3e7d3', ac:'#e0b45a', fd:'"Playfair Display",Georgia,serif', fb:'"Josefin Sans","Segoe UI",Helvetica,Arial,sans-serif', gf:'family=Playfair+Display:ital,wght@0,700;1,600&family=Josefin+Sans:wght@400;600;700',
+  paletas:[['Bordô e ouro', '#1a0c10', '#e0b45a'], ['Esmeralda', '#0b1a15', '#d8b26a'], ['Néon', '#0d0d14', '#ff3ea5'], ['Veludo', '#140d1f', '#c9a0ff']]},
+ {id:'esplanada', nome:'Esplanada', para:'cafés, brunch, praia e gelados', bg:'#fff7ec', fg:'#2a2118', ac:'#e8531c', fd:'"Fredoka","Segoe UI",Helvetica,Arial,sans-serif', fb:'"Nunito","Segoe UI",Helvetica,Arial,sans-serif', gf:'family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800',
+  paletas:[['Sol', '#fff7ec', '#e8531c'], ['Mar', '#eef8f8', '#0b7f81'], ['Limão', '#fbfbe9', '#5f7d00'], ['Gelado', '#fff1f4', '#d6336c']]}
+];
+const rgb = h => { h = String(h || '').replace('#', ''); if (h.length === 3) h = h.replace(/./g, x => x + x); const n = parseInt(h, 16); return /^[0-9a-f]{6}$/i.test(h) ? [n >> 16 & 255, n >> 8 & 255, n & 255] : [0, 0, 0]; };
+const hex = a => '#' + a.map(x => Math.round(Math.max(0, Math.min(255, x))).toString(16).padStart(2, '0')).join('');
+const mix = (a, b, t) => { const x = rgb(a), y = rgb(b); return hex(x.map((v, i) => v + (y[i] - v) * t)); };
+const lum = h => { const [r, g, b] = rgb(h).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r + .7152 * g + .0722 * b; };
+const contraste = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+const melhor = (bg, ...cs) => cs.reduce((m, c) => contraste(bg, c) > contraste(bg, m) ? c : m);
+/* cfg = {tpl, ac, bg}; devolve o modelo e as variáveis CSS que pintam o menu */
+function tema(cfg){
+  const m = MODELOS.find(x => x.id === (cfg || {}).tpl) || MODELOS[0];
+  const ok = c => /^#[0-9a-f]{6}$/i.test(c || '');
+  const bg = ok(cfg.bg) ? cfg.bg : m.bg, ac = ok(cfg.ac) ? cfg.ac : m.ac, escuro = lum(bg) < .18;
+  const fg = contraste(m.fg, bg) >= 7 ? m.fg : melhor(bg, '#111111', '#f6f1e8');
+  const card = escuro ? mix(bg, '#ffffff', .07) : lum(bg) > .9 ? '#ffffff' : mix(bg, '#ffffff', .65);
+  let grey = mix(bg, fg, .66); for (let t = .7; contraste(grey, card) < 4.5 && t <= 1; t += .05) grey = mix(bg, fg, t);
+  return {m, escuro, avisoDestaque:contraste(ac, bg) < 3, vars:{
+    '--paper':bg, '--ink':fg, '--card':card, '--pink':ac, '--on-ac':contraste(ac, '#ffffff') >= 3 ? '#ffffff' : '#111111', '--on-ink':escuro ? bg : card,
+    '--mint':mix(bg, ac, escuro ? .3 : .2), '--grey':grey, '--line':mix(bg, fg, .2),
+    '--bar':escuro ? mix(bg, '#ffffff', .1) : fg, '--ac-bar':contraste(ac, escuro ? mix(bg, '#ffffff', .1) : fg) >= 3 ? ac : mix(ac, escuro ? fg : bg, .6), '--on-bar':escuro ? fg : bg, '--fd':m.fd, '--fb':m.fb}};
+}
+const vistas = {};
+function fonte(id){
+  const m = MODELOS.find(x => x.id === id); if (!m || !m.gf || vistas[id]) return; vistas[id] = 1;
+  const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?' + m.gf + '&display=swap'; document.head.appendChild(l);
+}
 const LK = 'streetfy:cardapio-visivel', LS = 'streetfy:cardapio-servico';
 const ler = () => { try { return JSON.parse(localStorage.getItem(LK) || '{}'); } catch (e) { return {}; } };
 window.STREETFY_CARDAPIOS = {
@@ -1264,7 +1464,10 @@ window.STREETFY_CARDAPIOS = {
   href:k => 'menu.html#lugar=' + encodeURIComponent(k),
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
   servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
-  mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} }
+  mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} },
+  modelos:MODELOS,
+  modelo:id => MODELOS.find(m => m.id === id) || MODELOS[0],
+  tema, fonte, contraste
 };
 })();
 </script><script>/* Streetfy · cardapio.js — cardápio de mesa: cardapio.html#lugar=<cidade/lugar>[&mesa=12]
@@ -1336,7 +1539,7 @@ function pagina(){
   const nav = '<div class="cm-topo"><nav class="cm-nav" aria-label="Secções">' + c.secoes.map((s, i) => '<a href="#" data-cm="ir" data-i="' + i + '">' + esc(s[0]) + '</a>').join('') + '</nav><div class="cm-vis" role="group" aria-label="Visualização">' + [['simples', 'Simples'], ['completa', 'Completa']].map(([v, n]) => '<button type="button" data-cm="vista" data-v="' + v + '" class="' + (V === v ? 'on' : '') + '" aria-pressed="' + (V === v) + '">' + n + '</button>').join('') + '</div></div>';
   const menuFixo = c.menu ? '<div class="ca-menu"><div><p class="s-eyebrow">' + esc(c.menu.titulo) + '</p><p>' + esc(c.menu.inclui) + '</p>' + (S.mesa && !S.pago && sv.pedidos && c.menu.cursos ? '<button type="button" class="s-btn mint cm-montar" data-cm="montar">Montar menu e pedir</button>' : '') + '</div><b>€' + c.menu.preco + '<small>por pessoa</small></b></div>' : '';
   return '<section class="p-hero ca-hero"><div class="s-bg" style="background-image:url(img/' + esc(c.img || 'noite') + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
-    + '<h1 class="s-h" style="font-size:clamp(44px,8vw,104px)">MENU<br><em>' + esc(c.nome.toUpperCase()) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
+    + '<h1 class="s-h" style="font-size:clamp(44px,8vw,104px)">MENU<br><em>' + esc(c.nome) + '</em></h1><p class="p-meta">' + esc(c.tipo) + '</p>'
     + '</div></section>'
     + '<section class="s-sec tight cm' + (S.mesa ? ' com-barra' : '') + '"><div class="s-wrap"><div class="ca-casa">' + abrir + nav + menuFixo
     + (V === 'completa'
@@ -1465,12 +1668,22 @@ el.addEventListener('submit', ev => {
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && vista) fechaFolha(); });
 setInterval(() => { if (S && (vista === null || vista === 'acomp') && S.pedidos.length && S.pedidos.some(p => estado(p) < 3)) { const sh = el.querySelector('.cm-sh'); const ae = document.activeElement; if (!(ae && ae.matches && ae.matches('input'))) desenha(); } }, 5000);
 
+/* ---------- aparência: o modelo e as cores escolhidos pela casa no portal ---------- */
+function aplicaTema(){
+  const t = CA.tema(SV()), r = document.documentElement;
+  CA.modelos.forEach(m => r.classList.remove('cm-t-' + m.id));
+  r.classList.add('cm-tpl', 'cm-t-' + t.m.id); r.classList.toggle('cm-escuro', t.escuro);
+  Object.entries(t.vars).forEach(([n, v]) => r.style.setProperty(n, v));
+  CA.fonte(t.m.id);
+}
+window.addEventListener('storage', ev => { if (c && ev.key === 'streetfy:cardapio-servico') { aplicaTema(); desenha(); } });
+
 function carrega(){
   const q = new URLSearchParams(location.hash.slice(1));
   k = q.get('lugar') || ''; c = CA.dados[k];
   if (!c || !CA.visivel(k)) { document.title = 'Streetfy · Menu'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>MENU</em></h1><p class="s-lead">Este lugar não mostra menu de momento.</p></div></section>'; S = null; return; }
   document.title = 'Streetfy · Menu · ' + c.nome;
-  S = ler(); vista = null;
+  S = ler(); vista = null; aplicaTema();
   const m = q.get('mesa'); const sv = SV();
   if (m && (sv.pedidos || sv.garcom || sv.pagar) && S.mesa !== m && !S.pedidos.length) { S = novo(); S.mesa = m; S.desde = Date.now(); grava(); }
   desenha();
