@@ -458,16 +458,16 @@ img{max-width:100%;display:block}
 .fa-pill.rosa.on,.fa-pill.ok{background:var(--pink);border-color:var(--pink);color:#fff}
 .fa-pill[disabled]{opacity:.4;cursor:default;transform:none;border-style:dashed}
 .fa-pill small{font-weight:600;opacity:.7;margin-left:4px;font-size:.85em;font-variant-numeric:tabular-nums}
-.fa-voltar{font:inherit;font-size:13.5px;font-weight:800;padding:8px 6px;border:0;background:none;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.fa-lnk{font:inherit;font-size:12.5px;font-weight:700;background:none;border:0;padding:0;color:var(--grey);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.fa-lnk.forte{color:var(--ink);font-size:14px;font-weight:800}
+.fa-voltar{font:inherit;font-size:13.5px;font-weight:800;padding:8px 6px;border:0;background:none;color:var(--fa-tx,var(--ink));cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fa-lnk{font:inherit;font-size:12.5px;font-weight:700;background:none;border:0;padding:0;color:var(--fa-sub,var(--grey));cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fa-lnk.forte{color:var(--fa-tx,var(--ink));font-size:14px;font-weight:800}
 .fa-acoes{display:inline-flex;gap:14px;align-items:center;margin-left:auto}
 .fa-chip{display:inline-flex;align-items:center;border:2px solid var(--ink);border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;line-height:1.2;max-width:100%}
 .fa-chip button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:6px 4px 6px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .fa-chip .x{padding:6px 10px 6px 4px;opacity:.75;flex:0 0 auto}.fa-chip .x:hover{opacity:1}
 .fa-perg{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0}
 .fa-rolo{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
-.fa-rot{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);white-space:nowrap;flex:0 0 auto;margin-right:2px}
+.fa-rot{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--fa-sub,var(--grey));white-space:nowrap;flex:0 0 auto;margin-right:2px}
 .fa-onde{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px 12px;display:grid;gap:10px;color:var(--ink);text-align:left}
 .fa-onde.aberto{box-shadow:5px 5px 0 var(--pink)}
 .fa-onde-l{display:flex;align-items:center;gap:10px}.fa-onde-l svg{flex:0 0 auto}.fa-onde-l>div{flex:1;min-width:0}
@@ -484,6 +484,13 @@ img{max-width:100%;display:block}
   .fa-rolo .fa-pill{flex:0 0 auto}
   .fa-acoes{margin-left:0;width:100%}
 }
+/* filtro em fundo escuro (topo da lista Hoje e secções escuras): textos claros, etiquetas e pílula escolhida com contorno branco */
+.p-hero .fa,.s-dark .fa{--fa-tx:#fff;--fa-sub:#c4c4c4}
+.p-hero .fa-onde,.s-dark .fa-onde{--fa-tx:var(--ink);--fa-sub:var(--grey)}
+.p-hero .fa-topo .fa-chip,.s-dark .fa-topo .fa-chip{background:#fff;color:var(--ink);border-color:#fff}
+.p-hero .fa-pill.on:not(.rosa),.s-dark .fa-pill.on:not(.rosa){border-color:#fff}
+.p-hero .fa-pill[disabled],.s-dark .fa-pill[disabled]{opacity:.55;background:transparent;color:#fff;border-color:#9a9a9a}
+.fbar .fa{flex:1 1 100%;width:100%}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
