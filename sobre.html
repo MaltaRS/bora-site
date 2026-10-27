@@ -494,6 +494,8 @@ img{max-width:100%;display:block}
 /* cabeçalho transparente por cima do topo rosa (página inicial): lupa e sino em verde; com o fundo branco (ao rolar) voltam a preto */
 .s-nav:not(.on) .s-ico{color:var(--mint)}
 .s-nav:not(.on) .s-ico:hover{background:rgba(255,255,255,.12)}
+/* telemóvel e tablet: lupa, sino, avatar e menu sempre encostados à direita (a regra .s-menu + .s-conta deixava ~95 px vazios nas páginas internas) */
+@media (max-width:900px){.s-nav .s-menu + .s-conta{margin-left:auto}}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
