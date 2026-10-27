@@ -2288,9 +2288,9 @@ const MESAS = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'B1', 'B2', 'B3', 'B4', 'B5',
 const HOLD = 30 * 60 * 1000;
 const LG = 'streetfy:concierge-ligacao';
 const PRECOS_PADRAO = {A1:550, A2:600, A3:700, A4:700, A5:600, A6:550, B1:400, B2:450, B3:500, B4:500, B5:450, B6:400};
-const LIG_PADRAO = () => ({cfg:{mesas:true, quem:'verificados', confirma:'aprovar', comissao:8, lista:true, cota:10, maxPedidos:2, precos:Object.assign({}, PRECOS_PADRAO)}, reservas:[
+const LIG_PADRAO = () => ({cfg:{mesas:true, quem:'aprovados', confirma:'aprovar', comissao:8, lista:true, cota:10, maxPedidos:2, precos:Object.assign({}, PRECOS_PADRAO)}, reservas:[
   {id:'r1', conc:'lara-v', cliente:'Aniversário da Joana · 30 anos', pessoas:8, noite:'n1', mesa:'A1', chega:'0h30', nota:'bolo à meia-noite, sem velas na pista', taxa:60, motorista:true, estado:'confirmada', t:Date.now() - 864e5},
-  {id:'r2', conc:'ricardo-p', cliente:'Despedida do Miguel', pessoas:7, noite:'n2', mesa:'B2', chega:'1h00', nota:'', taxa:45, motorista:false, estado:'pendente', t:Date.now() - 36e5, pedidos:1},
+  {id:'r2', conc:'beatriz-c', cliente:'Despedida do Miguel', pessoas:7, noite:'n2', mesa:'B2', chega:'1h00', nota:'', taxa:45, motorista:false, estado:'pendente', t:Date.now() - 36e5, pedidos:1},
   {id:'r3', conc:'beatriz-c', cliente:'Equipa da Farfetch', pessoas:8, noite:'n1', mesa:'A5', chega:'0h00', nota:'fatura em nome da empresa', taxa:80, motorista:true, estado:'confirmada', t:Date.now() - 1728e5}]});
 const ler = () => { const p = LIG_PADRAO(); try { const g = JSON.parse(localStorage.getItem(LG) || 'null'); if (g && g.cfg && g.reservas) { g.cfg = Object.assign(p.cfg, g.cfg); return g; } } catch (e) {} return p; };
 const gravar = lig => { try { localStorage.setItem(LG, JSON.stringify(lig)); } catch (e) {} };
@@ -2565,6 +2565,9 @@ const valorR = r => r.preco || precoMesa(r.mesa);
 const comissaoDe = r => Math.round(valorR(r) * LIG.cfg.comissao) / 100;
 const ocupacao = nid => M.ocupacao(LIG, nid);
 /* pedidos de 30 min que o concierge já fez para a mesma mesa e noite (cada renovação conta um) */
+/* "Quem pode": todos os verificados, ou só os concierges com parceria aceite (R101 + R107) */
+const concParceiros = () => window.STREETFY_PARCERIAS ? window.STREETFY_PARCERIAS.ler().filter(r => r.local === window.STREETFY_PARCERIAS.EU.local.id && r.tipo === 'concierge' && r.estado === 'aceite').map(r => r.quem).filter((c, i, a) => a.indexOf(c) === i && window.STREETFY_PARCERIAS.relacao(window.STREETFY_PARCERIAS.EU.local.id, 'concierge', c).estado === 'aceite') : [];
+const podeConc = c => LIG.cfg.quem !== 'aprovados' || concParceiros().includes(c);
 const pedidosUsados = (conc, nid, m) => LIG.reservas.filter(r => r.conc === conc && r.noite === nid && r.mesa === m).reduce((a, r) => a + (r.pedidos || 1), 0);
 const ORIG = {direta:'reserva direta', promoter:'via promoter', concierge:'via concierge'};
 function planta(nid, escolher){
@@ -2597,7 +2600,7 @@ function conciergesParceiro(){
   const por = Object.keys(CONC).map(c => { const rr = LIG.reservas.filter(r => r.conc === c && estadoR(r) === 'confirmada'); return [c, rr.length, rr.reduce((a, r) => a + valorR(r), 0), rr.reduce((a, r) => a + comissaoDe(r), 0)]; });
   return '<div class="pt-card" id="concierges"><div class="pt-ch"><h3>Concierges</h3><span class="pt-mini-t">mesas e listas reservadas em nome dos clientes deles · o cliente paga o preço do site</span></div>'
     + '<div class="pt-ca">' + sw('mesas', 'Concierges podem reservar mesas', 'reservam do mesmo estoque que o site: não há reserva dupla')
-    + (g.mesas ? '<div class="pt-sv"><label><span>Quem pode<small>verificados: qualquer concierge com perfil verificado no Streetfy</small></span><select class="pt-sel" data-lg="quem"><option value="verificados"' + (g.quem === 'verificados' ? ' selected' : '') + '>Todos os verificados</option><option value="aprovados"' + (g.quem === 'aprovados' ? ' selected' : '') + '>Só os que eu aprovar</option></select></label>'
+    + (g.mesas ? '<div class="pt-sv"><label><span>Quem pode<small>' + (g.quem === 'aprovados' ? 'só os concierges que aceitaste no cartão Parcerias, acima (' + concParceiros().length + ': ' + esc(concParceiros().map(c => PC.nomeDe('concierge', c)).join(', ') || 'nenhum') + ')' : 'qualquer concierge com perfil verificado no Streetfy') + '</small></span><select class="pt-sel" data-lg="quem"><option value="verificados"' + (g.quem === 'verificados' ? ' selected' : '') + '>Todos os verificados</option><option value="aprovados"' + (g.quem === 'aprovados' ? ' selected' : '') + '>Só os parceiros aceites</option></select></label>'
       + '<label><span>Confirmação<small>automática: pagou, está confirmada · aprovar: tu dizes sim a cada uma</small></span><select class="pt-sel" data-lg="confirma"><option value="auto"' + (g.confirma === 'auto' ? ' selected' : '') + '>Automática</option><option value="aprovar"' + (g.confirma === 'aprovar' ? ' selected' : '') + '>Eu aprovo cada uma</option></select></label>'
       + '<label><span>Segurar a mesa enquanto o cliente paga<small>cada pedido segura a mesa 30 min, com cronómetro à vista no anúncio; o concierge pode pedir de novo até este máximo, por mesa e por noite</small></span><span class="lg-pct">até <input type="number" min="1" max="6" class="pt-sel lg-num" data-lg="maxPedidos" value="' + g.maxPedidos + '" aria-label="Máximo de pedidos de 30 minutos"> × 30 min</span></label>'
       + '<label><span>Comissão do concierge<small>sai da tua parte, como a dos promoters (R71) · paga no repasse</small></span><span class="lg-pct"><input type="number" min="0" max="30" step="1" class="pt-sel" data-lg="comissao" value="' + g.comissao + '" aria-label="Comissão em percentagem"> %</span></label></div>' : '')
@@ -2616,19 +2619,19 @@ function conciergesParceiro(){
 
 /* vista do concierge: casas que o liberam, proposta que segura a mesa, as suas reservas */
 function concierge(){
-  const g = LIG.cfg, minhas = LIG.reservas.filter(r => r.conc === EU_CONC).sort((a, b) => b.t - a.t);
+  const g0 = LIG.cfg, autorizado = podeConc(EU_CONC), g = Object.assign({}, g0, {mesas:g0.mesas && autorizado, lista:g0.lista && autorizado}), minhas = LIG.reservas.filter(r => r.conc === EU_CONC).sort((a, b) => b.t - a.t);
   const n = noiteDe(prop.noite), livre = !!(prop.mesa && !ocupacao(prop.noite)[prop.mesa]);
   if (prop.mesa && !livre) prop.mesa = '';
   const lista = listaDaNoite(n), usados = usadosCota(EU_CONC, n), nomes = prop.nomes.split('\n').map(s => s.trim()).filter(Boolean);
   const min = prop.mesa ? precoMesa(prop.mesa) : 0, mot = prop.motorista ? MOTORISTA : 0, taxa = Math.max(0, +prop.taxa || 0), com = Math.round(min * g.comissao) / 100;
-  const casas = [['Lux Frágil', 'Santa Apolónia', g.mesas, g.lista, g.mesas ? 'comissão ' + g.comissao + '% · confirmação ' + (g.confirma === 'auto' ? 'automática' : 'pelo Lux') : 'mesas fechadas a concierges', true],
-                 ['B.Leza', 'Cais do Sodré', false, true, 'só lista · cota de 6 nomes por noite', false], ['Ministerium Club', 'Terreiro do Paço', false, false, 'não aceita concierges', false]];
+  const casas = [['Lux Frágil', 'Santa Apolónia', g.mesas, g.lista, !autorizado ? 'só para concierges parceiros · ainda não és' : g.mesas ? 'comissão ' + g.comissao + '% · confirmação ' + (g.confirma === 'auto' ? 'automática' : 'pelo Lux') + (g0.quem === 'aprovados' ? ' · és parceira' : '') : 'mesas fechadas a concierges', true, 'lisboa/lux fragil'],
+                 ['B.Leza', 'Cais do Sodré', false, true, 'só lista · cota de 6 nomes por noite', false, 'lisboa/b leza'], ['Ministerium Club', 'Terreiro do Paço', false, false, 'só para concierges parceiros', false, 'lisboa/ministerium club']];
   return kpis(D.concierge)
     + '<div class="pt-card"><div class="pt-ch"><h3>Casas parceiras</h3><span class="pt-mini-t">só aparecem as casas que liberaram mesas ou listas a concierges</span></div><div class="lg-casas">'
-    + casas.map(([nome, b, m, l, d, ab]) => '<div class="lg-casa' + (ab ? ' on' : '') + '"><div><b>' + esc(nome) + '</b><small>' + esc(b) + ' · ' + esc(d) + '</small></div><span class="lg-ok ' + (m ? 'sim' : 'nao') + '">' + (m ? '✓' : '✗') + ' mesas</span><span class="lg-ok ' + (l ? 'sim' : 'nao') + '">' + (l ? '✓' : '✗') + ' lista</span>' + (!m && !l ? (PC && PC.relacao('lisboa/ministerium club', 'concierge', EU_CONC) ? '<span class="lg-e pendente">pedido enviado</span>' : '<a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent('lisboa/ministerium club') + '">Ser parceiro</a>') : '') + '</div>').join('') + '</div></div>'
+    + casas.map(([nome, b, m, l, d, ab, key]) => '<div class="lg-casa' + (ab ? ' on' : '') + '"><div><b>' + esc(nome) + '</b><small>' + esc(b) + ' · ' + esc(d) + '</small></div><span class="lg-ok ' + (m ? 'sim' : 'nao') + '">' + (m ? '✓' : '✗') + ' mesas</span><span class="lg-ok ' + (l ? 'sim' : 'nao') + '">' + (l ? '✓' : '✗') + ' lista</span>' + (!m && !l ? ((PC && PC.relacao(key, 'concierge', EU_CONC) || {}).estado === 'pendente' ? '<span class="lg-e pendente">pedido enviado</span>' : '<a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent(key) + '">Ser parceiro</a>') : '') + '</div>').join('') + '</div></div>'
     + parcerias('concierge')
     + '<div class="pt-card" id="proposta"><div class="pt-ch"><h3>Nova proposta · Lux Frágil</h3><span class="pt-mini-t">cada pedido segura a mesa 30 min · até ' + g.maxPedidos + ' pedidos por mesa</span></div>'
-    + (!g.mesas ? '<p class="cm-vazio">O Lux fechou as mesas a concierges. Podes pôr nomes na lista, se a lista estiver aberta.</p>' : '')
+    + (!autorizado ? '<p class="cm-vazio">O Lux só aceita mesas e nomes na lista de concierges parceiros. <a href="perfil.html#lugar=' + encodeURIComponent('lisboa/lux fragil') + '">Pede para ser parceira no perfil do Lux</a>; quando o Lux aceitar, a planta abre aqui.</p>' : !g.mesas ? '<p class="cm-vazio">O Lux fechou as mesas a concierges. Podes pôr nomes na lista, se a lista estiver aberta.</p>' : '')
     + noiteAbas(prop.noite, 'data-lg-pnoite') + (g.mesas ? planta(prop.noite, true) : '')
     + '<form class="pt-form lg-form" data-lg-form>'
     + '<div class="pt-2"><label>Cliente ou ocasião<input data-lp="cliente" value="' + esc(prop.cliente) + '" placeholder="ex.: Aniversário da Inês" required></label><label>Pessoas<input data-lp="pessoas" type="number" min="1" max="8" value="' + esc(prop.pessoas) + '"></label></div>'
@@ -2824,6 +2827,7 @@ el.addEventListener('submit', ev => {
   if (!String(prop.cliente).trim()) { propMsg = 'Escreve o nome do cliente ou da ocasião.'; return redesenha(); }
   if (!prop.mesa && !nomes.length) { propMsg = 'Escolhe uma mesa livre na planta ou escreve nomes para a lista.'; return redesenha(); }
   if (prop.mesa && pedidosUsados(EU_CONC, prop.noite, prop.mesa) >= g.maxPedidos) { propMsg = 'Já pediste a ' + prop.mesa + ' ' + g.maxPedidos + ' vezes nesta noite: o Lux só deixa segurar a mesma mesa até ' + g.maxPedidos + ' × 30 min.'; return redesenha(); }
+  if (!podeConc(EU_CONC)) { propMsg = 'O Lux só aceita concierges parceiros. Pede a parceria no perfil do Lux.'; return redesenha(); }
   if (prop.mesa && !g.mesas) { propMsg = 'O Lux não aceita reservas de mesa por concierges.'; return redesenha(); }
   if (nomes.length && !g.lista) { propMsg = 'A lista do Lux está fechada a concierges.'; return redesenha(); }
   if (nomes.length + usadosCota(EU_CONC, n) > g.cota) { propMsg = 'Passa a tua cota: ainda podes pôr ' + Math.max(0, g.cota - usadosCota(EU_CONC, n)) + ' nomes nesta noite.'; return redesenha(); }

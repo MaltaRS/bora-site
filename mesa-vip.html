@@ -1550,9 +1550,9 @@ const MESAS = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'B1', 'B2', 'B3', 'B4', 'B5',
 const HOLD = 30 * 60 * 1000;
 const LG = 'streetfy:concierge-ligacao';
 const PRECOS_PADRAO = {A1:550, A2:600, A3:700, A4:700, A5:600, A6:550, B1:400, B2:450, B3:500, B4:500, B5:450, B6:400};
-const LIG_PADRAO = () => ({cfg:{mesas:true, quem:'verificados', confirma:'aprovar', comissao:8, lista:true, cota:10, maxPedidos:2, precos:Object.assign({}, PRECOS_PADRAO)}, reservas:[
+const LIG_PADRAO = () => ({cfg:{mesas:true, quem:'aprovados', confirma:'aprovar', comissao:8, lista:true, cota:10, maxPedidos:2, precos:Object.assign({}, PRECOS_PADRAO)}, reservas:[
   {id:'r1', conc:'lara-v', cliente:'Aniversário da Joana · 30 anos', pessoas:8, noite:'n1', mesa:'A1', chega:'0h30', nota:'bolo à meia-noite, sem velas na pista', taxa:60, motorista:true, estado:'confirmada', t:Date.now() - 864e5},
-  {id:'r2', conc:'ricardo-p', cliente:'Despedida do Miguel', pessoas:7, noite:'n2', mesa:'B2', chega:'1h00', nota:'', taxa:45, motorista:false, estado:'pendente', t:Date.now() - 36e5, pedidos:1},
+  {id:'r2', conc:'beatriz-c', cliente:'Despedida do Miguel', pessoas:7, noite:'n2', mesa:'B2', chega:'1h00', nota:'', taxa:45, motorista:false, estado:'pendente', t:Date.now() - 36e5, pedidos:1},
   {id:'r3', conc:'beatriz-c', cliente:'Equipa da Farfetch', pessoas:8, noite:'n1', mesa:'A5', chega:'0h00', nota:'fatura em nome da empresa', taxa:80, motorista:true, estado:'confirmada', t:Date.now() - 1728e5}]});
 const ler = () => { const p = LIG_PADRAO(); try { const g = JSON.parse(localStorage.getItem(LG) || 'null'); if (g && g.cfg && g.reservas) { g.cfg = Object.assign(p.cfg, g.cfg); return g; } } catch (e) {} return p; };
 const gravar = lig => { try { localStorage.setItem(LG, JSON.stringify(lig)); } catch (e) {} };
