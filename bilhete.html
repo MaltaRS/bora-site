@@ -2325,8 +2325,8 @@ const ICO = {
 };
 const coracao = (i, t) => '<button type="button" class="s-gosto' + (gosta(i) ? ' on' : '') + '" data-f="gosto" data-v="' + esc(i.id) + '" aria-pressed="' + gosta(i) + '" aria-label="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '" title="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '">' + ICO.coracao + '</button>';
 
-/* locais seguem-se, eventos curtem-se (acoes.js) */
-const acao = (i, t, cls) => i.kind === 'lugar' && window.STREETFY_ACOES ? window.STREETFY_ACOES.seguir(lugarKey(i), cls) : coracao(i, t);
+/* na lista, cada card é uma noite (mesmo os de kind 'lugar', ex.: "Base" no Jardim das Oliveiras): curte-se; o Seguir fica nos cards de locais */
+const acao = (i, t) => coracao(i, t);
 
 /* ---------- ajudantes ---------- */
 const lang = () => (document.documentElement.lang || 'pt').slice(0, 2) === 'en' ? 'en' : 'pt';
