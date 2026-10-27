@@ -1745,6 +1745,12 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media (max-width:640px){.pt-top{display:grid;gap:10px;justify-items:start}.pt-quem{text-align:left}}
 .cd-quem span{display:block}.cd-quem small{display:block;margin-top:2px}
 .cd-quem{flex-wrap:nowrap}.cd-quem i{flex:0 0 auto}.cd-quem span{flex:1 1 auto}
+
+/* pesquisa: seguir o local direto do card */
+.ct-seguir{white-space:nowrap}.ct-seguir.on{color:var(--ink)}
+/* agenda: a nota só grava depois de confirmar */
+.ct-val button.on{color:var(--pink)}
+.ct-val-ok{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}.ct-val-ok span{font-size:12px;color:var(--grey);font-weight:700;flex:1 1 100%}.ct-val-ok .s-btn{padding:7px 13px;font-size:13px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2695,10 +2701,14 @@ const papel = S ? S.papel() : 'utilizador', logado = !!(S && S.PAPEIS[papel]);
 const precisaEntrar = o => '<div class="ct-vazio"><b>Entra para ver ' + o + '</b><p>Os planos, os amigos e as notificações são da tua conta.</p><a class="s-btn pink" href="entrar.html#volta=' + encodeURIComponent(location.pathname.split('/').pop()) + '">Entrar</a></div>';
 const AMIGOS = [['Leonor S.', 'tram'], ['Hugo M.', 'dj'], ['Inês C.', 'alfama'], ['Sara D.', 'noite'], ['Tiago R.', 'pink'], ['Bruna T.', 'cocktail']];
 const futuros = () => C.itens.filter(i => k0(i) != null && i.titulo && (i.cidade || 'lisboa') === 'lisboa' && i.img).sort((a, b) => k0(a) - k0(b));
-const cartao = (i, extra, estado) => '<article class="ct-ev"><a class="ct-ev-im" href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(imgI(i)) + ')"><span>' + esc(quando(i)) + (hora(i) ? ' · ' + esc(hora(i)) : '') + '</span></a><div class="ct-ev-b"><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a><a class="ct-ev-l" href="' + esc(hrefLugar(i)) + '">' + esc(i.lugar || '') + '</a>' + (estado ? '<span class="ct-est ' + estado[0] + '">' + estado[1] + '</span>' : '') + (extra || '') + '</div></article>';
+const CID = c => { c = String(c || '').replace(/-/g, ' '); return c ? c.charAt(0).toUpperCase() + c.slice(1) : ''; };
+const ondeTxt = i => [i.lugar, CID(i.cidade || 'lisboa')].filter(Boolean).join(' · ');
+const segueLugar = k => { try { return localStorage.getItem('segue:' + k) === '1'; } catch (e) { return false; } };
+const btnSeguir = i => { const k = C.lugarKey(i), on = segueLugar(k); return '<button type="button" class="s-btn ' + (on ? 'ghost' : 'ink') + ' ct-seguir' + (on ? ' on' : '') + '" data-ct-lugar="' + esc(k) + '" aria-pressed="' + on + '">' + (on ? 'A seguir ✓' : 'Seguir') + '</button>'; };
+const cartao = (i, extra, estado) => '<article class="ct-ev"><a class="ct-ev-im" href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(imgI(i)) + ')"><span>' + esc(quando(i)) + (hora(i) ? ' · ' + esc(hora(i)) : '') + '</span></a><div class="ct-ev-b"><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a><a class="ct-ev-l" href="' + esc(hrefLugar(i)) + '">' + esc(ondeTxt(i)) + '</a>' + (estado ? '<span class="ct-est ' + estado[0] + '">' + estado[1] + '</span>' : '') + (extra || '') + '</div></article>';
 
 /* ---------- os meus planos ---------- */
-let aba = 'prox', qr = '';
+let aba = 'prox', qr = '', notaPend = {};   /* nota escolhida mas ainda não confirmada */
 const PLANOS = [['l4', 'bilhete', 'Bilhete · 2 pessoas', 'QR válido para as duas entradas'], ['l11', 'lista', 'Na lista da Rita M.', 'entrada grátis até 1h · nome na porta'], ['l7', 'reserva', 'Mesa para 4 · 21:00', 'cancelas sem custo até 2 h antes'], ['l3', 'quero', 'Quero ir', 'ainda sem bilhete']];
 const PASSADOS = [['Lux Frágil', 'Noite X', 'sex 17 out', 'lux', 5], ['B.Leza', 'Baile do B.Leza', 'sáb 18 out', 'dj', 4], ['Park Bar', 'Pôr do sol', 'dom 19 out', 'bairro', 0], ['Hot Clube de Portugal', 'Sessão de jazz', 'qui 16 out', 'alfama', 5]];
 const qrSvg = seed => { let h = 0; for (const c of seed) h = (h * 131 + c.charCodeAt(0)) >>> 0; let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (h * 1103515245 + 12345) >>> 0; const on = canto ? (x % 6 === 0 || y % 6 === 0 || (x % 14 > 1 && x % 14 < 5 && y % 14 > 1 && y % 14 < 5) || x === 20 || y === 20) && !((x === 6 || y === 6) && false) : (h >> 16) & 1; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg viewBox="-1 -1 23 23" class="ct-qr" role="img" aria-label="Código QR">' + r + '</svg>'; };
@@ -2717,7 +2727,8 @@ function agenda(){
         + (EV && t !== 'euvou' ? EV.botao(i) : '') + (t === 'euvou' && EV ? EV.botao(i) : '') + '</div>', EST[t])).join('') + '</div>'
         + '<p class="al-nota">Os bilhetes funcionam sem rede: o QR fica guardado no telemóvel. <a href="hoje.html">Procurar mais planos</a></p>'
       : '<div class="ct-lista">' + PASSADOS.map(([l, t, d, im, n0], k) => { const n = av[k] || n0; return '<article class="ct-ev pass"><div class="ct-ev-im" style="background-image:url(img/' + im + '.jpg)"><span>' + esc(d) + '</span></div><div class="ct-ev-b"><b>' + esc(t) + '</b><span class="ct-ev-l">' + esc(l) + '</span>'
-        + (n ? '<span class="ct-st" aria-label="Avaliaste com ' + n + ' de 5">' + '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i></span>' : '<div class="ct-val"><span>Valeu?</span>' + [1, 2, 3, 4, 5].map(v => '<button type="button" data-ct-val="' + k + '" data-v="' + v + '" aria-label="' + v + ' de 5">★</button>').join('') + '</div>') + '</div></article>'; }).join('') + '</div><p class="al-nota">Só avalia quem fez check-in. A tua nota conta para o local e, se foste por uma indicação, para quem indicou (R68).</p>')
+        + (n ? '<span class="ct-st" aria-label="Avaliaste com ' + n + ' de 5">' + '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i></span>' : '<div class="ct-val' + (notaPend[k] ? ' esc' : '') + '"><span>Valeu?</span>' + [1, 2, 3, 4, 5].map(v => '<button type="button" data-ct-val="' + k + '" data-v="' + v + '" class="' + (v <= (notaPend[k] || 0) ? 'on' : '') + '" aria-pressed="' + (v === notaPend[k]) + '" aria-label="' + v + ' de 5">★</button>').join('') + '</div>'
+        + (notaPend[k] ? '<div class="ct-val-ok"><span>' + notaPend[k] + ' de 5 · depois de gravada não muda</span><button type="button" class="s-btn pink" data-ct-valok="' + k + '">Confirmar avaliação</button><button type="button" class="cd-lnk" data-ct-valx="' + k + '">Cancelar</button></div>' : '')) + '</div></article>'; }).join('') + '</div><p class="al-nota">Só avalia quem fez check-in. A tua nota conta para o local e, se foste por uma indicação, para quem indicou (R68).</p>')
     + (qr ? (() => { const i = porId(qr), p = PLANOS.find(x => x[0] === qr); return '<div class="ct-modal" role="dialog" aria-modal="true" aria-label="QR do bilhete"><div class="ct-modal-c"><button type="button" class="pe-x" data-ct-fechar aria-label="Fechar">✕</button><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + (hora(i) ? ' · ' + esc(hora(i)) : '') + '</span>' + qrSvg(qr + 'mari') + '<p>' + esc(p ? p[2] : '') + '</p><small>Aumenta o brilho e mostra na porta. Protótipo: o QR não é válido.</small></div></div>'; })() : '');
 }
 
@@ -2758,8 +2769,8 @@ function pesquisa(){
   const locais = []; C.itens.forEach(i => { if (i.lugar && tem(i.lugar) && !locais.some(l => l.lugar === i.lugar)) locais.push(i); });
   const pessoas = PR.filter(p => tem(p.nome)).map(p => [p.nome, p.foto, 'promoter.html#p=' + p.id, 'promoter']).concat(CONCS.filter(c => tem(c[0]) || tem(c[3])).map(c => [c[0], c[1], 'concierge-perfil.html#c=' + c[2], 'concierge'])).concat(PESSOAS.filter(p => tem(p[0])).map(p => [p[0], p[1], p[2], 'pessoa']));
   const F = [['tudo', 'Tudo'], ['eventos', 'Eventos · ' + evs.length], ['locais', 'Locais · ' + locais.length], ['pessoas', 'Pessoas · ' + pessoas.length]];
-  const sEv = '<section class="ct-sec"><h2>' + (t ? 'Eventos' : 'A seguir em Lisboa') + '</h2><div class="ct-lista">' + (evs.slice(0, filtro === 'eventos' ? 30 : 6).map(i => cartao(i, '<div class="ct-ac">' + (EV ? EV.botao(i) : '') + '</div>')).join('') || '<p class="cm-vazio">Nenhum evento com "' + esc(q) + '".</p>') + '</div></section>';
-  const sLo = '<section class="ct-sec"><h2>Locais</h2><div class="ct-sug">' + (locais.slice(0, filtro === 'locais' ? 40 : 6).map(i => '<div class="ct-sg"><a href="' + esc(hrefLugar(i)) + '"><i style="background-image:url(' + esc(imgI(i)) + ')"></i><b>' + esc(i.lugar) + '</b><span>' + esc(i.bairro || i.cidade || '') + '</span></a></div>').join('') || '<p class="cm-vazio">Nenhum local.</p>') + '</div></section>';
+  const sEv = '<section class="ct-sec"><h2>' + (t ? 'Eventos' : 'A seguir em Lisboa') + '</h2><div class="ct-lista">' + (evs.slice(0, filtro === 'eventos' ? 30 : 6).map(i => cartao(i, '<div class="ct-ac">' + (EV ? EV.botao(i) : '') + (i.lugar ? btnSeguir(i) : '') + '</div>')).join('') || '<p class="cm-vazio">Nenhum evento com "' + esc(q) + '".</p>') + '</div></section>';
+  const sLo = '<section class="ct-sec"><h2>Locais</h2><div class="ct-sug">' + (locais.slice(0, filtro === 'locais' ? 40 : 6).map(i => '<div class="ct-sg"><a href="' + esc(hrefLugar(i)) + '"><i style="background-image:url(' + esc(imgI(i)) + ')"></i><b>' + esc(i.lugar) + '</b><span>' + esc([i.bairro, CID(i.cidade || 'lisboa')].filter(Boolean).join(' · ')) + '</span></a>' + btnSeguir(i) + '</div>').join('') || '<p class="cm-vazio">Nenhum local.</p>') + '</div></section>';
   const sPe = '<section class="ct-sec"><h2>Pessoas</h2><div class="ct-sug">' + (pessoas.slice(0, filtro === 'pessoas' ? 40 : 6).map(([n, f, h, tp]) => '<div class="ct-sg"><a href="' + esc(h) + '"><i style="background-image:url(img/' + esc(f) + '.jpg)"></i><b>' + esc(n) + '</b><span class="pc-tipo ' + (tp === 'pessoa' ? '' : tp) + '">' + tp + '</span></a></div>').join('') || '<p class="cm-vazio">Ninguém com esse nome.</p>') + '</div></section>';
   const rec = ls('streetfy:pesquisas', []);
   return '<form class="ct-pesq" data-ct-pesq role="search"><input type="search" name="q" value="' + esc(q) + '" placeholder="Festas, locais, pessoas, estilos…" aria-label="Pesquisar" autocomplete="off"><button class="s-btn pink" type="submit">Pesquisar</button></form>'
@@ -2790,11 +2801,14 @@ const VISTA = {agenda, amigos, notificacoes, pesquisa, entrar}[el.dataset.conta]
 function desenha(foco){ const y = window.scrollY; el.innerHTML = VISTA ? VISTA() : ''; window.scrollTo(0, y); if (foco) { const f = el.querySelector(foco); if (f) f.focus(); } }
 if (el.dataset.conta === 'pesquisa') { const m = /q=([^&]*)/.exec(location.hash); if (m) q = decodeURIComponent(m[1]); }
 el.addEventListener('click', ev => {
-  const t = ev.target.closest('[data-ct-aba],[data-ct-qr],[data-ct-fechar],[data-ct-val],[data-ct-seg],[data-ct-ped],[data-ct-f],[data-ct-rec],[data-ct-modo],[data-ct-voltar],[data-ct-social],[data-ct-sair]'); if (!t) return;
+  const t = ev.target.closest('[data-ct-aba],[data-ct-qr],[data-ct-fechar],[data-ct-val],[data-ct-valok],[data-ct-valx],[data-ct-seg],[data-ct-ped],[data-ct-f],[data-ct-rec],[data-ct-modo],[data-ct-voltar],[data-ct-social],[data-ct-sair],[data-ct-lugar]'); if (!t) return;
+  if (t.dataset.ctLugar) { if (!logado) { location.href = 'entrar.html#volta=' + encodeURIComponent('pesquisa.html' + location.hash); return; } try { const k = 'segue:' + t.dataset.ctLugar; localStorage.setItem(k, localStorage.getItem(k) === '1' ? '0' : '1'); } catch (e) {} }
   if (t.dataset.ctAba) aba = t.dataset.ctAba;
   if (t.dataset.ctQr) qr = t.dataset.ctQr;
   if (t.hasAttribute('data-ct-fechar')) qr = '';
-  if (t.dataset.ctVal) { const a = ls('streetfy:avaliacoes', {}); a[t.dataset.ctVal] = +t.dataset.v; gv('streetfy:avaliacoes', a); }
+  if (t.dataset.ctVal) notaPend[t.dataset.ctVal] = +t.dataset.v;
+  if (t.dataset.ctValok) { const a = ls('streetfy:avaliacoes', {}); a[t.dataset.ctValok] = notaPend[t.dataset.ctValok]; gv('streetfy:avaliacoes', a); delete notaPend[t.dataset.ctValok]; }
+  if (t.dataset.ctValx) delete notaPend[t.dataset.ctValx];
   if (t.dataset.ctSeg) { const s = ls('streetfy:segue-sug', {}); if (s[t.dataset.ctSeg]) delete s[t.dataset.ctSeg]; else s[t.dataset.ctSeg] = 1; gv('streetfy:segue-sug', s); }
   if (t.dataset.ctPed) { const p = ls('streetfy:pedidos-seguir', {}); p[t.dataset.ctPed] = t.dataset.v; gv('streetfy:pedidos-seguir', p); }
   if (t.dataset.ctF) filtro = t.dataset.ctF;
