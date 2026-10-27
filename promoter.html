@@ -1398,6 +1398,35 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .lg-precos label b{font-size:13px}.lg-precos label span{display:inline-flex;align-items:center;gap:2px;font-weight:800;font-size:13px}
 .lg-precos input{width:62px;font:inherit;font-size:14px;font-weight:800;padding:4px 6px;border:1.5px solid var(--ink);border-radius:8px;text-align:right}
 @media (max-width:640px){.lg-precos>div>div{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* parcerias: convidar / ser parceiro nos perfis, e o cartão no portal */
+.pc-w{display:contents}
+.pc-conv{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:800;font-size:14px;background:#fff5f8;border:2px solid var(--pink);border-radius:999px;padding:4px 4px 4px 14px;color:var(--ink)}
+.pc-conv .s-btn{padding:8px 14px;font-size:13px;box-shadow:none}
+.pc-ok,.pc-esp{cursor:default}.pc-ok:hover,.pc-esp:hover{transform:none}
+.pc-cancel{align-self:center;font-size:13px;font-weight:700;color:inherit;opacity:.7}
+.pc-form{flex-basis:100%;display:grid;gap:8px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:16px;padding:14px;box-shadow:5px 5px 0 var(--pink);max-width:520px;text-align:left}
+.pc-form b{font-size:16px}.pc-form small{color:var(--grey);font-size:13px;line-height:1.4}
+.pc-form textarea{font:inherit;font-size:15px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;resize:vertical}
+.pc-form label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:14px}.pc-form label span{display:inline-flex;align-items:center;gap:4px;font-weight:800}
+.pc-form input{width:64px;font:inherit;font-weight:800;padding:6px 8px;border:2px solid var(--ink);border-radius:8px;text-align:right}
+.pc-form>div{display:flex;gap:8px;flex-wrap:wrap}
+.pc-ver{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--ink);color:#fff;border-radius:14px;padding:6px 8px 6px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.pc-ver label{display:flex;align-items:center;gap:8px;font:800 11px var(--fb);letter-spacing:.08em;text-transform:uppercase}
+.pc-ver select{font:700 13px var(--fb);letter-spacing:0;text-transform:none;border:0;border-radius:8px;padding:6px 8px;background:#fff;color:var(--ink)}
+@media (max-width:640px){.pc-ver label span{display:none}}
+.pc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:760px){.pc-cols{grid-template-columns:1fr}}
+.pt-card h4{margin:0 0 6px;font-size:14px}.pt-card h4 i{font-style:normal;background:var(--pink);color:#fff;border-radius:999px;padding:1px 7px;font-size:12px;margin-left:4px}
+.pc-l{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pc-l li{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:9px 11px;font-size:14px}
+.pc-l li>div{display:grid;gap:2px;min-width:0;flex:1 1 200px}.pc-l a{color:var(--ink);text-decoration:none}
+.pc-l small{color:var(--grey);font-size:12px;font-weight:600}.pc-l q{font-size:13px;color:var(--ink);font-style:italic}
+.pc-l li.pc-vazio{color:var(--grey);font-size:13px;border-style:dashed}
+.pc-ac{display:inline-flex;gap:6px;align-items:center}.pc-ac em{font-style:normal;font-size:12px;font-weight:800;color:#8a5a00}
+.pc-ac button{font:800 11px/1 var(--fb);border:2px solid var(--ink);border-radius:999px;padding:6px 10px;background:#fff;cursor:pointer}.pc-ac button.on{background:var(--ink);color:#fff}
+.pc-tipo{font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:2px 6px;vertical-align:2px}.pc-tipo.promoter{background:#ffe3ec;color:#a3123f}.pc-tipo.concierge{background:#ece4ff;color:#5a33b8}
+.pc-ok-l{display:flex;flex-wrap:wrap;gap:6px}.pc-ok-l a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none;background:#fff}
+.pc-novo{font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;background:var(--mint);border-radius:999px;padding:2px 6px}
+.pc-fw{margin-top:14px}.pc-fw .pc-form{max-width:560px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2207,5 +2236,123 @@ document.addEventListener('click', ev => {
   else k = Math.max(0, itens.findIndex(f => f.el === el));
   abre(itens, k);
 }, true);
+})();
+</script><script>/* Streetfy · parcerias.js — convites e pedidos de parceria entre locais, promoters e concierges (R105–R107).
+   Só entre eles: o local vê "Convidar" no perfil de um promoter ou concierge; o promoter e o concierge veem "Ser parceiro" no perfil de um local.
+   Nada entra sem aceitação manual de quem recebe. Protótipo: quem está a ver escolhe-se em "Ver como"; tudo fica neste aparelho. */
+(function(){
+'use strict';
+const PK = 'streetfy:parcerias', SK = 'streetfy:sessao';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+/* quem "sou eu" em cada papel, no protótipo */
+const EU = {local:{id:'lisboa/lux fragil', nome:'Lux Frágil'}, promoter:{id:'rita-m', nome:'Rita M.'}, concierge:{id:'lara-v', nome:'Lara V.'}};
+const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.', 'ricardo-p':'Ricardo P.', 'beatriz-c':'Beatriz C.', 'tiago-a':'Tiago A.'};
+const nomeDe = (tipo, id) => tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
+const DIA = 864e5, agora = Date.now();
+const PADRAO = () => [
+  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8},
+  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6},
+  {id:'p3', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'marco-s', dir:'convite', estado:'aceite', t:agora - 60 * DIA, msg:'', comissao:0},
+  {id:'p4', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'aceite', t:agora - 90 * DIA, msg:''},
+  {id:'p5', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'beatriz-c', dir:'convite', estado:'aceite', t:agora - 40 * DIA, msg:''},
+  {id:'p6', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'ricardo-p', dir:'pedido', estado:'pendente', t:agora - 2 * DIA, msg:'Trago grupos de empresa às sextas, 6 a 10 pessoas por mesa.'},
+  {id:'p7', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'ines-c', dir:'pedido', estado:'pendente', t:agora - DIA, msg:'Faço techno há dois anos; levo 40 a 60 pessoas por noite.'},
+  {id:'p8', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'joana-p', dir:'convite', estado:'pendente', t:agora - 3 * DIA, msg:'Gostávamos de te ter nas Lux Sessions de sábado.', comissao:8},
+  {id:'p9', local:'lisboa/b leza', localNome:'B.Leza', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'pendente', t:agora - DIA / 2, msg:'Queremos-te nas sextas de kizomba. Comissão de 10%.', comissao:10},
+  {id:'p10', local:'lisboa/ministerium club', localNome:'Ministerium Club', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'pendente', t:agora - 4 * DIA, msg:'Tenho clientes para mesa às sextas e sábados.'}];
+const ler = () => { try { const g = JSON.parse(localStorage.getItem(PK) || 'null'); if (Array.isArray(g)) return g; } catch (e) {} return PADRAO(); };
+const gravar = l => { try { localStorage.setItem(PK, JSON.stringify(l)); } catch (e) {} };
+/* a relação atual entre um local e uma pessoa: o registo mais recente que não foi cancelado */
+const relacao = (local, tipo, quem) => ler().filter(r => r.local === local && r.tipo === tipo && r.quem === quem && r.estado !== 'cancelado').sort((a, b) => b.t - a.t)[0] || null;
+function criar(r){ const l = ler(); r = Object.assign({id:'p' + Date.now().toString(36), estado:'pendente', t:Date.now(), msg:''}, r); l.push(r); gravar(l); return r; }
+function responder(id, estado){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.estado = estado; r.resp = Date.now(); gravar(l); } return r; }
+const sessao = () => { try { return localStorage.getItem(SK) || 'visitante'; } catch (e) { return 'visitante'; } };
+const mudarSessao = v => { try { localStorage.setItem(SK, v); } catch (e) {} };
+window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, sessao, mudarSessao, PADRAO, PK};
+
+/* ---------- botões nos perfis ---------- */
+const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : '';
+if (!pagina) return;
+const PAPEIS = [['visitante', 'Visitante'], ['local', EU.local.nome + ' · local'], ['promoter', EU.promoter.nome + ' · promoter'], ['concierge', EU.concierge.nome + ' · concierge']];
+const barra = document.createElement('div'); barra.className = 'pc-ver';
+barra.innerHTML = '<label><span>Protótipo · ver como</span><select data-pc-ver aria-label="Ver o site como">' + PAPEIS.map(([v, n]) => '<option value="' + v + '">' + esc(n) + '</option>').join('') + '</select></label>';
+document.body.appendChild(barra);
+const sel = barra.querySelector('select'); sel.value = sessao();
+sel.addEventListener('change', () => { mudarSessao(sel.value); poe(); });
+let aberto = false;
+/* de quem é a página que estou a ver */
+function alvo(){
+  const q = new URLSearchParams(location.hash.slice(1));
+  if (pagina === 'local') { const n = document.querySelector('[data-p="nome"]'); return {local:q.get('lugar') || '', localNome:n ? n.textContent.trim() : 'este local', ia:!!document.querySelector('.p-estado.ia')}; }
+  if (pagina === 'promoter') { const P = (window.STREETFY_PROMOTERS || {}).lista || []; const id = q.get('p') || (P[0] || {}).id; return {tipo:'promoter', quem:id}; }
+  return {tipo:'concierge', quem:q.get('c') || 'lara-v'};
+}
+function botao(){
+  const s = sessao(), a = alvo();
+  if (pagina === 'local' && (s === 'promoter' || s === 'concierge')) {
+    if (!a.local || /NÃO ENCONTRADO/.test(a.localNome)) return '';
+    const r = relacao(a.local, s, EU[s].id), nl = esc(a.localNome);
+    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Pedir de novo para ser parceiro' : 'Ser parceiro') + '</a>';
+    if (r.estado === 'aceite') return '<span class="s-btn mint pc-ok">Parceiro de ' + nl + ' ✓</span>';
+    if (r.dir === 'convite') return '<span class="pc-conv">' + nl + ' convidou-te<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    return '<span class="s-btn ghost pc-esp">Pedido enviado · à espera de ' + nl + '</span>';
+  }
+  if (pagina !== 'local' && s === 'local') {
+    const r = relacao(EU.local.id, a.tipo, a.quem), nome = esc(nomeDe(a.tipo, a.quem).split(' ')[0]);
+    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Convidar de novo' : 'Convidar para o ' + esc(EU.local.nome)) + '</a>';
+    if (r.estado === 'aceite') return '<span class="s-btn mint pc-ok">' + (a.tipo === 'promoter' ? 'Promoter da casa' : 'Concierge parceiro') + ' ✓</span>';
+    if (r.dir === 'pedido') return '<span class="pc-conv">' + nome + ' pediu para ser parceiro<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    return '<span class="s-btn ghost pc-esp">Convite enviado · à espera de ' + nome + '</span><a href="#" class="pc-cancel" data-pc="cancelar" data-id="' + r.id + '">cancelar</a>';
+  }
+  return '';
+}
+function formulario(){
+  const s = sessao(), a = alvo();
+  if (pagina === 'local') return '<form class="pc-form" data-pc-form><b>Ser parceiro de ' + esc(a.localNome) + '</b><small>Como ' + (s === 'promoter' ? 'promoter' : 'concierge') + '. ' + esc(a.localNome) + ' recebe o pedido no portal e aceita ou recusa.' + (a.ia ? ' Este perfil ainda é gerido pela IA: o pedido fica guardado até o dono o assumir.' : '') + '</small>'
+    + '<textarea name="msg" rows="3" maxlength="300" placeholder="' + (s === 'promoter' ? 'que noites fazes, quantas pessoas levas…' : 'que clientes trazes, em que noites…') + '"></textarea><div><button class="s-btn pink" type="submit">Enviar pedido</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
+  const nome = nomeDe(a.tipo, a.quem);
+  return '<form class="pc-form" data-pc-form><b>Convidar ' + esc(nome) + ' para o ' + esc(EU.local.nome) + '</b><small>' + esc(nome.split(' ')[0]) + ' recebe o convite no portal e aceita ou recusa. Só depois ' + (a.tipo === 'promoter' ? 'passa a promoter da casa.' : 'pode reservar mesas e pôr nomes nas tuas listas.') + '</small>'
+    + (a.tipo === 'promoter' ? '<label>Comissão por bilhete<span><input name="comissao" type="number" min="0" max="30" value="8"> %</span></label>' : '')
+    + '<textarea name="msg" rows="3" maxlength="300" placeholder="uma mensagem curta (opcional)"></textarea><div><button class="s-btn pink" type="submit">Enviar convite</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
+}
+function poe(){
+  const caixa = pagina === 'local' ? document.querySelector('[data-p="acoes"]') : document.querySelector('.p-acoes');
+  if (!caixa) return;
+  /* o botão vai para a fila de ações; o formulário abre por baixo dela, em linha própria */
+  let w = caixa.querySelector('.pc-w'), f = caixa.nextElementSibling && caixa.nextElementSibling.classList.contains('pc-fw') ? caixa.nextElementSibling : null;
+  const h = botao(), hf = h && aberto ? formulario() : '';
+  if (!h) { if (w) w.remove(); } else {
+    if (!w) { w = document.createElement('span'); w.className = 'pc-w'; caixa.insertBefore(w, caixa.firstChild); }
+    if (w.dataset.h !== h) { w.innerHTML = h; w.dataset.h = h; }
+  }
+  if (!hf) { if (f) f.remove(); return; }
+  if (!f) { f = document.createElement('div'); f.className = 'pc-fw'; caixa.after(f); }
+  if (f.dataset.h !== hf) { f.innerHTML = hf; f.dataset.h = hf; }
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-pc]'); if (!b) return;
+  ev.preventDefault();
+  const x = b.dataset.pc;
+  if (x === 'abrir') aberto = true;
+  if (x === 'fechar') aberto = false;
+  if (x === 'aceitar') responder(b.dataset.id, 'aceite');
+  if (x === 'recusar') responder(b.dataset.id, 'recusado');
+  if (x === 'cancelar') responder(b.dataset.id, 'cancelado');
+  poe();
+  if (x === 'abrir') { const t = document.querySelector('.pc-form textarea'); if (t) t.focus(); }
+});
+document.addEventListener('submit', ev => {
+  const f = ev.target.closest('[data-pc-form]'); if (!f) return;
+  ev.preventDefault();
+  const s = sessao(), a = alvo(), msg = f.msg.value.trim();
+  if (pagina === 'local') criar({local:a.local, localNome:a.localNome, tipo:s, quem:EU[s].id, dir:'pedido', msg});
+  else criar({local:EU.local.id, localNome:EU.local.nome, tipo:a.tipo, quem:a.quem, dir:'convite', msg, comissao:f.comissao ? Math.max(0, Math.min(30, +f.comissao.value || 0)) : undefined});
+  aberto = false; poe();
+});
+window.addEventListener('hashchange', () => { aberto = false; setTimeout(poe, 0); });
+window.addEventListener('storage', ev => { if (ev.key === PK || ev.key === SK) { sel.value = sessao(); poe(); } });
+/* os perfis redesenham-se sozinhos (seguir, trocar de evento): volto a pôr o botão sempre que a caixa muda */
+new MutationObserver(() => poe()).observe(document.querySelector('[data-perfil],[data-promoter],[data-concierge]'), {childList:true, subtree:true});
+poe();
 })();
 </script></body></html>

@@ -1398,6 +1398,35 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .lg-precos label b{font-size:13px}.lg-precos label span{display:inline-flex;align-items:center;gap:2px;font-weight:800;font-size:13px}
 .lg-precos input{width:62px;font:inherit;font-size:14px;font-weight:800;padding:4px 6px;border:1.5px solid var(--ink);border-radius:8px;text-align:right}
 @media (max-width:640px){.lg-precos>div>div{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* parcerias: convidar / ser parceiro nos perfis, e o cartão no portal */
+.pc-w{display:contents}
+.pc-conv{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:800;font-size:14px;background:#fff5f8;border:2px solid var(--pink);border-radius:999px;padding:4px 4px 4px 14px;color:var(--ink)}
+.pc-conv .s-btn{padding:8px 14px;font-size:13px;box-shadow:none}
+.pc-ok,.pc-esp{cursor:default}.pc-ok:hover,.pc-esp:hover{transform:none}
+.pc-cancel{align-self:center;font-size:13px;font-weight:700;color:inherit;opacity:.7}
+.pc-form{flex-basis:100%;display:grid;gap:8px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:16px;padding:14px;box-shadow:5px 5px 0 var(--pink);max-width:520px;text-align:left}
+.pc-form b{font-size:16px}.pc-form small{color:var(--grey);font-size:13px;line-height:1.4}
+.pc-form textarea{font:inherit;font-size:15px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;resize:vertical}
+.pc-form label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:14px}.pc-form label span{display:inline-flex;align-items:center;gap:4px;font-weight:800}
+.pc-form input{width:64px;font:inherit;font-weight:800;padding:6px 8px;border:2px solid var(--ink);border-radius:8px;text-align:right}
+.pc-form>div{display:flex;gap:8px;flex-wrap:wrap}
+.pc-ver{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--ink);color:#fff;border-radius:14px;padding:6px 8px 6px 12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.pc-ver label{display:flex;align-items:center;gap:8px;font:800 11px var(--fb);letter-spacing:.08em;text-transform:uppercase}
+.pc-ver select{font:700 13px var(--fb);letter-spacing:0;text-transform:none;border:0;border-radius:8px;padding:6px 8px;background:#fff;color:var(--ink)}
+@media (max-width:640px){.pc-ver label span{display:none}}
+.pc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media (max-width:760px){.pc-cols{grid-template-columns:1fr}}
+.pt-card h4{margin:0 0 6px;font-size:14px}.pt-card h4 i{font-style:normal;background:var(--pink);color:#fff;border-radius:999px;padding:1px 7px;font-size:12px;margin-left:4px}
+.pc-l{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pc-l li{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:9px 11px;font-size:14px}
+.pc-l li>div{display:grid;gap:2px;min-width:0;flex:1 1 200px}.pc-l a{color:var(--ink);text-decoration:none}
+.pc-l small{color:var(--grey);font-size:12px;font-weight:600}.pc-l q{font-size:13px;color:var(--ink);font-style:italic}
+.pc-l li.pc-vazio{color:var(--grey);font-size:13px;border-style:dashed}
+.pc-ac{display:inline-flex;gap:6px;align-items:center}.pc-ac em{font-style:normal;font-size:12px;font-weight:800;color:#8a5a00}
+.pc-ac button{font:800 11px/1 var(--fb);border:2px solid var(--ink);border-radius:999px;padding:6px 10px;background:#fff;cursor:pointer}.pc-ac button.on{background:var(--ink);color:#fff}
+.pc-tipo{font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:2px 6px;vertical-align:2px}.pc-tipo.promoter{background:#ffe3ec;color:#a3123f}.pc-tipo.concierge{background:#ece4ff;color:#5a33b8}
+.pc-ok-l{display:flex;flex-wrap:wrap;gap:6px}.pc-ok-l a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-weight:800;font-size:13px;color:var(--ink);text-decoration:none;background:#fff}
+.pc-novo{font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;background:var(--mint);border-radius:999px;padding:2px 6px}
+.pc-fw{margin-top:14px}.pc-fw .pc-form{max-width:560px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
