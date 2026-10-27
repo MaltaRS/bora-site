@@ -1634,6 +1634,21 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media (max-width:640px){.ed-2,.ed-fotos{grid-template-columns:1fr}.ed-not td:not(:first-child){width:70px}}
 .ed-prev-b div{padding-top:42px}
 .ed-capa{max-height:190px}
+/* "Eu vou" */
+.ev-w{display:inline-flex;flex-direction:column;gap:6px;max-width:100%}
+.ev-btn{gap:8px}.ev-btn small{font:800 11px var(--fb);opacity:.75;border-left:1.5px solid currentColor;padding-left:8px}
+.ev-nota{display:block;max-width:340px;font-size:12px;font-weight:600;line-height:1.4;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px 10px}.ev-nota a{color:var(--ink)}
+.ev-bs{display:inline-flex;gap:8px;flex-wrap:wrap}
+.ev-ind{display:grid;gap:8px;max-width:420px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:5px 5px 0 var(--pink)}
+.ev-ind small{color:var(--grey);font-size:12px;line-height:1.4}
+.ev-todos{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:800}.ev-todos input{width:18px;height:18px;accent-color:var(--pink)}
+.ev-am{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.ev-a{all:unset;cursor:pointer;display:grid;justify-items:center;gap:3px;text-align:center;border:1.5px solid var(--line);border-radius:12px;padding:7px 4px}
+.ev-a i{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center}.ev-a span{font-size:11px;font-weight:800;line-height:1.1}.ev-a em{font-style:normal;font-size:9px;font-weight:800;color:#1f8a52}
+.ev-a.on{border-color:var(--pink);background:#fff5f8}.ev-a.on i{box-shadow:0 0 0 3px var(--pink)}.ev-a[disabled]{opacity:.5;cursor:default}.ev-a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.ev-ind input[name=msg]{font:inherit;font-size:14px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}
+.ev-ind-a{display:flex;gap:8px}.ev-ind-a .s-btn{padding:9px 14px;font-size:13px}.ev-ind-a .s-btn[disabled]{opacity:.4;pointer-events:none}
+.p-acoes:has(.ev-w){align-items:flex-start}.ev-w:has(.ev-ind){flex-basis:100%}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

@@ -1634,6 +1634,21 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media (max-width:640px){.ed-2,.ed-fotos{grid-template-columns:1fr}.ed-not td:not(:first-child){width:70px}}
 .ed-prev-b div{padding-top:42px}
 .ed-capa{max-height:190px}
+/* "Eu vou" */
+.ev-w{display:inline-flex;flex-direction:column;gap:6px;max-width:100%}
+.ev-btn{gap:8px}.ev-btn small{font:800 11px var(--fb);opacity:.75;border-left:1.5px solid currentColor;padding-left:8px}
+.ev-nota{display:block;max-width:340px;font-size:12px;font-weight:600;line-height:1.4;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:10px;padding:8px 10px}.ev-nota a{color:var(--ink)}
+.ev-bs{display:inline-flex;gap:8px;flex-wrap:wrap}
+.ev-ind{display:grid;gap:8px;max-width:420px;background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:14px;padding:12px;box-shadow:5px 5px 0 var(--pink)}
+.ev-ind small{color:var(--grey);font-size:12px;line-height:1.4}
+.ev-todos{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:800}.ev-todos input{width:18px;height:18px;accent-color:var(--pink)}
+.ev-am{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.ev-a{all:unset;cursor:pointer;display:grid;justify-items:center;gap:3px;text-align:center;border:1.5px solid var(--line);border-radius:12px;padding:7px 4px}
+.ev-a i{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center}.ev-a span{font-size:11px;font-weight:800;line-height:1.1}.ev-a em{font-style:normal;font-size:9px;font-weight:800;color:#1f8a52}
+.ev-a.on{border-color:var(--pink);background:#fff5f8}.ev-a.on i{box-shadow:0 0 0 3px var(--pink)}.ev-a[disabled]{opacity:.5;cursor:default}.ev-a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.ev-ind input[name=msg]{font:inherit;font-size:14px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}
+.ev-ind-a{display:flex;gap:8px}.ev-ind-a .s-btn{padding:9px 14px;font-size:13px}.ev-ind-a .s-btn[disabled]{opacity:.4;pointer-events:none}
+.p-acoes:has(.ev-w){align-items:flex-start}.ev-w:has(.ev-ind){flex-basis:100%}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2178,6 +2193,90 @@ nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
 window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
 })();
+</script><script>/* Streetfy · euvou.js — o botão "Eu vou" (R110): qualquer pessoa indica uma festa aos seus seguidores.
+   Até 3 por dia de evento, só do catálogo (R66). Quem abre pela indicação e faz check-in conta como presença verificada
+   de quem indicou (R68), e é isso que leva a promoter (R69). Guardado neste aparelho em streetfy:eu-vou. */
+(function(){
+'use strict';
+const K = 'streetfy:eu-vou', MAX = 3;
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const SEM = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+const diaDe = i => { const ks = (i && i._ks || []).slice().sort((a, b) => a - b); if (!ks.length) return ''; const d = new Date(); d.setDate(d.getDate() + ks[0]); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
+const diaTxt = dia => { const [a, m, d] = dia.split('-').map(Number), x = new Date(a, m - 1, d), h = new Date(); const dd = Math.round((x - new Date(h.getFullYear(), h.getMonth(), h.getDate())) / 864e5); return dd === 0 ? 'hoje' : dd === 1 ? 'amanhã' : SEM[x.getDay()] + ' ' + d; };
+const hojeKey = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
+function ler(){
+  let l = []; try { l = JSON.parse(localStorage.getItem(K) || '[]') || []; } catch (e) {}
+  /* o formato antigo do "Hoje vou a" ({dia, ids}) passa para a lista nova */
+  try { const v = JSON.parse(localStorage.getItem('streetfy:hoje-vou') || 'null'); if (v && v.ids) { v.ids.forEach(id => { if (!l.some(x => x.id === id)) l.push({id, dia:v.dia}); }); localStorage.removeItem('streetfy:hoje-vou'); } } catch (e) {}
+  const h = new Date(); h.setHours(0, 0, 0, 0);
+  return l.filter(x => { const [a, m, d] = x.dia.split('-').map(Number); return new Date(a, m - 1, d) >= h; });
+}
+const gravar = l => { try { localStorage.setItem(K, JSON.stringify(l)); } catch (e) {} };
+const tem = id => ler().some(x => x.id === id);
+const doDia = dia => ler().filter(x => x.dia === dia);
+/* liga ou desliga; devolve {ok, msg} */
+function alterna(i){
+  const l = ler(), k = l.findIndex(x => x.id === i.id);
+  if (k >= 0) { l.splice(k, 1); gravar(l); return {ok:true, on:false}; }
+  const dia = diaDe(i); if (!dia) return {ok:false, msg:'Este evento já passou.'};
+  if (l.filter(x => x.dia === dia).length >= MAX) return {ok:false, msg:'Já indicaste ' + MAX + ' eventos para ' + diaTxt(dia) + '. Tira um para indicar este.'};
+  l.push({id:i.id, dia}); gravar(l); return {ok:true, on:true};
+}
+/* quantas pessoas já disseram que vão (número fictício estável por evento) + tu */
+const vao = i => { let h = 0; for (const c of String(i.id)) h = (h * 31 + c.charCodeAt(0)) % 997; return 12 + h % 140 + (tem(i.id) ? 1 : 0); };
+/* "Indicar a amigos": manda a festa a seguidores escolhidos, com uma mensagem (não obriga a ir) */
+const IK = 'streetfy:indicacoes';
+const AMIGOS = [['Leonor S.', 'tram'], ['Hugo M.', 'dj'], ['Inês C.', 'alfama'], ['Tiago R.', 'pink'], ['Bruna T.', 'cocktail'], ['Sara D.', 'noite'], ['Rita M.', 'retrato'], ['Kiko R.', 'shots']];
+const indic = () => { try { return JSON.parse(localStorage.getItem(IK) || '[]') || []; } catch (e) { return []; } };
+const indicadosDe = id => indic().filter(x => x.id === id).reduce((a, x) => a.concat(x.para), []).filter((n, k, l) => l.indexOf(n) === k);
+let aberto = '', esc2 = new Set();
+function painel(i){
+  const ja = indicadosDe(i.id);
+  return '<form class="ev-ind" data-ev-ind="' + esc(i.id) + '"><b>Indicar ' + esc(i.titulo) + '</b><small>Escolhe a quem mandar. Recebem no app com o teu nome; quem for pela tua indicação e fizer check-in conta para ti.</small>'
+    + '<label class="ev-todos"><input type="checkbox" data-ev-todos' + (esc2.size === AMIGOS.length ? ' checked' : '') + '> Todos os seguidores</label>'
+    + '<div class="ev-am">' + AMIGOS.map(([n, f]) => { const on = esc2.has(n), j = ja.includes(n); return '<button type="button" class="ev-a' + (on ? ' on' : '') + '" data-ev-a="' + esc(n) + '" aria-pressed="' + on + '"' + (j ? ' disabled' : '') + '><i style="background-image:url(img/' + f + '.jpg)"></i><span>' + esc(n) + '</span>' + (j ? '<em>já indicado</em>' : '') + '</button>'; }).join('') + '</div>'
+    + '<input name="msg" maxlength="140" placeholder="mensagem (opcional) · ex.: bora? eu vou às 0h"><div class="ev-ind-a"><button class="s-btn pink" type="submit"' + (esc2.size ? '' : ' disabled') + '>Indicar' + (esc2.size ? ' a ' + esc2.size : '') + '</button><button type="button" class="s-btn ghost" data-ev-fechar>Cancelar</button></div></form>';
+}
+function botao(i){
+  if (!i || !(i._ks || []).length) return '';
+  const on = tem(i.id), n = indicadosDe(i.id).length;
+  return '<span class="ev-w"><span class="ev-bs"><button type="button" class="s-btn ' + (on ? 'pink' : 'ghost') + ' ev-btn" data-eu-vou="' + esc(i.id) + '" aria-pressed="' + on + '">' + (on ? 'Eu vou ✓' : 'Eu vou') + '<small>' + vao(i) + ' vão</small></button>'
+    + '<button type="button" class="s-btn ghost ev-btn" data-ev-abrir="' + esc(i.id) + '" aria-expanded="' + (aberto === i.id) + '">' + (n ? 'Indicado a ' + n + ' ✓' : 'Indicar a amigos') + '</button></span>' + (aberto === i.id ? painel(i) : '') + '</span>';
+}
+function troca(i, foco){ const w = document.querySelector('[data-eu-vou="' + i.id + '"]').closest('.ev-w'), t = document.createElement('span'); t.innerHTML = botao(i); const n = t.firstChild; w.replaceWith(n); if (foco) { const f = n.querySelector(foco); if (f) f.focus(); } return n; }
+const nota = (w, html) => { const s = document.createElement('small'); s.className = 'ev-nota'; s.setAttribute('role', 'status'); s.innerHTML = html; w.appendChild(s); setTimeout(() => { if (s.isConnected) s.remove(); }, 7000); };
+document.addEventListener('click', ev => {
+  const ab = ev.target.closest('[data-ev-abrir],[data-ev-a],[data-ev-fechar]'); if (!ab) return;
+  ev.preventDefault();
+  const w = ab.closest('.ev-w'), id = (w.querySelector('[data-eu-vou]') || {}).dataset.euVou, i = C().itens.find(x => x.id === id); if (!i) return;
+  if (ab.dataset.evAbrir) { aberto = aberto === id ? '' : id; esc2 = new Set(); troca(i, aberto ? '[data-ev-a]:not([disabled])' : '[data-ev-abrir]'); return; }
+  if (ab.dataset.evA) { const n = ab.dataset.evA; if (esc2.has(n)) esc2.delete(n); else esc2.add(n); troca(i, '[data-ev-a="' + n + '"]'); return; }
+  if (ab.hasAttribute('data-ev-fechar')) { aberto = ''; troca(i, '[data-ev-abrir]'); }
+});
+document.addEventListener('change', ev => {
+  const t = ev.target.closest('[data-ev-todos]'); if (!t) return;
+  const i = C().itens.find(x => x.id === t.closest('[data-ev-ind]').dataset.evInd), ja = indicadosDe(i.id);
+  esc2 = t.checked ? new Set(AMIGOS.map(a => a[0]).filter(n => !ja.includes(n))) : new Set(); troca(i, '[data-ev-todos]');
+});
+document.addEventListener('submit', ev => {
+  const f = ev.target.closest('[data-ev-ind]'); if (!f) return;
+  ev.preventDefault();
+  const i = C().itens.find(x => x.id === f.dataset.evInd); if (!i || !esc2.size) return;
+  const l = indic(); l.push({id:i.id, para:[...esc2], msg:f.msg.value.trim(), t:Date.now()}); try { localStorage.setItem(IK, JSON.stringify(l)); } catch (e) {}
+  const n = esc2.size; aberto = ''; esc2 = new Set();
+  const w = troca(i, '[data-ev-abrir]'); nota(w, 'Indicado a ' + n + (n === 1 ? ' amigo' : ' amigos') + '. Quem for pela tua indicação e fizer check-in conta para ti. <a href="trabalhar.html#trabalhar">Como isto leva a promoter</a>');
+});
+const C = () => window.STREETFY_CATALOGO || {itens:[]};
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-eu-vou]'); if (!b) return;
+  ev.preventDefault();
+  const i = C().itens.find(x => x.id === b.dataset.euVou); if (!i) return;
+  const r = alterna(i), n = troca(i, '[data-eu-vou]');
+  nota(n, !r.ok ? esc(r.msg) + ' <a href="trabalhar.html#trabalhar">Ver as tuas indicações</a>'
+    : r.on ? 'Todos os teus seguidores veem que vais. Quem for pela tua indicação e fizer check-in conta para ti. <a href="trabalhar.html#trabalhar">Como isto leva a promoter</a>' : 'Tiraste a indicação.');
+});
+window.STREETFY_EUVOU = {MAX, ler, gravar, tem, alterna, botao, doDia, diaDe, diaTxt, hojeKey};
+})();
 </script><script>/* Streetfy · parcerias.js — convites e pedidos de parceria entre locais, promoters e concierges (R105–R107).
    Só entre eles: o local vê "Convidar" no perfil de um promoter ou concierge; o promoter e o concierge veem "Ser parceiro" no perfil de um local.
    Nada entra sem aceitação manual de quem recebe. Protótipo: quem está a ver escolhe-se em "Ver como"; tudo fica neste aparelho. */
@@ -2366,14 +2465,16 @@ const fimDe = (s, n) => '•••• ' + String(s).replace(/\s+/g, '').slice(-n
    como presença verificada dela, e depois pode dar "Valeu?" de 1 a 5, que faz a nota (R68). São estes números que dão o selo (R69). */
 const HK = 'streetfy:hoje-vou';
 const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-const lerHoje = () => { try { const g = JSON.parse(localStorage.getItem(HK) || 'null'); if (g && g.dia === hoje()) return g.ids; } catch (e) {} return []; };
-const gravarHoje = ids => { try { localStorage.setItem(HK, JSON.stringify({dia:hoje(), ids})); } catch (e) {} };
+/* mesma lista do botão "Eu vou" das páginas dos eventos (euvou.js) */
+const EV = () => window.STREETFY_EUVOU;
+const lerHoje = () => EV() ? EV().doDia(EV().hojeKey()).map(x => x.id) : [];
+const gravarHoje = ids => { const e = EV(); if (!e) return; e.gravar(e.ler().filter(x => x.dia !== e.hojeKey()).concat(ids.map(id => ({id, dia:e.hojeKey()})))); };
 let escolher = false;
 function hojeVou(){
   const C = window.STREETFY_CATALOGO; if (!C) return '';
   const ids = lerHoje(), porId = id => C.itens.find(i => i.id === id), href = i => 'bilhete.html#lugar=' + encodeURIComponent(C.lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
   const hojeL = C.itens.filter(i => (i._ks || []).includes(0) && (i.cidade || 'lisboa') === 'lisboa' && i.titulo).slice(0, 8);
-  return '<div class="cd-hv"><p class="cd-sub">Como indicas · "Hoje vou a"</p><p class="cd-dica">Marca até 3 eventos de hoje. Os teus seguidores veem "a ' + esc(EU.nome.split(' ')[0]) + ' vai"; cada um que abrir pela tua indicação e fizer check-in conta como <b>presença verificada</b> tua, e o "Valeu?" que ele der faz a tua <b>nota</b>.</p>'
+  return '<div class="cd-hv"><p class="cd-sub">Como indicas · "Hoje vou a"</p><p class="cd-dica">Toca em "Eu vou" na página de qualquer festa, ou marca aqui até 3 de hoje. Os teus seguidores veem "a ' + esc(EU.nome.split(' ')[0]) + ' vai"; cada um que abrir pela tua indicação e fizer check-in conta como <b>presença verificada</b> tua, e o "Valeu?" que ele der faz a tua <b>nota</b>.</p>'
     + (ids.length ? '<ul class="cd-hv-l">' + ids.map(porId).filter(Boolean).map(i => '<li><a href="' + esc(href(i)) + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</span></a><small>vista por 41 seguidores · 0 check-ins ainda</small><button type="button" class="cd-lnk" data-cd-hv="' + esc(i.id) + '">tirar</button></li>').join('') + '</ul>' : '<p class="cd-vazio">Ainda não indicaste nada hoje.</p>')
     + (escolher ? '<div class="cd-hv-esc">' + hojeL.map(i => { const on = ids.includes(i.id); return '<button type="button" class="cd-hv-i' + (on ? ' on' : '') + '" data-cd-hv="' + esc(i.id) + '"' + (!on && ids.length >= 3 ? ' disabled' : '') + ' aria-pressed="' + on + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + '</span><em>' + (on ? 'Indicado ✓' : 'Indicar') + '</em></button>'; }).join('') + '</div><p class="cd-dica">' + ids.length + ' de 3 hoje · só eventos do catálogo, nunca bebida ou promoção (R66).</p><button type="button" class="cd-lnk" data-cd="hv-fechar">Fechar</button>'
       : '<button type="button" class="s-btn ghost" data-cd="hv-abrir">Indicar eventos de hoje</button>') + '</div>';
