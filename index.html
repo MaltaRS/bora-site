@@ -453,6 +453,41 @@ img{max-width:100%;display:block}
 .ev-row .s-segue{align-self:center}
 .s-gosto.inline{position:static;flex:0 0 auto}
 .card-l .s-segue ~ .s-im .s-price{top:auto;bottom:12px}
+/* ---------- filtro "modelo A" (filtro-a.js), igual em todo o site ---------- */
+.fa{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.fa-topo,.fa-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-width:0}
+.fa-pill{font:inherit;font-size:13.5px;font-weight:700;padding:8px 13px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap;line-height:1.2;transition:transform .15s}
+.fa-pill:hover{transform:translateY(-1px)}
+.fa-pill.on{background:var(--ink);color:#fff;cursor:default;transform:none}
+.fa-pill.rosa.on,.fa-pill.ok{background:var(--pink);border-color:var(--pink);color:#fff}
+.fa-pill[disabled]{opacity:.4;cursor:default;transform:none;border-style:dashed}
+.fa-pill small{font-weight:600;opacity:.7;margin-left:4px;font-size:.85em;font-variant-numeric:tabular-nums}
+.fa-voltar{font:inherit;font-size:13.5px;font-weight:800;padding:8px 6px;border:0;background:none;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fa-lnk{font:inherit;font-size:12.5px;font-weight:700;background:none;border:0;padding:0;color:var(--grey);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.fa-lnk.forte{color:var(--ink);font-size:14px;font-weight:800}
+.fa-acoes{display:inline-flex;gap:14px;align-items:center;margin-left:auto}
+.fa-chip{display:inline-flex;align-items:center;border:2px solid var(--ink);border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;line-height:1.2;max-width:100%}
+.fa-chip button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:6px 4px 6px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.fa-chip .x{padding:6px 10px 6px 4px;opacity:.75;flex:0 0 auto}.fa-chip .x:hover{opacity:1}
+.fa-perg{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0}
+.fa-rolo{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
+.fa-rot{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);white-space:nowrap;flex:0 0 auto;margin-right:2px}
+.fa-onde{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:10px 12px;display:grid;gap:10px;color:var(--ink);text-align:left}
+.fa-onde.aberto{box-shadow:5px 5px 0 var(--pink)}
+.fa-onde-l{display:flex;align-items:center;gap:10px}.fa-onde-l svg{flex:0 0 auto}.fa-onde-l>div{flex:1;min-width:0}
+.fa-onde-l b{display:block;font-size:15px;line-height:1.25}.fa-onde-l span{display:block;font-size:12.5px;color:var(--grey)}
+.fa-onde .fa-ok{padding:8px 14px;font-size:13px;box-shadow:none}
+.fa-onde-p{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1.5px solid var(--line);padding-top:10px}
+.fa-raio{display:grid;gap:4px;font-size:11px;font-weight:800;color:var(--grey);letter-spacing:.08em;text-transform:uppercase;border-top:1.5px solid var(--line);padding-top:10px}
+.fa-raio input{accent-color:var(--pink);width:100%}.fa-raio small{font-weight:600;letter-spacing:0;text-transform:none;font-size:12px}
+.fa-pill:focus-visible,.fa-voltar:focus-visible,.fa-lnk:focus-visible,.fa-chip button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.fa-pill{transition:none}}
+@media (max-width:700px){
+  .fa-rolo{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;padding-block:2px}
+  .fa-rolo::-webkit-scrollbar{display:none}
+  .fa-rolo .fa-pill{flex:0 0 auto}
+  .fa-acoes{margin-left:0;width:100%}
+}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -2188,6 +2223,101 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
 window.STREETFY_ACOES = {coracao, seguir, gosta, segue, decora};
 })();
 </script><script>
+/* Streetfy · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
+   1) O lugar fica num quadro logo abaixo da barra de pesquisa: país e cidade (e raio, quando a cidade tem centro). "Mudar" abre-o.
+   2) Pílulas de topo: ao escolher uma, as outras somem e fica só a escolhida com "← Voltar".
+   3) Com uma pílula escolhida abrem as perguntas, uma de cada vez, numa linha que desliza no telemóvel.
+      Respondida, a pergunta vira etiqueta na linha de cima (tocar reabre, ✕ tira). "Mais filtros" abre as seguintes de uma vez.
+   Quem usa guarda o estado e chama painel()/onde() para desenhar e acao()/acaoOnde() nos cliques [data-fa]. */
+(function(){
+'use strict';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const en = () => (document.documentElement.lang || 'pt').slice(0, 2) === 'en';
+const T = () => en()
+  ? {voltar:'← Back', mais:n => 'More filters · ' + n, menos:'Fewer filters', limpar:'Clear', mudar:'Change', feito:'Done', pais:'Country', cidade:'City', breve:'soon', raio:'Radius', tirar:'Remove this filter', mudarP:'Change: ', maisCid:n => 'More cities · ' + n}
+  : {voltar:'← Voltar', mais:n => 'Mais filtros · ' + n, menos:'Menos filtros', limpar:'Limpar', mudar:'Mudar', feito:'Feito', pais:'País', cidade:'Cidade', breve:'em breve', raio:'Raio', tirar:'Tirar este filtro', mudarP:'Mudar: ', maisCid:n => 'Mais cidades · ' + n};
+const PIN = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.6" fill="#ff2e6e"/></svg>';
+const novo = () => ({top:null, sel:{}, feito:{}, todos:false});
+const pill = (attrs, txt, n, cls) => '<button type="button" class="fa-pill' + (cls ? ' ' + cls : '') + '"' + attrs + '>' + esc(txt) + (n != null ? '<small>' + n + '</small>' : '') + '</button>';
+
+/* cfg: {topo:[[v, nome, n]], tudo:'Tudo'|null, rosa:true, passos:[{k, pq, um, ops:[[v, nome, n]]}], semTopo:false} */
+function painel(st, cfg){
+  const t = T(), passos = (cfg.passos || []).filter(p => p.ops && p.ops.length);
+  const nomeOp = (p, v) => ((p.ops.find(o => o[0] === v) || [v, v])[1]);
+  const ativo = cfg.semTopo || st.top != null;
+  let h = '<div class="fa-topo">';
+  if (!cfg.semTopo) {
+    if (st.top == null) h += (cfg.tudo ? pill(' aria-pressed="true" tabindex="-1"', cfg.tudo, null, 'on') : '') + cfg.topo.map(([v, n, c]) => pill(' data-fa="top" data-v="' + esc(v) + '"' + (c === 0 ? ' disabled' : ''), n, c)).join('');
+    else { const o = cfg.topo.find(x => x[0] === st.top) || [st.top, st.top]; h += pill(' aria-pressed="true" tabindex="-1"', o[1], o[2], 'on' + (cfg.rosa === false ? '' : ' rosa')) + '<button type="button" class="fa-voltar" data-fa="top-voltar">' + t.voltar + '</button>'; }
+  }
+  if (ativo) {
+    const tr = passos.filter(p => st.feito[p.k] && (st.sel[p.k] || []).length);
+    h += tr.map(p => '<span class="fa-chip"><button type="button" data-fa="reabre" data-k="' + p.k + '" title="' + esc(t.mudarP + p.pq) + '">' + esc(st.sel[p.k].map(v => nomeOp(p, v)).join(', ')) + '</button><button type="button" class="x" data-fa="tira" data-k="' + p.k + '" aria-label="' + esc(t.tirar) + '">✕</button></span>').join('');
+    const resta = passos.filter(p => !st.feito[p.k]).length;
+    if (tr.length || resta > 1) h += '<span class="fa-acoes">' + (tr.length ? '<button type="button" class="fa-lnk" data-fa="limpa">' + t.limpar + '</button>' : '') + (resta > 1 ? '<button type="button" class="fa-lnk forte" data-fa="' + (st.todos ? 'menosf' : 'maisf') + '">' + (st.todos ? t.menos : t.mais(resta - 1)) + '</button>' : '') + '</span>';
+  }
+  h += '</div>';
+  if (!ativo) return h;
+  let abertos = 0, q = '';
+  for (const p of passos) {
+    if (st.feito[p.k]) continue;
+    if (abertos && !st.todos) break;
+    abertos++;
+    const s = st.sel[p.k] || [];
+    q += '<div class="fa-rolo" role="group" aria-label="' + esc(p.pq) + '"><span class="fa-rot">' + esc(p.pq) + '</span>'
+      + (!p.um && s.length ? pill(' data-fa="fecha" data-k="' + p.k + '"', 'OK · ' + s.length, null, 'ok') : '')
+      + p.ops.slice().sort((x, y) => (y[2] === 0 ? 0 : 1) - (x[2] === 0 ? 0 : 1)).map(([v, n, c]) => { const on = s.includes(v); return pill(' data-fa="op" data-k="' + p.k + '" data-v="' + esc(v) + '" aria-pressed="' + on + '"' + (c === 0 && !on ? ' disabled' : ''), n, c, on ? 'on' : ''); }).join('') + '</div>';
+  }
+  return h + (q ? '<div class="fa-perg">' + q + '</div>' : '');
+}
+/* devolve true se mudou o estado; passos para saber se a pergunta é de uma só escolha */
+function acao(st, b, passos){
+  const a = b.dataset.fa, v = b.dataset.v, k = b.dataset.k;
+  const p = (passos || []).find(x => x.k === k) || {};
+  if (a === 'top') { st.top = v; st.sel = {}; st.feito = {}; st.todos = false; }
+  else if (a === 'top-voltar') { st.top = null; st.sel = {}; st.feito = {}; st.todos = false; }
+  else if (a === 'op') { const s = st.sel[k] || []; if (p.um) { st.sel[k] = [v]; st.feito[k] = 1; } else st.sel[k] = s.includes(v) ? s.filter(x => x !== v) : s.concat(v); }
+  else if (a === 'fecha') st.feito[k] = 1;
+  else if (a === 'reabre') delete st.feito[k];
+  else if (a === 'tira') { st.sel[k] = []; delete st.feito[k]; }
+  else if (a === 'maisf') st.todos = true;
+  else if (a === 'menosf') st.todos = false;
+  else if (a === 'limpa') { st.sel = {}; st.feito = {}; st.todos = false; }
+  else return false;
+  return true;
+}
+
+/* muitas cidades: 'todas' e as 8 com mais coisas; o resto em "Mais cidades" */
+const cidadesVis = (cs, ui) => { if (ui.maisCid || cs.length <= 9) return cs; const fixa = cs.filter(c => c.id === 'todas' || c.id === 'Todas'), resto = cs.filter(c => !fixa.includes(c) && !c.breve).sort((a, b) => (b.n || 0) - (a.n || 0)); return fixa.concat(resto.slice(0, 8 - fixa.length)); };
+/* o quadro do lugar. o: {pais:{id,nome}, cid:{id,nome}, sub, paises:[{id,nome,breve}], cidades:[{id,nome,n,breve}], raio:{v,min,max,nota}|null}; ui: {aberto, passo:''|'pais'|'cid'} */
+function onde(o, ui){
+  const t = T();
+  let h = '<div class="fa-onde' + (ui.aberto ? ' aberto' : '') + '"><div class="fa-onde-l">' + PIN + '<div><b>' + esc(o.cid.nome) + ', ' + esc(o.pais.nome) + '</b><span>' + esc(o.sub || '') + '</span></div>'
+    + (ui.aberto ? '<button type="button" class="s-btn ink fa-ok" data-fa="onde-ok">' + t.feito + '</button>' : '<button type="button" class="fa-lnk forte" data-fa="onde-abre">' + t.mudar + '</button>') + '</div>';
+  if (!ui.aberto) return h + '</div>';
+  h += '<div class="fa-onde-p"><span class="fa-rot">' + t.pais + '</span><div class="fa-pills">' + (ui.passo === 'pais'
+    ? o.paises.map(p => pill(' data-fa="pais" data-v="' + esc(p.id) + '"' + (p.breve ? ' disabled' : ''), p.nome, null, p.id === o.pais.id ? 'on' : '') + (p.breve ? '' : '')).join('')
+    : pill(' aria-pressed="true" tabindex="-1"', o.pais.nome, null, 'on') + '<button type="button" class="fa-voltar" data-fa="onde-p" data-v="pais">' + t.voltar + '</button>') + '</div></div>';
+  if (ui.passo !== 'pais') h += '<div class="fa-onde-p"><span class="fa-rot">' + t.cidade + '</span><div class="fa-pills">' + (ui.passo === 'cid'
+    ? cidadesVis(o.cidades, ui).map(c => pill(' data-fa="cid" data-v="' + esc(c.id) + '"' + (c.breve ? ' disabled' : ''), c.nome + (c.breve ? ' · ' + t.breve : ''), c.breve ? null : c.n)).join('')
+    : pill(' aria-pressed="true" tabindex="-1"', o.cid.nome, null, 'on') + '<button type="button" class="fa-voltar" data-fa="onde-p" data-v="cid">' + t.voltar + '</button>') + (ui.passo === 'cid' && !ui.maisCid && o.cidades.length > 9 ? '<button type="button" class="fa-lnk forte" data-fa="onde-mais">' + t.maisCid(o.cidades.length - 8) + '</button>' : '') + '</div></div>';
+  if (!ui.passo && o.raio) h += '<label class="fa-raio">' + t.raio + ' · <span data-fa-raio>' + o.raio.v + ' km</span><input type="range" min="' + (o.raio.min || 5) + '" max="' + (o.raio.max || 50) + '" step="5" value="' + o.raio.v + '" data-fa="raio" aria-label="' + t.raio + '">' + (o.raio.nota ? '<small>' + esc(o.raio.nota) + '</small>' : '') + '</label>';
+  return h + '</div>';
+}
+/* devolve {pais}|{cid}|{raio}|true (só a interface mudou)|false */
+function acaoOnde(ui, b){
+  const a = b.dataset.fa, v = b.dataset.v;
+  if (a === 'onde-abre') { ui.aberto = true; ui.passo = 'cid'; return true; }
+  if (a === 'onde-ok') { ui.aberto = false; ui.passo = ''; ui.maisCid = false; return true; }
+  if (a === 'onde-p') { ui.passo = v; return true; }
+  if (a === 'onde-mais') { ui.maisCid = true; return true; }
+  if (a === 'pais') { ui.passo = 'cid'; return {pais:v}; }
+  if (a === 'cid') { ui.passo = ''; return {cid:v}; }
+  return false;
+}
+window.STREETFY_FILTRO_A = {painel, acao, onde, acaoOnde, novo, esc};
+})();
+</script><script>
 /* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
@@ -2313,7 +2443,7 @@ function ordenar(lista){
 const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
 const hrefPerfil = i => 'perfil.html#lugar=' + encodeURIComponent(lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
-const PADRAO = {pais:'pt', cidade:'todas', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:'', q:''};
+const PADRAO = {pais:'pt', cidade:'todas', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:'', q:'', preco:'', hora:'', extra:''};
 /* cidade escolhida = a cidade + os arredores (25 km do centro); "todas" = o país inteiro */
 const RAIO_KM = 25;
 const km = (a, b, c, d) => { const r = Math.PI / 180, x = (d - b) * r * Math.cos((a + c) / 2 * r), y = (c - a) * r; return Math.sqrt(x * x + y * y) * 6371; };
@@ -2449,17 +2579,24 @@ const estilosDe = cid => { const n = {}; ITENS.filter(i => emCidade(i, cid)).for
 const preco = i => i.preco === 0 ? T().livre : (typeof i.preco === 'number' ? '€' + i.preco : i.preco);
 const tag = i => T().tags[i.tag] || i.tag;
 
-function filtrar(e){
-  return ordenar(ITENS.filter(i => emCidade(i, e.cidade)
+/* os filtros do modelo A além de tipo, quando e estilo: preço, hora e extras */
+const valPreco = i => i.preco === 0 || (i.tipos || []).includes('livre') ? ['gratis', '10', '20'] : typeof i.preco === 'number' ? (i.preco <= 10 ? ['10', '20'] : i.preco <= 20 ? ['20'] : ['mais']) : [];
+const valHora = i => { const m = /(\d{1,2}):\d{2}/.exec(i.hora || ''); if (!m) return []; const h = +m[1]; return [h >= 6 && h < 20 ? 'tarde' : h >= 20 ? 'noite' : 'madrugada']; };
+const valExtra = i => [(i.origem === 'parceiro' || i.origem === 'patrocinado') && 'streetfy', i.aqui && 'agora', i.amigos && 'amigos'].filter(Boolean);
+const lst = v => String(v || '').split(',').filter(Boolean);
+const passaE = (i, e) => emCidade(i, e.cidade)
     && (e.tipo === 'tudo' || tiposDe(e).some(tp => i.tipos.includes(tp)))
     && (e.quando === 'semana' || e.quando === 'todas' || i.quando.includes(e.quando))
     && (e.estilo === 'todos' || estilosSel(e).includes(i.estilo))
     && (!e.bairro || i.bairro === e.bairro)
-    && (!e.q || bate(i, e.q))));
-}
+    && (!e.preco || valPreco(i).includes(e.preco))
+    && (!e.hora || lst(e.hora).some(h => valHora(i).includes(h)))
+    && (!e.extra || lst(e.extra).every(x => valExtra(i).includes(x)))
+    && (!e.q || bate(i, e.q));
+function filtrar(e){ return ordenar(ITENS.filter(i => passaE(i, e))); }
 function hashDe(e){
   const q = new URLSearchParams(); q.set('onde', e.pais + '/' + e.cidade);
-  ['tipo', 'quando', 'estilo', 'bairro', 'q'].forEach(k => { if (e[k] && e[k] !== PADRAO[k]) q.set(k, e[k]); });
+  ['tipo', 'quando', 'estilo', 'bairro', 'q', 'preco', 'hora', 'extra'].forEach(k => { if (e[k] && e[k] !== PADRAO[k]) q.set(k, e[k]); });
   return q.toString().replace(/%2F/g, '/').replace(/%2C/g, ',');
 }
 function lerUrl(){
@@ -2467,7 +2604,7 @@ function lerUrl(){
   const q = new URLSearchParams(location.hash.slice(1) + '&' + location.search.slice(1));
   if (q.get('onde')) { const [p, c] = q.get('onde').split('/'); if (p) e.pais = p; if (c) e.cidade = c; }
   if (q.get('cidade')) { e.cidade = q.get('cidade'); const p = PAISES.find(x => x.cidades.some(c => c.id === e.cidade)); if (p) e.pais = p.id; }
-  ['tipo', 'quando', 'estilo', 'bairro', 'q'].forEach(k => { if (q.get(k)) e[k] = q.get(k); });
+  ['tipo', 'quando', 'estilo', 'bairro', 'q', 'preco', 'hora', 'extra'].forEach(k => { if (q.get(k)) e[k] = q.get(k); });
   e.q = String(e.q || '').slice(0, 60);
   { const ts = String(e.tipo).split(',').filter(x => TIPOS.includes(x) && x !== 'tudo'); e.tipo = ts.length ? ts.join(',') : 'tudo'; }
   { const es = estilosSel(e); e.estilo = es.length ? es.join(',') : 'todos'; }
@@ -2475,26 +2612,53 @@ function lerUrl(){
   const p = paisDe(e.pais); e.pais = p.id; e.cidade = cidadeDe(p, e.cidade).id;
   return e;
 }
-const temEstado = () => /(^|[#&?])(onde|cidade|tipo|quando|estilo|bairro|q)=/.test(location.hash + location.search);
+const temEstado = () => /(^|[#&?])(onde|cidade|tipo|quando|estilo|bairro|q|preco|hora|extra)=/.test(location.hash + location.search);
 
 /* ---------- peças de interface ---------- */
 function grupo(k, lbl, ops, cur){
   return '<div class="fchips" role="group" aria-label="' + esc(lbl) + '"><small>' + esc(lbl) + '</small>'
     + ops.map(o => '<button type="button" data-f="' + k + '" data-v="' + esc(o[0]) + '"' + ((Array.isArray(cur) ? cur.includes(o[0]) : o[0] === cur) ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + esc(o[1]) + '</button>').join('') + '</div>';
 }
-function barra(e, t){
-  const pais = paisDe(e.pais), cidade = cidadeDe(pais, e.cidade);
-  const opt = (v, txt, on) => '<option value="' + esc(v) + '"' + (on ? ' selected' : '') + '>' + esc(txt) + '</option>';
+/* a barra no modelo A (filtro-a.js): pesquisa, o quadro do lugar, as pílulas de tipo e, com um tipo escolhido, as perguntas */
+const FA_T = {
+  pt:{quando:'Quando?', estilo:'Que estilo?', preco:'Quanto?', hora:'A que horas?', extra:'Mais alguma coisa?', semana:'Esta semana', gratis:'Grátis', p10:'Até €10', p20:'Até €20', pmais:'Mais de €20', tarde:'Fim de tarde', noite:'Noite', madrugada:'Madrugada', streetfy:'Bilhete no Streetfy', agora:'Gente lá agora', amigos:'Amigos vão', pais:'todo o país', raio:'+ 25 km à volta', ev:n => n + (n === 1 ? ' evento' : ' eventos')},
+  en:{quando:'When?', estilo:'What style?', preco:'How much?', hora:'What time?', extra:'Anything else?', semana:'This week', gratis:'Free', p10:'Up to €10', p20:'Up to €20', pmais:'Over €20', tarde:'Late afternoon', noite:'Night', madrugada:'After midnight', streetfy:'Ticket on Streetfy', agora:'People there now', amigos:'Friends going', pais:'the whole country', raio:'+ 25 km around', ev:n => n + (n === 1 ? ' event' : ' events')}
+};
+const contaCidade = cid => { const c = (PAISES[0].cidades.find(x => x.id === cid) || {}).centro; return ITENS.filter(i => cid === 'todas' || i.cidade === cid || (c && i.lat && i.lng && km(c[0], c[1], i.lat, i.lng) <= RAIO_KM)).length; };
+function passosFA(e, t, semQuando){
+  const ft = FA_T[lang()], conta = (k, neutro, f) => { const e2 = Object.assign({}, e, {[k]:neutro}); const b = ITENS.filter(i => passaE(i, e2)); return v => b.filter(i => f(i, v)).length; };
+  const ps = [];
+  if (semQuando) { const c = conta('quando', 'semana', (i, v) => v === 'semana' || i.quando.includes(v)); ps.push({k:'quando', pq:ft.quando, um:true, ops:[['hoje', t.hoje], ['amanha', t.amanha], ['fds', t.fds], ['semana', ft.semana]].map(([v, n]) => [v, n, c(v)])}); }
+  const cidade = cidadeDe(paisDe(e.pais), e.cidade);
+  { const c = conta('estilo', 'todos', (i, v) => i.estilo === v); ps.push({k:'estilo', pq:ft.estilo, ops:(cidade.aberta ? estilosDe(cidade.id) : []).map(v => [v, cap(v), c(v)])}); }
+  { const c = conta('preco', '', (i, v) => valPreco(i).includes(v)); ps.push({k:'preco', pq:ft.preco, um:true, ops:[['gratis', ft.gratis], ['10', ft.p10], ['20', ft.p20], ['mais', ft.pmais]].map(([v, n]) => [v, n, c(v)])}); }
+  { const c = conta('hora', '', (i, v) => valHora(i).includes(v)); ps.push({k:'hora', pq:ft.hora, ops:[['tarde', ft.tarde], ['noite', ft.noite], ['madrugada', ft.madrugada]].map(([v, n]) => [v, n, c(v)])}); }
+  { const c = conta('extra', '', (i, v) => valExtra(i).includes(v)); ps.push({k:'extra', pq:ft.extra, ops:[['streetfy', ft.streetfy], ['agora', ft.agora], ['amigos', ft.amigos]].map(([v, n]) => [v, n, c(v)])}); }
+  return ps;
+}
+const selDeE = (e, semQuando) => Object.assign(semQuando ? {quando:[e.quando]} : {}, {estilo:estilosSel(e), preco:e.preco ? [e.preco] : [], hora:lst(e.hora), extra:lst(e.extra)});
+function eDeSel(e, st, semQuando){
+  const s = st.sel;
+  e.tipo = st.top || 'tudo';
+  if (semQuando) e.quando = (s.quando || [])[0] || 'hoje';
+  e.estilo = (s.estilo || []).join(',') || 'todos'; e.preco = (s.preco || [])[0] || ''; e.hora = (s.hora || []).join(','); e.extra = (s.extra || []).join(',');
+}
+function barra(e, t, fa, semQuando){
+  const pais = paisDe(e.pais), cidade = cidadeDe(pais, e.cidade), ft = FA_T[lang()], FA = window.STREETFY_FILTRO_A;
   let h = '<label class="f fbusca' + (e.q ? ' on' : '') + '">' + ICO_BUSCA + '<input type="search" data-f-q list="lugares-' + esc(cidade.id) + '" value="' + esc(e.q) + '" placeholder="' + esc(t.procurarPh) + '" aria-label="' + esc(t.procurar) + '" autocomplete="off" spellcheck="false" enterkeyhint="search"><button type="button" data-f="q" data-v="" aria-label="' + esc(t.limpar) + '">×</button></label>'
     + '<datalist id="lugares-' + esc(cidade.id) + '">' + (cidade.aberta ? lugaresDe(cidade.id).map(l => '<option value="' + esc(l) + '">').join('') : '') + '</datalist>';
-  h += '<label class="f fsel"><small>' + t.pais + '</small><select data-f="pais" aria-label="' + t.pais + '">'
-    + PAISES.map(p => opt(p.id, nome(p) + (p.cidades.some(c => c.aberta) ? '' : ' · ' + t.breve), p.id === pais.id)).join('') + '</select></label>';
-  h += '<label class="f fsel on"><small>' + t.cidade + '</small><select data-f="cidade" aria-label="' + t.cidade + '">'
-    + pais.cidades.map(c => opt(c.id, nome(c) + (c.aberta ? '' : ' · ' + t.breve), c.id === cidade.id)).join('') + '</select></label>';
-  h += '<span class="fsep"></span>' + grupo('tipo', t.tipo, TIPOS.map(x => [x, t[x]]), e.tipo === 'tudo' ? ['tudo'] : tiposDe(e)) + grupo('quando', t.quando, QUANDO.map(x => [x, t[x]]), e.quando);
-  const est = cidade.aberta ? estilosDe(cidade.id) : [];
-  if (est.length) h += '<span class="fsep"></span>' + grupo('estilo', t.estilo, [['todos', t.todos]].concat(est.map(x => [x, cap(x)])), e.estilo === 'todos' ? ['todos'] : estilosSel(e));
-  return h;
+  if (!FA) return h;
+  const nCid = cidade.aberta ? contaCidade(cidade.id) : 0;
+  h += '<div class="fa">' + FA.onde({pais:{id:pais.id, nome:nome(pais)}, cid:{id:cidade.id, nome:cidade.id === 'todas' ? t.todasCid : nome(cidade)}, sub:(cidade.id === 'todas' ? ft.pais : ft.raio) + ' · ' + ft.ev(nCid),
+      paises:PAISES.map(p => ({id:p.id, nome:nome(p) + (p.cidades.some(c => c.aberta) ? '' : ' · ' + t.breve), breve:!p.cidades.some(c => c.aberta)})),
+      cidades:pais.cidades.map(c => ({id:c.id, nome:c.id === 'todas' ? t.todasCid : nome(c), n:c.aberta ? contaCidade(c.id) : null, breve:!c.aberta})), raio:null}, fa.ui);
+  const st = {top:e.tipo === 'tudo' ? null : tiposDe(e)[0], sel:selDeE(e, semQuando), feito:fa.feito, todos:fa.todos};
+  if (cidade.aberta) {
+    const nT = v => { const e2 = Object.assign({}, e, {tipo:v, estilo:'todos', preco:'', hora:'', extra:''}); return ITENS.filter(i => passaE(i, e2)).length; };
+    fa.passos = st.top ? passosFA(e, t, semQuando) : [];
+    h += FA.painel(st, {tudo:t.tudo, topo:TIPOS.filter(x => x !== 'tudo').map(x => [x, t[x], nT(x)]), passos:fa.passos});
+  }
+  return h + '</div>';
 }
 function linha(e, t, pais, cidade, n, ng, lista){
   let h = '<p class="fres"><b>' + (cidade.aberta ? t.destaque(n) : esc(nome(cidade)) + ' · ' + t.breve) + '</b><span>' + (cidade.id === 'todas' ? esc(nome(pais)) : esc(nome(cidade)) + ' ' + esc(t.maisArredores) + ', ' + esc(nome(pais))) + ' · ' + rotuloQuando(e.quando, t, HOJE0(AGORA()))
@@ -2554,12 +2718,16 @@ function montar(bar){
   const mapa = q(bar.dataset.mapa) || document.querySelector('[data-f-mapa]');
   let cidadeNoMapa = '';
   let e = lerUrl();
+  const semQuando = !dias;
+  const fa = {ui:{aberto:false, passo:''}, feito:{}, todos:false, passos:[]};
+  const marcaFeito = () => { fa.feito = {}; fa.todos = false; ['estilo', 'preco', 'hora', 'extra'].forEach(k => { if (e[k] && e[k] !== PADRAO[k]) fa.feito[k] = 1; }); if (semQuando && e.quando !== 'hoje') fa.feito.quando = 1; };
+  marcaFeito();
   function render(gravar, parcial){
     const t = T(), pais = paisDe(e.pais), cidade = cidadeDe(pais, e.cidade);
     let lista = cidade.aberta ? filtrar(e) : [];
     if (e.quando === 'todas') { const ag = AGORA(), ks0 = diasDe('todas', HOJE0(ag)); lista = lista.filter(i => grupoDe(i, ag, ks0) !== 'rolou'); }
     if (parcial && bar.querySelector('.fres')) { bar.querySelector('.fres').outerHTML = linha(e, t, pais, cidade, lista.length, lista.filter(gosta).length, lista); bar.querySelector('.fbusca').classList.toggle('on', !!e.q); }
-    else bar.innerHTML = barra(e, t) + linha(e, t, pais, cidade, lista.length, lista.filter(gosta).length, lista);
+    else { if (e.tipo === 'tudo') { fa.feito = {}; fa.todos = false; } bar.innerHTML = barra(e, t, fa, semQuando) + linha(e, t, pais, cidade, lista.length, lista.filter(gosta).length, lista); }
     if (res) {
       const max = +(res.dataset.max || 12), emLista = VISTA === 'lista', tipo = emLista ? 'linha' : (res.dataset.cartao || 'poster');
       res.classList.toggle('vista-lista', emLista);
@@ -2612,6 +2780,17 @@ function montar(bar){
     render(true);
   }
   const click = ev => {
+    const bf = ev.target.closest('[data-fa]');
+    if (bf && bar.contains(bf) && window.STREETFY_FILTRO_A) {
+      ev.preventDefault(); if (bf.disabled || bf.dataset.fa === 'raio') return;
+      const FA = window.STREETFY_FILTRO_A, o = FA.acaoOnde(fa.ui, bf);
+      if (o && o.pais) { set('pais', o.pais); return; }
+      if (o && o.cid) { set('cidade', o.cid); return; }
+      if (o) { render(false); return; }
+      const st = {top:e.tipo === 'tudo' ? null : tiposDe(e)[0], sel:selDeE(e, semQuando), feito:fa.feito, todos:fa.todos};
+      if (FA.acao(st, bf, fa.passos)) { fa.feito = st.feito; fa.todos = st.todos; if (bf.dataset.fa === 'top' || bf.dataset.fa === 'top-voltar') { st.sel = semQuando ? {quando:[e.quando]} : {}; } eDeSel(e, st, semQuando); render(true); }
+      return;
+    }
     const b = ev.target.closest('[data-f]'); if (!b || b.tagName === 'SELECT') return;
     ev.preventDefault(); set(b.dataset.f, b.dataset.v);
     if (b.dataset.f === 'bairro' && res && b.closest('[data-f-bairros]')) res.scrollIntoView({behavior:'smooth', block:'start'});
@@ -2623,14 +2802,14 @@ function montar(bar){
   [bar, res, dias, bairros].forEach(el => { if (el) el.addEventListener('click', click); });
   document.querySelectorAll('[data-f-set]').forEach(a => a.addEventListener('click', () => { const p = a.dataset.fSet.split('/'); e = Object.assign({}, PADRAO, {pais:p[0], cidade:p[1] || paisDe(p[0]).cidades[0].id}); render(false); }));
   document.addEventListener('bora:lang', () => render(false));
-  window.addEventListener('hashchange', () => { if (temEstado()) { e = lerUrl(); render(false); } });
+  window.addEventListener('hashchange', () => { if (temEstado()) { e = lerUrl(); marcaFeito(); render(false); } });
   render(false);
   return {estado:() => e, set, render};
 }
 normalizaTempo();
 window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
-window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
+window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, valPreco, valHora, valExtra, RAIO_KM, km, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
 /* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */
 window.STREETFY_GOSTOS = {tem:id => GOSTOS.has(id), lista:() => [...GOSTOS], icone:ICO.coracao,
   alternar(id){ if (GOSTOS.has(id)) GOSTOS.delete(id); else GOSTOS.add(id); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} montados.forEach(m => m.render(false)); return GOSTOS.has(id); }};
