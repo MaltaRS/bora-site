@@ -1382,6 +1382,22 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .lg-ra{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}.lg-ra .s-btn{padding:8px 14px;font-size:13px}
 @media (max-width:640px){.lg-zona>div{grid-template-columns:repeat(3,minmax(0,1fr))}.lg-ra{justify-content:flex-start}}
 .lg-form .pt-r{display:flex!important;gap:8px;align-items:center;justify-content:flex-start;font-weight:700}.lg-form .pt-r input{width:18px!important;height:18px;margin:0;flex:0 0 auto}
+/* mesas: preço por mesa, em espera com cronómetro (portal e anúncio da Mesa VIP) */
+.zones[hidden]{display:none!important}
+.lg-m b.lg-crono{font:800 11px var(--fb);font-variant-numeric:tabular-nums;color:#8a5a00;background:#fff2cc;border-radius:999px;padding:1px 6px;margin-top:1px}
+.lg-m.espera{background:#fff8e1;border:2px dashed #e0a800;color:#8a5a00;cursor:not-allowed}
+.lg-m.ocupada{background:#e1e1e1;border-color:#c4c4c4;color:#888;cursor:not-allowed}
+.lg-m.esg{opacity:.55;border-style:dashed;cursor:not-allowed}
+.lg-leg .sel::before{border-color:var(--pink);background:var(--pink)}.lg-leg .espera::before{border-color:#e0a800;background:#fff8e1;border-style:dashed}.lg-leg .ocupada::before{border-color:#c4c4c4;background:#e1e1e1}
+.lg-planta.pub{background:#fff;border:2px solid var(--ink);border-radius:16px}
+.lg-planta.pub .lg-m{min-height:58px}
+.lg-nota{margin:10px 0 0;font-size:14px;color:var(--grey)}
+.lg-precos{display:grid;gap:10px}.lg-precos small{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.lg-precos>div>div{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:4px}
+.lg-precos label{display:grid!important;gap:2px;justify-items:center;border:1px solid var(--line)!important;border-radius:10px!important;padding:6px 4px!important;background:#fff!important}
+.lg-precos label b{font-size:13px}.lg-precos label span{display:inline-flex;align-items:center;gap:2px;font-weight:800;font-size:13px}
+.lg-precos input{width:62px;font:inherit;font-size:14px;font-weight:800;padding:4px 6px;border:1.5px solid var(--ink);border-radius:8px;text-align:right}
+@media (max-width:640px){.lg-precos>div>div{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
