@@ -1579,6 +1579,13 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .cd-pg{display:grid;gap:16px}
 .cd-pg .cd-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:start}
 .cd-quem{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0;font-size:15px}.cd-quem i{width:40px;height:40px;border-radius:50%;background-size:cover;background-position:center}.cd-quem small{color:var(--grey);font-size:12px;flex-basis:100%;margin-left:50px;margin-top:-8px}
+.cd-conv{display:grid;gap:6px}
+.cd-conv-i{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;border:2px solid var(--pink);background:#fff5f8;border-radius:12px;padding:10px 12px}
+.cd-conv-i>div{display:grid;gap:2px;flex:1 1 220px}.cd-conv-i small{color:var(--grey);font-size:12px}.cd-conv-i q{font-size:13px;font-style:italic}
+.cd-conv-i>span{display:flex;gap:6px}.cd-conv-i .s-btn{padding:8px 14px;font-size:13px}
+.cd-rep{display:grid;gap:8px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.cd-ok{margin:0;font-size:13px;font-weight:700;color:#1f8a52}.cd-ok a{color:inherit}
+.pc-lock{opacity:.75}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2571,9 +2578,10 @@ desenha();
 const PK = 'streetfy:parcerias', SK = 'streetfy:sessao';
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 /* quem "sou eu" em cada papel, no protótipo */
-const EU = {local:{id:'lisboa/lux fragil', nome:'Lux Frágil'}, promoter:{id:'rita-m', nome:'Rita M.'}, concierge:{id:'lara-v', nome:'Lara V.'}};
+const EU = {local:{id:'lisboa/lux fragil', nome:'Lux Frágil'}, promoter:{id:'rita-m', nome:'Rita M.'}, concierge:{id:'lara-v', nome:'Lara V.'}, utilizador:{id:'mari-costa', nome:'Mariana Costa'}};
+const USERS = {'mari-costa':'Mariana Costa'};
 const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.', 'ricardo-p':'Ricardo P.', 'beatriz-c':'Beatriz C.', 'tiago-a':'Tiago A.'};
-const nomeDe = (tipo, id) => tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
+const nomeDe = (tipo, id) => USERS[id] ? USERS[id] : tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
 const DIA = 864e5, agora = Date.now();
 const PADRAO = () => [
   {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8},
@@ -2594,27 +2602,55 @@ function criar(r){ const l = ler(); r = Object.assign({id:'p' + Date.now().toStr
 function responder(id, estado){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.estado = estado; r.resp = Date.now(); gravar(l); } return r; }
 const sessao = () => { try { return localStorage.getItem(SK) || 'visitante'; } catch (e) { return 'visitante'; } };
 const mudarSessao = v => { try { localStorage.setItem(SK, v); } catch (e) {} };
-window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, sessao, mudarSessao, PADRAO, PK};
+/* ---------- o utilizador comum que um local convidou (R113–R114) ----------
+   Convidado e aceite, passa a promoter da casa desse local (só para os eventos dele). Para pedir parceria a outros locais
+   precisa de reputação: 30 dias como promoter da casa, 20 presenças verificadas e nota ≥ 4,3. */
+const RK = 'streetfy:reputacao';
+const REP = [['Dias como promoter da casa', 'dias', 30], ['Presenças verificadas pelas tuas indicações', 'presencas', 20], ['Nota "Valeu?"', 'nota', 4.3]];
+const casasDe = id => ler().filter(r => r.tipo === 'promoter' && r.quem === id && r.estado === 'aceite' && r.estado !== 'cancelado');
+const ePromoterDaCasa = id => casasDe(id).length > 0;
+function reputacao(id){
+  const cs = casasDe(id), desde = cs.length ? Math.min(...cs.map(r => r.resp || r.t)) : 0;
+  let sim = null; try { sim = JSON.parse(localStorage.getItem(RK) || 'null'); } catch (e) {}
+  const v = sim && sim[id] ? sim[id] : {dias:desde ? Math.floor((Date.now() - desde) / DIA) : 0, presencas:desde ? 4 : 0, nota:4.4};
+  return {v, itens:REP.map(([n, k, alvo]) => [n, k, v[k], alvo, v[k] >= alvo]), ok:cs.length > 0 && REP.every(([, k, alvo]) => v[k] >= alvo)};
+}
+function simularReputacao(id){ let sim = {}; try { sim = JSON.parse(localStorage.getItem(RK) || '{}') || {}; } catch (e) {} sim[id] = {dias:31, presencas:24, nota:4.6}; try { localStorage.setItem(RK, JSON.stringify(sim)); } catch (e) {} }
+window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
 
 /* ---------- botões nos perfis ---------- */
-const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : '';
+const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : document.querySelector('[data-user]') ? 'user' : '';
 if (!pagina) return;
-const PAPEIS = [['visitante', 'Visitante'], ['local', EU.local.nome + ' · local'], ['promoter', EU.promoter.nome + ' · promoter'], ['concierge', EU.concierge.nome + ' · concierge']];
+const PAPEIS = [['visitante', 'Visitante'], ['utilizador', 'Mariana C. · utilizadora'], ['local', EU.local.nome + ' · local'], ['promoter', EU.promoter.nome + ' · promoter'], ['concierge', EU.concierge.nome + ' · concierge']];
 const barra = document.createElement('div'); barra.className = 'pc-ver';
 barra.innerHTML = '<label><span>Protótipo · ver como</span><select data-pc-ver aria-label="Ver o site como">' + PAPEIS.map(([v, n]) => '<option value="' + v + '">' + esc(n) + '</option>').join('') + '</select></label>';
 document.body.appendChild(barra);
 const sel = barra.querySelector('select'); sel.value = sessao();
-sel.addEventListener('change', () => { mudarSessao(sel.value); poe(); });
+/* no perfil da Mariana, quem não é ela vê a vista pública (sem "Editar perfil") */
+const vistaUser = () => { if (pagina !== 'user') return; const v = document.querySelector('[data-ver="' + (sessao() === 'utilizador' || sessao() === 'visitante' ? 'eu' : 'pub') + '"]'); if (v && !v.classList.contains('on')) v.click(); };
+sel.addEventListener('change', () => { mudarSessao(sel.value); vistaUser(); poe(); });
 let aberto = false;
 /* de quem é a página que estou a ver */
 function alvo(){
   const q = new URLSearchParams(location.hash.slice(1));
   if (pagina === 'local') { const n = document.querySelector('[data-p="nome"]'); return {local:q.get('lugar') || '', localNome:n ? n.textContent.trim() : 'este local', ia:!!document.querySelector('.p-estado.ia')}; }
+  if (pagina === 'user') return {tipo:'promoter', quem:EU.utilizador.id, user:true};
   if (pagina === 'promoter') { const P = (window.STREETFY_PROMOTERS || {}).lista || []; const id = q.get('p') || (P[0] || {}).id; return {tipo:'promoter', quem:id}; }
   return {tipo:'concierge', quem:q.get('c') || 'lara-v'};
 }
 function botao(){
   const s = sessao(), a = alvo();
+  /* a Mariana, utilizadora comum, num perfil de local: aceita convites; pede parceria só com reputação */
+  if (pagina === 'local' && s === 'utilizador') {
+    if (!a.local || /NÃO ENCONTRADO/.test(a.localNome)) return '';
+    const me = EU.utilizador.id, r = relacao(a.local, 'promoter', me), nl = esc(a.localNome);
+    if (r && r.estado === 'aceite') return '<span class="s-btn mint pc-ok">Promoter da casa de ' + nl + ' ✓</span>';
+    if (r && r.estado === 'pendente' && r.dir === 'convite') return '<span class="pc-conv">' + nl + ' convidou-te para promoter<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    if (!ePromoterDaCasa(me)) return '';
+    if (r && r.estado === 'pendente') return '<span class="s-btn ghost pc-esp">Pedido enviado · à espera de ' + nl + '</span>';
+    if (!reputacao(me).ok) return '<a class="s-btn ghost pc-lock" href="trabalhar.html#trabalhar" title="Precisas de reputação: 30 dias como promoter da casa, 20 presenças verificadas e nota 4,3">Ser parceiro · 🔒 falta reputação</a>';
+    return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Pedir de novo para ser parceiro' : 'Ser parceiro') + '</a>';
+  }
   if (pagina === 'local' && (s === 'promoter' || s === 'concierge')) {
     if (!a.local || /NÃO ENCONTRADO/.test(a.localNome)) return '';
     const r = relacao(a.local, s, EU[s].id), nl = esc(a.localNome);
@@ -2623,10 +2659,12 @@ function botao(){
     if (r.dir === 'convite') return '<span class="pc-conv">' + nl + ' convidou-te<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
     return '<span class="s-btn ghost pc-esp">Pedido enviado · à espera de ' + nl + '</span>';
   }
+  if (pagina === 'user' && s !== 'local') return '';
   if (pagina !== 'local' && s === 'local') {
     const r = relacao(EU.local.id, a.tipo, a.quem), nome = esc(nomeDe(a.tipo, a.quem).split(' ')[0]);
-    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Convidar de novo' : 'Convidar para o ' + esc(EU.local.nome)) + '</a>';
+    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Convidar de novo' : a.user ? 'Convidar para promoter do ' + esc(EU.local.nome) : 'Convidar para o ' + esc(EU.local.nome)) + '</a>';
     if (r.estado === 'aceite') return '<span class="s-btn mint pc-ok">' + (a.tipo === 'promoter' ? 'Promoter da casa' : 'Concierge parceiro') + ' ✓</span>';
+    if (a.user && r.dir === 'convite' && r.estado === 'pendente') return '<span class="s-btn ghost pc-esp">Convite enviado · à espera de ' + nome + '</span><a href="#" class="pc-cancel" data-pc="cancelar" data-id="' + r.id + '">cancelar</a>';
     if (r.dir === 'pedido') return '<span class="pc-conv">' + nome + ' pediu para ser parceiro<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
     return '<span class="s-btn ghost pc-esp">Convite enviado · à espera de ' + nome + '</span><a href="#" class="pc-cancel" data-pc="cancelar" data-id="' + r.id + '">cancelar</a>';
   }
@@ -2634,10 +2672,10 @@ function botao(){
 }
 function formulario(){
   const s = sessao(), a = alvo();
-  if (pagina === 'local') return '<form class="pc-form" data-pc-form><b>Ser parceiro de ' + esc(a.localNome) + '</b><small>Como ' + (s === 'promoter' ? 'promoter' : 'concierge') + '. ' + esc(a.localNome) + ' recebe o pedido no portal e aceita ou recusa.' + (a.ia ? ' Este perfil ainda é gerido pela IA: o pedido fica guardado até o dono o assumir.' : '') + '</small>'
+  if (pagina === 'local') return '<form class="pc-form" data-pc-form><b>Ser parceiro de ' + esc(a.localNome) + '</b><small>Como ' + (s === 'concierge' ? 'concierge' : 'promoter') + (s === 'utilizador' ? ', com a reputação que ganhaste como promoter da casa' : '') + '. ' + esc(a.localNome) + ' recebe o pedido no portal e aceita ou recusa.' + (a.ia ? ' Este perfil ainda é gerido pela IA: o pedido fica guardado até o dono o assumir.' : '') + '</small>'
     + '<textarea name="msg" rows="3" maxlength="300" placeholder="' + (s === 'promoter' ? 'que noites fazes, quantas pessoas levas…' : 'que clientes trazes, em que noites…') + '"></textarea><div><button class="s-btn pink" type="submit">Enviar pedido</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
   const nome = nomeDe(a.tipo, a.quem);
-  return '<form class="pc-form" data-pc-form><b>Convidar ' + esc(nome) + ' para o ' + esc(EU.local.nome) + '</b><small>' + esc(nome.split(' ')[0]) + ' recebe o convite no portal e aceita ou recusa. Só depois ' + (a.tipo === 'promoter' ? 'passa a promoter da casa.' : 'pode reservar mesas e pôr nomes nas tuas listas.') + '</small>'
+  return '<form class="pc-form" data-pc-form><b>Convidar ' + esc(nome) + (a.user ? ' para promoter do ' : ' para o ') + esc(EU.local.nome) + '</b><small>' + (a.user ? esc(nome.split(' ')[0]) + ' ainda não é promoter. Se aceitar, passa a promoter da casa, só para os teus eventos, com selo, indicações e lista de convidados. Para pedir parceria a outros locais vai precisar de reputação.' : esc(nome.split(' ')[0]) + ' recebe o convite no portal e aceita ou recusa. Só depois ' + (a.tipo === 'promoter' ? 'passa a promoter da casa.' : 'pode reservar mesas e pôr nomes nas tuas listas.')) + '</small>'
     + (a.tipo === 'promoter' ? '<label>Comissão por bilhete<span><input name="comissao" type="number" min="0" max="30" value="8"> %</span></label>' : '')
     + '<textarea name="msg" rows="3" maxlength="300" placeholder="uma mensagem curta (opcional)"></textarea><div><button class="s-btn pink" type="submit">Enviar convite</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
 }
@@ -2671,15 +2709,15 @@ document.addEventListener('submit', ev => {
   const f = ev.target.closest('[data-pc-form]'); if (!f) return;
   ev.preventDefault();
   const s = sessao(), a = alvo(), msg = f.msg.value.trim();
-  if (pagina === 'local') criar({local:a.local, localNome:a.localNome, tipo:s, quem:EU[s].id, dir:'pedido', msg});
-  else criar({local:EU.local.id, localNome:EU.local.nome, tipo:a.tipo, quem:a.quem, dir:'convite', msg, comissao:f.comissao ? Math.max(0, Math.min(30, +f.comissao.value || 0)) : undefined});
+  if (pagina === 'local') criar({local:a.local, localNome:a.localNome, tipo:s === 'utilizador' ? 'promoter' : s, quem:EU[s].id, dir:'pedido', msg, origem:s === 'utilizador' ? 'user' : undefined});
+  else criar({local:EU.local.id, localNome:EU.local.nome, tipo:a.tipo, quem:a.quem, dir:'convite', msg, origem:a.user ? 'user' : undefined, comissao:f.comissao ? Math.max(0, Math.min(30, +f.comissao.value || 0)) : undefined});
   aberto = false; poe();
 });
 window.addEventListener('hashchange', () => { aberto = false; setTimeout(poe, 0); });
-window.addEventListener('storage', ev => { if (ev.key === PK || ev.key === SK) { sel.value = sessao(); poe(); } });
+window.addEventListener('storage', ev => { if (ev.key === PK || ev.key === SK || ev.key === RK) { sel.value = sessao(); poe(); } });
 /* os perfis redesenham-se sozinhos (seguir, trocar de evento): volto a pôr o botão sempre que a caixa muda */
-new MutationObserver(() => poe()).observe(document.querySelector('[data-perfil],[data-promoter],[data-concierge]'), {childList:true, subtree:true});
-poe();
+new MutationObserver(() => poe()).observe(document.querySelector('[data-perfil],[data-promoter],[data-concierge],[data-user]'), {childList:true, subtree:true});
+vistaUser(); poe();
 })();
 </script><script>/* Streetfy · candidaturas.js — candidatura a promoter e a concierge (R110–R112).
    No perfil (user.html, "Eu"): o caminho para promoter pelos números (R69) ou por candidatura, e a candidatura a concierge em 3 passos.
@@ -2731,6 +2769,23 @@ function hojeVou(){
     + (ids.length ? '<ul class="cd-hv-l">' + ids.map(porId).filter(Boolean).map(i => '<li><a href="' + esc(href(i)) + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</span></a><small>vista por 41 seguidores · 0 check-ins ainda</small><button type="button" class="cd-lnk" data-cd-hv="' + esc(i.id) + '">tirar</button></li>').join('') + '</ul>' : '<p class="cd-vazio">Ainda não indicaste nada hoje.</p>')
     + (escolher ? '<div class="cd-hv-esc">' + hojeL.map(i => { const on = ids.includes(i.id); return '<button type="button" class="cd-hv-i' + (on ? ' on' : '') + '" data-cd-hv="' + esc(i.id) + '"' + (!on && ids.length >= 3 ? ' disabled' : '') + ' aria-pressed="' + on + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + '</span><em>' + (on ? 'Indicado ✓' : 'Indicar') + '</em></button>'; }).join('') + '</div><p class="cd-dica">' + ids.length + ' de 3 hoje · só eventos do catálogo, nunca bebida ou promoção (R66).</p><button type="button" class="cd-lnk" data-cd="hv-fechar">Fechar</button>'
       : '<button type="button" class="s-btn ghost" data-cd="hv-abrir">Indicar eventos de hoje</button>') + '</div>';
+}
+
+/* ---------- convites de locais e reputação (R113–R114, dados em parcerias.js) ---------- */
+function casas(){
+  const PC = window.STREETFY_PARCERIAS; if (!PC) return {html:'', casa:false};
+  const me = PC.EU.utilizador.id, L = PC.ler().filter(r => r.tipo === 'promoter' && r.quem === me && r.estado !== 'cancelado');
+  const conv = L.filter(r => r.estado === 'pendente' && r.dir === 'convite'), pedidos = L.filter(r => r.estado === 'pendente' && r.dir === 'pedido'), ok = PC.casasDe(me);
+  let h = '';
+  if (conv.length) h += '<div class="cd-conv"><p class="cd-sub">Convites de locais</p>' + conv.map(r => '<div class="cd-conv-i"><div><b>' + esc(r.localNome) + ' convidou-te para promoter da casa</b><small>' + (r.comissao != null ? 'comissão ' + r.comissao + '% · ' : '') + 'só para os eventos do ' + esc(r.localNome) + '</small>' + (r.msg ? '<q>' + esc(r.msg) + '</q>' : '') + '</div><span><button type="button" class="s-btn pink" data-cd-pc="aceite" data-id="' + r.id + '">Aceitar</button><button type="button" class="s-btn ghost" data-cd-pc="recusado" data-id="' + r.id + '">Recusar</button></span></div>').join('') + '</div>';
+  if (ok.length) {
+    const rp = PC.reputacao(me);
+    h += '<div class="cd-est aprovada"><b>És promoter da casa ✓</b><span>' + ok.map(r => esc(r.localNome) + (r.comissao ? ' · comissão ' + r.comissao + '%' : '')).join('<br>') + '</span><span>Indicas os eventos destas casas, tens selo e lista de convidados.</span></div>'
+      + '<div class="cd-rep"><p class="cd-sub">Reputação · para pedir parceria a outros locais</p>' + rp.itens.map(([n, k, v, alvo, okk]) => '<div class="cd-bar' + (okk ? ' ok' : '') + '"><span>' + n + '</span><i><em style="width:' + Math.min(100, v / alvo * 100) + '%"></em></i><b>' + String(v).replace('.', ',') + ' / ' + String(alvo).replace('.', ',') + (okk ? ' ✓' : '') + '</b></div>').join('')
+      + (rp.ok ? '<p class="cd-ok">Já tens reputação: abre o perfil de outro local e toca em "Ser parceiro". <a href="perfil.html#lugar=' + encodeURIComponent('lisboa/b leza') + '">Experimenta no B.Leza</a></p>' : '<p class="cd-dica">Até lá, o botão "Ser parceiro" aparece trancado nos outros locais. <button type="button" class="cd-lnk" data-cd="simular">Protótipo: avançar 30 dias</button></p>')
+      + (pedidos.length ? '<p class="cd-dica">Pedidos enviados: ' + pedidos.map(r => esc(r.localNome) + ' (à espera)').join(', ') + '</p>' : '') + '</div>';
+  }
+  return {html:h, casa:ok.length > 0};
 }
 
 /* ---------- no perfil: o caminho e as candidaturas ---------- */
@@ -2787,11 +2842,12 @@ function formConcierge(){
   return h;
 }
 function bloco(){
+  const cs = casas();
   const cp0 = minha('promoter'), cc = minha('concierge'), jaConc = cc && cc.estado === 'aprovada', cp = jaConc ? null : cp0, podeNova = c => !c || c.estado === 'cancelada' || (c.estado === 'recusada' && Date.now() > (c.resp || c.t) + 30 * DIA);
   const barras = RUA.map(([n, k, alvo]) => { const v = EU[k], ok = v >= alvo; return '<div class="cd-bar' + (ok ? ' ok' : '') + '"><span>' + n + '</span><i><em style="width:' + Math.min(100, v / alvo * 100) + '%"></em></i><b>' + String(v).replace('.', ',') + ' / ' + String(alvo).replace('.', ',') + (ok ? ' ✓' : '') + '</b></div>'; }).join('');
   const falta = RUA.filter(([, k, a]) => EU[k] < a).map(([n, k, a]) => (k === 'nota' ? 'nota ' + a : (a - EU[k]) + ' ' + n.toLowerCase().replace(/ \(.*\)/, ''))).join(' e ');
   return '<section class="cd cd-pg" id="trabalhar" data-cd-bloco><p class="cd-quem"><i style="background-image:url(img/' + EU.foto + '.jpg)"></i>A candidatar-te como <b>' + esc(EU.nome) + '</b> · @' + esc(EU.user) + '<small>protótipo: a conta com sessão iniciada</small></p>'
-    + '<div class="cd-grid"><article class="cd-card"><h3>Promoter</h3><p>Indicas eventos, tens lista de convidados e ganhas comissão quando os locais a declaram.</p>'
+    + '<div class="cd-grid"><article class="cd-card"><h3>Promoter</h3><p>Indicas eventos, tens lista de convidados e ganhas comissão quando os locais a declaram. Há três caminhos: os números, a candidatura, ou o convite de um local.</p>' + cs.html
     + (jaConc ? '<div class="cd-est aprovada"><b>Já tens tudo do promoter ✓</b><span>Como concierge, indicas, tens lista de convidados e comissão, sem precisar de outra candidatura.</span></div>' : cp && cp.estado === 'aprovada' ? '' : '<p class="cd-sub">Pelos números · Promoter da rua</p>' + barras + '<p class="cd-dica">' + (falta ? (/ e |^([2-9]|\d\d)/.test(falta) ? 'Faltam ' : 'Falta ') + esc(falta) + ': o selo chega sozinho, recalculado toda a semana.' : 'Já tens os números: o selo chega no próximo recálculo.') + '</p>')
     + (jaConc || (cp && cp.estado === 'aprovada') ? '' : hojeVou())
     + estadoCaixa(cp, 'promoter')
@@ -2812,14 +2868,16 @@ function valida(){
   return '';
 }
 document.addEventListener('click', ev => {
-  const b = ev.target.closest('[data-cd],[data-cd-chip],[data-cd-hv]'); if (!b || !b.closest('[data-cd-bloco]')) return;
+  const b = ev.target.closest('[data-cd],[data-cd-chip],[data-cd-hv],[data-cd-pc]'); if (!b || !b.closest('[data-cd-bloco]')) return;
   ev.preventDefault();
+  if (b.dataset.cdPc) { const PC = window.STREETFY_PARCERIAS; if (PC) PC.responder(b.dataset.id, b.dataset.cdPc); redesenha(); return; }
   if (b.dataset.cdHv) { const ids = lerHoje(), i = ids.indexOf(b.dataset.cdHv); if (i >= 0) ids.splice(i, 1); else if (ids.length < 3) ids.push(b.dataset.cdHv); gravarHoje(ids); redesenha(); return; }
   if (b.dataset.cdChip) { const l = rasc[b.dataset.cdChip], v = b.dataset.v, i = l.indexOf(v); if (i >= 0) l.splice(i, 1); else l.push(v); msg = ''; redesenha(); return; }
   const a = b.dataset.cd;
   if (a === 'abrir' || a === 'completar') { aberto = b.dataset.tipo; passo = 1; msg = ''; rasc = novoRasc(); if (a === 'completar') { const c = ler().find(x => x.id === b.dataset.id); if (c) Object.assign(rasc, c.d, {nif:'', iban:''}); rasc.completar = b.dataset.id; } }
   if (a === 'fechar') { aberto = ''; msg = ''; }
   if (a === 'hv-abrir') escolher = true;
+  if (a === 'simular') { const PC = window.STREETFY_PARCERIAS; if (PC) PC.simularReputacao(PC.EU.utilizador.id); }
   if (a === 'hv-fechar') escolher = false;
   if (a === 'voltar') { passo = Math.max(1, passo - 1); msg = ''; }
   if (a === 'cancelar') { const l = ler(), c = l.find(x => x.id === b.dataset.id); if (c) { c.estado = 'cancelada'; gravar(l); } }
@@ -2888,7 +2946,7 @@ document.addEventListener('submit', ev => {
   if (i.dataset.cdqInfo) { c.estado = 'info'; c.pedido = i.t.value.trim(); } else { c.estado = 'recusada'; c.motivo = i.m.value; c.resp = Date.now(); }
   gravar(l); redesenhaFila();
 });
-window.addEventListener('storage', ev => { if (ev.key === CK) { redesenha(); redesenhaFila(); } });
+window.addEventListener('storage', ev => { if (ev.key === CK || /^streetfy:(parcerias|reputacao)$/.test(ev.key || '')) { redesenha(); redesenhaFila(); } });
 window.STREETFY_CAND = {bloco, fila, ler, gravar, PADRAO, CK};
 /* a página própria (trabalhar.html, ligada no rodapé): só quem a abre vê as candidaturas */
 const pg = document.querySelector('[data-trabalhar]'); if (pg) pg.innerHTML = bloco();
@@ -3099,7 +3157,7 @@ function concierge(){
 /* ---------- parcerias: convites do local e pedidos de promoters e concierges, sempre com aceitação manual (R105–R107) ---------- */
 const PC = window.STREETFY_PARCERIAS;
 const quando2 = t => { const d = Math.round((Date.now() - t) / 864e5); return d <= 0 ? 'hoje' : d === 1 ? 'ontem' : 'há ' + d + ' dias'; };
-const linkPessoa = r => r.tipo === 'promoter' ? 'promoter.html#p=' + r.quem : 'concierge-perfil.html#c=' + r.quem;
+const linkPessoa = r => r.origem === 'user' || r.quem === 'mari-costa' ? 'user.html' : r.tipo === 'promoter' ? 'promoter.html#p=' + r.quem : 'concierge-perfil.html#c=' + r.quem;
 const linkLocal = r => 'perfil.html#lugar=' + encodeURIComponent(r.local);
 function parcerias(papel){
   if (!PC) return '';
@@ -3198,7 +3256,7 @@ function parceiro(){
     + conciergesParceiro()
     + '<div class="pt-2c"><div class="pt-card"><div class="pt-ch"><h3>Promoters da casa</h3><a class="pt-mini" href="promoters.html#lista">Convidar promoter</a></div><div class="pt-tw"><table class="pt-t"><thead><tr><th>Promoter</th><th>Indicações</th><th>Presenças</th><th>Comissão</th><th>A pagar</th></tr></thead><tbody>'
       + d.promoters.map(([id, ind, bil, pres, com, pagar]) => { const p = PR.find(x => x.id === id) || {nome:id}; return '<tr><td><a href="promoter.html#p=' + id + '"><b>' + esc(p.nome) + '</b></a></td><td>' + ind + '</td><td>' + pres + '</td><td>' + esc(com) + '</td><td>' + (pagar ? eur(pagar) : '—') + '</td></tr>'; }).join('')
-      + (PC ? PC.ler().filter(r => r.local === PC.EU.local.id && r.tipo === 'promoter' && r.estado === 'aceite' && !d.promoters.some(x => x[0] === r.quem)).map(r => '<tr><td><a href="promoter.html#p=' + r.quem + '"><b>' + esc(PC.nomeDe('promoter', r.quem)) + '</b></a> <span class="pc-novo">novo</span></td><td>0</td><td>0</td><td>' + (r.comissao ? 'comissão ' + r.comissao + '%' : 'sem comissão') + '</td><td>—</td></tr>').join('') : '') + '</tbody></table></div><p class="al-nota">A comissão é tua, declarada por evento e mostrada ao comprador (R71). Paga com o repasse.</p></div>'
+      + (PC ? PC.ler().filter(r => r.local === PC.EU.local.id && r.tipo === 'promoter' && r.estado === 'aceite' && !d.promoters.some(x => x[0] === r.quem)).map(r => '<tr><td><a href="' + linkPessoa(r) + '"><b>' + esc(PC.nomeDe('promoter', r.quem)) + '</b></a> <span class="pc-novo">' + (r.origem === 'user' ? 'convidada · era utilizadora' : 'novo') + '</span></td><td>0</td><td>0</td><td>' + (r.comissao ? 'comissão ' + r.comissao + '%' : 'sem comissão') + '</td><td>—</td></tr>').join('') : '') + '</tbody></table></div><p class="al-nota">A comissão é tua, declarada por evento e mostrada ao comprador (R71). Paga com o repasse.</p></div>'
     + '<div class="pt-card"><div class="pt-ch"><h3>Avaliações por responder</h3></div>' + d.aval.map(([n, e, t, resp], k) => '<div class="pt-av"><div><b>' + esc(n) + '</b><span>' + '★'.repeat(e) + '<i>' + '★'.repeat(5 - e) + '</i></span></div><p>' + esc(t) + '</p>' + (resp ? '<p class="pt-resp">Respondida: "Obrigado Mariana! Até sexta."</p>' : '<form class="pt-respf"><input placeholder="Responder em público" aria-label="Resposta"><button class="s-btn ghost" type="submit">Responder</button></form>') + '</div>').join('') + '<p class="al-nota">Respondes em público; não dá para apagar (R13).</p></div></div>'
     + '<div class="pt-card"><div class="pt-ch"><h3>Repasses</h3><span class="pt-mini-t">dinheiro do bilhete chega 2 dias depois do evento (R08)</span></div><div class="pt-tw"><table class="pt-t"><tbody>' + d.repasse.map(r => '<tr><td>' + esc(r[0]) + '</td><td><b>' + eur(r[1]) + '</b></td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table></div></div>';
 }
