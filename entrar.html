@@ -1812,6 +1812,24 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-fa{margin:14px 0 6px}.ct-sec h2 .ct-n{font-family:var(--fb);font-size:15px;font-weight:700;color:var(--grey);margin-left:6px;vertical-align:middle}
 
 .pr-fa{margin-bottom:18px}
+/* pesquisa: card de local com foto, números, próximo evento e selo */
+.ct-locs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:12px}
+.ct-lo{border:2px solid var(--ink);border-radius:16px;background:#fff;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.ct-lo-im{position:relative;display:block;aspect-ratio:16/7;background:var(--ink) center/cover no-repeat;max-width:100%}
+.ct-lo-tp{position:absolute;left:10px;top:10px;background:#fff;color:var(--ink);font:800 11px var(--fb);text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:4px 9px}
+.ct-lo-aq{position:absolute;left:10px;bottom:10px;background:var(--ink);color:var(--mint);font:800 12px var(--fb);border-radius:999px;padding:4px 10px}
+.ct-lo-b{padding:12px 14px 14px;display:grid;gap:6px;align-content:start;min-width:0}
+.ct-lo-n{color:var(--ink);text-decoration:none}.ct-lo-n b{font-size:18px;line-height:1.15}
+.ct-lo-l{font-size:13px;color:var(--grey);margin-top:-4px}
+.ct-lo-num{margin:0;font-size:13px;color:var(--grey)}.ct-lo-num b{color:var(--ink)}
+.ct-lo-px{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px;align-items:baseline;text-decoration:none;color:var(--ink);background:var(--paper);border-radius:12px;padding:8px 10px}
+.ct-lo-px small{grid-row:span 2;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--pink)}
+.ct-lo-px b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ct-lo-px span{font-size:12px;color:var(--grey)}
+.ct-lo-px:hover{background:#e9e9e9}
+.ct-lo-f{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:2px}
+.ct-lo-sel{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;border:1.5px solid var(--line)}
+.ct-lo-sel.ok{background:var(--mint);border-color:var(--mint);color:var(--ink)}.ct-lo-sel.ia{color:var(--grey)}
+.ct-lo .s-segue{padding:7px 13px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3046,7 +3064,7 @@ function conjuntos(){
   const evs = C.itens.filter(i => i.titulo && naZona(i.cidade, i.lat, i.lng) && (!t || tem(i.titulo) || tem(i.lugar) || tem(i.estilo) || tem(i.tag) || tem(i.bairro)))
     .sort((a, b) => ((k0(a) == null ? 99 : k0(a)) - (k0(b) == null ? 99 : k0(b))) || ((b.img ? 1 : 0) - (a.img ? 1 : 0)));
   const vm = new Map();
-  C.itens.forEach(i => { if (!i.lugar || !naZona(i.cidade, i.lat, i.lng) || !tem(i.lugar)) return; const k = C.lugarKey(i); const v = vm.get(k) || {i, k, tipos:new Set(), streetfy:false, semana:false, star:0}; (i.tipos || []).forEach(x => v.tipos.add(x)); if (i.origem === 'parceiro' || i.origem === 'patrocinado') v.streetfy = true; if ((i._ks || []).some(x => x < 7)) v.semana = true; if (+String(i.star || '').replace(',', '.') > v.star) v.star = +String(i.star).replace(',', '.'); vm.set(k, v); });
+  C.itens.forEach(i => { if (!i.lugar || !naZona(i.cidade, i.lat, i.lng) || !tem(i.lugar)) return; const k = C.lugarKey(i); const v = vm.get(k) || {i, k, tipos:new Set(), streetfy:false, semana:false, star:0, nSem:0, aqui:0, amigos:0, prox:null, img:''}; if (!v.img && i.img) { v.img = imgI(i); } if ((i._ks || []).some(x => x < 7)) v.nSem++; v.aqui = Math.max(v.aqui, +i.aqui || 0); v.amigos += +i.amigos || 0; if (k0(i) != null && (!v.prox || k0(i) < k0(v.prox))) v.prox = i; (i.tipos || []).forEach(x => v.tipos.add(x)); if (i.origem === 'parceiro' || i.origem === 'patrocinado') v.streetfy = true; if ((i._ks || []).some(x => x < 7)) v.semana = true; if (+String(i.star || '').replace(',', '.') > v.star) v.star = +String(i.star).replace(',', '.'); vm.set(k, v); });
   const locais = [...vm.values()].sort((a, b) => (b.streetfy - a.streetfy) || (b.star - a.star));
   const pessoas = PR.map(p => ({n:p.nome, f:p.foto, h:'promoter.html#p=' + p.id, papel:'promoter', cid:p.cidade, niv:p.nivel, txt:p.nivel ? 'promoter · ' + p.nivel : 'promoter'}))
     .concat(CONCS.map(c => ({n:c[0], f:c[1], h:'concierge-perfil.html#c=' + c[2], papel:'concierge', cid:c[4], txt:'concierge · ' + c[3]})))
@@ -3083,7 +3101,14 @@ function passosDe(cat, base){
   });
 }
 const cap = s => s ? String(s).charAt(0).toUpperCase() + String(s).slice(1) : '';
-const cardLocal = v => '<div class="ct-sg"><a href="' + esc(hrefLugar(v.i)) + '"><i style="background-image:url(' + esc(imgI(v.i)) + ')"></i><b>' + esc(v.i.lugar) + '</b><span>' + esc([v.i.bairro, CID(v.i.cidade || 'lisboa')].filter(Boolean).join(' · ')) + (v.star ? ' · ★ ' + String(v.star).replace('.', ',') : '') + '</span></a>' + btnSeguir(v.i) + '</div>';
+const TIPO_LOC = {bar:'Bar', clube:'Clube', restaurante:'Restaurante', concerto:'Sala de concertos', festa:'Festas', livre:'Entrada livre'};
+const quandoHora = i => quando(i) + (hora(i) ? ' · ' + hora(i) : '');
+const cardLocal = v => { const tp = [...v.tipos].filter(x => x !== 'livre').map(x => TIPO_LOC[x] || cap(x)).slice(0, 2).join(' · ') || 'Local';
+  return '<article class="ct-lo"><a class="ct-lo-im" href="' + esc(hrefLugar(v.i)) + '" style="background-image:url(' + esc(v.img || imgI(v.i)) + ')"><span class="ct-lo-tp">' + esc(tp) + '</span>' + (v.aqui ? '<span class="ct-lo-aq">● ' + v.aqui + ' aqui agora</span>' : '') + '</a>'
+    + '<div class="ct-lo-b"><a class="ct-lo-n" href="' + esc(hrefLugar(v.i)) + '"><b>' + esc(v.i.lugar) + '</b></a><span class="ct-lo-l">' + esc([v.i.bairro, CID(v.i.cidade || 'lisboa')].filter(Boolean).join(' · ')) + '</span>'
+    + '<p class="ct-lo-num">' + [v.star ? '<b>★ ' + String(v.star).replace('.', ',') + '</b>' : '<span>sem avaliações</span>', v.nSem ? v.nSem + (v.nSem === 1 ? ' evento' : ' eventos') + ' esta semana' : 'sem eventos esta semana', v.amigos ? v.amigos + (v.amigos === 1 ? ' amigo vai' : ' amigos vão') : ''].filter(Boolean).join(' · ') + '</p>'
+    + (v.prox ? '<a class="ct-lo-px" href="' + esc(hrefEv(v.prox)) + '"><small>Próximo</small><b>' + esc(v.prox.titulo) + '</b><span>' + esc(quandoHora(v.prox)) + '</span></a>' : '')
+    + '<div class="ct-lo-f"><span class="ct-lo-sel ' + (v.streetfy ? 'ok' : 'ia') + '">' + (v.streetfy ? 'Bilhete e reserva aqui' : 'Perfil gerido pela IA') + '</span>' + btnSeguir(v.i) + '</div></div></article>'; };
 const cardPessoa = p => '<div class="ct-sg"><a href="' + esc(p.h) + '"><i style="background-image:url(img/' + esc(p.f) + '.jpg)"></i><b>' + esc(p.n) + '</b><span class="pc-tipo ' + (p.papel === 'pessoa' ? '' : p.papel) + '">' + esc(p.papel === 'pessoa' ? 'utilizador' : p.papel) + '</span><span>' + esc(CID(p.cid)) + '</span></a></div>';
 const cardEv = i => cartao(i, '<div class="ct-ac">' + (EV ? EV.botao(i) : '') + (i.lugar ? btnSeguir(i) : '') + '</div>');
 function pesquisa(){
@@ -3099,12 +3124,12 @@ function pesquisa(){
   let res;
   if (!cat) {
     res = '<section class="ct-sec"><h2>' + (t ? 'Eventos' : 'A seguir ' + zona) + '</h2><div class="ct-lista">' + (cj.eventos.slice(0, 6).map(cardEv).join('') || '<p class="cm-vazio">Nenhum evento ' + zona + (t ? ' com "' + esc(q) + '"' : '') + '. Muda a cidade ou aumenta o raio.</p>') + '</div></section>'
-      + (t && cj.locais.length ? '<section class="ct-sec"><h2>Locais</h2><div class="ct-sug">' + cj.locais.slice(0, 6).map(cardLocal).join('') + '</div></section>' : '')
+      + (t && cj.locais.length ? '<section class="ct-sec"><h2>Locais</h2><div class="ct-locs">' + cj.locais.slice(0, 6).map(cardLocal).join('') + '</div></section>' : '')
       + (t && cj.pessoas.length ? '<section class="ct-sec"><h2>Pessoas</h2><div class="ct-sug">' + cj.pessoas.slice(0, 6).map(cardPessoa).join('') + '</div></section>' : '');
   } else {
     const lista = cj[cat].filter(x => passa(x, PQ[cat])), nome = {eventos:'Eventos', locais:'Locais', pessoas:'Pessoas'}[cat];
     const cards = lista.slice(0, mostrarPq).map(cat === 'eventos' ? cardEv : cat === 'locais' ? cardLocal : cardPessoa).join('');
-    res = '<section class="ct-sec"><h2>' + nome + ' ' + zona + ' <small class="ct-n">' + lista.length + '</small></h2><div class="' + (cat === 'eventos' ? 'ct-lista' : 'ct-sug') + '">' + (cards || '<p class="cm-vazio">Nada com estes filtros ' + zona + '. Toca numa etiqueta para a mudar, ou aumenta o raio.</p>') + '</div>'
+    res = '<section class="ct-sec"><h2>' + nome + ' ' + zona + ' <small class="ct-n">' + lista.length + '</small></h2><div class="' + (cat === 'eventos' ? 'ct-lista' : cat === 'locais' ? 'ct-locs' : 'ct-sug') + '">' + (cards || '<p class="cm-vazio">Nada com estes filtros ' + zona + '. Toca numa etiqueta para a mudar, ou aumenta o raio.</p>') + '</div>'
       + (lista.length > mostrarPq ? '<p style="text-align:center;margin:14px 0 0"><button type="button" class="s-btn ink" data-pq-mais>Ver mais ' + Math.min(12, lista.length - mostrarPq) + '</button></p>' : '') + '</section>';
   }
   const rec = ls('streetfy:pesquisas', []);
