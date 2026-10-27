@@ -3633,7 +3633,7 @@ window.addEventListener('hashchange', lerHash);
 lerHash();
 /* portal.html#planta abre direto o editor da planta (o link "Desenhar a planta") */
 const abrePlanta = () => { if (location.hash !== '#planta') return; setTimeout(() => { const c = document.getElementById('planta'); if (c) c.scrollIntoView({block:'start'}); if (window.STREETFY_PLANTA_EDITOR) window.STREETFY_PLANTA_EDITOR.abrir(); }, 0); };
-window.addEventListener('hashchange', abrePlanta); if (document.readyState === 'complete') abrePlanta(); else window.addEventListener('load', abrePlanta);
+window.addEventListener('hashchange', abrePlanta); if (document.readyState !== 'loading') abrePlanta(); else document.addEventListener('DOMContentLoaded', abrePlanta);
 })();
 </script><script>/* Streetfy · planta-editor.js — o dono desenha a planta do local no portal: mesas, sofás, palco, bar, pista, entradas, zonas.
    Arrastar da paleta (ou tocar para pôr no meio), arrastar para mover, puxar o canto para o tamanho, a bolinha de cima para rodar.
