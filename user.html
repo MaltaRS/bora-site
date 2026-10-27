@@ -1576,6 +1576,9 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .cdq-p{margin:0;font-size:13px;background:#fff8e1;border-radius:10px;padding:8px 10px}
 .cdq-a{display:grid;gap:8px}.cdq-a>.s-btn{justify-self:start}
 .cdq-f{display:flex;gap:8px;flex-wrap:wrap}.cdq-f input,.cdq-f select{flex:1 1 220px;min-width:0;font:inherit;font-size:14px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;background:#fff}
+.cd-pg{display:grid;gap:16px}
+.cd-pg .cd-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:start}
+.cd-quem{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0;font-size:15px}.cd-quem i{width:40px;height:40px;border-radius:50%;background-size:cover;background-position:center}.cd-quem small{color:var(--grey);font-size:12px;flex-basis:100%;margin-left:50px;margin-top:-8px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1616,7 +1619,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><div data-user></div><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
-<div><h4>Streetfy</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a><a href="parceiros.html">Para parceiros</a><a href="promoters.html">Promoters</a><a href="portal.html#parceiro">Portal do parceiro</a><a href="portal.html#promoter">Portal do promoter</a></div>
+<div><h4>Streetfy</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a><a href="parceiros.html">Para parceiros</a><a href="promoters.html">Promoters</a><a href="trabalhar.html">Trabalhar no Streetfy</a><a href="portal.html#parceiro">Portal do parceiro</a><a href="portal.html#promoter">Portal do promoter</a></div>
 <div><h4>Experiências</h4><a href="experiencias.html">Todas</a><a href="ceu.html">Céu</a><a href="agua.html">Água</a><a href="noite-vip.html">Noite VIP</a><a href="porta.html">À tua porta</a><a href="concierge.html">Concierge</a><a href="festa.html">A tua festa</a></div>
 <div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="privacidade.html">Privacidade</a></div>
 <div><h4>Legal</h4><a href="#">Termos</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
@@ -2337,216 +2340,6 @@ document.querySelectorAll('[data-promoters]').forEach(grelha);
 document.querySelectorAll('[data-promoter]').forEach(perfil);
 window.STREETFY_PROMOTERS = {lista:P, festasDe};
 })();
-</script><script>/* Streetfy · candidaturas.js — candidatura a promoter e a concierge (R110–R112).
-   No perfil (user.html, "Eu"): o caminho para promoter pelos números (R69) ou por candidatura, e a candidatura a concierge em 3 passos.
-   No portal (#equipa): a fila da equipa Streetfy aprova, pede mais informação ou recusa. Protótipo: tudo fica neste aparelho;
-   do NIF e do IBAN guarda-se só o fim, e o documento nunca sai do aparelho. */
-(function(){
-'use strict';
-const CK = 'streetfy:candidaturas';
-const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-const DIA = 864e5;
-/* quem se candidata no protótipo: a Mariana do perfil */
-const EU = {nome:'Mariana Costa', user:'mari.costa', cidade:'Lisboa', foto:'retrato', seguidores:320, presencas:7, nota:4.4};
-const RUA = [['Seguidores', 'seguidores', 50], ['Presenças verificadas (30 dias)', 'presencas', 10], ['Nota "Valeu?"', 'nota', 4.0]];
-const ESPEC = ['Noite VIP', 'Mesa VIP', 'Motorista da noite', 'Chef em casa', 'Céu', 'Água', 'A tua festa', 'After privado'];
-const LINGUAS = ['PT', 'EN', 'ES', 'FR', 'IT', 'DE'];
-const ESTILOS = ['Techno', 'House', 'Kizomba', 'Hip-hop', 'Fado', 'Jazz', 'Rooftop', 'Pop'];
-const LOCAIS = ['Lux Frágil', 'B.Leza', 'Pensão Amor', 'Clube de Fado', 'Musicbox', 'Ministerium Club'];
-const PADRAO = () => [
-  {id:'c1', tipo:'concierge', nome:'Bruno Leal', user:'bruno.leal', foto:'cascais', cidade:'Lisboa', t:Date.now() - DIA, estado:'analise',
-   d:{espec:['Noite VIP', 'Mesa VIP', 'Motorista da noite'], linguas:['PT', 'EN', 'FR'], turno:'20h às 5h', exp:'Cinco anos de receção em hotéis do Chiado; hoje trato de noites para hóspedes.', doc:'cartao-cidadao.pdf', nif:'•••• 4417', atividade:'Trabalhador independente', iban:'PT50 •••• •••• 0921', ref:'local', refLocal:'Lux Frágil'}},
-  {id:'c2', tipo:'promoter', nome:'Kiko Rocha', user:'kiko.rocha', foto:'dj', cidade:'Porto', t:Date.now() - DIA / 3, estado:'analise',
-   d:{bairros:'Baixa, Galerias de Paris', estilos:['Techno', 'House'], noites:['sex', 'sáb'], instagram:'@kiko.rocha', exp:'Fiz porta no Gare dois anos; trago 30 a 50 pessoas por noite.', metr:{seguidores:410, presencas:22, nota:4.5}}},
-  {id:'c3', tipo:'concierge', nome:'Sofia Antunes', user:'sofia.a', foto:'pfoz', cidade:'Porto', t:Date.now() - 3 * DIA, estado:'info', pedido:'Falta o comprovativo de início de atividade nas Finanças.',
-   d:{espec:['Água', 'Céu', 'Chef em casa'], linguas:['PT', 'EN', 'ES'], turno:'10h às 22h', exp:'Organizo experiências para turistas no Douro.', doc:'passaporte.jpg', nif:'•••• 2203', atividade:'Trabalhador independente', iban:'PT50 •••• •••• 7710', ref:'promoter', refLocal:''}},
-  {id:'c4', tipo:'promoter', nome:'Tomás Freire', user:'tomas.f', foto:'shots', cidade:'Lisboa', t:Date.now() - 6 * DIA, estado:'recusada', motivo:'Indicações com bebida grátis no anúncio (R66).', d:{bairros:'Bairro Alto', estilos:['Pop'], noites:['qui', 'sex'], instagram:'@tomasf', exp:'', metr:{seguidores:90, presencas:3, nota:3.6}}}];
-const ler = () => { try { const g = JSON.parse(localStorage.getItem(CK) || 'null'); if (Array.isArray(g)) return g; } catch (e) {} return PADRAO(); };
-const gravar = l => { try { localStorage.setItem(CK, JSON.stringify(l)); } catch (e) {} };
-const minha = tipo => ler().filter(c => c.user === EU.user && c.tipo === tipo && c.estado !== 'cancelada').sort((a, b) => b.t - a.t)[0] || null;
-const dataTxt = t => { const d = new Date(t); return d.getDate() + '/' + (d.getMonth() + 1); };
-const haQuanto = t => { const h = Math.round((Date.now() - t) / 36e5); return h < 1 ? 'agora' : h < 24 ? 'há ' + h + ' h' : (Math.round(h / 24) === 1 ? 'há 1 dia' : 'há ' + Math.round(h / 24) + ' dias'); };
-/* NIF português (módulo 11) e IBAN (módulo 97) */
-const nifOk = n => { if (!/^\d{9}$/.test(n) || !/^(1|2|3|45|5|6|70|71|72|74|75|77|79|8|90|91|98|99)/.test(n)) return false; let t = 0; for (let i = 0; i < 8; i++) t += +n[i] * (9 - i); const r = t % 11; return (r < 2 ? 0 : 11 - r) === +n[8]; };
-const ibanOk = s => { s = s.replace(/\s+/g, '').toUpperCase(); if (!/^PT\d{23}$/.test(s)) return false; const r = (s.slice(4) + s.slice(0, 4)).replace(/[A-Z]/g, c => c.charCodeAt(0) - 55); let m = 0; for (const ch of r) m = (m * 10 + +ch) % 97; return m === 1; };
-const fimDe = (s, n) => '•••• ' + String(s).replace(/\s+/g, '').slice(-n);
-
-/* ---------- "Hoje vou a" (R66): é assim que uma pessoa comum indica ----------
-   Até 3 eventos do catálogo por dia. Os seguidores veem "a Mariana vai"; quem abre pela indicação e faz check-in conta
-   como presença verificada dela, e depois pode dar "Valeu?" de 1 a 5, que faz a nota (R68). São estes números que dão o selo (R69). */
-const HK = 'streetfy:hoje-vou';
-const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); };
-const lerHoje = () => { try { const g = JSON.parse(localStorage.getItem(HK) || 'null'); if (g && g.dia === hoje()) return g.ids; } catch (e) {} return []; };
-const gravarHoje = ids => { try { localStorage.setItem(HK, JSON.stringify({dia:hoje(), ids})); } catch (e) {} };
-let escolher = false;
-function hojeVou(){
-  const C = window.STREETFY_CATALOGO; if (!C) return '';
-  const ids = lerHoje(), porId = id => C.itens.find(i => i.id === id), href = i => 'bilhete.html#lugar=' + encodeURIComponent(C.lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
-  const hojeL = C.itens.filter(i => (i._ks || []).includes(0) && (i.cidade || 'lisboa') === 'lisboa' && i.titulo).slice(0, 8);
-  return '<div class="cd-hv"><p class="cd-sub">Como indicas · "Hoje vou a"</p><p class="cd-dica">Marca até 3 eventos de hoje. Os teus seguidores veem "a ' + esc(EU.nome.split(' ')[0]) + ' vai"; cada um que abrir pela tua indicação e fizer check-in conta como <b>presença verificada</b> tua, e o "Valeu?" que ele der faz a tua <b>nota</b>.</p>'
-    + (ids.length ? '<ul class="cd-hv-l">' + ids.map(porId).filter(Boolean).map(i => '<li><a href="' + esc(href(i)) + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</span></a><small>vista por 41 seguidores · 0 check-ins ainda</small><button type="button" class="cd-lnk" data-cd-hv="' + esc(i.id) + '">tirar</button></li>').join('') + '</ul>' : '<p class="cd-vazio">Ainda não indicaste nada hoje.</p>')
-    + (escolher ? '<div class="cd-hv-esc">' + hojeL.map(i => { const on = ids.includes(i.id); return '<button type="button" class="cd-hv-i' + (on ? ' on' : '') + '" data-cd-hv="' + esc(i.id) + '"' + (!on && ids.length >= 3 ? ' disabled' : '') + ' aria-pressed="' + on + '"><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + '</span><em>' + (on ? 'Indicado ✓' : 'Indicar') + '</em></button>'; }).join('') + '</div><p class="cd-dica">' + ids.length + ' de 3 hoje · só eventos do catálogo, nunca bebida ou promoção (R66).</p><button type="button" class="cd-lnk" data-cd="hv-fechar">Fechar</button>'
-      : '<button type="button" class="s-btn ghost" data-cd="hv-abrir">Indicar eventos de hoje</button>') + '</div>';
-}
-
-/* ---------- no perfil: o caminho e as candidaturas ---------- */
-let aberto = '', passo = 1, rasc = {}, msg = '';
-const novoRasc = () => ({cidade:EU.cidade, bairros:'', estilos:[], noites:[], instagram:'@' + EU.user, exp:'', termos:false, espec:[], linguas:['PT'], turno:'', doc:'', nif:'', atividade:'Trabalhador independente', iban:'', ref:'local', refLocal:'Lux Frágil', t1:false, t2:false, t3:false});
-const chip = (campo, v, on) => '<button type="button" class="cd-chip' + (on ? ' on' : '') + '" data-cd-chip="' + campo + '" data-v="' + esc(v) + '" aria-pressed="' + on + '">' + esc(v) + '</button>';
-function estadoCaixa(c, tipo){
-  if (!c) return '';
-  const passos = ['Enviada', 'Em análise', 'Decisão'], at = c.estado === 'analise' ? 1 : c.estado === 'info' ? 1 : 2;
-  const linha = '<ol class="cd-linha">' + passos.map((p, i) => '<li class="' + (i <= at ? 'ok' : '') + '">' + p + '</li>').join('') + '</ol>';
-  if (c.estado === 'analise') return '<div class="cd-est analise"><b>Candidatura em análise</b><span>Enviada a ' + dataTxt(c.t) + '. A equipa Streetfy responde em até 48 h.</span>' + linha + '<button type="button" class="cd-lnk" data-cd="cancelar" data-id="' + c.id + '">Cancelar candidatura</button></div>';
-  if (c.estado === 'info') return '<div class="cd-est info"><b>Pedimos mais informação</b><span>' + esc(c.pedido || '') + '</span>' + linha + '<button type="button" class="s-btn pink" data-cd="completar" data-tipo="' + tipo + '" data-id="' + c.id + '">Completar candidatura</button></div>';
-  if (c.estado === 'recusada') { const volta = c.resp + 30 * DIA; return '<div class="cd-est recusada"><b>Candidatura recusada</b><span>' + esc(c.motivo || '') + '</span><span>' + (Date.now() > volta ? 'Já podes candidatar-te de novo.' : 'Podes candidatar-te de novo a partir de ' + dataTxt(volta) + '.') + '</span></div>'; }
-  if (c.estado === 'aprovada') return tipo === 'promoter'
-    ? '<div class="cd-est aprovada"><b>És promoter da rua ✓</b><span>O selo já aparece no teu perfil. Indicas até 3 eventos por dia e tens lista de convidados. Os níveis seguintes chegam pelos números (R69).</span><a class="s-btn ink" href="portal.html#promoter">Abrir o portal do promoter</a></div>'
-    : '<div class="cd-est aprovada"><b>És concierge em teste ✓</b><span>30 dias com limites: até 3 propostas abertas e €1.500 por proposta. Com 10 propostas pagas e nota ≥ 4,6, o "em teste" cai sozinho.</span><div class="cd-teste"><i style="width:0%"></i></div><small>0 de 10 propostas pagas</small><a class="s-btn ink" href="portal.html#concierge">Abrir o portal do concierge</a></div>';
-  return '';
-}
-function formPromoter(){
-  const r = rasc;
-  return '<form class="cd-form" data-cd-form="promoter"><h4>Candidatura a promoter</h4><p class="cd-dica">Para quem já leva gente à noite e não quer esperar pelos números. A equipa vê o teu histórico e responde em 48 h.</p>'
-    + '<div class="cd-2"><label>Cidade<select data-cd-f="cidade">' + ['Lisboa', 'Porto', 'Coimbra', 'Faro', 'Braga'].map(c => '<option' + (r.cidade === c ? ' selected' : '') + '>' + c + '</option>').join('') + '</select></label><label>Bairros onde trabalhas<input data-cd-f="bairros" value="' + esc(r.bairros) + '" placeholder="ex.: Cais do Sodré, Bairro Alto"></label></div>'
-    + '<fieldset><legend>Estilos</legend><div class="cd-chips">' + ESTILOS.map(e => chip('estilos', e, r.estilos.includes(e))).join('') + '</div></fieldset>'
-    + '<fieldset><legend>Noites</legend><div class="cd-chips">' + ['qua', 'qui', 'sex', 'sáb', 'dom'].map(e => chip('noites', e, r.noites.includes(e))).join('') + '</div></fieldset>'
-    + '<div class="cd-2"><label>Instagram ou TikTok<input data-cd-f="instagram" value="' + esc(r.instagram) + '"></label><label>Onde já fizeste noites<input data-cd-f="exp" value="' + esc(r.exp) + '" placeholder="casas, festas, quantas pessoas levas"></label></div>'
-    + '<label class="cd-chk"><input type="checkbox" data-cd-f="termos"' + (r.termos ? ' checked' : '') + '><span>Indico só eventos do catálogo, nunca bebida nem promoção de consumo, e a comissão aparece sempre a quem compra (R66, R67).</span></label>'
-    + (msg ? '<p class="cd-erro" role="alert">' + esc(msg) + '</p>' : '')
-    + '<div class="cd-acoes"><button class="s-btn pink" type="submit">Enviar candidatura</button><button class="s-btn ghost" type="button" data-cd="fechar">Cancelar</button></div></form>';
-}
-function formConcierge(){
-  const r = rasc, nifSt = !r.nif ? '' : nifOk(r.nif) ? '<em class="ok">✓ NIF válido</em>' : r.nif.length < 9 ? '<em>' + r.nif.length + '/9</em>' : '<em class="erro">✗ NIF inválido</em>';
-  const ibanLimpo = r.iban.replace(/\s+/g, ''), ibanSt = !ibanLimpo ? '' : ibanOk(r.iban) ? '<em class="ok">✓ IBAN válido</em>' : ibanLimpo.length < 25 ? '<em>' + ibanLimpo.length + '/25</em>' : '<em class="erro">✗ IBAN inválido</em>';
-  const P = ['O teu serviço', 'Verificação', 'Referência e termos'];
-  let h = '<form class="cd-form" data-cd-form="concierge"><h4>Candidatura a concierge</h4><ol class="cd-passos">' + P.map((p, i) => '<li class="' + (i + 1 === passo ? 'on' : i + 1 < passo ? 'ok' : '') + '"><b>' + (i + 1) + '</b>' + p + '</li>').join('') + '</ol>';
-  if (passo === 1) h += '<fieldset><legend>O que fazes</legend><div class="cd-chips">' + ESPEC.map(e => chip('espec', e, r.espec.includes(e))).join('') + '</div></fieldset>'
-    + '<fieldset><legend>Línguas</legend><div class="cd-chips">' + LINGUAS.map(e => chip('linguas', e, r.linguas.includes(e))).join('') + '</div></fieldset>'
-    + '<div class="cd-2"><label>Cidade<select data-cd-f="cidade">' + ['Lisboa', 'Porto', 'Coimbra', 'Faro', 'Braga'].map(c => '<option' + (r.cidade === c ? ' selected' : '') + '>' + c + '</option>').join('') + '</select></label><label>Horário em que atendes<input data-cd-f="turno" value="' + esc(r.turno) + '" placeholder="ex.: 18h às 4h"></label></div>'
-    + '<label>Experiência<textarea data-cd-f="exp" rows="3" placeholder="onde trabalhaste, que clientes tens, o que já organizaste">' + esc(r.exp) + '</textarea></label>';
-  if (passo === 2) h += '<p class="cd-dica">O concierge recebe dinheiro dos clientes: por isso verificamos quem és e por onde recebes. Protótipo: nada sai deste aparelho, e do NIF e do IBAN só fica o fim.</p>'
-    + '<label>Documento de identificação<span class="cd-file"><input type="file" accept="image/*,application/pdf" data-cd-doc><span>' + (r.doc ? '📎 ' + esc(r.doc) : 'cartão de cidadão, passaporte ou título de residência') + '</span></span></label>'
-    + '<div class="cd-2"><label>NIF<input data-cd-f="nif" inputmode="numeric" maxlength="9" value="' + esc(r.nif) + '" placeholder="9 dígitos"><span class="cd-st" data-cd-st="nif">' + nifSt + '</span></label>'
-    + '<label>Atividade aberta nas Finanças<select data-cd-f="atividade">' + ['Trabalhador independente', 'Empresa (NIPC)'].map(c => '<option' + (r.atividade === c ? ' selected' : '') + '>' + c + '</option>').join('') + '</select></label></div>'
-    + '<label>IBAN para receber<input data-cd-f="iban" value="' + esc(r.iban) + '" placeholder="PT50 0000 0000 0000 0000 0000 0" autocomplete="off"><span class="cd-st" data-cd-st="iban">' + ibanSt + '</span></label>';
-  if (passo === 3) h += '<fieldset><legend>Referência</legend>'
-    + '<label class="cd-chk"><input type="radio" name="ref" data-cd-f="ref" value="local"' + (r.ref === 'local' ? ' checked' : '') + '><span>Um local parceiro recomenda-me <select data-cd-f="refLocal">' + LOCAIS.map(l => '<option' + (r.refLocal === l ? ' selected' : '') + '>' + l + '</option>').join('') + '</select><small>o local recebe um pedido para confirmar no portal</small></span></label>'
-    + '<label class="cd-chk off"><input type="radio" name="ref" data-cd-f="ref" value="promoter" disabled><span>Já sou promoter do bairro ou da cidade<small>ainda não: ' + EU.presencas + ' presenças verificadas</small></span></label></fieldset>'
-    + '<fieldset><legend>Termos do concierge</legend>'
-    + '<label class="cd-chk"><input type="checkbox" data-cd-f="t1"' + (r.t1 ? ' checked' : '') + '><span>A mesa, o bilhete ou a experiência vão ao cliente pelo preço do anúncio, nunca mais caro (R103).</span></label>'
-    + '<label class="cd-chk"><input type="checkbox" data-cd-f="t2"' + (r.t2 ? ' checked' : '') + '><span>A minha taxa de serviço aparece sempre numa linha à parte, com o meu nome.</span></label>'
-    + '<label class="cd-chk"><input type="checkbox" data-cd-f="t3"' + (r.t3 ? ' checked' : '') + '><span>Começo 30 dias em teste: até 3 propostas abertas e €1.500 por proposta.</span></label></fieldset>';
-  h += (msg ? '<p class="cd-erro" role="alert">' + esc(msg) + '</p>' : '')
-    + '<div class="cd-acoes">' + (passo > 1 ? '<button class="s-btn ghost" type="button" data-cd="voltar">Voltar</button>' : '<button class="s-btn ghost" type="button" data-cd="fechar">Cancelar</button>')
-    + '<button class="s-btn pink" type="submit">' + (passo < 3 ? 'Continuar' : 'Enviar candidatura') + '</button></div></form>';
-  return h;
-}
-function bloco(){
-  const cp0 = minha('promoter'), cc = minha('concierge'), jaConc = cc && cc.estado === 'aprovada', cp = jaConc ? null : cp0, podeNova = c => !c || c.estado === 'cancelada' || (c.estado === 'recusada' && Date.now() > (c.resp || c.t) + 30 * DIA);
-  const barras = RUA.map(([n, k, alvo]) => { const v = EU[k], ok = v >= alvo; return '<div class="cd-bar' + (ok ? ' ok' : '') + '"><span>' + n + '</span><i><em style="width:' + Math.min(100, v / alvo * 100) + '%"></em></i><b>' + String(v).replace('.', ',') + ' / ' + String(alvo).replace('.', ',') + (ok ? ' ✓' : '') + '</b></div>'; }).join('');
-  const falta = RUA.filter(([, k, a]) => EU[k] < a).map(([n, k, a]) => (k === 'nota' ? 'nota ' + a : (a - EU[k]) + ' ' + n.toLowerCase().replace(/ \(.*\)/, ''))).join(' e ');
-  return '<section class="u-bloco cd" id="trabalhar" data-cd-bloco><div class="u-bh"><div><p class="s-eyebrow">Trabalhar com o Streetfy</p><h2 class="s-h h2s">PROMOTER OU <em>CONCIERGE</em></h2></div><span class="u-vis eu">Só eu</span></div>'
-    + '<div class="cd-grid"><article class="cd-card"><h3>Promoter</h3><p>Indicas eventos, tens lista de convidados e ganhas comissão quando os locais a declaram.</p>'
-    + (jaConc ? '<div class="cd-est aprovada"><b>Já tens tudo do promoter ✓</b><span>Como concierge, indicas, tens lista de convidados e comissão, sem precisar de outra candidatura.</span></div>' : cp && cp.estado === 'aprovada' ? '' : '<p class="cd-sub">Pelos números · Promoter da rua</p>' + barras + '<p class="cd-dica">' + (falta ? (/ e |^([2-9]|\d\d)/.test(falta) ? 'Faltam ' : 'Falta ') + esc(falta) + ': o selo chega sozinho, recalculado toda a semana.' : 'Já tens os números: o selo chega no próximo recálculo.') + '</p>')
-    + (jaConc || (cp && cp.estado === 'aprovada') ? '' : hojeVou())
-    + estadoCaixa(cp, 'promoter')
-    + (jaConc ? '' : aberto === 'promoter' ? formPromoter() : podeNova(cp) ? '<button type="button" class="s-btn pink" data-cd="abrir" data-tipo="promoter">Candidatar-me já</button>' : '')
-    + '</article><article class="cd-card"><h3>Concierge</h3><p>Tudo o que o promoter tem, mais: reservas mesas nos locais parceiros em nome do cliente, montas propostas com motorista e extras, e cobras a tua taxa de serviço.</p>'
-    + '<ul class="cd-req"><li>Documento, NIF com atividade aberta e IBAN</li><li>Recomendação de um local parceiro, ou ser promoter do bairro</li><li>30 dias em teste, com limites</li></ul>'
-    + estadoCaixa(cc, 'concierge')
-    + (aberto === 'concierge' ? formConcierge() : podeNova(cc) ? '<button type="button" class="s-btn pink" data-cd="abrir" data-tipo="concierge">Candidatar-me a concierge</button>' : '')
-    + '</article></div><p class="al-nota">Promoter: chega sozinho pelos números, ou por candidatura. Concierge: só por candidatura, com verificação. Para trabalhar com um local, continua a ser preciso a parceria aceite por ele (R107).</p></section>';
-}
-function redesenha(){ const b = document.querySelector('[data-cd-bloco]'); if (!b) return; const y = window.scrollY; b.outerHTML = bloco(); window.scrollTo(0, y); }
-function valida(){
-  const r = rasc;
-  if (aberto === 'promoter') { if (!r.bairros.trim()) return 'Diz em que bairros trabalhas.'; if (!r.estilos.length) return 'Escolhe pelo menos um estilo.'; if (!r.noites.length) return 'Escolhe as noites.'; if (!r.termos) return 'Falta aceitar a regra das indicações.'; return ''; }
-  if (passo === 1) { if (!r.espec.length) return 'Escolhe pelo menos um serviço.'; if (!r.turno.trim()) return 'Diz em que horário atendes.'; if (r.exp.trim().length < 20) return 'Conta um pouco mais da tua experiência (20 caracteres ou mais).'; }
-  if (passo === 2) { if (!r.doc) return 'Junta o documento de identificação.'; if (!nifOk(r.nif)) return 'O NIF não é válido.'; if (!ibanOk(r.iban)) return 'O IBAN não é válido.'; }
-  if (passo === 3) { if (!(r.t1 && r.t2 && r.t3)) return 'Para enviar, aceita os três termos.'; }
-  return '';
-}
-document.addEventListener('click', ev => {
-  const b = ev.target.closest('[data-cd],[data-cd-chip],[data-cd-hv]'); if (!b || !b.closest('[data-cd-bloco]')) return;
-  ev.preventDefault();
-  if (b.dataset.cdHv) { const ids = lerHoje(), i = ids.indexOf(b.dataset.cdHv); if (i >= 0) ids.splice(i, 1); else if (ids.length < 3) ids.push(b.dataset.cdHv); gravarHoje(ids); redesenha(); return; }
-  if (b.dataset.cdChip) { const l = rasc[b.dataset.cdChip], v = b.dataset.v, i = l.indexOf(v); if (i >= 0) l.splice(i, 1); else l.push(v); msg = ''; redesenha(); return; }
-  const a = b.dataset.cd;
-  if (a === 'abrir' || a === 'completar') { aberto = b.dataset.tipo; passo = 1; msg = ''; rasc = novoRasc(); if (a === 'completar') { const c = ler().find(x => x.id === b.dataset.id); if (c) Object.assign(rasc, c.d, {nif:'', iban:''}); rasc.completar = b.dataset.id; } }
-  if (a === 'fechar') { aberto = ''; msg = ''; }
-  if (a === 'hv-abrir') escolher = true;
-  if (a === 'hv-fechar') escolher = false;
-  if (a === 'voltar') { passo = Math.max(1, passo - 1); msg = ''; }
-  if (a === 'cancelar') { const l = ler(), c = l.find(x => x.id === b.dataset.id); if (c) { c.estado = 'cancelada'; gravar(l); } }
-  redesenha();
-  if (a === 'abrir' || a === 'completar') { const f = document.querySelector('.cd-form input:not([type=checkbox]):not([type=radio]):not([type=file]), .cd-form select'); if (f) f.focus(); }
-});
-document.addEventListener('input', ev => {
-  const f = ev.target.closest('[data-cd-f]'); if (!f || !f.closest('[data-cd-bloco]')) return;
-  const k = f.dataset.cdF;
-  if (f.type === 'checkbox') rasc[k] = f.checked; else if (f.type === 'radio') rasc[k] = f.value;
-  else { if (k === 'nif') f.value = f.value.replace(/\D/g, '').slice(0, 9); if (k === 'iban') f.value = f.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '').slice(0, 34); rasc[k] = f.value; }
-  const st = document.querySelector('[data-cd-st="' + k + '"]');
-  if (st && k === 'nif') st.innerHTML = !rasc.nif ? '' : nifOk(rasc.nif) ? '<em class="ok">✓ NIF válido</em>' : rasc.nif.length < 9 ? '<em>' + rasc.nif.length + '/9</em>' : '<em class="erro">✗ NIF inválido</em>';
-  if (st && k === 'iban') { const l = rasc.iban.replace(/\s+/g, ''); st.innerHTML = !l ? '' : ibanOk(rasc.iban) ? '<em class="ok">✓ IBAN válido</em>' : l.length < 25 ? '<em>' + l.length + '/25</em>' : '<em class="erro">✗ IBAN inválido</em>'; }
-});
-document.addEventListener('change', ev => {
-  const d = ev.target.closest('[data-cd-doc]'); if (d) { rasc.doc = d.files[0] ? d.files[0].name : ''; redesenha(); return; }
-  const f = ev.target.closest('[data-cd-f]'); if (f && f.closest('[data-cd-bloco]') && (f.tagName === 'SELECT' || f.type === 'radio' || f.type === 'checkbox')) { rasc[f.dataset.cdF] = f.type === 'checkbox' ? f.checked : f.value; }
-});
-document.addEventListener('submit', ev => {
-  const f = ev.target.closest('[data-cd-form]'); if (!f) return;
-  ev.preventDefault();
-  msg = valida(); if (msg) return redesenha();
-  if (aberto === 'concierge' && passo < 3) { passo++; return redesenha(); }
-  const r = rasc, l = ler();
-  if (r.completar) { const c = l.find(x => x.id === r.completar); if (c) c.estado = 'cancelada'; }
-  const d = aberto === 'promoter' ? {bairros:r.bairros, estilos:r.estilos, noites:r.noites, instagram:r.instagram, exp:r.exp, metr:{seguidores:EU.seguidores, presencas:EU.presencas, nota:EU.nota}}
-    : {espec:r.espec, linguas:r.linguas, turno:r.turno, exp:r.exp, doc:r.doc, nif:fimDe(r.nif, 4), atividade:r.atividade, iban:'PT50 •••• •••• ' + r.iban.replace(/\s+/g, '').slice(-4), ref:r.ref, refLocal:r.refLocal};
-  l.push({id:'c' + Date.now().toString(36), tipo:aberto, nome:EU.nome, user:EU.user, foto:EU.foto, cidade:r.cidade, t:Date.now(), estado:'analise', d});
-  gravar(l); aberto = ''; rasc = {}; msg = ''; redesenha();
-});
-
-/* ---------- no portal: a fila da equipa Streetfy ---------- */
-let filtro = 'analise', abertaFila = '';
-const FILTROS = [['analise', 'Em análise'], ['info', 'À espera do candidato'], ['aprovada', 'Aprovadas'], ['recusada', 'Recusadas']];
-const MOTIVOS = ['Documento ilegível ou fora de validade', 'Sem atividade aberta nas Finanças', 'Referência não confirmada pelo local', 'Indicações com promoção de bebida (R66)', 'Perfil com seguidores comprados'];
-function check(c){
-  if (c.tipo === 'promoter') { const m = c.d.metr || {}; return [['Seguidores ' + m.seguidores, m.seguidores >= 50], ['Presenças verificadas ' + m.presencas, m.presencas >= 10], ['Nota ' + String(m.nota).replace('.', ','), m.nota >= 4], ['Regras das indicações aceites', true]]; }
-  return [['Documento · ' + (c.d.doc || '—'), !!c.d.doc], ['NIF ' + c.d.nif + ' · validado', true], [c.d.atividade, true], ['IBAN ' + c.d.iban + ' · validado', true], [c.d.ref === 'local' ? 'Recomendado por ' + c.d.refLocal + ' · ' + (c.d.refLocal === 'Lux Frágil' ? 'confirmado no portal' : 'à espera do local') : 'Promoter do bairro ou da cidade', c.d.ref !== 'local' || c.d.refLocal === 'Lux Frágil'], ['Termos do concierge aceites', true]];
-}
-function fila(){
-  const L = ler().filter(c => c.estado !== 'cancelada'), n = k => L.filter(c => c.estado === k).length, vis = L.filter(c => c.estado === filtro).sort((a, b) => a.t - b.t);
-  return '<div class="pt-card" id="candidaturas"><div class="pt-ch"><h3>Candidaturas · promoter e concierge</h3><span class="pt-mini-t">responder em até 48 h · promoter também chega sozinho pelos números (R69)</span></div>'
-    + '<div class="lg-noites" role="tablist">' + FILTROS.map(([k, t]) => '<button type="button" role="tab" data-cdq-f="' + k + '" class="' + (filtro === k ? 'on' : '') + '" aria-selected="' + (filtro === k) + '">' + t + ' · ' + n(k) + '</button>').join('') + '</div>'
-    + '<div class="cdq">' + (vis.length ? vis.map(c => {
-      const ab = abertaFila === c.id, ck = check(c);
-      return '<article class="cdq-c' + (ab ? ' on' : '') + '"><header data-cdq-abrir="' + c.id + '"><i style="background-image:url(img/' + esc(c.foto || 'retrato') + '.jpg)"></i><div><span><b>' + esc(c.nome) + '</b> <span class="pc-tipo ' + c.tipo + '">' + c.tipo + '</span></span><small>@' + esc(c.user) + ' · ' + esc(c.cidade) + ' · ' + haQuanto(c.t) + (Date.now() - c.t > 2 * DIA && c.estado === 'analise' ? ' · <em class="atraso">passou das 48 h</em>' : '') + '</small></div><span class="cdq-ck">' + ck.filter(x => x[1]).length + '/' + ck.length + ' ✓</span></header>'
-        + (ab ? '<div class="cdq-d"><ul class="cdq-l">' + ck.map(([t, ok]) => '<li class="' + (ok ? 'ok' : 'nao') + '">' + (ok ? '✓' : '!') + ' ' + esc(t) + '</li>').join('') + '</ul>'
-          + '<dl>' + (c.tipo === 'promoter' ? [['Bairros', c.d.bairros], ['Estilos', c.d.estilos.join(', ')], ['Noites', c.d.noites.join(', ')], ['Redes', c.d.instagram], ['Experiência', c.d.exp || '—']] : [['Serviços', c.d.espec.join(', ')], ['Línguas', c.d.linguas.join(', ')], ['Horário', c.d.turno], ['Experiência', c.d.exp]]).map(([k, v]) => '<dt>' + k + '</dt><dd>' + esc(v) + '</dd>').join('') + '</dl>'
-          + (c.estado === 'info' ? '<p class="cdq-p">Pedido ao candidato: ' + esc(c.pedido) + '</p>' : '') + (c.estado === 'recusada' ? '<p class="cdq-p">Motivo: ' + esc(c.motivo) + '</p>' : '')
-          + (c.estado === 'analise' || c.estado === 'info' ? '<div class="cdq-a"><button type="button" class="s-btn pink" data-cdq="aprovar" data-id="' + c.id + '">Aprovar' + (c.tipo === 'concierge' ? ' · 30 dias em teste' : ' · promoter da rua') + '</button>'
-            + '<form class="cdq-f" data-cdq-info="' + c.id + '"><input name="t" placeholder="O que falta? ex.: comprovativo de atividade" aria-label="Pedido de informação" required><button class="s-btn ghost" type="submit">Pedir informação</button></form>'
-            + '<form class="cdq-f" data-cdq-rec="' + c.id + '"><select name="m" aria-label="Motivo da recusa">' + MOTIVOS.map(m => '<option>' + m + '</option>').join('') + '</select><button class="s-btn ghost" type="submit">Recusar</button></form></div>' : '') + '</div>' : '') + '</article>'; }).join('') : '<p class="cm-vazio">Nada aqui.</p>') + '</div>'
-    + '<p class="al-nota">O candidato vê a decisão no perfil. Recusar exige motivo e só deixa voltar a candidatar-se 30 dias depois. Protótipo: candidata-te como Mariana em <a href="user.html#trabalhar">user.html</a> e decide aqui.</p></div>';
-}
-function redesenhaFila(){ const b = document.getElementById('candidaturas'); if (!b) return; const y = window.scrollY; b.outerHTML = fila(); window.scrollTo(0, y); }
-document.addEventListener('click', ev => {
-  const f = ev.target.closest('[data-cdq-f]'); if (f) { filtro = f.dataset.cdqF; abertaFila = ''; return redesenhaFila(); }
-  const a = ev.target.closest('[data-cdq-abrir]'); if (a) { abertaFila = abertaFila === a.dataset.cdqAbrir ? '' : a.dataset.cdqAbrir; return redesenhaFila(); }
-  const b = ev.target.closest('[data-cdq]'); if (b) { const l = ler(), c = l.find(x => x.id === b.dataset.id); if (c && b.dataset.cdq === 'aprovar') { c.estado = 'aprovada'; c.resp = Date.now(); gravar(l); } redesenhaFila(); }
-});
-document.addEventListener('submit', ev => {
-  const i = ev.target.closest('[data-cdq-info],[data-cdq-rec]'); if (!i) return;
-  ev.preventDefault();
-  const l = ler(), c = l.find(x => x.id === (i.dataset.cdqInfo || i.dataset.cdqRec)); if (!c) return;
-  if (i.dataset.cdqInfo) { c.estado = 'info'; c.pedido = i.t.value.trim(); } else { c.estado = 'recusada'; c.motivo = i.m.value; c.resp = Date.now(); }
-  gravar(l); redesenhaFila();
-});
-window.addEventListener('storage', ev => { if (ev.key === CK) { redesenha(); redesenhaFila(); } });
-window.STREETFY_CAND = {bloco, fila, ler, gravar, PADRAO, CK};
-})();
 </script><script>/* Streetfy · user.js — perfil de quem usa o Streetfy (U15/U16, R16–R18). Pessoa fictícia; eventos, lugares e promoters reais do site.
    "Ver como" mostra o que cada um vê: Eu (tudo), Seguidor (público + seguidores), Público (só público). */
 (function(){
@@ -2678,7 +2471,6 @@ function desenha(){
         + '<p class="u-sub">Promoters</p><div class="pr-outros">' + U.seguindo.promoters.map(id => promoters.find(p => p.id === id)).filter(Boolean).map(p => '<a href="promoter.html#p=' + p.id + '"><span class="pr-av mini" style="background-image:url(img/' + p.foto + '.jpg)"></span><b>' + esc(p.nome) + '</b><small>promoter · ★ ' + p.nota + '</small></a>').join('') + '</div>'
         + '<p class="u-sub">Concierges</p><div class="u-chips">' + U.seguindo.concierges.map(c => '<a href="concierge-perfil.html#c=' + c[1] + '">' + esc(c[0]) + '</a>').join('') + '</div>')
     + bloco('listas', 'Listas de convidados', 'NAS <em>LISTAS</em>', U.listas.map(([id, prom, est]) => { const i = porId(id); return i ? '<div class="u-lista"><div><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + ' · lista de ' + esc(prom) + '</span></div><span class="u-est ' + (/na lista/.test(est) ? 'ok' : '') + '">' + esc(est) + '</span></div>' : ''; }).join('') + '<p class="al-nota">Só tu vês os teus pedidos. Pedidos recusados nunca aparecem a ninguém.</p>')
-    + (ver === 'eu' && window.STREETFY_CAND ? window.STREETFY_CAND.bloco() : '')
     + (ver === 'eu' ? '<section class="u-bloco" id="privacidade"><div class="u-bh"><div><p class="s-eyebrow">Privacidade</p><h2 class="s-h h2s">QUEM VÊ <em>O QUÊ</em></h2></div><span class="u-vis eu">Só eu</span></div>'
         + '<ul class="u-priv">' + [['A seguir', 'aSeguir'], ['Já fui', 'jaFui'], ['Fotos', 'fotos'], ['Avaliações', 'aval'], ['Gostos', 'gostos'], ['Seguindo', 'seguindo'], ['Listas de convidados', 'listas'], ['Lista dos eventos (número)', 'nEventos'], ['Lista dos lugares (número)', 'nLugares'], ['Lista de seguidores (número)', 'nSeguidores'], ['Lista de quem segue (número)', 'nSeguindo']].map(([n, k]) => '<li><span>' + n + '</span><span class="u-seg">' + ['pub', 'seg', 'eu'].map(v => '<button type="button" data-vis="' + k + '" data-v="' + v + '"' + (U.vis[k] === v ? ' class="on"' : '') + '>' + VIS[v][0] + '</button>').join('') + '</span></li>').join('')
         + '<li><span>Aparecer em "Quem esteve" dos lugares</span><span class="u-seg"><button type="button" class="on">Sim</button><button type="button">Não</button></span></li>'
