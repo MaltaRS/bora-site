@@ -1849,6 +1849,15 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
 .ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
 @media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
+/* indicar: partilhar fora do Streetfy */
+.ev-fora{display:grid;gap:6px;border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px}
+.ev-fora>span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.ev-fora>div{display:flex;gap:6px;flex-wrap:wrap}
+.ev-sh{font:inherit;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;font-size:13px;line-height:1}
+.ev-sh b{font-weight:800}
+.ev-sh.wa{background:#25d366;border-color:#25d366;color:#0b0b0b}
+.ev-sh.ig{background:linear-gradient(45deg,#f9a825,#e1306c 45%,#833ab4);border-color:transparent;color:#fff}
+.ev-sh:hover{transform:translateY(-1px)}.ev-sh:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
