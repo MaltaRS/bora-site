@@ -1595,7 +1595,7 @@ function barra(){
     + (sv.garcom && !S.pago ? '<button type="button" class="cm-b" data-cm="ver" data-v="garcom"><span>Garçom</span><b>🔔</b></button>' : '')
     + (S.pedidos.length ? '<button type="button" class="cm-b" data-cm="ver" data-v="acomp"><span>Pedidos</span><b>' + esc(ult) + '</b></button>' : '')
     + ((S.pedidos.length || sv.pagar) ? '<button type="button" class="cm-b" data-cm="ver" data-v="conta"><span>Conta</span><b>' + (S.pago ? 'paga ✓' : eur(conta)) + '</b></button>' : '')
-    + (sv.pedidos && !S.pago ? '<button type="button" class="cm-b cm-ped' + (n ? ' on' : '') + '" data-cm="ver" data-v="pedido"><span>O meu pedido</span><b>' + (n ? n + ' · ' + eur(totCart()) : 'vazio') + '</b></button>' : '')
+    + (sv.pedidos && !S.pago ? '<button type="button" class="cm-b cm-ped' + (n ? ' on' : '') + '" data-cm="ver" data-v="pedido"><span>Fazer o meu pedido</span><b>' + (n ? n + ' · ' + eur(totCart()) : 'vazio') + '</b></button>' : '')
     + '</div></div>';
 }
 
@@ -1607,7 +1607,7 @@ function folha(v){
   if (v === 'pedido') {
     t = 'O meu pedido';
     b = S.cart.length ? '<ul class="cm-l">' + S.cart.map(i => '<li><div><b>' + esc(i.n) + '</b>' + (i.det ? '<small>' + esc(i.det) + '</small>' : '') + '<input data-cm-obs="' + i.id + '" value="' + esc(i.obs || '') + '" placeholder="nota para a cozinha (sem gelo, bem passado…)" aria-label="Nota"></div><span class="cm-q"><button type="button" data-cm="menos" data-id="' + i.id + '">−</button><b>' + i.q + '</b><button type="button" data-cm="mais" data-id="' + i.id + '">+</button></span><em>' + eur(i.q * i.p) + '</em></li>').join('') + '</ul>'
-        + '<div class="cm-tot"><span>Total deste pedido</span><b>' + eur(totCart()) + '</b></div><button type="button" class="s-btn ink cm-go" data-cm="enviar">Enviar para a mesa ' + esc(S.mesa) + '</button><p class="al-nota">Vai direto para a cozinha e para o bar. Paga-se no fim, na conta.</p>'
+        + '<div class="cm-tot"><span>Total deste pedido</span><b>' + eur(totCart()) + '</b></div><button type="button" class="s-btn ink cm-go" data-cm="enviar">Fazer o meu pedido</button><p class="al-nota">Vai direto para a cozinha e para o bar. Paga-se no fim, na conta.</p>'
       : '<p class="cm-vazio">Ainda não juntaste nada. Toca no + ao lado de cada item.</p>';
   } else if (v === 'acomp') {
     t = 'Os teus pedidos';
