@@ -1731,6 +1731,20 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .vip-planta{margin-top:18px}
 [data-mesas]{display:grid;gap:14px}[data-mesas] .lg-leg{margin-top:4px}[data-mesas] .lg-nota{margin:0}
 [data-bilhete] [data-p="graf"]{display:none}
+/* telemóvel: a grelha nunca alarga a página */
+.ct-pg [data-conta]{grid-template-columns:minmax(0,1fr)}
+.ct-ev-b b{overflow-wrap:anywhere}
+.pt .s-wrap{grid-template-columns:minmax(0,1fr)}
+.pt-top{min-width:0}.pt-abas{max-width:100%;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}.pt-abas a{flex:0 0 auto;white-space:nowrap}
+@media (max-width:640px){.pt-abas a{padding:9px 12px;font-size:13px}}
+/* telemóvel, página do evento: título, foto, caixa do bilhete, resto */
+@media (max-width:980px){.det.det-compra > .main > div:first-child{order:0}.det.det-compra > .main > .gal{order:0}.det.det-compra > .main > .gal + div{order:2}}
+/* planta no telemóvel: arrasta-se para os lados */
+@media (max-width:700px){.pl-wrap.pub::after{content:"← arrasta para ver a planta toda →";display:block;text-align:center;font:800 11px var(--fb);color:var(--grey);padding:6px 0 8px;position:sticky;left:0;width:100%}}
+.cd-quem span{display:grid;gap:2px;min-width:0}.cd-quem small{flex-basis:auto;margin:0}
+@media (max-width:640px){.pt-top{display:grid;gap:10px;justify-items:start}.pt-quem{text-align:left}}
+.cd-quem span{display:block}.cd-quem small{display:block;margin-top:2px}
+.cd-quem{flex-wrap:nowrap}.cd-quem i{flex:0 0 auto}.cd-quem span{flex:1 1 auto}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2713,7 +2727,7 @@ function bloco(){
   const cp0 = minha('promoter'), cc = minha('concierge'), jaConc = cc && cc.estado === 'aprovada', cp = jaConc ? null : cp0, podeNova = c => !c || c.estado === 'cancelada' || (c.estado === 'recusada' && Date.now() > (c.resp || c.t) + 30 * DIA);
   const barras = RUA.map(([n, k, alvo]) => { const v = EU[k], ok = v >= alvo; return '<div class="cd-bar' + (ok ? ' ok' : '') + '"><span>' + n + '</span><i><em style="width:' + Math.min(100, v / alvo * 100) + '%"></em></i><b>' + String(v).replace('.', ',') + ' / ' + String(alvo).replace('.', ',') + (ok ? ' ✓' : '') + '</b></div>'; }).join('');
   const falta = RUA.filter(([, k, a]) => EU[k] < a).map(([n, k, a]) => (k === 'nota' ? 'nota ' + a : (a - EU[k]) + ' ' + n.toLowerCase().replace(/ \(.*\)/, ''))).join(' e ');
-  return '<section class="cd cd-pg" id="trabalhar" data-cd-bloco><p class="cd-quem"><i style="background-image:url(img/' + EU.foto + '.jpg)"></i>A candidatar-te como <b>' + esc(EU.nome) + '</b> · @' + esc(EU.user) + '<small>protótipo: a conta com sessão iniciada</small></p>'
+  return '<section class="cd cd-pg" id="trabalhar" data-cd-bloco><p class="cd-quem"><i style="background-image:url(img/' + EU.foto + '.jpg)"></i><span>A candidatar-te como <b>' + esc(EU.nome) + '</b> · @' + esc(EU.user) + '<small>protótipo: a conta com sessão iniciada</small></span></p>'
     + '<div class="cd-grid"><article class="cd-card"><h3>Promoter</h3><p>Indicas eventos, tens lista de convidados e ganhas comissão quando os locais a declaram. Há três caminhos: os números, a candidatura, ou o convite de um local.</p>' + cs.html
     + (jaConc ? '<div class="cd-est aprovada"><b>Já tens tudo do promoter ✓</b><span>Como concierge, indicas, tens lista de convidados e comissão, sem precisar de outra candidatura.</span></div>' : cp && cp.estado === 'aprovada' ? '' : '<p class="cd-sub">Pelos números · Promoter da rua</p>' + barras + '<p class="cd-dica">' + (falta ? (/ e |^([2-9]|\d\d)/.test(falta) ? 'Faltam ' : 'Falta ') + esc(falta) + ': o selo chega sozinho, recalculado toda a semana.' : 'Já tens os números: o selo chega no próximo recálculo.') + '</p>')
     + (jaConc || (cp && cp.estado === 'aprovada') ? '' : hojeVou())
