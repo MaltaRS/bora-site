@@ -411,6 +411,30 @@ img{max-width:100%;display:block}
 .card-l{position:relative}
 .card-l > .s-gosto{top:14px;right:14px}
 .card-l .s-gosto ~ .s-im .s-price{top:auto;bottom:12px}
+/* cabeçalho: pesquisa, notificações e conta (nav.js) */
+.s-conta{display:flex;align-items:center;gap:8px;margin-left:8px}
+.s-menu + .s-conta{margin-left:18px}
+.s-ico{position:relative;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--ink);text-decoration:none}
+.s-ico:hover{background:rgba(0,0,0,.06)}.s-ico:focus-visible,.s-av:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.s-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.s-ico b{position:absolute;top:4px;right:3px;min-width:18px;height:18px;border-radius:999px;background:var(--pink);color:#fff;font:800 11px/18px var(--fb);text-align:center;padding:0 4px;box-sizing:border-box}
+.s-av-w{position:relative}
+.s-av{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;background-size:cover;background-position:center;box-shadow:0 0 0 2px var(--ink);display:block}
+.s-cm{position:absolute;right:0;top:calc(100% + 10px);width:300px;max-width:calc(100vw - 24px);background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--pink);padding:12px;display:grid;gap:10px;z-index:70}
+.s-cm[hidden]{display:none}
+.s-cm-h{display:flex;align-items:center;gap:10px}.s-cm-h i{width:44px;height:44px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.s-cm-h div{display:grid;min-width:0;flex:1}.s-cm-h b{font-size:15px}.s-cm-h span{font-size:12px;color:var(--grey)}.s-cm-h em{font-style:normal;font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;background:var(--mint);border-radius:999px;padding:3px 7px}
+.s-cm nav{display:grid;border-top:1px solid var(--line);padding-top:6px}
+.s-cm nav a{padding:9px 8px;border-radius:10px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;display:flex;justify-content:space-between;align-items:center}.s-cm nav a:hover,.s-cm nav a:focus-visible{background:#f2f2f2;outline:none}
+.s-cm nav a b{background:var(--pink);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px}
+.s-cm-p{display:grid;gap:4px;border-top:1px dashed var(--line);padding-top:8px}.s-cm-p span{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:2px}
+.s-cm-p button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;font-size:13px;font-weight:700}
+.s-cm-p button i{width:24px;height:24px;border-radius:50%;background-size:cover;background-position:center}.s-cm-p button small{margin-left:auto;color:var(--grey);font-size:11px}
+.s-cm-p button:hover,.s-cm-p button:focus-visible{background:#f2f2f2}.s-cm-p button.on{background:var(--ink);color:#fff}.s-cm-p button.on small{color:#bbb}
+.s-cm-sair{all:unset;cursor:pointer;font-size:13px;font-weight:800;color:#d12a2a;padding:6px 8px;border-radius:10px}.s-cm-sair:hover{background:#fff0f0}
+.s-entrar{padding:9px 16px!important;font-size:14px!important;box-shadow:none!important}
+@media (max-width:900px){.s-conta{margin-left:auto}.s-nav .s-conta ~ .s-btn{margin-left:0}.s-nav .s-conta ~ .s-burger{margin-left:4px}}
+@media (max-width:640px){.s-conta{gap:2px}.s-ico{width:38px;height:38px}.s-av{width:36px;height:36px}.s-nav .s-entrar{display:inline-flex!important}}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
@@ -1649,6 +1673,56 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ev-ind input[name=msg]{font:inherit;font-size:14px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}
 .ev-ind-a{display:flex;gap:8px}.ev-ind-a .s-btn{padding:9px 14px;font-size:13px}.ev-ind-a .s-btn[disabled]{opacity:.4;pointer-events:none}
 .p-acoes:has(.ev-w){align-items:flex-start}.ev-w:has(.ev-ind){flex-basis:100%}
+/* páginas da conta (conta.js) */
+.ct-lead{margin-top:10px;max-width:60ch}
+.ct-pg [data-conta]{margin-top:20px;display:grid;gap:18px}
+.ct-abas{display:flex;gap:6px;flex-wrap:wrap}
+.ct-abas button{all:unset;cursor:pointer;font:800 13px var(--fb);border:2px solid var(--ink);border-radius:999px;padding:8px 14px;background:#fff}.ct-abas button.on{background:var(--ink);color:#fff}.ct-abas button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.ct-sec{display:grid;gap:10px}.ct-sec h2,.ct-g{margin:6px 0 0;font-family:var(--fd);font-weight:400;font-size:30px;text-transform:uppercase;line-height:1}
+.ct-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px}
+.ct-ev{display:grid;grid-template-columns:120px minmax(0,1fr);border:2px solid var(--ink);border-radius:16px;background:#fff;overflow:hidden}
+.ct-ev-im{position:relative;background-size:cover;background-position:center;min-height:120px;display:block}
+.ct-ev-im span{position:absolute;left:8px;bottom:8px;background:#fff;color:var(--ink);font:800 11px var(--fb);border-radius:999px;padding:3px 8px}
+.ct-ev-b{padding:10px 12px;display:grid;gap:4px;align-content:start;min-width:0}
+.ct-ev-b a{color:var(--ink);text-decoration:none}.ct-ev-b>a b,.ct-ev-b>b{font-size:16px;line-height:1.2}.ct-ev-l{font-size:13px;color:var(--grey)!important}
+.ct-sub{margin:0;font-size:12px;color:var(--grey)}
+.ct-est{justify-self:start;font:800 10px var(--fb);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;background:#eee}
+.ct-est.ok{background:#dff6e8;color:#1f8a52}.ct-est.lista{background:#ece4ff;color:#5a33b8}.ct-est.quero{background:#fff2cc;color:#8a5a00}.ct-est.euvou{background:#ffe3ec;color:#a3123f}
+.ct-ac{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start;margin-top:4px}.ct-ac>.s-btn{padding:8px 13px;font-size:13px}
+.ct-ac .ev-btn{padding:8px 12px;font-size:13px}
+.ct-ev.pass .ct-ev-im{filter:grayscale(.7)}
+.ct-st{color:var(--pink);letter-spacing:2px}.ct-st i{font-style:normal;color:#ddd}
+.ct-val{display:flex;align-items:center;gap:2px}.ct-val span{font-size:12px;font-weight:800;margin-right:6px}
+.ct-val button{all:unset;cursor:pointer;font-size:22px;color:#ccc;line-height:1}.ct-val button:hover,.ct-val button:hover ~ button{color:#ccc}.ct-val:hover button{color:var(--pink)}.ct-val button:hover ~ button{color:#ccc}.ct-val button:focus-visible{outline:2px solid var(--ink)}
+.ct-modal{position:fixed;inset:0;z-index:300;background:rgba(8,8,8,.7);display:grid;place-items:center;padding:16px}
+.ct-modal-c{position:relative;background:#fff;border-radius:22px;padding:22px;display:grid;gap:6px;justify-items:center;text-align:center;width:min(360px,100%);border:2px solid var(--ink)}
+.ct-modal-c .pe-x{position:absolute;top:10px;right:10px}.ct-modal-c span{font-size:13px;color:var(--grey)}.ct-modal-c p{margin:0;font-weight:800}.ct-modal-c small{color:var(--grey);font-size:12px}
+.ct-qr{width:220px;height:220px;fill:#0b0b0b;margin:8px 0;background:#fff}
+.ct-ind,.ct-quem{display:flex;align-items:center;gap:8px;margin:2px 0;font-size:13px}
+.ct-ind i{width:28px;height:28px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.ct-avs{display:inline-flex}.ct-avs i{width:24px;height:24px;border-radius:50%;background-size:cover;background-position:center;border:2px solid #fff;margin-left:-6px}.ct-avs i:first-child{margin-left:0}
+.ct-sug{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:10px}
+.ct-sg{border:2px solid var(--ink);border-radius:16px;background:#fff;padding:12px;display:grid;gap:8px;justify-items:start}
+.ct-sg a{display:grid;gap:2px;color:var(--ink);text-decoration:none}.ct-sg i{width:52px;height:52px;border-radius:50%;background-size:cover;background-position:center;margin-bottom:4px}.ct-sg span{font-size:12px;color:var(--grey)}
+.ct-sg .s-btn{padding:7px 13px;font-size:13px;box-shadow:none}
+.ct-sg .pc-tipo{justify-self:start;color:inherit}
+.ct-not{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ct-not li{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:2px solid var(--ink);border-radius:14px;background:#fff;padding:10px 12px}
+.ct-not li.nova{box-shadow:4px 4px 0 var(--pink)}.ct-not li>div{flex:1 1 240px;min-width:0}.ct-not p{margin:0;font-size:14px}.ct-not small{color:var(--grey);font-size:12px}.ct-not small b{color:var(--pink)}
+.ct-not .s-btn{padding:8px 13px;font-size:13px;box-shadow:none}.ct-not em{font-style:normal;font-weight:800;font-size:13px;color:#1f8a52}
+.ct-not-i{width:12px;height:12px;border-radius:50%;background:var(--ink);flex:0 0 auto}.ct-not-i.indic,.ct-not-i.parceria{background:var(--pink)}.ct-not-i.lista,.ct-not-i.mesa{background:#7a4dd8}.ct-not-i.seguir,.ct-not-i.amigos{background:#2fbf71}.ct-not-i.lembrete,.ct-not-i.checkin{background:#e0a800}
+.ct-pesq{display:flex;gap:8px}.ct-pesq input{flex:1;min-width:0;font:inherit;font-size:18px;font-weight:600;padding:12px 16px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+.ct-rec{margin:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--grey)}.ct-rec button{all:unset;cursor:pointer;border:1.5px solid var(--line);border-radius:999px;padding:4px 10px;font-weight:700;color:var(--ink);background:#fff}
+.ct-vazio{border:2px dashed var(--ink);border-radius:18px;padding:24px;display:grid;gap:8px;justify-items:start;background:#fff}.ct-vazio b{font-size:20px}.ct-vazio p{margin:0;color:var(--grey)}
+.ct-form{display:grid;gap:12px;max-width:460px;border:2px solid var(--ink);border-radius:18px;background:#fff;padding:20px;box-shadow:6px 6px 0 var(--pink)}
+.ct-form h2{margin:0;font-family:var(--fd);font-weight:400;font-size:30px;text-transform:uppercase}.ct-form p{margin:0}
+.ct-form label{display:grid;gap:4px;font-size:12px;font-weight:800;color:var(--grey)}.ct-form label small{font-weight:600}
+.ct-form input:not([type=checkbox]){font:inherit;font-size:16px;font-weight:600;color:var(--ink);padding:11px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff;width:100%;box-sizing:border-box}
+.ct-form .s-btn{justify-content:center}
+.ct-cod{font-size:28px!important;letter-spacing:.4em;text-align:center;font-variant-numeric:tabular-nums}
+.ct-ou{display:flex;align-items:center;gap:10px;color:var(--grey);font-size:12px;font-weight:800}.ct-ou::before,.ct-ou::after{content:"";flex:1;height:1px;background:var(--line)}
+.ct-dica{color:var(--grey);font-size:12px;line-height:1.45}.ct-dica a{color:var(--ink)}
+@media (max-width:560px){.ct-ev{grid-template-columns:96px minmax(0,1fr)}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1684,7 +1758,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
 <a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
-<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="festa.html">A tua festa</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="parceiros.html">Parceiros</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
+<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><section class="s-sec" style="padding-top:104px"><div class="s-wrap"><div class="crumbs light"><a href="index.html">Streetfy</a> › <a href="experiencias.html">Experiências</a> › <a href="mesa-vip.html">Noite VIP</a> › <span>Mesa VIP no Lux</span></div><div class="det"><div class="main"><div class="gal" data-gal style="position:relative"><i class="g-tape" style="left:-14px;top:-10px;transform:rotate(-9deg)"></i><i class="g-tape m" style="right:-10px;top:22px;transform:rotate(12deg)"></i><div class="big" style="background-image:url(img/club.jpg)"></div><div class="thumbs"><button type="button" class="on" style="background-image:url(img/club.jpg)" aria-label="Foto 1"></button><button type="button" class="" style="background-image:url(img/lux.jpg)" aria-label="Foto 2"></button><button type="button" class="" style="background-image:url(img/dj.jpg)" aria-label="Foto 3"></button><button type="button" class="" style="background-image:url(img/noite.jpg)" aria-label="Foto 4"></button></div></div><div><span class="g marker pink keep" style="right:0;top:-34px;font-size:clamp(22px,2.6vw,40px);transform:rotate(5deg)" aria-hidden="true">€600 é €600</span><h1 class="s-h">MESA VIP<br>NO <em>LUX FRÁGIL</em></h1><div class="meta"><span><b class="star">★</b> <b>4,7</b> (96)</span><span><b>Noite X</b> · sex 31 out</span><span>até <b>8</b> por mesa</span><span><b>Santa Apolónia</b></span><span>chegar até à <b>1h</b></span></div></div><div class="opbox rv"><div class="av"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><div><b>Lux Frágil · operador verificado</b><span>Parceiro verificado · alvará de discoteca e licença de ruído em dia · 1.284 avaliações</span></div><a href="#">ver documento</a></div><div><h2 class="s-h h2s rv">A <em>PLANTA</em></h2><p class="rv d1" style="color:var(--grey);margin:6px 0 0">Cada mesa tem o seu preço. Toca numa livre para a escolher.</p><div style="margin-top:14px" data-mesas></div></div><div class="inc"><div class="rv"><h4>Inclui</h4><ul><li>A mesa escolhida na planta, até 8 pessoas</li><li>O mínimo da mesa em garrafas e cocktails, com IVA e serviço de mesa</li><li>Entrada prioritária para os 8, pelo QR do bilhete</li><li>Anfitriã que vos leva à mesa</li></ul></div><div class="rv d1 no"><h4>Não inclui</h4><ul><li>Gorjeta, opcional e separada</li><li>Consumo acima do mínimo, pago no bar pelo app ou na hora</li></ul></div><div class="rv d2"><h4>Como funciona na noite</h4><ul><li>Chegam até à 1h; depois disso a mesa pode ser libertada</li><li>Pedem as garrafas pelo app ou à anfitriã; o saldo aparece no app</li><li>Maiores de 18. Documento na porta.</li></ul></div></div><div class="guar-l rv" style="box-shadow:6px 6px 0 var(--pink)"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><div><b>O preço da mesa é o que pagas</b><span>Noutros apps o mínimo vem sem imposto, gorjeta e taxas, e no fim da noite a conta cresce 20 a 38%. No Streetfy o número mostrado inclui IVA e serviço. A mesa escolhida é garantida.</span></div></div><div><h2 class="s-h h2s rv">QUEM <em>FOI</em></h2><p class="rv d1" style="color:var(--grey);margin:6px 0 16px">4,7 em 96 avaliações de mesas VIP no Lux.</p><div class="revs"><div class="rev-l rv"><div style="color:var(--pink);letter-spacing:3px">★★★★★</div><p style="margin:0">Zona A mesmo à frente da cabine. O saldo das garrafas aparecia no app, sem discussão no fim.</p><div class="who"><i style="background-image:url(img/noite.jpg)"></i>Sofia F. <span>· sáb 11 out</span></div></div><div class="rev-l rv"><div style="color:var(--pink);letter-spacing:3px">★★★★</div><p style="margin:0">Mesa boa, chegámos tarde e esperámos 10 min pela anfitriã. Preço certo.</p><div class="who"><i style="background-image:url(img/alfama.jpg)"></i>Rui P. <span>· sex 3 out</span></div></div><div class="rev-l rv"><div style="color:var(--pink);letter-spacing:3px">★★★★★</div><p style="margin:0">Dividimos os €600 por 8 pelo link. Cada um pagou €75 e entrou pelo próprio QR.</p><div class="who"><i style="background-image:url(img/pink.jpg)"></i>Ana L. <span>· sáb 27 set</span></div></div></div></div><div><h2 class="s-h h2s rv">PERGUNTAS</h2><div style="margin-top:14px"><div class="faq"><details class="rv"><summary>Se gastarmos menos de €600?</summary><p>O que sobrar vira crédito no bar do Lux, válido por 90 dias, para quem reservou.</p></details><details class="rv"><summary>Posso escolher a mesa exata?</summary><p>Sim. Escolhes a mesa na planta, cada uma com o seu preço, e essa mesa fica garantida.</p></details><details class="rv"><summary>O que é uma mesa em espera?</summary><p>Alguém está a fechar a reserva dessa mesa e tem 30 minutos para pagar; o cronómetro mostra quanto falta. Se não pagar, a mesa volta a ficar livre.</p></details><details class="rv"><summary>E se chegarmos depois da 1h?</summary><p>A mesa fica reservada até à 1h. Depois, o clube pode libertá-la. Avisa a anfitriã pelo app se te atrasares.</p></details><details class="rv"><summary>Podemos ser mais de 8?</summary><p>Não nesta mesa. Para grupos maiores, o concierge junta duas mesas na mesma zona.</p></details></div></div></div><div><h2 class="s-h h2s rv">OUTRAS NOITES <em>NO LUX</em></h2><div class="cards-l" style="margin-top:16px"><a class="card-l rv" href="mesa-vip.html"><div class="s-im" style="background-image:url(img/club.jpg)"><span class="s-tag">Tudo incluído</span><span class="s-price">€450</span></div><div class="bd"><h3>MESA VIP · LUX SESSIONS</h3><p>sáb 1 nov · house · zona B, varanda · até 8</p><div class="op"><i>✓</i>Lux Frágil</div><span class="pp">consumo mínimo, IVA e serviço dentro</span></div></a><a class="card-l rv" href="mesa-vip.html"><div class="s-im" style="background-image:url(img/lux.jpg)"><span class="s-tag mint">Lista</span><span class="s-price">€0</span></div><div class="bd"><h3>LISTA DO LUX</h3><p>sex 31 out · Noite X · entrada até à meia-noite</p><div class="op"><i>✓</i>Lux Frágil</div><span class="pp">grátis até à meia-noite, nominal</span></div></a><a class="card-l rv" href="bilhete.html#lugar=lisboa/lux%20fragil&evento=l11"><div class="s-im" style="background-image:url(img/dj.jpg)"><span class="s-tag">Bilhete</span><span class="s-price">€12</span></div><div class="bd"><h3>LUX SESSIONS</h3><p>sáb 1 nov · house · 23:30</p><div class="op"><i>✓</i>Lux Frágil</div><span class="pp">por pessoa, no app</span></div></a><a class="card-l rv" href="bilhete.html#lugar=lisboa/lux%20fragil&evento=l12"><div class="s-im" style="background-image:url(img/tejo.jpg)"><span class="s-tag mint">Entrada livre</span><span class="s-price">€0</span></div><div class="bd"><h3>TERRAÇO DE DOMINGO</h3><p>dom 2 nov · 17:00 · no terraço</p><div class="op"><i>✓</i>Lux Frágil</div><span class="pp">entrada livre</span></div></a></div></div></div><aside><div class="book" data-mode="boat" data-price="600" data-people="8" data-min="2" data-max="8">
@@ -1699,10 +1773,11 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 <p class="note">O mínimo abate em garrafas na noite. O que sobrar vira crédito no bar do Lux. Entrada prioritária para os 8 pelo mesmo QR.</p>
 </div></aside></div></div></section><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
-<div><h4>Streetfy</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a><a href="parceiros.html">Para parceiros</a><a href="promoters.html">Promoters</a><a href="trabalhar.html">Perfil profissional</a><a href="portal.html#parceiro">Portal do parceiro</a><a href="portal.html#promoter">Portal do promoter</a></div>
-<div><h4>Experiências</h4><a href="experiencias.html">Todas</a><a href="ceu.html">Céu</a><a href="agua.html">Água</a><a href="noite-vip.html">Noite VIP</a><a href="porta.html">À tua porta</a><a href="concierge.html">Concierge</a><a href="festa.html">A tua festa</a></div>
-<div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="privacidade.html">Privacidade</a></div>
-<div><h4>Legal</h4><a href="#">Termos</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
+<div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html">A tua festa</a></div>
+<div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
+<div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Streetfy</a></div>
+<div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
+<div><h4>Legal</h4><a href="#">Termos</a><a href="privacidade.html">Privacidade</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
 </div>
 <p class="legal"><b>Streetfy</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
 </div></footer><script>(function(){
@@ -1748,11 +1823,91 @@ if(window.BORA&&window.BORA_XP){
   document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
-</script><script>/* Streetfy · nav.js — menu do cabeçalho no telemóvel: o botão abre e fecha a lista; fecha ao tocar num link, com Escape ou ao alargar o ecrã. */
+</script><script>/* Streetfy · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
+   A conta é o único sítio onde se escolhe quem está a usar o site (no protótipo: Mariana, Lux Frágil, Rita, Lara, ou sem sessão).
+   Também guarda o modelo das notificações (STREETFY_SESSAO), usado por notificacoes.html e pelo número no sino. */
 (function(){
 'use strict';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const SK = 'streetfy:sessao', LK = 'streetfy:notif-lidas';
+const ls = (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } };
+const img = v => /^data:/.test(v || '') ? v : 'img/' + v + '.jpg';
+/* quem está a usar: no protótipo começa com a Mariana, utilizadora comum, com sessão iniciada */
+const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } catch (e) { return 'utilizador'; } };
+const eu = ls('streetfy:perfil-user', null) || {};
+const PAPEIS = {
+  utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+  promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
+    itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
+    itens:[['concierge-perfil.html#c=lara-v', 'O meu perfil público'], ['portal.html#concierge', 'Portal do concierge'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  local:{nome:'Lux Frágil', sub:'Local · Santa Apolónia', foto:'lux', tipo:'Local', perfil:'perfil.html#lugar=lisboa%2Flux%20fragil',
+    itens:[['perfil.html#lugar=lisboa%2Flux%20fragil', 'O perfil do local'], ['portal.html#parceiro', 'Portal do local'], ['portal.html#parceiro', 'Eventos, listas e mesas'], ['menu.html#lugar=lisboa%2Fclube%20de%20fado', 'Menu de exemplo'], ['notificacoes.html', 'Notificações']]}
+};
+/* ---------- notificações: o que cada papel recebe ---------- */
+const H = 36e5, agora = Date.now();
+function notificacoes(p){
+  p = p || papel();
+  const N = {
+    utilizador:[
+      {id:'u1', t:agora - .5 * H, tipo:'indic', txt:'<b>Leonor S.</b> indicou-te <b>Noite X</b> no Lux Frágil: "bora? eu vou às 0h"', href:'bilhete.html#lugar=lisboa%2Flux%20fragil&evento=l4', acao:'Ver a festa'},
+      {id:'u2', t:agora - 2 * H, tipo:'lista', txt:'<b>Rita M.</b> pôs-te na lista de <b>Lux Sessions</b> · entrada grátis até 1h', href:'agenda.html', acao:'Ver nos meus planos'},
+      {id:'u3', t:agora - 5 * H, tipo:'seguir', txt:'<b>Duarte P.</b> pediu para te seguir', pedido:true},
+      {id:'u4', t:agora - 9 * H, tipo:'lembrete', txt:'<b>Noite X</b> é sexta às 23h. O teu bilhete está nos planos.', href:'agenda.html', acao:'Abrir o bilhete'},
+      {id:'u5', t:agora - 26 * H, tipo:'seguir', txt:'<b>Tiago R.</b> começou a seguir-te', href:'promoter.html#p=tiago-r', acao:'Ver perfil'},
+      {id:'u6', t:agora - 50 * H, tipo:'amigos', txt:'<b>3 amigos</b> vão ao <b>Baile do B.Leza</b> no sábado', href:'amigos.html', acao:'Ver quem vai'}],
+    promoter:[
+      {id:'p1', t:agora - H, tipo:'parceria', txt:'<b>B.Leza</b> convidou-te para promoter: "Queremos-te nas sextas de kizomba."', href:'perfil.html#lugar=lisboa%2Fb%20leza', acao:'Responder'},
+      {id:'p2', t:agora - 3 * H, tipo:'lista', txt:'<b>4 pedidos</b> para entrar na tua lista de <b>Noite X</b>', href:'portal.html#promoter', acao:'Abrir o portal'},
+      {id:'p3', t:agora - 30 * H, tipo:'dinheiro', txt:'Comissão de <b>€187</b> do Lux Frágil paga com o repasse', href:'portal.html#promoter', acao:'Ver extrato'}],
+    concierge:[
+      {id:'c1', t:agora - H, tipo:'mesa', txt:'O cliente pagou: a <b>mesa A4</b> do Lux está à espera da aprovação do Lux', href:'portal.html#concierge', acao:'Ver reserva'},
+      {id:'c2', t:agora - 4 * H, tipo:'parceria', txt:'<b>Ministerium Club</b> ainda não respondeu ao teu pedido de parceria', href:'portal.html#concierge', acao:'Ver casas'},
+      {id:'c3', t:agora - 28 * H, tipo:'checkin', txt:'O grupo da <b>Joana</b> fez check-in no Lux às 0h34', href:'portal.html#concierge', acao:'Ver'}],
+    local:[
+      {id:'l1', t:agora - .3 * H, tipo:'parceria', txt:'<b>Inês C.</b> e <b>Ricardo P.</b> pediram para ser parceiros do Lux', href:'portal.html#parceiro', acao:'Responder'},
+      {id:'l2', t:agora - 2 * H, tipo:'mesa', txt:'Reserva de concierge à espera: <b>Despedida do Miguel</b>, mesa B2', href:'portal.html#parceiro', acao:'Aprovar'},
+      {id:'l3', t:agora - 6 * H, tipo:'aval', txt:'Nova avaliação de <b>Ricardo F.</b> · ★★★ "Bar muito lento depois das 3h"', href:'portal.html#parceiro', acao:'Responder'},
+      {id:'l4', t:agora - 20 * H, tipo:'vendas', txt:'<b>Noite X</b> passou os 600 bilhetes vendidos', href:'portal.html#parceiro', acao:'Ver números'}]
+  };
+  const lidas = ls(LK, []);
+  return (N[p] || []).map(n => Object.assign({lida:lidas.includes(n.id)}, n));
+}
+const naoLidas = p => notificacoes(p).filter(n => !n.lida).length;
+const marcarLidas = ids => { const l = ls(LK, []); ids.forEach(i => { if (!l.includes(i)) l.push(i); }); try { localStorage.setItem(LK, JSON.stringify(l)); } catch (e) {} };
+const mudar = p => { try { localStorage.setItem(SK, p); } catch (e) {} };
+window.STREETFY_SESSAO = {papel, PAPEIS, notificacoes, naoLidas, marcarLidas, mudar};
+
 const nav = document.getElementById('nav'); if (!nav) return;
-const b = nav.querySelector('.s-burger'); if (!b) return;
+const wrap = nav.querySelector('.s-wrap'), b = nav.querySelector('.s-burger');
+/* ---------- a conta no cabeçalho ---------- */
+const ICO = {pesq:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>', sino:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'};
+function conta(){
+  const p = papel(), q = PAPEIS[p], n = q ? naoLidas(p) : 0;
+  return '<a class="s-ico" href="pesquisa.html" aria-label="Pesquisar">' + ICO.pesq + '</a>'
+    + (q ? '<a class="s-ico" href="notificacoes.html" aria-label="Notificações' + (n ? ', ' + n + ' por ler' : '') + '">' + ICO.sino + (n ? '<b>' + n + '</b>' : '') + '</a>'
+      + '<div class="s-av-w"><button type="button" class="s-av" aria-haspopup="true" aria-expanded="false" aria-label="A tua conta: ' + esc(q.nome) + '" style="background-image:url(' + esc(img(q.foto)) + ')"></button>'
+      + '<div class="s-cm" hidden><div class="s-cm-h"><i style="background-image:url(' + esc(img(q.foto)) + ')"></i><div><b>' + esc(q.nome) + '</b><span>' + esc(q.sub) + '</span></div><em>' + q.tipo + '</em></div>'
+      + '<nav aria-label="Conta">' + q.itens.map(([h, t]) => '<a href="' + h + '">' + t + (h === 'notificacoes.html' && n ? ' <b>' + n + '</b>' : '') + '</a>').join('') + '</nav>'
+      + '<div class="s-cm-p"><span>Protótipo · entrar como</span>' + Object.entries(PAPEIS).map(([k, v]) => '<button type="button" data-papel="' + k + '" class="' + (k === p ? 'on' : '') + '" aria-pressed="' + (k === p) + '"><i style="background-image:url(' + esc(img(v.foto)) + ')"></i>' + esc(v.nome) + '<small>' + v.tipo + '</small></button>').join('') + '</div>'
+      + '<button type="button" class="s-cm-sair" data-papel="visitante">Terminar sessão</button></div></div>'
+      : '<a class="s-btn ghost s-entrar" href="entrar.html">Entrar</a>');
+}
+const c = document.createElement('div'); c.className = 's-conta'; c.innerHTML = conta();
+const ref = wrap.querySelector(':scope > .s-btn') || b; wrap.insertBefore(c, ref);
+const fecha = () => { const m = c.querySelector('.s-cm'), a = c.querySelector('.s-av'); if (m && !m.hidden) { m.hidden = true; a.setAttribute('aria-expanded', 'false'); } };
+c.addEventListener('click', ev => {
+  const a = ev.target.closest('.s-av'); if (a) { const m = c.querySelector('.s-cm'); m.hidden = !m.hidden; a.setAttribute('aria-expanded', String(!m.hidden)); if (!m.hidden) { const f = m.querySelector('a'); if (f) f.focus(); } return; }
+  const pp = ev.target.closest('[data-papel]'); if (pp) { mudar(pp.dataset.papel); location.reload(); }
+});
+document.addEventListener('click', ev => { if (!ev.target.closest('.s-av-w')) fecha(); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { const m = c.querySelector('.s-cm'); if (m && !m.hidden) { fecha(); c.querySelector('.s-av').focus(); } } });
+window.addEventListener('storage', ev => { if (ev.key === SK || ev.key === LK) c.innerHTML = conta(); });
+document.addEventListener('streetfy-notif', () => { c.innerHTML = conta(); });
+
+/* ---------- menu no telemóvel ---------- */
+if (!b) return;
 const abrir = v => { nav.classList.toggle('aberto', v); b.setAttribute('aria-expanded', String(v)); document.documentElement.classList.toggle('menu-aberto', v); };
 b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
 nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });

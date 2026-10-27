@@ -414,6 +414,30 @@ img{max-width:100%;display:block}
 .card-l{position:relative}
 .card-l > .s-gosto{top:14px;right:14px}
 .card-l .s-gosto ~ .s-im .s-price{top:auto;bottom:12px}
+/* cabeçalho: pesquisa, notificações e conta (nav.js) */
+.s-conta{display:flex;align-items:center;gap:8px;margin-left:8px}
+.s-menu + .s-conta{margin-left:18px}
+.s-ico{position:relative;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--ink);text-decoration:none}
+.s-ico:hover{background:rgba(0,0,0,.06)}.s-ico:focus-visible,.s-av:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.s-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.s-ico b{position:absolute;top:4px;right:3px;min-width:18px;height:18px;border-radius:999px;background:var(--pink);color:#fff;font:800 11px/18px var(--fb);text-align:center;padding:0 4px;box-sizing:border-box}
+.s-av-w{position:relative}
+.s-av{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;background-size:cover;background-position:center;box-shadow:0 0 0 2px var(--ink);display:block}
+.s-cm{position:absolute;right:0;top:calc(100% + 10px);width:300px;max-width:calc(100vw - 24px);background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--pink);padding:12px;display:grid;gap:10px;z-index:70}
+.s-cm[hidden]{display:none}
+.s-cm-h{display:flex;align-items:center;gap:10px}.s-cm-h i{width:44px;height:44px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.s-cm-h div{display:grid;min-width:0;flex:1}.s-cm-h b{font-size:15px}.s-cm-h span{font-size:12px;color:var(--grey)}.s-cm-h em{font-style:normal;font:800 9px var(--fb);letter-spacing:.1em;text-transform:uppercase;background:var(--mint);border-radius:999px;padding:3px 7px}
+.s-cm nav{display:grid;border-top:1px solid var(--line);padding-top:6px}
+.s-cm nav a{padding:9px 8px;border-radius:10px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;display:flex;justify-content:space-between;align-items:center}.s-cm nav a:hover,.s-cm nav a:focus-visible{background:#f2f2f2;outline:none}
+.s-cm nav a b{background:var(--pink);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px}
+.s-cm-p{display:grid;gap:4px;border-top:1px dashed var(--line);padding-top:8px}.s-cm-p span{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:2px}
+.s-cm-p button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;font-size:13px;font-weight:700}
+.s-cm-p button i{width:24px;height:24px;border-radius:50%;background-size:cover;background-position:center}.s-cm-p button small{margin-left:auto;color:var(--grey);font-size:11px}
+.s-cm-p button:hover,.s-cm-p button:focus-visible{background:#f2f2f2}.s-cm-p button.on{background:var(--ink);color:#fff}.s-cm-p button.on small{color:#bbb}
+.s-cm-sair{all:unset;cursor:pointer;font-size:13px;font-weight:800;color:#d12a2a;padding:6px 8px;border-radius:10px}.s-cm-sair:hover{background:#fff0f0}
+.s-entrar{padding:9px 16px!important;font-size:14px!important;box-shadow:none!important}
+@media (max-width:900px){.s-conta{margin-left:auto}.s-nav .s-conta ~ .s-btn{margin-left:0}.s-nav .s-conta ~ .s-burger{margin-left:4px}}
+@media (max-width:640px){.s-conta{gap:2px}.s-ico{width:38px;height:38px}.s-av{width:36px;height:36px}.s-nav .s-entrar{display:inline-flex!important}}
 </style><style>
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -1023,8 +1047,10 @@ img{max-width:100%;display:block}
 <footer class="s-foot">
   <div class="s-wrap">
     <div class="cols">
-      <div><h4>Streetfy</h4><a href="hoje.html" data-i18n="m1">Hoje</a><a href="experiencias.html" data-i18n="m3">Experiências</a><a href="festa.html" data-i18n="m4">A tua festa</a><a href="concierge.html">Concierge</a><a href="promoters.html">Promoters</a><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html" data-i18n="m5">Parceiros</a><a href="cidades.html">Cidades</a><a href="sobre.html">Sobre</a></div>
-      <div><h4 data-i18n="g1">Ajuda</h4><a href="ajuda.html" data-i18n="g2">Suporte</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença</a><a href="privacidade.html" data-i18n="g6">Privacidade</a></div>
+      <div><h4>Descobrir</h4><a href="hoje.html" data-i18n="m1">Hoje</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html" data-i18n="m3">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html" data-i18n="m4">A tua festa</a></div>
+      <div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
+      <div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html" data-i18n="m5">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a></div>
+      <div><h4 data-i18n="g1">Ajuda</h4><a href="ajuda.html" data-i18n="g2">Suporte</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
       <div><h4>Legal</h4><a href="#" data-i18n="g5">Termos</a><a href="privacidade.html" data-i18n="g6">Privacidade</a><a href="#">Cookies</a><a href="#" data-i18n="g7">Livro de Reclamações</a></div>
       <div><h4 data-i18n="g8">Idioma</h4><a href="#" data-lang="pt">Português</a><a href="#" data-lang="en">English</a></div>
     </div>
@@ -2006,11 +2032,91 @@ let saved = 'pt'; try { saved = localStorage.getItem('bora-lang') || 'pt'; } cat
 if (saved === 'en') setLang('en');
 })();
 </script><script>
-/* Streetfy · nav.js — menu do cabeçalho no telemóvel: o botão abre e fecha a lista; fecha ao tocar num link, com Escape ou ao alargar o ecrã. */
+/* Streetfy · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
+   A conta é o único sítio onde se escolhe quem está a usar o site (no protótipo: Mariana, Lux Frágil, Rita, Lara, ou sem sessão).
+   Também guarda o modelo das notificações (STREETFY_SESSAO), usado por notificacoes.html e pelo número no sino. */
 (function(){
 'use strict';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const SK = 'streetfy:sessao', LK = 'streetfy:notif-lidas';
+const ls = (k, d) => { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } };
+const img = v => /^data:/.test(v || '') ? v : 'img/' + v + '.jpg';
+/* quem está a usar: no protótipo começa com a Mariana, utilizadora comum, com sessão iniciada */
+const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } catch (e) { return 'utilizador'; } };
+const eu = ls('streetfy:perfil-user', null) || {};
+const PAPEIS = {
+  utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+  promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
+    itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
+    itens:[['concierge-perfil.html#c=lara-v', 'O meu perfil público'], ['portal.html#concierge', 'Portal do concierge'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  local:{nome:'Lux Frágil', sub:'Local · Santa Apolónia', foto:'lux', tipo:'Local', perfil:'perfil.html#lugar=lisboa%2Flux%20fragil',
+    itens:[['perfil.html#lugar=lisboa%2Flux%20fragil', 'O perfil do local'], ['portal.html#parceiro', 'Portal do local'], ['portal.html#parceiro', 'Eventos, listas e mesas'], ['menu.html#lugar=lisboa%2Fclube%20de%20fado', 'Menu de exemplo'], ['notificacoes.html', 'Notificações']]}
+};
+/* ---------- notificações: o que cada papel recebe ---------- */
+const H = 36e5, agora = Date.now();
+function notificacoes(p){
+  p = p || papel();
+  const N = {
+    utilizador:[
+      {id:'u1', t:agora - .5 * H, tipo:'indic', txt:'<b>Leonor S.</b> indicou-te <b>Noite X</b> no Lux Frágil: "bora? eu vou às 0h"', href:'bilhete.html#lugar=lisboa%2Flux%20fragil&evento=l4', acao:'Ver a festa'},
+      {id:'u2', t:agora - 2 * H, tipo:'lista', txt:'<b>Rita M.</b> pôs-te na lista de <b>Lux Sessions</b> · entrada grátis até 1h', href:'agenda.html', acao:'Ver nos meus planos'},
+      {id:'u3', t:agora - 5 * H, tipo:'seguir', txt:'<b>Duarte P.</b> pediu para te seguir', pedido:true},
+      {id:'u4', t:agora - 9 * H, tipo:'lembrete', txt:'<b>Noite X</b> é sexta às 23h. O teu bilhete está nos planos.', href:'agenda.html', acao:'Abrir o bilhete'},
+      {id:'u5', t:agora - 26 * H, tipo:'seguir', txt:'<b>Tiago R.</b> começou a seguir-te', href:'promoter.html#p=tiago-r', acao:'Ver perfil'},
+      {id:'u6', t:agora - 50 * H, tipo:'amigos', txt:'<b>3 amigos</b> vão ao <b>Baile do B.Leza</b> no sábado', href:'amigos.html', acao:'Ver quem vai'}],
+    promoter:[
+      {id:'p1', t:agora - H, tipo:'parceria', txt:'<b>B.Leza</b> convidou-te para promoter: "Queremos-te nas sextas de kizomba."', href:'perfil.html#lugar=lisboa%2Fb%20leza', acao:'Responder'},
+      {id:'p2', t:agora - 3 * H, tipo:'lista', txt:'<b>4 pedidos</b> para entrar na tua lista de <b>Noite X</b>', href:'portal.html#promoter', acao:'Abrir o portal'},
+      {id:'p3', t:agora - 30 * H, tipo:'dinheiro', txt:'Comissão de <b>€187</b> do Lux Frágil paga com o repasse', href:'portal.html#promoter', acao:'Ver extrato'}],
+    concierge:[
+      {id:'c1', t:agora - H, tipo:'mesa', txt:'O cliente pagou: a <b>mesa A4</b> do Lux está à espera da aprovação do Lux', href:'portal.html#concierge', acao:'Ver reserva'},
+      {id:'c2', t:agora - 4 * H, tipo:'parceria', txt:'<b>Ministerium Club</b> ainda não respondeu ao teu pedido de parceria', href:'portal.html#concierge', acao:'Ver casas'},
+      {id:'c3', t:agora - 28 * H, tipo:'checkin', txt:'O grupo da <b>Joana</b> fez check-in no Lux às 0h34', href:'portal.html#concierge', acao:'Ver'}],
+    local:[
+      {id:'l1', t:agora - .3 * H, tipo:'parceria', txt:'<b>Inês C.</b> e <b>Ricardo P.</b> pediram para ser parceiros do Lux', href:'portal.html#parceiro', acao:'Responder'},
+      {id:'l2', t:agora - 2 * H, tipo:'mesa', txt:'Reserva de concierge à espera: <b>Despedida do Miguel</b>, mesa B2', href:'portal.html#parceiro', acao:'Aprovar'},
+      {id:'l3', t:agora - 6 * H, tipo:'aval', txt:'Nova avaliação de <b>Ricardo F.</b> · ★★★ "Bar muito lento depois das 3h"', href:'portal.html#parceiro', acao:'Responder'},
+      {id:'l4', t:agora - 20 * H, tipo:'vendas', txt:'<b>Noite X</b> passou os 600 bilhetes vendidos', href:'portal.html#parceiro', acao:'Ver números'}]
+  };
+  const lidas = ls(LK, []);
+  return (N[p] || []).map(n => Object.assign({lida:lidas.includes(n.id)}, n));
+}
+const naoLidas = p => notificacoes(p).filter(n => !n.lida).length;
+const marcarLidas = ids => { const l = ls(LK, []); ids.forEach(i => { if (!l.includes(i)) l.push(i); }); try { localStorage.setItem(LK, JSON.stringify(l)); } catch (e) {} };
+const mudar = p => { try { localStorage.setItem(SK, p); } catch (e) {} };
+window.STREETFY_SESSAO = {papel, PAPEIS, notificacoes, naoLidas, marcarLidas, mudar};
+
 const nav = document.getElementById('nav'); if (!nav) return;
-const b = nav.querySelector('.s-burger'); if (!b) return;
+const wrap = nav.querySelector('.s-wrap'), b = nav.querySelector('.s-burger');
+/* ---------- a conta no cabeçalho ---------- */
+const ICO = {pesq:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>', sino:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'};
+function conta(){
+  const p = papel(), q = PAPEIS[p], n = q ? naoLidas(p) : 0;
+  return '<a class="s-ico" href="pesquisa.html" aria-label="Pesquisar">' + ICO.pesq + '</a>'
+    + (q ? '<a class="s-ico" href="notificacoes.html" aria-label="Notificações' + (n ? ', ' + n + ' por ler' : '') + '">' + ICO.sino + (n ? '<b>' + n + '</b>' : '') + '</a>'
+      + '<div class="s-av-w"><button type="button" class="s-av" aria-haspopup="true" aria-expanded="false" aria-label="A tua conta: ' + esc(q.nome) + '" style="background-image:url(' + esc(img(q.foto)) + ')"></button>'
+      + '<div class="s-cm" hidden><div class="s-cm-h"><i style="background-image:url(' + esc(img(q.foto)) + ')"></i><div><b>' + esc(q.nome) + '</b><span>' + esc(q.sub) + '</span></div><em>' + q.tipo + '</em></div>'
+      + '<nav aria-label="Conta">' + q.itens.map(([h, t]) => '<a href="' + h + '">' + t + (h === 'notificacoes.html' && n ? ' <b>' + n + '</b>' : '') + '</a>').join('') + '</nav>'
+      + '<div class="s-cm-p"><span>Protótipo · entrar como</span>' + Object.entries(PAPEIS).map(([k, v]) => '<button type="button" data-papel="' + k + '" class="' + (k === p ? 'on' : '') + '" aria-pressed="' + (k === p) + '"><i style="background-image:url(' + esc(img(v.foto)) + ')"></i>' + esc(v.nome) + '<small>' + v.tipo + '</small></button>').join('') + '</div>'
+      + '<button type="button" class="s-cm-sair" data-papel="visitante">Terminar sessão</button></div></div>'
+      : '<a class="s-btn ghost s-entrar" href="entrar.html">Entrar</a>');
+}
+const c = document.createElement('div'); c.className = 's-conta'; c.innerHTML = conta();
+const ref = wrap.querySelector(':scope > .s-btn') || b; wrap.insertBefore(c, ref);
+const fecha = () => { const m = c.querySelector('.s-cm'), a = c.querySelector('.s-av'); if (m && !m.hidden) { m.hidden = true; a.setAttribute('aria-expanded', 'false'); } };
+c.addEventListener('click', ev => {
+  const a = ev.target.closest('.s-av'); if (a) { const m = c.querySelector('.s-cm'); m.hidden = !m.hidden; a.setAttribute('aria-expanded', String(!m.hidden)); if (!m.hidden) { const f = m.querySelector('a'); if (f) f.focus(); } return; }
+  const pp = ev.target.closest('[data-papel]'); if (pp) { mudar(pp.dataset.papel); location.reload(); }
+});
+document.addEventListener('click', ev => { if (!ev.target.closest('.s-av-w')) fecha(); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { const m = c.querySelector('.s-cm'); if (m && !m.hidden) { fecha(); c.querySelector('.s-av').focus(); } } });
+window.addEventListener('storage', ev => { if (ev.key === SK || ev.key === LK) c.innerHTML = conta(); });
+document.addEventListener('streetfy-notif', () => { c.innerHTML = conta(); });
+
+/* ---------- menu no telemóvel ---------- */
+if (!b) return;
 const abrir = v => { nav.classList.toggle('aberto', v); b.setAttribute('aria-expanded', String(v)); document.documentElement.classList.toggle('menu-aberto', v); };
 b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
 nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });
