@@ -1340,6 +1340,48 @@ html.cm-t-cabare .ca-hero.com-logo .s-wrap::before{display:none}
 .cm-gj:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--pink) 45%,transparent)}
 html.cm-tpl .cm-gj{border-width:var(--bw);border-radius:var(--r)}html.cm-t-esplanada .cm-gj{border:1.5px solid var(--line)}
 html.cm-tpl .cm-op>div:not(.cm-q) button.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+/* portal · concierges ligados à mesa e à lista do lugar */
+.pt-orig{display:block;font:700 11px var(--fb);color:var(--grey);margin-top:1px}.pt-orig.cc{color:#7a4dd8}
+.lg-pl{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}.lg-pl h4{margin:0;font-size:15px}
+.lg-noites{display:inline-flex;flex-wrap:wrap;gap:6px}
+.lg-noites button{all:unset;cursor:pointer;font:800 12px var(--fb);border:2px solid var(--ink);border-radius:999px;padding:6px 11px;background:#fff}.lg-noites button.on{background:var(--ink);color:#fff}
+.lg-noites button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.lg-planta{display:grid;gap:10px;background:#f6f6f6;border-radius:14px;padding:12px}
+.lg-cab{justify-self:center;background:var(--ink);color:#fff;font:800 11px var(--fb);letter-spacing:.2em;border-radius:8px;padding:7px 40px}
+.lg-zona{display:grid;gap:6px}.lg-zona small{font:800 10px var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.lg-zona>div{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.lg-m{all:unset;box-sizing:border-box;min-height:46px;border-radius:10px;display:grid;place-items:center;align-content:center;gap:1px;font:800 13px var(--fb);border:2px solid #cfcfcf;background:#e9e9e9;color:#777;text-align:center;padding:3px}
+.lg-m i{font:700 9px var(--fb);font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.lg-m.livre{background:#fff;border-color:#2fbf71;color:var(--ink)}
+button.lg-m.livre{cursor:pointer}button.lg-m.livre:hover{background:#eafff3}button.lg-m.sel{background:var(--pink);border-color:var(--pink);color:#fff}
+button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.lg-m.direta{background:#e1e1e1;border-color:#c4c4c4;color:#666}
+.lg-m.promoter{background:#ffe3ec;border-color:#ff9bb8;color:#a3123f}
+.lg-m.concierge{background:#ece4ff;border-color:#b79cff;color:#5a33b8}.lg-m.prov{border-style:dashed}
+.lg-leg{display:flex;flex-wrap:wrap;gap:12px;margin:0;font-size:12px;font-weight:700}
+.lg-leg span{display:inline-flex;align-items:center;gap:5px}.lg-leg span::before{content:"";width:12px;height:12px;border-radius:4px;border:2px solid}
+.lg-leg .livre::before{border-color:#2fbf71;background:#fff}.lg-leg .direta::before{border-color:#c4c4c4;background:#e1e1e1}.lg-leg .promoter::before{border-color:#ff9bb8;background:#ffe3ec}.lg-leg .concierge::before{border-color:#b79cff;background:#ece4ff}
+.lg-pct{display:inline-flex;align-items:center;gap:4px;font-weight:800}.lg-pct input,.lg-num{width:70px}
+.lg-t td small{display:block;color:var(--grey);font-size:12px;font-weight:600}
+.lg-c{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.lg-c i{width:26px;height:26px;border-radius:50%;background-size:cover;background-position:center;flex:0 0 auto}
+.lg-e{display:inline-block;font:800 10px/1.2 var(--fb);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 8px;background:#eee;color:#555;white-space:nowrap}
+.lg-e.confirmada{background:#dff6e8;color:#1f8a52}.lg-e.pendente{background:#fff2cc;color:#8a5a00}.lg-e.segura{background:#ece4ff;color:#5a33b8}.lg-e.recusada,.lg-e.expirou,.lg-e.libertada{background:#f1f1f1;color:#888}
+.lg-ac{display:inline-flex;gap:4px;margin-left:6px}.lg-ac button{font:800 11px/1 var(--fb);border:2px solid var(--ink);border-radius:999px;padding:5px 9px;background:#fff;cursor:pointer}.lg-ac button:first-child{background:var(--ink);color:#fff}
+.lg-casas{display:grid;gap:8px}
+.lg-casa{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.lg-casa>div{flex:1;min-width:180px}.lg-casa b{display:block}.lg-casa small{color:var(--grey);font-size:12px;font-weight:600}.lg-casa.on{border:2px solid var(--ink)}
+.lg-ok{font:800 11px var(--fb);border-radius:999px;padding:4px 9px}.lg-ok.sim{background:#dff6e8;color:#1f8a52}.lg-ok.nao{background:#f1f1f1;color:#999}
+.lg-form textarea{font:inherit;font-size:15px;padding:9px 10px;border:2px solid var(--ink);border-radius:10px;resize:vertical}
+.lg-res{display:grid;gap:6px;background:#f6f6f6;border-radius:12px;padding:12px}
+.lg-res>div{display:flex;justify-content:space-between;gap:10px;font-size:14px}.lg-res>div b{white-space:nowrap}
+.lg-res .lg-tot{border-top:2px solid var(--ink);padding-top:8px;font-weight:800}.lg-res .lg-tot b{font-family:var(--fd);font-weight:400;font-size:28px}
+.lg-res p{margin:0;font-size:13px;color:var(--grey)}
+.lg-minhas{display:grid;gap:8px}
+.lg-r{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.lg-r>div:first-child{display:grid;gap:2px;min-width:0;flex:1 1 260px}.lg-r small{color:var(--grey);font-size:12px;font-weight:600}
+.lg-ra{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}.lg-ra .s-btn{padding:8px 14px;font-size:13px}
+@media (max-width:640px){.lg-zona>div{grid-template-columns:repeat(3,minmax(0,1fr))}.lg-ra{justify-content:flex-start}}
+.lg-form .pt-r{display:flex!important;gap:8px;align-items:center;justify-content:flex-start;font-weight:700}.lg-form .pt-r input{width:18px!important;height:18px;margin:0;flex:0 0 auto}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2217,11 +2259,13 @@ const D = {
     kpi:[['Seguidores', 2340, '+86', 'up'], ['Indicações (30 d)', 64, '+9', 'up'], ['Presenças verificadas', 612, '+48', 'up'], ['Conversão', '38%', '+4 pp', 'up'], ['Comissão a receber', 412, 'D+2', 'eq', 'eur'], ['Nota', '4,7', '=', 'eq']],
     serie:{titulo:'Presenças verificadas por semana', unidade:'presenças', v:[98, 112, 104, 131, 167], rot:['s39', 's40', 's41', 's42', 's43']},
     comissao:[['l4', 'Lux Frágil', 34, 8, 15], ['l3', 'B.Leza', 21, 0, 8], ['l11', 'Lux Frágil', 18, 8, 12]],
-    nivel:[['Seguidores', 2340, 2000], ['Presenças verificadas (30 d)', 612, 600], ['Nota', 4.7, 4.5]]}
+    nivel:[['Seguidores', 2340, 2000], ['Presenças verificadas (30 d)', 612, 600], ['Nota', 4.7, 4.5]]},
+  concierge:{nome:'Lara V.', sub:'Concierge · Lisboa · noite',
+    kpi:[['Propostas pagas (30 d)', 46, '+7', 'up'], ['Mesas reservadas', 31, '+5', 'up'], ['Nomes em listas', 212, '+38', 'up'], ['Comissões a receber', 384, 'D+2', 'eq', 'eur'], ['Taxas de serviço', 2140, '+12%', 'up', 'eur'], ['Resposta média', '3 min', '=', 'eq']]}
 };
 const LK = 'streetfy:portal-listas';
 const LISTAS_PADRAO = {
-  parceiro:[{id:'a', nome:'Lista da casa · Noite X', ev:'l4', vagas:120, fecha:30, quem:'promoters', beneficio:'entrada grátis até 1h', mais1:true, nomes:[['Mariana Costa', 'entrou'], ['Leonor Santos', 'aceite'], ['Hugo Martins', 'aceite'], ['Bruna Teixeira', 'pedido']]},
+  parceiro:[{id:'a', nome:'Lista da casa · Noite X', ev:'l4', vagas:120, fecha:30, quem:'equipa', beneficio:'entrada grátis até 1h', mais1:true, nomes:[['Mariana Costa', 'entrou'], ['Leonor Santos', 'aceite', 'Rita M. · promoter'], ['Hugo Martins', 'aceite', 'Rita M. · promoter'], ['Joana Prates', 'aceite', 'Lara V. · concierge'], ['Rui Prates', 'aceite', 'Lara V. · concierge'], ['Bruna Teixeira', 'pedido']]},
             {id:'b', nome:'Aniversário do mês', ev:'', data:'sáb 1 nov', hora:'23:00 – 06:00', vagas:40, fecha:60, quem:'eu', beneficio:'garrafa de espumante', mais1:false, nomes:[['Inês Carvalho', 'aceite'], ['Sara Dias', 'aceite']]}],
   promoter:[{id:'c', nome:'Rita · Noite X', ev:'l4', vagas:60, fecha:30, quem:'favoritos', beneficio:'€5 de desconto', mais1:true, nomes:[['Mariana Costa', 'aceite'], ['Kiko Rocha', 'pedido'], ['Tomás F.', 'pedido']]},
             {id:'d', nome:'Jantar antes da festa', ev:'', data:'sex 31 out', hora:'20:30', vagas:12, fecha:120, quem:'eu', beneficio:'mesa reservada', mais1:false, nomes:[['Leonor Santos', 'aceite']]}]
@@ -2255,8 +2299,8 @@ function listas(){
   const card = l => { const i = l.ev ? porId(l.ev) : null, dentro = l.nomes.filter(n => n[1] === 'aceite' || n[1] === 'entrou').length, entraram = l.nomes.filter(n => n[1] === 'entrou').length, ped = l.nomes.filter(n => n[1] === 'pedido').length;
     return '<div class="pt-lista' + (aberta === l.id ? ' on' : '') + '"><div class="pt-lh" data-pt="abrir" data-id="' + l.id + '"><div><b>' + esc(l.nome) + '</b><span>' + (i ? 'ligada a <a href="' + esc(hrefEv(i)) + '">' + esc(i.titulo) + '</a> · ' + esc(quando(i)) : esc(['independente', l.data, l.hora].filter(Boolean).join(' · '))) + ' · fecha ' + l.fecha + ' min antes</span></div>'
       + '<div class="pt-lnum"><span><b>' + dentro + '</b>/' + l.vagas + ' na lista</span>' + (ped ? '<span class="pt-ped">' + ped + ' a pedir</span>' : '') + (entraram ? '<span>' + entraram + ' entraram</span>' : '') + '</div></div>'
-      + (aberta === l.id ? '<div class="pt-ld"><p class="pt-tags"><span>' + esc(l.beneficio) + '</span><span>' + (l.mais1 ? '+1 permitido' : 'sem +1') + '</span><span>' + ({eu:'só eu adiciono', promoters:'promoters da casa adicionam', favoritos:'favoritos entram direto'})[l.quem] + '</span></p>'
-          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + '</span><i class="' + n[1] + '">' + EST[n[1]] + '</i>' + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Marcar entrada</button>' : '') + '</li>').join('') + '</ul>'
+      + (aberta === l.id ? '<div class="pt-ld"><p class="pt-tags"><span>' + esc(l.beneficio) + '</span><span>' + (l.mais1 ? '+1 permitido' : 'sem +1') + '</span><span>' + ({eu:'só eu adiciono', promoters:'promoters da casa adicionam', equipa:'promoters e concierges adicionam', favoritos:'favoritos entram direto'})[l.quem] + '</span></p>'
+          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span><i class="' + n[1] + '">' + EST[n[1]] + '</i>' + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Marcar entrada</button>' : '') + '</li>').join('') + '</ul>'
           + '<form class="pt-add" data-id="' + l.id + '"><input name="nome" placeholder="Adicionar nome à lista" aria-label="Nome" required><button class="s-btn ink" type="submit">Adicionar</button></form>'
           + '<p class="al-nota">Na porta, a equipa vê esta lista no modo porta e marca a entrada; sem rede, a lista fica no telemóvel. Exportar em CSV ou partilhar o link da lista.</p></div>' : '') + '</div>'; };
   const form = formAberto ? '<form class="pt-form" data-pt-form><h4>Nova lista de convidados</h4>'
@@ -2266,10 +2310,121 @@ function listas(){
     + '<div class="pt-ind" hidden><label>Data<input name="data" placeholder="sáb 8 nov"></label><label>Hora<input name="hora" placeholder="23:00 – 04:00"></label><label>Lugar<input name="lugar" placeholder="' + (modo === 'parceiro' ? 'Lux Frágil · terraço' : 'onde vai ser') + '"></label></div>'
     + '<div class="pt-2"><label>Vagas<input name="vagas" type="number" min="1" value="50"></label><label>Fecha antes (min)<input name="fecha" type="number" min="0" value="30"></label></div>'
     + '<label>Benefício<input name="beneficio" placeholder="entrada grátis até 1h, desconto, bebida…" value="entrada grátis até 1h"></label>'
-    + '<label>Quem adiciona nomes<select name="quem"><option value="eu">Só eu</option><option value="promoters">Promoters da casa</option><option value="favoritos">Favoritos entram direto</option></select></label>'
+    + '<label>Quem adiciona nomes<select name="quem"><option value="eu">Só eu</option><option value="promoters">Promoters da casa</option><option value="equipa">Promoters e concierges</option><option value="favoritos">Favoritos entram direto</option></select></label>'
     + '<label class="pt-r"><input type="checkbox" name="mais1" checked> Permite +1</label>'
     + '<div class="pt-2"><button class="s-btn mint" type="submit">Criar lista</button><button class="s-btn ghost" type="button" data-pt="cancelar">Cancelar</button></div></form>' : '';
   return '<div class="pt-card"><div class="pt-ch"><h3>Listas de convidados</h3><button type="button" class="s-btn mint pt-novo" data-pt="nova">+ Nova lista</button></div>' + form + '<div class="pt-listas">' + L.map(card).join('') + '</div></div>';
+}
+
+/* ---------- concierges: mesa e lista do lugar, reservadas pelo concierge em nome do cliente (R100–R104) ----------
+   Um só estoque: o lugar libera, o concierge reserva dali. A mesa fica segura 30 min enquanto o cliente paga a proposta.
+   Guardado neste aparelho e partilhado pelas duas vistas do portal (parceiro e concierge). */
+const CONC = {'lara-v':['Lara V.', 'cocktail'], 'ricardo-p':['Ricardo P.', 'pribeira'], 'beatriz-c':['Beatriz C.', 'pfoz']};
+const EU_CONC = 'lara-v';
+const NOITES = [{id:'n1', nome:'Noite X', dia:'sex 31 out', ev:'l4', lista:'a', ocup:{A3:'direta', A6:'direta', B1:'promoter', B4:'direta'}},
+                {id:'n2', nome:'Lux Sessions', dia:'sáb 1 nov', ev:'l11', lista:'ls', ocup:{A2:'direta', B5:'promoter', B6:'direta'}}];
+const ZONAS = {A:['junto à pista', 600], B:['varanda', 450]};
+const MESAS = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6'];
+const HOLD = 30 * 60 * 1000, MOTORISTA = 90;
+const LG = 'streetfy:concierge-ligacao';
+const LIG_PADRAO = () => ({cfg:{mesas:true, quem:'verificados', confirma:'aprovar', comissao:8, lista:true, cota:10}, reservas:[
+  {id:'r1', conc:'lara-v', cliente:'Aniversário da Joana · 30 anos', pessoas:8, noite:'n1', mesa:'A1', chega:'0h30', nota:'bolo à meia-noite, sem velas na pista', taxa:60, motorista:true, estado:'confirmada', t:Date.now() - 864e5},
+  {id:'r2', conc:'ricardo-p', cliente:'Despedida do Miguel', pessoas:7, noite:'n2', mesa:'B2', chega:'1h00', nota:'', taxa:45, motorista:false, estado:'pendente', t:Date.now() - 36e5},
+  {id:'r3', conc:'beatriz-c', cliente:'Equipa da Farfetch', pessoas:8, noite:'n1', mesa:'A5', chega:'0h00', nota:'fatura em nome da empresa', taxa:80, motorista:true, estado:'confirmada', t:Date.now() - 1728e5}]});
+let LIG = LIG_PADRAO();
+try { const g = JSON.parse(localStorage.getItem(LG) || 'null'); if (g && g.cfg && g.reservas) LIG = g; } catch (e) {}
+const gravaLig = () => { try { localStorage.setItem(LG, JSON.stringify(LIG)); } catch (e) {} };
+let lgNoite = 'n1', prop = {noite:'n1', mesa:'', cliente:'', pessoas:6, chega:'0h30', nota:'', motorista:true, taxa:60, nomes:''}, propMsg = '';
+const noiteDe = id => NOITES.find(n => n.id === id) || NOITES[0];
+const estadoR = r => r.estado === 'segura' && Date.now() > r.t + HOLD ? 'expirou' : r.estado;
+const ativa = r => ['segura', 'pendente', 'confirmada'].includes(estadoR(r));
+const minimoDe = m => ZONAS[m[0]][1];
+const comissaoDe = r => Math.round(minimoDe(r.mesa) * LIG.cfg.comissao) / 100;
+const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+/* quem ocupa cada mesa nessa noite: reserva direta, promoter ou concierge */
+function ocupacao(nid){
+  const n = noiteDe(nid), o = {};
+  Object.entries(n.ocup).forEach(([m, t]) => { o[m] = {t}; });
+  LIG.reservas.filter(r => r.noite === nid && ativa(r)).forEach(r => { o[r.mesa] = {t:'concierge', r}; });
+  return o;
+}
+const ORIG = {direta:'reserva direta', promoter:'via promoter', concierge:'via concierge'};
+function planta(nid, escolher){
+  const o = ocupacao(nid);
+  return '<div class="lg-planta" role="group" aria-label="Mesas · ' + esc(noiteDe(nid).nome) + '"><span class="lg-cab">CABINE · PISTA</span>'
+    + ['A', 'B'].map(z => '<div class="lg-zona"><small>Zona ' + z + ' · ' + ZONAS[z][0] + ' · €' + ZONAS[z][1] + '</small><div>' + MESAS.filter(m => m[0] === z).map(m => {
+      const x = o[m], sel = escolher && prop.mesa === m && prop.noite === nid;
+      const tit = x ? m + ' · ' + (x.r ? 'cliente de ' + CONC[x.r.conc][0] + ' · ' + x.r.cliente + ', ' + x.r.pessoas + ' pessoas, chegam ' + x.r.chega + (estadoR(x.r) !== 'confirmada' ? ' (' + ({segura:'segura à espera de pagamento', pendente:'à espera da tua aprovação'})[estadoR(x.r)] + ')' : '') : ORIG[x.t]) : m + ' · livre';
+      return escolher && !x ? '<button type="button" class="lg-m livre' + (sel ? ' sel' : '') + '" data-lg-mesa="' + m + '" aria-pressed="' + sel + '" title="' + esc(tit) + '">' + m + '</button>'
+        : '<span class="lg-m ' + (x ? x.t + (x.r && estadoR(x.r) !== 'confirmada' ? ' prov' : '') : 'livre') + '" title="' + esc(tit) + '">' + m + (x && x.r ? '<i>' + esc(CONC[x.r.conc][0]) + '</i>' : '') + '</span>';
+    }).join('') + '</div></div>').join('')
+    + '<p class="lg-leg"><span class="livre">livre</span><span class="direta">reserva direta</span><span class="promoter">promoter</span><span class="concierge">concierge</span></p></div>';
+}
+const noiteAbas = (cur, attr) => '<div class="lg-noites" role="tablist">' + NOITES.map(n => '<button type="button" role="tab" ' + attr + '="' + n.id + '" class="' + (cur === n.id ? 'on' : '') + '" aria-selected="' + (cur === n.id) + '">' + esc(n.dia) + ' · ' + esc(n.nome) + '</button>').join('') + '</div>';
+const EST_R = {segura:'segura 30 min', pendente:'à espera do Lux', confirmada:'confirmada', recusada:'recusada · reembolsada', expirou:'expirou · mesa livre', libertada:'libertada'};
+function listaDaNoite(n, criar){
+  let l = LISTAS.parceiro.find(x => x.id === n.lista);
+  if (!l && criar) { l = {id:n.lista, nome:'Lista da casa · ' + n.nome, ev:n.ev, vagas:120, fecha:30, quem:'equipa', beneficio:'entrada grátis até 1h', mais1:true, nomes:[]}; LISTAS.parceiro.push(l); }
+  return l;
+}
+const usadosCota = (conc, n) => { const l = listaDaNoite(n); return l ? l.nomes.filter(x => x[2] === CONC[conc][0] + ' · concierge').length : 0; };
+
+/* vista do parceiro: o que libera, a planta com a origem de cada mesa, as reservas dos concierges */
+function conciergesParceiro(){
+  const g = LIG.cfg, rs = LIG.reservas.slice().sort((a, b) => b.t - a.t);
+  const sw = (k, n, d) => '<label><span>' + n + '<small>' + d + '</small></span><input type="checkbox" class="pt-sw" data-lg="' + k + '"' + (g[k] ? ' checked' : '') + ' aria-label="' + n + '"></label>';
+  const por = Object.keys(CONC).map(c => { const rr = LIG.reservas.filter(r => r.conc === c && estadoR(r) === 'confirmada'); return [c, rr.length, rr.reduce((a, r) => a + minimoDe(r.mesa), 0), rr.reduce((a, r) => a + comissaoDe(r), 0)]; });
+  return '<div class="pt-card" id="concierges"><div class="pt-ch"><h3>Concierges</h3><span class="pt-mini-t">mesas e listas reservadas em nome dos clientes deles · o cliente paga o preço do site</span></div>'
+    + '<div class="pt-ca">' + sw('mesas', 'Concierges podem reservar mesas', 'reservam do mesmo estoque que o site: não há reserva dupla')
+    + (g.mesas ? '<div class="pt-sv"><label><span>Quem pode<small>verificados: qualquer concierge com perfil verificado no Streetfy</small></span><select class="pt-sel" data-lg="quem"><option value="verificados"' + (g.quem === 'verificados' ? ' selected' : '') + '>Todos os verificados</option><option value="aprovados"' + (g.quem === 'aprovados' ? ' selected' : '') + '>Só os que eu aprovar</option></select></label>'
+      + '<label><span>Confirmação<small>automática: pagou, está confirmada · aprovar: tu dizes sim a cada uma</small></span><select class="pt-sel" data-lg="confirma"><option value="auto"' + (g.confirma === 'auto' ? ' selected' : '') + '>Automática</option><option value="aprovar"' + (g.confirma === 'aprovar' ? ' selected' : '') + '>Eu aprovo cada uma</option></select></label>'
+      + '<label><span>Comissão do concierge<small>sai da tua parte, como a dos promoters (R71) · paga no repasse</small></span><span class="lg-pct"><input type="number" min="0" max="30" step="1" class="pt-sel" data-lg="comissao" value="' + g.comissao + '" aria-label="Comissão em percentagem"> %</span></label></div>' : '')
+    + sw('lista', 'Concierges põem nomes nas listas', 'os nomes entram com a origem "via concierge"')
+    + (g.lista ? '<div class="pt-sv"><label><span>Cota por concierge e por noite<small>quantos nomes cada concierge pode pôr em cada lista</small></span><input type="number" min="1" max="50" class="pt-sel lg-num" data-lg="cota" value="' + g.cota + '" aria-label="Cota de nomes"></label></div>' : '')
+    + '</div>'
+    + '<div class="lg-pl"><div class="pt-ch"><h4>Planta da noite</h4>' + noiteAbas(lgNoite, 'data-lg-noite') + '</div>' + planta(lgNoite, false) + '</div>'
+    + '<div class="pt-tw"><table class="pt-t lg-t"><thead><tr><th>Concierge</th><th>Cliente</th><th>Noite · mesa</th><th>Pessoas</th><th>Mínimo</th><th>Comissão</th><th>Estado</th></tr></thead><tbody>'
+    + rs.map(r => { const e = estadoR(r), n = noiteDe(r.noite); return '<tr><td><span class="lg-c"><i style="background-image:url(img/' + CONC[r.conc][1] + '.jpg)"></i><b>' + esc(CONC[r.conc][0]) + '</b></span></td><td>' + esc(r.cliente) + (r.nota ? '<small>' + esc(r.nota) + '</small>' : '') + '</td><td>' + esc(n.dia) + ' · <b>' + r.mesa + '</b></td><td>' + r.pessoas + ' · chegam ' + esc(r.chega) + '</td><td>' + eur(minimoDe(r.mesa)) + '</td><td>' + eur(comissaoDe(r)) + '</td><td><span class="lg-e ' + e + '">' + EST_R[e] + '</span>'
+      + (e === 'pendente' ? '<span class="lg-ac"><button type="button" data-lg-r="aprovar" data-id="' + r.id + '">Aprovar</button><button type="button" data-lg-r="recusar" data-id="' + r.id + '">Recusar</button></span>' : '') + '</td></tr>'; }).join('') + '</tbody></table></div>'
+    + '<div class="pt-tw"><table class="pt-t"><thead><tr><th>Por concierge</th><th>Mesas confirmadas</th><th>Mínimos</th><th>Comissão a pagar</th></tr></thead><tbody>' + por.map(([c, n, m, cm]) => '<tr><td><span class="lg-c"><i style="background-image:url(img/' + CONC[c][1] + '.jpg)"></i><b>' + esc(CONC[c][0]) + '</b></span></td><td>' + n + '</td><td>' + (m ? eur(m) : '—') + '</td><td>' + (cm ? eur(cm) : '—') + '</td></tr>').join('') + '</tbody></table></div>'
+    + '<p class="al-nota">Na planta, passa o rato numa mesa para ver de quem é. Recusar devolve o dinheiro ao cliente na hora; o concierge é avisado. <a href="#concierge">Ver o lado do concierge</a></p></div>';
+}
+
+/* vista do concierge: casas que o liberam, proposta que segura a mesa, as suas reservas */
+function concierge(){
+  const g = LIG.cfg, minhas = LIG.reservas.filter(r => r.conc === EU_CONC).sort((a, b) => b.t - a.t);
+  const n = noiteDe(prop.noite), livre = !!(prop.mesa && !ocupacao(prop.noite)[prop.mesa]);
+  if (prop.mesa && !livre) prop.mesa = '';
+  const lista = listaDaNoite(n), usados = usadosCota(EU_CONC, n), nomes = prop.nomes.split('\n').map(s => s.trim()).filter(Boolean);
+  const min = prop.mesa ? minimoDe(prop.mesa) : 0, mot = prop.motorista ? MOTORISTA : 0, taxa = Math.max(0, +prop.taxa || 0), com = Math.round(min * g.comissao) / 100;
+  const casas = [['Lux Frágil', 'Santa Apolónia', g.mesas, g.lista, g.mesas ? 'comissão ' + g.comissao + '% · confirmação ' + (g.confirma === 'auto' ? 'automática' : 'pelo Lux') : 'mesas fechadas a concierges', true],
+                 ['B.Leza', 'Cais do Sodré', false, true, 'só lista · cota de 6 nomes por noite', false], ['Ministerium Club', 'Terreiro do Paço', false, false, 'não aceita concierges', false]];
+  return kpis(D.concierge)
+    + '<div class="pt-card"><div class="pt-ch"><h3>Casas parceiras</h3><span class="pt-mini-t">só aparecem as casas que liberaram mesas ou listas a concierges</span></div><div class="lg-casas">'
+    + casas.map(([nome, b, m, l, d, ab]) => '<div class="lg-casa' + (ab ? ' on' : '') + '"><div><b>' + esc(nome) + '</b><small>' + esc(b) + ' · ' + esc(d) + '</small></div><span class="lg-ok ' + (m ? 'sim' : 'nao') + '">' + (m ? '✓' : '✗') + ' mesas</span><span class="lg-ok ' + (l ? 'sim' : 'nao') + '">' + (l ? '✓' : '✗') + ' lista</span>' + (!m && !l ? '<a class="pt-mini" href="#concierge" data-pt="naoimpl">Pedir acesso</a>' : '') + '</div>').join('') + '</div></div>'
+    + '<div class="pt-card" id="proposta"><div class="pt-ch"><h3>Nova proposta · Lux Frágil</h3><span class="pt-mini-t">a mesa fica segura 30 min enquanto o cliente paga</span></div>'
+    + (!g.mesas ? '<p class="cm-vazio">O Lux fechou as mesas a concierges. Podes pôr nomes na lista, se a lista estiver aberta.</p>' : '')
+    + noiteAbas(prop.noite, 'data-lg-pnoite') + (g.mesas ? planta(prop.noite, true) : '')
+    + '<form class="pt-form lg-form" data-lg-form>'
+    + '<div class="pt-2"><label>Cliente ou ocasião<input data-lp="cliente" value="' + esc(prop.cliente) + '" placeholder="ex.: Aniversário da Inês" required></label><label>Pessoas<input data-lp="pessoas" type="number" min="1" max="8" value="' + esc(prop.pessoas) + '"></label></div>'
+    + '<div class="pt-2"><label>Chegam às<input data-lp="chega" value="' + esc(prop.chega) + '" placeholder="0h30"></label><label>Nota para a casa<input data-lp="nota" value="' + esc(prop.nota) + '" placeholder="bolo, aniversariante, fatura…"></label></div>'
+    + '<label class="pt-r"><input type="checkbox" data-lp="motorista"' + (prop.motorista ? ' checked' : '') + '> Motorista ida e volta · ' + eur(MOTORISTA) + '</label>'
+    + '<label>A tua taxa de serviço (€)<input data-lp="taxa" type="number" min="0" step="5" value="' + esc(prop.taxa) + '"><small class="pt-dica">aparece ao cliente numa linha à parte, com o teu nome</small></label>'
+    + (g.lista ? '<label>Nomes na lista do Lux · ' + esc(n.nome) + ' <small class="pt-dica">um por linha · usaste ' + usados + ' de ' + g.cota + '</small><textarea data-lp="nomes" rows="3" placeholder="amigos que chegam depois, sem lugar na mesa">' + esc(prop.nomes) + '</textarea></label>' : '')
+    + '<div class="lg-res"><div><span>' + (prop.mesa ? 'Mesa ' + prop.mesa + ' · zona ' + prop.mesa[0] + ', ' + ZONAS[prop.mesa[0]][0] + ' · consumo mínimo, IVA e serviço' : 'Mesa · escolhe uma livre na planta') + '</span><b>' + (min ? eur(min) : '—') + '</b></div>'
+    + (mot ? '<div><span>Motorista ida e volta</span><b>' + eur(mot) + '</b></div>' : '') + (taxa ? '<div><span>Taxa de serviço · ' + esc(CONC[EU_CONC][0]) + '</span><b>' + eur(taxa) + '</b></div>' : '')
+    + (nomes.length ? '<div><span>' + nomes.length + ' ' + (nomes.length === 1 ? 'nome' : 'nomes') + ' na lista · entrada grátis até 1h</span><b>€0</b></div>' : '')
+    + '<div class="lg-tot"><span>Total ao cliente</span><b>' + eur(min + mot + taxa) + '</b></div>'
+    + (min ? '<p>A tua comissão do Lux: <b>' + eur(com) + '</b> (' + g.comissao + '% do mínimo), paga no repasse. O cliente paga a mesa ao preço do site.</p>' : '') + '</div>'
+    + (propMsg ? '<p class="pt-aviso">' + esc(propMsg) + '</p>' : '')
+    + '<button class="s-btn pink" type="submit">' + (prop.mesa ? 'Enviar proposta e segurar a ' + prop.mesa : nomes.length ? 'Pôr os nomes na lista' : 'Enviar proposta') + '</button></form></div>'
+    + '<div class="pt-card"><div class="pt-ch"><h3>As minhas reservas</h3></div><div class="lg-minhas">'
+    + (minhas.length ? minhas.map(r => { const e = estadoR(r), nn = noiteDe(r.noite), tot = minimoDe(r.mesa) + (r.motorista ? MOTORISTA : 0) + r.taxa;
+      return '<div class="lg-r"><div><b>' + esc(r.cliente) + '</b><small>Lux Frágil · ' + esc(nn.dia) + ' · ' + esc(nn.nome) + ' · mesa ' + r.mesa + ' · ' + r.pessoas + ' pessoas · chegam ' + esc(r.chega) + '</small><small>cliente paga ' + eur(tot) + ' · a tua comissão ' + eur(comissaoDe(r)) + (r.taxa ? ' + taxa ' + eur(r.taxa) : '') + '</small></div>'
+        + '<div class="lg-ra"><span class="lg-e ' + e + '">' + EST_R[e] + (e === 'segura' ? ' · até ' + hhmm(r.t + HOLD) + ' (' + Math.max(1, Math.ceil((r.t + HOLD - Date.now()) / 6e4)) + ' min)' : '') + '</span>'
+        + (e === 'segura' ? '<button type="button" class="s-btn mint" data-lg-r="pagou" data-id="' + r.id + '">Simular: cliente pagou</button><button type="button" class="pt-mini" data-lg-r="libertar" data-id="' + r.id + '">Libertar mesa</button>' : '')
+        + (e === 'confirmada' ? '<small>QR enviado ao cliente · check-in avisa-te na hora</small>' : '') + (e === 'pendente' ? '<small>o Lux aprova no painel dele · <a href="#parceiro">ver como parceiro</a></small>' : '') + '</div></div>'; }).join('') : '<p class="cm-vazio">Ainda sem reservas.</p>')
+    + '</div><p class="al-nota">Protótipo: a reserva fica neste aparelho e aparece no portal do Lux. Na app, o cliente recebe a proposta por link e paga no telemóvel; se não pagar em 30 min, a mesa volta ao estoque.</p></div>';
 }
 
 /* ---------- vistas ---------- */
@@ -2346,6 +2501,7 @@ function parceiro(){
     + evs.map(i => { const [v, cap, lista, rec] = d.lotacao[i.id] || [0, 0, 0, 0]; return '<tr><td><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a></td><td>' + esc(quando(i)) + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</td><td><div class="pt-occ"><i style="width:' + (cap ? v / cap * 100 : 0) + '%"></i></div>' + (i.preco === 0 ? 'entrada livre' : fmt(v) + ' / ' + fmt(cap)) + '</td><td>' + lista + '</td><td>' + (rec ? eur(rec) : '—') + '</td><td><a class="pt-mini" href="#parceiro" data-pt="naoimpl">Editar</a></td></tr>'; }).join('') + '</tbody></table></div></div>'
     + cardapio()
     + listas()
+    + conciergesParceiro()
     + '<div class="pt-2c"><div class="pt-card"><div class="pt-ch"><h3>Promoters da casa</h3><a class="pt-mini" href="promoters.html#lista">Convidar promoter</a></div><div class="pt-tw"><table class="pt-t"><thead><tr><th>Promoter</th><th>Indicações</th><th>Presenças</th><th>Comissão</th><th>A pagar</th></tr></thead><tbody>'
       + d.promoters.map(([id, ind, bil, pres, com, pagar]) => { const p = PR.find(x => x.id === id) || {nome:id}; return '<tr><td><a href="promoter.html#p=' + id + '"><b>' + esc(p.nome) + '</b></a></td><td>' + ind + '</td><td>' + pres + '</td><td>' + esc(com) + '</td><td>' + (pagar ? eur(pagar) : '—') + '</td></tr>'; }).join('') + '</tbody></table></div><p class="al-nota">A comissão é tua, declarada por evento e mostrada ao comprador (R71). Paga com o repasse.</p></div>'
     + '<div class="pt-card"><div class="pt-ch"><h3>Avaliações por responder</h3></div>' + d.aval.map(([n, e, t, resp], k) => '<div class="pt-av"><div><b>' + esc(n) + '</b><span>' + '★'.repeat(e) + '<i>' + '★'.repeat(5 - e) + '</i></span></div><p>' + esc(t) + '</p>' + (resp ? '<p class="pt-resp">Respondida: "Obrigado Mariana! Até sexta."</p>' : '<form class="pt-respf"><input placeholder="Responder em público" aria-label="Resposta"><button class="s-btn ghost" type="submit">Responder</button></form>') + '</div>').join('') + '<p class="al-nota">Respondes em público; não dá para apagar (R13).</p></div></div>'
@@ -2364,12 +2520,58 @@ function promoter(){
 function desenha(){
   const d = D[modo];
   el.innerHTML = '<section class="s-sec tight pt"><div class="s-wrap">'
-    + '<div class="pt-top"><div class="pt-abas" role="tablist"><a role="tab" href="#parceiro" class="' + (modo === 'parceiro' ? 'on' : '') + '">Parceiro · lugar</a><a role="tab" href="#promoter" class="' + (modo === 'promoter' ? 'on' : '') + '">Promoter</a></div>'
+    + '<div class="pt-top"><div class="pt-abas" role="tablist"><a role="tab" href="#parceiro" class="' + (modo === 'parceiro' ? 'on' : '') + '">Parceiro · lugar</a><a role="tab" href="#promoter" class="' + (modo === 'promoter' ? 'on' : '') + '">Promoter</a><a role="tab" href="#concierge" class="' + (modo === 'concierge' ? 'on' : '') + '">Concierge</a></div>'
     + '<div class="pt-quem"><b>' + esc(d.nome) + '</b><span>' + esc(d.sub) + ' · últimos 7 dias</span></div></div>'
-    + (modo === 'parceiro' ? parceiro() : promoter()) + '<p class="al-nota" style="margin-top:20px">Protótipo: números fictícios; eventos, lugares e promoters do site. As listas que criares ficam guardadas neste aparelho. <a href="#" data-pt="repor">Repor exemplo</a></p></div></section>';
+    + (modo === 'parceiro' ? parceiro() : modo === 'concierge' ? concierge() : promoter()) + '<p class="al-nota" style="margin-top:20px">Protótipo: números fictícios; eventos, lugares e promoters do site. As listas que criares ficam guardadas neste aparelho. <a href="#" data-pt="repor">Repor exemplo</a></p></div></section>';
   const f = el.querySelector('[data-pt-form]');
   if (f) f.addEventListener('change', () => { const ind = f.tipo.value === 'ind'; f.querySelector('.pt-ev').hidden = ind; f.querySelector('.pt-ind').hidden = !ind; });
 }
+/* concierges: escolher mesa e noite, aprovar, pagar, libertar */
+const redesenha = () => { const y = window.scrollY; desenha(); window.scrollTo(0, y); };
+el.addEventListener('click', ev => {
+  const t = ev.target.closest('[data-lg-mesa],[data-lg-noite],[data-lg-pnoite],[data-lg-r]'); if (!t) return;
+  ev.preventDefault();
+  if (t.dataset.lgMesa) { prop.mesa = prop.mesa === t.dataset.lgMesa ? '' : t.dataset.lgMesa; propMsg = ''; }
+  if (t.dataset.lgNoite) lgNoite = t.dataset.lgNoite;
+  if (t.dataset.lgPnoite) { prop.noite = t.dataset.lgPnoite; prop.mesa = ''; propMsg = ''; }
+  const r = t.dataset.lgR && LIG.reservas.find(x => x.id === t.dataset.id);
+  if (r) {
+    const a = t.dataset.lgR;
+    if (a === 'aprovar' && estadoR(r) === 'pendente') r.estado = 'confirmada';
+    if (a === 'recusar' && estadoR(r) === 'pendente') r.estado = 'recusada';
+    if (a === 'pagou' && estadoR(r) === 'segura') r.estado = LIG.cfg.confirma === 'auto' ? 'confirmada' : 'pendente';
+    if (a === 'libertar' && estadoR(r) === 'segura') r.estado = 'libertada';
+    gravaLig();
+  }
+  redesenha();
+});
+el.addEventListener('input', ev => {
+  const f = ev.target.closest('[data-lp]'); if (!f || f.type === 'checkbox') return;
+  prop[f.dataset.lp] = f.value;
+  if (f.dataset.lp === 'taxa' || f.dataset.lp === 'nomes') { const sel = f.dataset.lp, pos = f.selectionStart; redesenha(); const n = el.querySelector('[data-lp="' + sel + '"]'); if (n) { n.focus({preventScroll:true}); try { n.setSelectionRange(pos, pos); } catch (e) {} } }
+});
+el.addEventListener('change', ev => {
+  const f = ev.target.closest('[data-lp]'); if (f && f.type === 'checkbox') { prop[f.dataset.lp] = f.checked; redesenha(); return; }
+  const g = ev.target.closest('[data-lg]'); if (!g) return;
+  const k = g.dataset.lg; LIG.cfg[k] = g.type === 'checkbox' ? g.checked : g.type === 'number' ? Math.max(+g.min || 0, Math.min(+g.max || 99, +g.value || 0)) : g.value;
+  gravaLig(); redesenha();
+});
+el.addEventListener('submit', ev => {
+  const f = ev.target.closest('[data-lg-form]'); if (!f) return;
+  ev.preventDefault(); ev.stopImmediatePropagation();
+  const n = noiteDe(prop.noite), nomes = String(prop.nomes || '').split('\n').map(x => x.trim()).filter(Boolean), g = LIG.cfg;
+  if (!String(prop.cliente).trim()) { propMsg = 'Escreve o nome do cliente ou da ocasião.'; return redesenha(); }
+  if (!prop.mesa && !nomes.length) { propMsg = 'Escolhe uma mesa livre na planta ou escreve nomes para a lista.'; return redesenha(); }
+  if (prop.mesa && !g.mesas) { propMsg = 'O Lux não aceita reservas de mesa por concierges.'; return redesenha(); }
+  if (nomes.length && !g.lista) { propMsg = 'A lista do Lux está fechada a concierges.'; return redesenha(); }
+  if (nomes.length + usadosCota(EU_CONC, n) > g.cota) { propMsg = 'Passa a tua cota: ainda podes pôr ' + Math.max(0, g.cota - usadosCota(EU_CONC, n)) + ' nomes nesta noite.'; return redesenha(); }
+  if (prop.mesa) LIG.reservas.push({id:'r' + Date.now().toString(36), conc:EU_CONC, cliente:String(prop.cliente).trim(), pessoas:Math.max(1, Math.min(8, +prop.pessoas || 1)), noite:prop.noite, mesa:prop.mesa, chega:String(prop.chega || '').trim() || '—', nota:String(prop.nota || '').trim(), taxa:Math.max(0, +prop.taxa || 0), motorista:!!prop.motorista, estado:'segura', t:Date.now()});
+  if (nomes.length) { const l = listaDaNoite(n, true); nomes.forEach(x => l.nomes.push([x, 'aceite', CONC[EU_CONC][0] + ' · concierge'])); grava(); }
+  gravaLig();
+  prop = {noite:prop.noite, mesa:'', cliente:'', pessoas:6, chega:'0h30', nota:'', motorista:true, taxa:60, nomes:''}; propMsg = '';
+  redesenha();
+}, true);
+setInterval(() => { const ae = document.activeElement; if (modo === 'concierge' && LIG.reservas.some(r => r.estado === 'segura') && !(ae && ae.matches && ae.matches('input,textarea,select'))) redesenha(); }, 30000);
 el.addEventListener('click', ev => {
   const CA = window.STREETFY_CARDAPIOS, mk = ev.target.closest('[data-pt-capa],[data-pt-logomodo],[data-pt-semlogo]');
   if (mk && CA) {
@@ -2388,7 +2590,7 @@ el.addEventListener('click', ev => {
     redesenhaAp(k); return;
   }
   const b = ev.target.closest('[data-pt]'); if (!b) return;
-  const a = b.dataset.pt, L = LISTAS[modo], l = L.find(x => x.id === b.dataset.id);
+  const a = b.dataset.pt, L = LISTAS[modo] || [], l = L.find(x => x.id === b.dataset.id);
   if (a === 'abrir' && ev.target.closest('a')) return;
   ev.preventDefault();
   if (a === 'tabela') tabela = !tabela;
@@ -2399,7 +2601,7 @@ el.addEventListener('click', ev => {
   if (l && a === 'recusar') l.nomes.splice(+b.dataset.k, 1);
   if (l && a === 'entrou') l.nomes[+b.dataset.k][1] = 'entrou';
   if (a === 'copiar') { try { navigator.clipboard.writeText('https://streetfy.eu/r/rita-m'); b.textContent = 'Copiado ✓'; } catch (e) {} return; }
-  if (a === 'repor') { LISTAS = JSON.parse(JSON.stringify(LISTAS_PADRAO)); aberta = null; }
+  if (a === 'repor') { LISTAS = JSON.parse(JSON.stringify(LISTAS_PADRAO)); aberta = null; LIG = LIG_PADRAO(); gravaLig(); }
   if (a === 'naoimpl') { b.textContent = 'No protótipo, não'; return; }
   grava(); desenha();
 });
@@ -2441,7 +2643,7 @@ el.addEventListener('submit', ev => {
   if (f.matches('.pt-add')) { const l = LISTAS[modo].find(x => x.id === f.dataset.id); if (l && f.nome.value.trim()) { l.nomes.push([f.nome.value.trim(), 'aceite']); grava(); desenha(); } return; }
   if (f.matches('.pt-respf')) { const i = f.querySelector('input'); if (i.value.trim()) { const p = document.createElement('p'); p.className = 'pt-resp'; p.textContent = 'Respondida: "' + i.value.trim() + '"'; f.replaceWith(p); } }
 });
-const lerHash = () => { modo = location.hash === '#promoter' ? 'promoter' : 'parceiro'; aberta = null; formAberto = false; desenha(); };
+const lerHash = () => { modo = location.hash === '#promoter' ? 'promoter' : location.hash === '#concierge' ? 'concierge' : 'parceiro'; aberta = null; formAberto = false; desenha(); };
 window.addEventListener('hashchange', lerHash);
 lerHash();
 })();
