@@ -439,6 +439,16 @@ img{max-width:100%;display:block}
 @media (max-width:640px){.s-nav .s-lang{display:none}.s-nav .s-wrap{gap:10px}.s-conta{margin-left:auto}.s-nav .s-burger{margin-left:2px!important;flex:0 0 auto}}
 @media (max-width:420px){.s-logo{font-size:24px}.s-logo i{width:10px;height:10px}.s-ico{width:34px;height:34px}.s-ico svg{width:20px;height:20px}.s-av{width:34px;height:34px}.s-burger{width:40px;height:40px}}
 @media (max-width:900px){.s-nav.aberto .s-menu .so-movel:has(> a:not(.s-btn)){margin-top:0}.s-nav.aberto .s-menu .so-movel a:not(.s-btn){display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}}
+/* seguir o local nos cards (acoes.js) */
+.s-segue{font:inherit;font-size:13px;font-weight:800;line-height:1;padding:9px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;white-space:nowrap}
+.s-segue:hover{background:var(--pink);border-color:var(--pink)}
+.s-segue.on{background:#fff;color:var(--ink);border-color:var(--ink)}.s-segue.on:hover{background:#fff}
+.s-segue:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.s-segue.no-card{position:absolute;top:14px;right:14px;z-index:3}
+.s-card .s-segue:not(.on){background:#fff;color:var(--ink);border-color:#fff}.s-card .s-segue.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.ev-row .s-segue{align-self:center}
+.s-gosto.inline{position:static;flex:0 0 auto}
+.card-l .s-segue ~ .s-im .s-price{top:auto;bottom:12px}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
@@ -1746,11 +1756,16 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .cd-quem span{display:block}.cd-quem small{display:block;margin-top:2px}
 .cd-quem{flex-wrap:nowrap}.cd-quem i{flex:0 0 auto}.cd-quem span{flex:1 1 auto}
 
-/* pesquisa: seguir o local direto do card */
-.ct-seguir{white-space:nowrap}.ct-seguir.on{color:var(--ink)}
+/* cards da conta: curtir no canto, seguir o local */
+.ct-ev{position:relative}.ct-ev>.s-gosto{top:10px;right:10px;width:34px;height:34px}.ct-ev>.s-gosto svg{width:16px;height:16px}.ct-ev .ct-ev-b{padding-right:48px}
+.ct-sg .s-segue{padding:7px 13px}
 /* agenda: a nota só grava depois de confirmar */
 .ct-val button.on{color:var(--pink)}
 .ct-val-ok{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}.ct-val-ok span{font-size:12px;color:var(--grey);font-weight:700;flex:1 1 100%}.ct-val-ok .s-btn{padding:7px 13px;font-size:13px}
+
+.pr-ev .p-ev-h{padding-right:44px}
+.u-gostos a .s-gosto{top:6px;right:6px;width:30px;height:30px;box-shadow:none}.u-gostos a .s-gosto svg{width:14px;height:14px}.u-gostos a:has(.s-gosto.on){filter:none}
+.u-pn-l:has(.s-segue){grid-template-columns:48px minmax(0,1fr) auto}.u-pn-l .s-segue{grid-column:3;grid-row:1/3;padding:7px 12px;font-size:12px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -1798,7 +1813,55 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 <div><h4>Legal</h4><a href="#">Termos</a><a href="privacidade.html">Privacidade</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
 </div>
 <p class="legal"><b>Streetfy</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
-</div></footer><script>(function(){
+</div></footer><script>/* Streetfy · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
+   Curtir grava em streetfy:gostos (o mesmo da lista Hoje, do perfil e da página do evento).
+   Seguir grava em segue:<cidade/lugar> (o mesmo do botão Seguir do perfil do local).
+   Os botões podem estar dentro de um card que é link: o clique é tratado aqui e não abre o card.
+   Cards estáticos (card-l para perfil.html ou bilhete.html) recebem o botão sozinhos. */
+(function(){
+'use strict';
+const GK = 'streetfy:gostos';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const ICO = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21.3l-1.4-1.3C5.4 15.3 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.8-8.6 11.5L12 21.3z"/></svg>';
+const gostos = () => { try { return JSON.parse(localStorage.getItem(GK) || '[]'); } catch (e) { return []; } };
+const gosta = id => gostos().includes(id);
+const segue = k => { try { return localStorage.getItem('segue:' + k) === '1'; } catch (e) { return false; } };
+
+const coracao = (id, cls) => { const on = gosta(id); return '<button type="button" class="s-gosto' + (cls ? ' ' + cls : '') + (on ? ' on' : '') + '" data-curtir="' + esc(id) + '" aria-pressed="' + on + '" aria-label="' + (on ? 'Já curtes · tirar' : 'Curtir') + '" title="' + (on ? 'Já curtes · tirar' : 'Curtir') + '">' + ICO + '</button>'; };
+const seguir = (k, cls) => { const on = segue(k); return '<button type="button" class="s-segue' + (cls ? ' ' + cls : '') + (on ? ' on' : '') + '" data-segue-lugar="' + esc(k) + '" aria-pressed="' + on + '">' + (on ? 'A seguir ✓' : 'Seguir') + '</button>'; };
+
+function pintaCurtir(id){ const on = gosta(id); document.querySelectorAll('[data-curtir="' + CSS.escape(id) + '"]').forEach(b => { b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? 'Já curtes · tirar' : 'Curtir'); b.title = b.getAttribute('aria-label'); }); }
+function pintaSeguir(k){ const on = segue(k); document.querySelectorAll('[data-segue-lugar="' + CSS.escape(k) + '"]').forEach(b => { b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); b.textContent = on ? 'A seguir ✓' : 'Seguir'; }); }
+
+/* captura: corre antes dos outros cliques e não deixa o card-link abrir */
+document.addEventListener('click', ev => {
+  const c = ev.target.closest('[data-curtir]'), s = !c && ev.target.closest('[data-segue-lugar]');
+  if (!c && !s) return;
+  ev.preventDefault(); ev.stopImmediatePropagation();
+  if (c) {
+    const id = c.dataset.curtir, G = window.STREETFY_GOSTOS;
+    if (G && G.alternar) G.alternar(id);
+    else { const g = gostos(), i = g.indexOf(id); if (i >= 0) g.splice(i, 1); else g.push(id); try { localStorage.setItem(GK, JSON.stringify(g)); } catch (e) {} }
+    pintaCurtir(id);
+  } else {
+    const k = s.dataset.segueLugar; try { localStorage.setItem('segue:' + k, segue(k) ? '0' : '1'); } catch (e) {}
+    pintaSeguir(k);
+  }
+}, true);
+
+/* cards estáticos das páginas geradas */
+function decora(raiz){
+  (raiz || document).querySelectorAll('a.card-l.rv[href^="perfil.html#lugar="]:not([data-ac])').forEach(a => {
+    a.dataset.ac = '1'; const k = decodeURIComponent((/lugar=([^&]+)/.exec(a.getAttribute('href')) || [])[1] || ''); if (k) a.insertAdjacentHTML('afterbegin', seguir(k, 'no-card'));
+  });
+  (raiz || document).querySelectorAll('a.card-l.rv[href^="bilhete.html#lugar="]:not([data-ac])').forEach(a => {
+    a.dataset.ac = '1'; const id = decodeURIComponent((/evento=([^&]+)/.exec(a.getAttribute('href')) || [])[1] || ''); if (id) a.insertAdjacentHTML('afterbegin', coracao(id));
+  });
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => decora()); else decora();
+window.STREETFY_ACOES = {coracao, seguir, gosta, segue, decora};
+})();
+</script><script>(function(){
 'use strict';
 const nav=document.getElementById('nav'); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const onS=()=>{nav.classList.toggle('on',scrollY>40||nav.dataset.always==='1')}; addEventListener('scroll',onS,{passive:true}); onS();
@@ -2085,6 +2148,9 @@ const ICO = {
 };
 const coracao = (i, t) => '<button type="button" class="s-gosto' + (gosta(i) ? ' on' : '') + '" data-f="gosto" data-v="' + esc(i.id) + '" aria-pressed="' + gosta(i) + '" aria-label="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '" title="' + esc(gosta(i) ? t.jaGosto : t.gosto) + '">' + ICO.coracao + '</button>';
 
+/* locais seguem-se, eventos curtem-se (acoes.js) */
+const acao = (i, t, cls) => i.kind === 'lugar' && window.STREETFY_ACOES ? window.STREETFY_ACOES.seguir(lugarKey(i), cls) : coracao(i, t);
+
 /* ---------- ajudantes ---------- */
 const lang = () => (document.documentElement.lang || 'pt').slice(0, 2) === 'en' ? 'en' : 'pt';
 const T = () => L[lang()];
@@ -2166,7 +2232,7 @@ function presenca(i, t){
 }
 function cartaoPoster(i, k, t){
   const livre = i.preco === 0;
-  return '<a class="s-card pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>' + coracao(i, t)
+  return '<a class="s-card pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="s-im" style="background-image:url(' + im(i) + ')"></div>' + acao(i, t, 'no-card')
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(tag(i)) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + '<h3>' + esc(i.titulo) + '</h3>'
     + '<p><b>' + esc(i.lugar) + '</b>' + (i._fora ? ' · ' + esc(i._fora) : '') + (i.hora ? ' · ' + esc(i.hora) : '') + (livre ? '' : ' · ' + esc(preco(i)))
     + (i.aqui ? ' <span class="s-here">● ' + i.aqui + ' ' + t.aqui + '</span>' : (i.vao ? ' <span class="s-here" style="color:#dcdcdc">' + i.vao + ' ' + t.vao + '</span>' : '')) + (i.origem === 'bot' ? '<span class="s-via">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + '</p></a>';
@@ -2174,7 +2240,7 @@ function cartaoPoster(i, k, t){
 function cartaoLista(i, k, t){
   const livre = i.preco === 0;
   const topo = livre ? (i.hora ? i.hora + ' · ' : '') + t.livre : (i.hora ? i.hora + ' · ' : '') + i.estilo;
-  return '<a class="card-l pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '">' + coracao(i, t) + '<div class="s-im" style="background-image:url(' + im(i) + ')">'
+  return '<a class="card-l pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (k * 60) + 'ms" href="' + esc(hrefPerfil(i)) + '">' + acao(i, t, 'no-card') + '<div class="s-im" style="background-image:url(' + im(i) + ')">'
     + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(topo) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">' + t.patrocinado + '</span>' : '') + (livre ? '' : '<span class="s-price">' + esc(preco(i)) + '</span>') + '</div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar) + ((i._fora || i.bairro) ? ' · ' + esc(i._fora || i.bairro) : '') + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<div class="op"><i>✓</i>' + presenca(i, t) + '</div><span class="pp">' + esc(i.pp || '') + (i.origem === 'bot' ? (i.pp ? ' · ' : '') + t.via + ' ' + esc(i.fonte) : '') + (i.instagram ? '<span class="s-ig">@' + esc(i.instagram) + '</span>' : '') + '</span></div></a>';
@@ -2186,7 +2252,7 @@ function cartaoLinha(i, k, t){
   return '<a class="ev-row pop' + (gosta(i) ? ' gostado' : '') + '" data-id="' + esc(i.id) + '" style="animation-delay:' + (Math.min(k, 12) * 40) + 'ms" href="' + esc(hrefPerfil(i)) + '"><div class="im" style="background-image:url(' + im(i) + ')"></div>'
     + '<div class="bd"><h3>' + esc(i.titulo) + '</h3><p><b>' + esc(i.lugar) + '</b>' + (i._fora ? ' · ' + esc(i._fora) : '') + (i.bairro ? ' · ' + esc(i.bairro) : '') + (i.hora ? ' · ' + esc(i.hora) : '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (i.star ? ' · ★ ' + i.star : '') + '</p>'
     + '<p class="et">' + (i.origem === 'patrocinado' ? '<span class="ev-tag pat">' + t.patrocinado + '</span>' : '') + (i.origem === 'bot' ? '<span class="ev-tag">' + t.via + ' ' + esc(i.fonte) + '</span>' : '') + (i.instagram ? '<span class="ev-tag ig">@' + esc(i.instagram) + '</span>' : '') + (i.pp && i.origem !== 'bot' ? '<span class="pp">' + esc(i.pp) + '</span>' : '') + '</p></div>'
-    + '<div class="dir">' + (pr ? '<span class="pr' + (livre ? ' mint' : '') + '">' + esc(pr) + '</span>' : '') + (pres ? '<span class="pres">' + pres + '</span>' : '') + '</div>' + coracao(i, t) + '</a>';
+    + '<div class="dir">' + (pr ? '<span class="pr' + (livre ? ' mint' : '') + '">' + esc(pr) + '</span>' : '') + (pres ? '<span class="pres">' + pres + '</span>' : '') + '</div>' + acao(i, t) + '</a>';
 }
 function vazio(e, t, cidade){
   const espera = document.getElementById('espera') ? '#espera' : 'cidades.html#espera';
