@@ -1830,6 +1830,20 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-lo-sel{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;border:1.5px solid var(--line)}
 .ct-lo-sel.ok{background:var(--mint);border-color:var(--mint);color:var(--ink)}.ct-lo-sel.ia{color:var(--grey)}
 .ct-lo .s-segue{padding:7px 13px}
+/* pesquisa: vista em lista */
+.ct-fres{display:flex;align-items:center;gap:10px;margin:6px 0 0;font-size:13px;color:var(--grey);font-weight:700}
+.ct-rows{display:grid;gap:8px}
+.ct-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto auto;gap:12px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:8px 10px 8px 8px}
+.ct-row-im{width:56px;height:56px;border-radius:10px;background:var(--ink) center/cover no-repeat;display:block}.ct-row-im.redondo{border-radius:50%}
+.ct-row-b{display:grid;gap:1px;min-width:0;color:var(--ink);text-decoration:none}
+.ct-row-b b{font-size:15px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-row-b span{font-size:12.5px;color:var(--grey);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-row-d{font-weight:800;font-size:14px;white-space:nowrap}
+.ct-row .s-gosto.inline{width:34px;height:34px;box-shadow:none}.ct-row .s-gosto.inline svg{width:16px;height:16px}
+.ct-row .s-segue{padding:7px 12px}
+.ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
+.ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
+@media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3110,6 +3124,17 @@ const cardLocal = v => { const tp = [...v.tipos].filter(x => x !== 'livre').map(
     + (v.prox ? '<a class="ct-lo-px" href="' + esc(hrefEv(v.prox)) + '"><small>Próximo</small><b>' + esc(v.prox.titulo) + '</b><span>' + esc(quandoHora(v.prox)) + '</span></a>' : '')
     + '<div class="ct-lo-f"><span class="ct-lo-sel ' + (v.streetfy ? 'ok' : 'ia') + '">' + (v.streetfy ? 'Bilhete e reserva aqui' : 'Perfil gerido pela IA') + '</span>' + btnSeguir(v.i) + '</div></div></article>'; };
 const cardPessoa = p => '<div class="ct-sg"><a href="' + esc(p.h) + '"><i style="background-image:url(img/' + esc(p.f) + '.jpg)"></i><b>' + esc(p.n) + '</b><span class="pc-tipo ' + (p.papel === 'pessoa' ? '' : p.papel) + '">' + esc(p.papel === 'pessoa' ? 'utilizador' : p.papel) + '</span><span>' + esc(CID(p.cid)) + '</span></a></div>';
+let vistaPq = (() => { try { return localStorage.getItem('streetfy:vista') === 'lista' ? 'lista' : 'cartoes'; } catch (e) { return 'cartoes'; } })();
+const ICO_G = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor"/></svg>';
+const ICO_L = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="4" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3" rx="1.5" fill="currentColor"/></svg>';
+const vistaBtns = () => '<span class="fvista" role="group" aria-label="Vista">' + [['cartoes', ICO_G, 'Cartões'], ['lista', ICO_L, 'Lista']].map(([v, ic, tx]) => '<button type="button" data-pq-vista="' + v + '" class="' + (vistaPq === v ? 'on' : '') + '" aria-pressed="' + (vistaPq === v) + '">' + ic + '<span>' + tx + '</span></button>').join('') + '</span>';
+/* vista em lista: uma linha por resultado */
+const A_ = window.STREETFY_ACOES;
+const linhaEv = i => '<div class="ct-row"><a class="ct-row-im" href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(imgI(i)) + ')"></a><a class="ct-row-b" href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b><span>' + esc([i.lugar, CID(i.cidade || 'lisboa'), quandoHora(i)].filter(Boolean).join(' · ')) + '</span></a><span class="ct-row-d">' + (typeof i.preco === 'number' ? (i.preco ? '€' + i.preco : 'Grátis') : esc(i.preco || '')) + '</span>' + (A_ ? A_.coracao(i.id, 'inline') : '') + '</div>';
+const linhaLo = v => '<div class="ct-row"><a class="ct-row-im" href="' + esc(hrefLugar(v.i)) + '" style="background-image:url(' + esc(v.img || imgI(v.i)) + ')"></a><a class="ct-row-b" href="' + esc(hrefLugar(v.i)) + '"><b>' + esc(v.i.lugar) + '</b><span>' + esc([[...v.tipos].filter(x => x !== 'livre').map(x => TIPO_LOC[x] || x).slice(0, 2).join(' · '), v.i.bairro, CID(v.i.cidade || 'lisboa')].filter(Boolean).join(' · ')) + '</span><span>' + (v.star ? '★ ' + String(v.star).replace('.', ',') + ' · ' : '') + (v.nSem ? v.nSem + (v.nSem === 1 ? ' evento' : ' eventos') + ' esta semana' : 'sem eventos esta semana') + (v.aqui ? ' · ● ' + v.aqui + ' aqui' : '') + '</span></a>' + btnSeguir(v.i) + '</div>';
+const linhaPe = p => '<div class="ct-row"><a class="ct-row-im redondo" href="' + esc(p.h) + '" style="background-image:url(img/' + esc(p.f) + '.jpg)"></a><a class="ct-row-b" href="' + esc(p.h) + '"><b>' + esc(p.n) + '</b><span>' + esc((p.papel === 'pessoa' ? 'utilizador' : p.papel) + ' · ' + CID(p.cid)) + '</span></a></div>';
+const bloco = (tipo, itens) => vistaPq === 'lista' ? '<div class="ct-rows">' + itens.map(tipo === 'eventos' ? linhaEv : tipo === 'locais' ? linhaLo : linhaPe).join('') + '</div>'
+  : '<div class="' + (tipo === 'eventos' ? 'ct-lista' : tipo === 'locais' ? 'ct-locs' : 'ct-sug') + '">' + itens.map(tipo === 'eventos' ? cardEv : tipo === 'locais' ? cardLocal : cardPessoa).join('') + '</div>';
 const cardEv = i => cartao(i, '<div class="ct-ac">' + (EV ? EV.botao(i) : '') + (i.lugar ? btnSeguir(i) : '') + '</div>');
 function pesquisa(){
   const t = q.trim(), cj = conjuntos(), cat = stPq.top, pais = paisPq(), cid = cidPq();
@@ -3123,23 +3148,24 @@ function pesquisa(){
   const painel = FA ? FA.painel(stPq, {tudo:'Tudo', topo:[['eventos', 'Eventos', cj.eventos.length], ['locais', 'Locais', cj.locais.length], ['pessoas', 'Pessoas', cj.pessoas.length]], passos:passosPq}) : '';
   let res;
   if (!cat) {
-    res = '<section class="ct-sec"><h2>' + (t ? 'Eventos' : 'A seguir ' + zona) + '</h2><div class="ct-lista">' + (cj.eventos.slice(0, 6).map(cardEv).join('') || '<p class="cm-vazio">Nenhum evento ' + zona + (t ? ' com "' + esc(q) + '"' : '') + '. Muda a cidade ou aumenta o raio.</p>') + '</div></section>'
-      + (t && cj.locais.length ? '<section class="ct-sec"><h2>Locais</h2><div class="ct-locs">' + cj.locais.slice(0, 6).map(cardLocal).join('') + '</div></section>' : '')
-      + (t && cj.pessoas.length ? '<section class="ct-sec"><h2>Pessoas</h2><div class="ct-sug">' + cj.pessoas.slice(0, 6).map(cardPessoa).join('') + '</div></section>' : '');
+    res = '<section class="ct-sec"><h2>' + (t ? 'Eventos' : 'A seguir ' + zona) + '</h2>' + (cj.eventos.length ? bloco('eventos', cj.eventos.slice(0, 6)) : '<p class="cm-vazio">Nenhum evento ' + zona + (t ? ' com "' + esc(q) + '"' : '') + '. Muda a cidade ou aumenta o raio.</p>') + '</section>'
+      + (t && cj.locais.length ? '<section class="ct-sec"><h2>Locais</h2>' + bloco('locais', cj.locais.slice(0, 6)) + '</section>' : '')
+      + (t && cj.pessoas.length ? '<section class="ct-sec"><h2>Pessoas</h2>' + bloco('pessoas', cj.pessoas.slice(0, 6)) + '</section>' : '');
   } else {
     const lista = cj[cat].filter(x => passa(x, PQ[cat])), nome = {eventos:'Eventos', locais:'Locais', pessoas:'Pessoas'}[cat];
-    const cards = lista.slice(0, mostrarPq).map(cat === 'eventos' ? cardEv : cat === 'locais' ? cardLocal : cardPessoa).join('');
-    res = '<section class="ct-sec"><h2>' + nome + ' ' + zona + ' <small class="ct-n">' + lista.length + '</small></h2><div class="' + (cat === 'eventos' ? 'ct-lista' : cat === 'locais' ? 'ct-locs' : 'ct-sug') + '">' + (cards || '<p class="cm-vazio">Nada com estes filtros ' + zona + '. Toca numa etiqueta para a mudar, ou aumenta o raio.</p>') + '</div>'
+    const cards = lista.length ? bloco(cat, lista.slice(0, mostrarPq)) : '';
+    res = '<section class="ct-sec"><h2>' + nome + ' ' + zona + ' <small class="ct-n">' + lista.length + '</small></h2>' + (cards || '<p class="cm-vazio">Nada com estes filtros ' + zona + '. Toca numa etiqueta para a mudar, ou aumenta o raio.</p>')
       + (lista.length > mostrarPq ? '<p style="text-align:center;margin:14px 0 0"><button type="button" class="s-btn ink" data-pq-mais>Ver mais ' + Math.min(12, lista.length - mostrarPq) + '</button></p>' : '') + '</section>';
   }
   const rec = ls('streetfy:pesquisas', []);
   return '<form class="ct-pesq" data-ct-pesq role="search"><input type="search" name="q" value="' + esc(q) + '" placeholder="Festas, locais, pessoas, estilos…" aria-label="Pesquisar" autocomplete="off"><button class="s-btn pink" type="submit">Pesquisar</button></form>'
     + '<div class="fa ct-fa">' + ondeH + (!t && !cat && rec.length ? '<p class="ct-rec">Recentes: ' + rec.map(r => '<button type="button" data-ct-rec="' + esc(r) + '">' + esc(r) + '</button>').join('') + '</p>' : '') + painel + '</div>'
-    + '<div data-ct-res>' + res + '</div>';
+    + '<p class="fres ct-fres"><span>' + (cat ? '' : 'Resultados ' + zona) + '</span>' + vistaBtns() + '</p><div data-ct-res>' + res + '</div>';
 }
 if (el.dataset.conta === 'pesquisa') {
   el.addEventListener('click', ev => {
     const m = ev.target.closest('[data-pq-mais]'); if (m) { mostrarPq += 12; desenha(); return; }
+    const vb = ev.target.closest('[data-pq-vista]'); if (vb) { vistaPq = vb.dataset.pqVista; try { localStorage.setItem('streetfy:vista', vistaPq); } catch (e2) {} desenha(); return; }
     const b = ev.target.closest('[data-fa]'); if (!b || !FA || b.disabled || b.dataset.fa === 'raio') return;
     const o = FA.acaoOnde(uiOnde, b);
     if (o && o.pais) ondePq.pais = o.pais;

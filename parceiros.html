@@ -1830,6 +1830,20 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-lo-sel{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;border:1.5px solid var(--line)}
 .ct-lo-sel.ok{background:var(--mint);border-color:var(--mint);color:var(--ink)}.ct-lo-sel.ia{color:var(--grey)}
 .ct-lo .s-segue{padding:7px 13px}
+/* pesquisa: vista em lista */
+.ct-fres{display:flex;align-items:center;gap:10px;margin:6px 0 0;font-size:13px;color:var(--grey);font-weight:700}
+.ct-rows{display:grid;gap:8px}
+.ct-row{display:grid;grid-template-columns:56px minmax(0,1fr) auto auto;gap:12px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:8px 10px 8px 8px}
+.ct-row-im{width:56px;height:56px;border-radius:10px;background:var(--ink) center/cover no-repeat;display:block}.ct-row-im.redondo{border-radius:50%}
+.ct-row-b{display:grid;gap:1px;min-width:0;color:var(--ink);text-decoration:none}
+.ct-row-b b{font-size:15px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-row-b span{font-size:12.5px;color:var(--grey);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-row-d{font-weight:800;font-size:14px;white-space:nowrap}
+.ct-row .s-gosto.inline{width:34px;height:34px;box-shadow:none}.ct-row .s-gosto.inline svg{width:16px;height:16px}
+.ct-row .s-segue{padding:7px 12px}
+.ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
+.ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
+@media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
