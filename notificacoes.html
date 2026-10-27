@@ -1858,6 +1858,11 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ev-sh.wa{background:#25d366;border-color:#25d366;color:#0b0b0b}
 .ev-sh.ig{background:linear-gradient(45deg,#f9a825,#e1306c 45%,#833ab4);border-color:transparent;color:#fff}
 .ev-sh:hover{transform:translateY(-1px)}.ev-sh:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+/* botões de partilha: redondos, só o ícone */
+.ev-sh{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%}
+.ev-sh b{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ev-sh svg{width:22px;height:22px}
+.ev-fora>div{gap:10px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2947,7 +2952,7 @@ const ICO_IG = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="tru
 const ICO_LK = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const urlEv = i => new URL('bilhete.html#lugar=' + encodeURIComponent(C().lugarKey ? C().lugarKey(i) : '') + '&evento=' + encodeURIComponent(i.id), location.href).href;
 const textoEv = (i, msg) => (msg || 'Bora?') + ' ' + i.titulo + (i.lugar && i.lugar !== i.titulo ? ' no ' + i.lugar : '') + ' 👉 ';
-const fora = () => '<div class="ev-fora"><span>Ou manda fora do Streetfy</span><div><a class="ev-sh wa" href="#" data-ev-sh="wa" target="_blank" rel="noopener" aria-label="Mandar por WhatsApp">' + ICO_WA + '<b>WhatsApp</b></a><button type="button" class="ev-sh ig" data-ev-sh="ig" aria-label="Mandar pelo Instagram">' + ICO_IG + '<b>Instagram</b></button><button type="button" class="ev-sh lk" data-ev-sh="lk" aria-label="Copiar o link">' + ICO_LK + '<b>Copiar link</b></button></div></div>';
+const fora = () => '<div class="ev-fora"><span>Ou manda fora do Streetfy</span><div><a class="ev-sh wa" href="#" data-ev-sh="wa" target="_blank" rel="noopener" aria-label="Mandar por WhatsApp" title="WhatsApp">' + ICO_WA + '<b>WhatsApp</b></a><button type="button" class="ev-sh ig" data-ev-sh="ig" aria-label="Mandar pelo Instagram" title="Instagram">' + ICO_IG + '<b>Instagram</b></button><button type="button" class="ev-sh lk" data-ev-sh="lk" aria-label="Copiar o link" title="Copiar link">' + ICO_LK + '<b>Copiar link</b></button></div></div>';
 const copia = t => (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject()).catch(() => { const a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} a.remove(); if (!ok) throw new Error('sem cópia'); });
 function painel(i){
   const ja = indicadosDe(i.id);
