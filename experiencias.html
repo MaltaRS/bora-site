@@ -2084,6 +2084,12 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .ap-okt{font-weight:700;color:#0b5a33;font-size:14px}
 .ap-bt{margin:6px 0 6px}
 .ap-bans{list-style:none;margin:0;padding:0;display:grid;gap:6px}.ap-bans li{display:flex;justify-content:space-between;gap:10px;padding:8px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:14px}
+.card-l .s-price,.s-rail .s-card .s-price{background:var(--pink);color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+/* a foto fica a preto e branco, mas as etiquetas por cima (preço rosa) mantêm a cor: o filtro passa para uma camada só da imagem */
+.card-l .s-im{filter:none}
+.card-l .s-im::before{content:"";position:absolute;inset:0;background:inherit;filter:grayscale(1) contrast(1.3);transition:filter .6s;z-index:0}
+.card-l:hover .s-im::before{filter:grayscale(0)}
+.card-l .s-im>*{z-index:1}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
