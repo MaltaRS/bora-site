@@ -2140,6 +2140,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .of-big .of-code{margin:0;font:800 20px/1 var(--fb);letter-spacing:.1em}
 .of-big p{margin:0}
 .of-va{flex-wrap:wrap}
+
+/* DJs */
+.dj-fil{display:grid;gap:8px;margin-bottom:16px}
+.dj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.dj-card{display:grid;grid-template-rows:200px auto;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#fff;color:var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.dj-card:hover{transform:translateY(-3px);box-shadow:5px 5px 0 var(--pink)}
+.dj-im{position:relative;background-size:cover;background-position:center}
+.dj-im::before{content:"";position:absolute;inset:0;background:inherit;filter:grayscale(1) contrast(1.25)}
+.dj-card:hover .dj-im::before{filter:none}
+.dj-art{position:absolute;left:12px;bottom:10px;z-index:1;font:400 34px/1 var(--fd);color:#fff;text-shadow:0 2px 0 #0b0b0b}
+.dj-niv{position:absolute;top:12px;left:12px;z-index:1;font:800 10px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--pink);color:#0b0b0b}
+.dj-niv.residente{background:var(--mint)}.dj-niv.ascensao{background:#fff}
+.dj-b{display:grid;gap:4px;padding:12px 14px}.dj-b b{font-size:16px}.dj-b span{font-size:13px;color:var(--grey)}.dj-prox b{font-size:13px;color:var(--ink)}
+.dj-set{display:grid;gap:8px}.dj-setl{color:inherit;text-decoration:none}
+.dj-setac{display:flex;gap:8px;flex-wrap:wrap}.dj-pedido{font-size:13px;font-weight:700;color:#0b5a33;background:#dff7ea;padding:6px 10px;border-radius:10px}
+.dj-mixes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dj-mixes li{display:flex;align-items:center;gap:12px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.dj-mixes li div{flex:1;min-width:0;display:grid;gap:2px}.dj-mixes span{font-size:12px;color:var(--grey)}
+.dj-play{flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff!important;display:grid;place-items:center;font-size:13px!important}
+.dj-rider{margin:10px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.dj-bk label{display:grid;gap:4px;font-size:13px;font-weight:700}
+.dj-bk input,.dj-bk select{font:inherit;font-size:15px;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.dj-bk-i{display:grid;gap:10px;padding:12px;border:2px solid var(--ink);border-radius:14px;background:#fff;margin-bottom:10px}
+.dj-bk-i>div:first-child{display:grid;gap:3px}.dj-bk-i span{font-size:13px;color:var(--grey)}
+.dj-bk-ac{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dj-cp{display:flex;gap:6px;flex-wrap:wrap}.dj-cp input{width:130px;font:inherit;font-size:14px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px}
+.dj-ag{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dj-ag li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.dj-ag li span{grid-column:1;font-size:13px;color:var(--grey)}.dj-ag li i{grid-row:1/3;grid-column:2;align-self:center;font-style:normal;font:800 10px/1 var(--fb);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:#f2f2f2}
+.dj-ag li i.ok{background:#dff7ea;color:#0b5a33}
+.dj-rid{width:100%;box-sizing:border-box;font:inherit;font-size:14px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;resize:vertical}
+.dj-mixf{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.dj-mixf input,.dj-mixf select{font:inherit;font-size:14px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}.dj-mixf input[data-djm="t"]{flex:1 1 180px}.dj-mixf input[type=number]{width:80px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2175,12 +2207,12 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
 <a class="s-logo" href="index.html"><i class="mono" aria-hidden="true"><b>X</b><b>Y</b></i><span>XOUTY</span></a>
-<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
+<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="djs.html">DJs</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><div data-concierge></div><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
-<div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html">A tua festa</a></div>
+<div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="djs.html">DJs</a><a href="festa.html">A tua festa</a></div>
 <div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="amigos-mapa.html">Mapa dos amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
 <div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Xouty</a></div>
 <div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
@@ -2399,6 +2431,8 @@ const PAPEIS = {
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
     itens:[['concierge-perfil.html#c=lara-v', 'O meu perfil público'], ['portal.html#concierge', 'Portal do concierge'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  dj:{nome:'NVRL · Nuno Varela', sub:'DJ residente · Lisboa', foto:'dj', tipo:'DJ', perfil:'dj.html#d=nuno-v',
+    itens:[['dj.html#d=nuno-v', 'O meu perfil público'], ['portal.html#dj', 'Portal do DJ'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   local:{nome:'Lux Frágil', sub:'Local · Santa Apolónia', foto:'lux', tipo:'Local', perfil:'perfil.html#lugar=lisboa%2Flux%20fragil',
     itens:[['perfil.html#lugar=lisboa%2Flux%20fragil', 'O perfil do local'], ['portal.html#parceiro', 'Portal do local'], ['portal.html#planta', 'Desenhar a planta'], ['menu.html#lugar=lisboa%2Fclube%20de%20fado', 'Menu de exemplo'], ['notificacoes.html', 'Notificações']]}
 };

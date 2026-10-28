@@ -2140,6 +2140,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .of-big .of-code{margin:0;font:800 20px/1 var(--fb);letter-spacing:.1em}
 .of-big p{margin:0}
 .of-va{flex-wrap:wrap}
+
+/* DJs */
+.dj-fil{display:grid;gap:8px;margin-bottom:16px}
+.dj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.dj-card{display:grid;grid-template-rows:200px auto;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#fff;color:var(--ink);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.dj-card:hover{transform:translateY(-3px);box-shadow:5px 5px 0 var(--pink)}
+.dj-im{position:relative;background-size:cover;background-position:center}
+.dj-im::before{content:"";position:absolute;inset:0;background:inherit;filter:grayscale(1) contrast(1.25)}
+.dj-card:hover .dj-im::before{filter:none}
+.dj-art{position:absolute;left:12px;bottom:10px;z-index:1;font:400 34px/1 var(--fd);color:#fff;text-shadow:0 2px 0 #0b0b0b}
+.dj-niv{position:absolute;top:12px;left:12px;z-index:1;font:800 10px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--pink);color:#0b0b0b}
+.dj-niv.residente{background:var(--mint)}.dj-niv.ascensao{background:#fff}
+.dj-b{display:grid;gap:4px;padding:12px 14px}.dj-b b{font-size:16px}.dj-b span{font-size:13px;color:var(--grey)}.dj-prox b{font-size:13px;color:var(--ink)}
+.dj-set{display:grid;gap:8px}.dj-setl{color:inherit;text-decoration:none}
+.dj-setac{display:flex;gap:8px;flex-wrap:wrap}.dj-pedido{font-size:13px;font-weight:700;color:#0b5a33;background:#dff7ea;padding:6px 10px;border-radius:10px}
+.dj-mixes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dj-mixes li{display:flex;align-items:center;gap:12px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.dj-mixes li div{flex:1;min-width:0;display:grid;gap:2px}.dj-mixes span{font-size:12px;color:var(--grey)}
+.dj-play{flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff!important;display:grid;place-items:center;font-size:13px!important}
+.dj-rider{margin:10px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.dj-bk label{display:grid;gap:4px;font-size:13px;font-weight:700}
+.dj-bk input,.dj-bk select{font:inherit;font-size:15px;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.dj-bk-i{display:grid;gap:10px;padding:12px;border:2px solid var(--ink);border-radius:14px;background:#fff;margin-bottom:10px}
+.dj-bk-i>div:first-child{display:grid;gap:3px}.dj-bk-i span{font-size:13px;color:var(--grey)}
+.dj-bk-ac{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dj-cp{display:flex;gap:6px;flex-wrap:wrap}.dj-cp input{width:130px;font:inherit;font-size:14px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px}
+.dj-ag{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.dj-ag li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.dj-ag li span{grid-column:1;font-size:13px;color:var(--grey)}.dj-ag li i{grid-row:1/3;grid-column:2;align-self:center;font-style:normal;font:800 10px/1 var(--fb);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:#f2f2f2}
+.dj-ag li i.ok{background:#dff7ea;color:#0b5a33}
+.dj-rid{width:100%;box-sizing:border-box;font:inherit;font-size:14px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;resize:vertical}
+.dj-mixf{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.dj-mixf input,.dj-mixf select{font:inherit;font-size:14px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}.dj-mixf input[data-djm="t"]{flex:1 1 180px}.dj-mixf input[type=number]{width:80px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2175,12 +2207,12 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
 <a class="s-logo" href="index.html"><i class="mono" aria-hidden="true"><b>X</b><b>Y</b></i><span>XOUTY</span></a>
-<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
+<ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li><a href="djs.html">DJs</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
 </div></header><section class="s-sec tight ed-pg ct-pg"><div class="s-wrap"><div class="crumbs ed-crumbs"><a href="index.html">Xouty</a> › <span>Os meus planos</span></div><h1 class="s-h" style="font-size:clamp(48px,7vw,96px)">OS MEUS <em>PLANOS</em></h1><p class="s-lead ct-lead">Bilhetes, listas, reservas e as festas a que disseste "Eu vou". Os QR ficam no telemóvel, mesmo sem rede.</p><div data-conta="agenda"></div></div></section><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
-<div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html">A tua festa</a></div>
+<div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="djs.html">DJs</a><a href="festa.html">A tua festa</a></div>
 <div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="amigos-mapa.html">Mapa dos amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
 <div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Xouty</a></div>
 <div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
@@ -2895,6 +2927,8 @@ const PAPEIS = {
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
     itens:[['concierge-perfil.html#c=lara-v', 'O meu perfil público'], ['portal.html#concierge', 'Portal do concierge'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
+  dj:{nome:'NVRL · Nuno Varela', sub:'DJ residente · Lisboa', foto:'dj', tipo:'DJ', perfil:'dj.html#d=nuno-v',
+    itens:[['dj.html#d=nuno-v', 'O meu perfil público'], ['portal.html#dj', 'Portal do DJ'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   local:{nome:'Lux Frágil', sub:'Local · Santa Apolónia', foto:'lux', tipo:'Local', perfil:'perfil.html#lugar=lisboa%2Flux%20fragil',
     itens:[['perfil.html#lugar=lisboa%2Flux%20fragil', 'O perfil do local'], ['portal.html#parceiro', 'Portal do local'], ['portal.html#planta', 'Desenhar a planta'], ['menu.html#lugar=lisboa%2Fclube%20de%20fado', 'Menu de exemplo'], ['notificacoes.html', 'Notificações']]}
 };
@@ -3194,6 +3228,149 @@ document.querySelectorAll('[data-promoters]').forEach(grelha);
 document.querySelectorAll('[data-promoter]').forEach(perfil);
 window.STREETFY_PROMOTERS = {lista:P, festasDe};
 })();
+</script><script>/* Xouty · djs.js — DJs: o mesmo papel do promoter (lista de convidados, link e comissão, aprovação pela casa) mais o que é só do DJ:
+   sets na agenda, pedidos de booking das casas (aceitar, recusar, contraproposta de cachê), rider técnico, mixes e residências.
+   Grelha (djs.html, [data-djs]) e perfil (dj.html#d=<id>, [data-dj-perfil]). Pessoas e nomes artísticos fictícios.
+   Guardado neste aparelho: streetfy:segue-djs, streetfy:dj-bookings, streetfy:dj-listas, streetfy:dj-rider, streetfy:dj-mixes. */
+(function(){
+'use strict';
+const C = window.STREETFY_CATALOGO || {itens:[], lugarKey:() => ''};
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+const fmt = n => Math.round(n).toLocaleString('pt-PT');
+const ler = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } };
+const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const NIVEL = {residente:'DJ residente', convidado:'DJ convidado', ascensao:'DJ em ascensão'};
+const CID = {lisboa:'Lisboa', porto:'Porto', coimbra:'Coimbra', faro:'Faro'};
+const RIDER0 = ['2 × CDJ-3000 em link', 'Mesa DJM-V10 ou DJM-900NXS2', '2 monitores de cabine à altura do ouvido', 'Entrada USB e cartão SD', 'Água e toalha na cabine'];
+const D = [
+ {id:'nuno-v', nome:'Nuno Varela', art:'NVRL', foto:'dj', cidade:'lisboa', nivel:'residente', casa:'Lux Frágil', generos:['techno', 'house'], estilos:['techno', 'house', 'festa'], nota:'4,8', resp:318, seg:5120, sets:9, publico:1840, cache:600, comissao:6, bio:'Residente às sextas no Lux. Techno de madrugada, house quando o sol nasce sobre o rio.', ids:['l4', 'l11'], mixes:[['Sexta no Lux · 04h–06h', 118, 'SoundCloud'], ['Warm-up de domingo', 62, 'Mixcloud']]},
+ {id:'kiara-s', nome:'Kiara Sol', art:'KIARA', foto:'club', cidade:'lisboa', nivel:'convidado', casa:'B.Leza', generos:['afro house', 'kizomba', 'afrobeats'], estilos:['kizomba', 'afrobeats', 'festa'], nota:'4,7', resp:204, seg:3870, sets:7, publico:1260, cache:450, comissao:5, bio:'Afro house e kizomba que enchem a pista sem pedir licença. Do B.Leza às festas de praia.', ids:['l3'], mixes:[['Baile do B.Leza ao vivo', 95, 'SoundCloud']]},
+ {id:'tomas-b', nome:'Tomás Brito', art:'TOMBRI', foto:'pink', cidade:'lisboa', nivel:'ascensao', casa:'', generos:['disco', 'funk'], estilos:['disco', 'funk', 'festa'], nota:'4,5', resp:61, seg:860, sets:4, publico:410, cache:250, comissao:5, bio:'Disco, funk e boogie em vinil. Bares do Cais do Sodré e rooftops ao fim da tarde.', ids:[], mixes:[['Só vinil · Cais do Sodré', 74, 'Mixcloud']]},
+ {id:'beatriz-c', nome:'Beatriz Costa', art:'BEA C', foto:'cocktail', cidade:'lisboa', nivel:'ascensao', casa:'', generos:['indie', 'rock'], estilos:['indie', 'rock', 'concertos'], nota:'4,4', resp:38, seg:540, sets:3, publico:260, cache:200, comissao:4, bio:'Indie e rock para cantar alto. Depois dos concertos, até fechar.', ids:[], mixes:[['Depois do concerto', 55, 'SoundCloud']]},
+ {id:'mafalda-r', nome:'Mafalda Rio', art:'MAFA', foto:'noite', cidade:'porto', nivel:'residente', casa:'Gare Porto', generos:['techno', 'minimal'], estilos:['techno', 'house', 'festa'], nota:'4,8', resp:276, seg:4410, sets:8, publico:1520, cache:550, comissao:6, bio:'Residente na Gare. Techno escuro e minimal, horas a fio.', ids:[], mixes:[['Gare · fecho', 130, 'SoundCloud']]},
+ {id:'joao-p', nome:'João Pires', art:'JP GROOVE', foto:'lx', cidade:'porto', nivel:'convidado', casa:'', generos:['house', 'disco'], estilos:['house', 'disco', 'festa'], nota:'4,6', resp:142, seg:1980, sets:6, publico:880, cache:380, comissao:5, bio:'House com alma e disco nas Galerias de Paris. Pista cheia, cara feliz.', ids:[], mixes:[['Galerias de Paris · sábado', 88, 'Mixcloud']]}
+];
+const porId = id => D.find(x => x.id === id);
+const PR = window.STREETFY_PROMOTERS || {};
+/* os sets do DJ: festas do catálogo com o estilo dele, na cidade (o mesmo critério das festas do promoter) */
+const setsDe = d => PR.festasDe ? PR.festasDe({ids:d.ids, cidade:d.cidade, estilos:d.estilos, zona:[d.cidade]}).slice(0, 5) : [];
+const horaSet = (d, i) => { const h = (String(d.id + i.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 4); return ['23:00 – 01:00', '00:30 – 02:30', '01:00 – 03:00', '02:30 – 05:00'][h]; };
+const hrefEv = i => 'bilhete.html#lugar=' + encodeURIComponent(C.lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
+const quando = i => { const k = Math.min(...(i._ks || [0])); if (k === 0) return 'hoje'; if (k === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + k); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate(); };
+const rider = d => (ler('streetfy:dj-rider', {})[d.id]) || RIDER0;
+const mixes = d => (ler('streetfy:dj-mixes', {})[d.id]) || d.mixes;
+/* bookings: a casa pede, o DJ responde. Começa com dois pedidos para o Nuno (o DJ da sessão "DJ" no protótipo) */
+const BK = 'streetfy:dj-bookings';
+const bookings = () => { let b = ler(BK, null); if (!b) { const dia = k => { const x = new Date(); x.setDate(x.getDate() + k); return x.toISOString().slice(0, 10); }; b = [
+  {id:'b1', dj:'nuno-v', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:dia(10), hora:'01:00 – 03:00', cache:600, estado:'pendente', t:Date.now() - 36e5, nota:'Noite X · sala de baixo'},
+  {id:'b2', dj:'nuno-v', casa:'B.Leza', casaK:'lisboa/b leza', data:dia(11), hora:'23:00 – 01:00', cache:450, estado:'pendente', t:Date.now() - 5 * 36e5, nota:'Abertura antes do baile'},
+  {id:'b3', dj:'nuno-v', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:dia(3), hora:'02:30 – 05:00', cache:600, estado:'confirmado', t:Date.now() - 4 * 864e5, nota:'Lux Sessions'}]; gravar(BK, b); } return b; };
+const gravaB = b => gravar(BK, b);
+const dataTxt = s => { const d = new Date(s + 'T12:00'); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate() + ' ' + ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'][d.getMonth()]; };
+let segue = ler('streetfy:segue-djs', {});
+const guardaSeg = () => gravar('streetfy:segue-djs', segue);
+
+/* ---------- grelha ---------- */
+function grelha(el){
+  let cid = 'todas', gen = '';
+  const desenha = () => {
+    const gens = [...new Set(D.flatMap(d => d.generos))];
+    const L = D.filter(d => (cid === 'todas' || d.cidade === cid) && (!gen || d.generos.includes(gen)));
+    el.innerHTML = '<div class="dj-fil"><div class="fa-pills">' + [['todas', 'Todas as cidades']].concat(Object.entries(CID).filter(([k]) => D.some(d => d.cidade === k))).map(([k, n]) => '<button type="button" class="fa-pill' + (cid === k ? ' on rosa' : '') + '" data-dj-cid="' + k + '">' + n + '</button>').join('') + '</div>'
+      + '<div class="fa-pills">' + gens.map(g => '<button type="button" class="fa-pill' + (gen === g ? ' on' : '') + '" data-dj-gen="' + esc(g) + '">' + esc(cap(g)) + '</button>').join('') + '</div></div>'
+      + '<div class="dj-grid">' + L.map(d => { const s = setsDe(d); return '<a class="dj-card" href="dj.html#d=' + d.id + '"><div class="dj-im" style="background-image:url(img/' + d.foto + '.jpg)"><span class="dj-art">' + esc(d.art) + '</span><span class="dj-niv ' + d.nivel + '">' + NIVEL[d.nivel] + '</span></div><div class="dj-b"><b>' + esc(d.nome) + '</b><span>' + esc(CID[d.cidade] || cap(d.cidade)) + ' · ' + d.generos.map(cap).join(', ') + '</span><span>★ ' + d.nota + ' · ' + fmt(d.seg) + ' seguidores · ' + d.sets + ' sets em 30 dias</span>' + (s[0] ? '<span class="dj-prox">Próximo set: <b>' + esc(s[0].titulo) + '</b> · ' + esc(quando(s[0])) + '</span>' : '') + '</div></a>'; }).join('') + '</div>'
+      + (L.length ? '' : '<p class="al-nota">Nenhum DJ com estes filtros.</p>');
+  };
+  el.addEventListener('click', ev => { const b = ev.target.closest('[data-dj-cid],[data-dj-gen]'); if (!b) return; if (b.dataset.djCid) cid = b.dataset.djCid; if (b.dataset.djGen) gen = gen === b.dataset.djGen ? '' : b.dataset.djGen; desenha(); });
+  desenha();
+}
+
+/* ---------- perfil ---------- */
+function perfil(el){
+  let msg = null, form = false;
+  const desenha = () => {
+    const q = new URLSearchParams(location.hash.slice(1)), d = porId(q.get('d')) || D[0], s = !!segue[d.id], sets = setsDe(d), LS = ler('streetfy:dj-listas', {}), minha = LS[d.id] || {};
+    document.title = 'Xouty · ' + d.art + ' · ' + NIVEL[d.nivel];
+    const url = location.origin + location.pathname + '#d=' + d.id;
+    el.innerHTML = '<section class="p-hero perfil pr-hero"><div class="s-bg" style="background-image:url(img/' + d.foto + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
+      + '<div class="crumbs"><a href="index.html">Xouty</a> › <a href="djs.html">DJs</a> › <span>' + esc(d.art) + '</span></div>'
+      + '<div class="pr-cab"><div class="pr-av" style="background-image:url(img/' + d.foto + '.jpg)"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(d.art) + '</h1>'
+      + '<span class="pr-nivel cidade">' + NIVEL[d.nivel] + (d.casa ? ' · ' + esc(d.casa) : '') + '</span> <span class="p-meta">' + esc(d.nome) + ' · ' + esc(CID[d.cidade] || cap(d.cidade)) + ' · ' + d.generos.map(cap).join(', ') + '</span></div></div>'
+      + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(d.bio) + '</p>'
+      + '<div class="p-acoes"><a class="s-btn ' + (s ? 'mint' : 'ghost') + '" href="#" data-dj-seg="' + d.id + '" aria-pressed="' + s + '">' + (s ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="#" data-dj-book>Pedir booking</a><a class="s-btn ghost" href="' + esc(url) + '" data-partilhar data-titulo="' + esc(d.art + ' · DJ no Xouty') + '">Compartilhar</a></div>'
+      + '<div class="p-nums">' + [['★ ' + d.nota, 'nota · ' + d.resp + ' respostas de quem esteve'], [fmt(d.seg + (s ? 1 : 0)), 'seguidores' + (s ? ' · tu incluído' : '')], [d.sets, 'sets · 30 dias'], [fmt(d.publico), 'pessoas trazidas · 30 dias']].map(([v, t]) => '<div class="p-num u-num"><b>' + v + '</b><span>' + t + '</span></div>').join('') + '</div></div></section>'
+      + (form ? '<section class="s-sec tight"><div class="s-wrap"><div class="bf-form dj-bk"><h4>Pedir booking a ' + esc(d.art) + '</h4><p class="al-nota">Protótipo: pedes como o Lux Frágil. O DJ responde no portal: aceita, recusa ou faz uma contraproposta.</p>'
+          + '<div class="pt-2"><label>Data<input type="date" data-djb="data" value="' + new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10) + '"></label><label>Horário<select data-djb="hora">' + ['23:00 – 01:00', '00:30 – 02:30', '01:00 – 03:00', '02:30 – 05:00'].map(h => '<option>' + h + '</option>').join('') + '</select></label><label>Cachê proposto (€)<input type="number" min="0" step="10" data-djb="cache" value="' + d.cache + '"></label></div>'
+          + '<label>Nota para o DJ<input data-djb="nota" maxlength="80" placeholder="ex.: Noite X · sala de baixo"></label><div class="pt-2"><button type="button" class="s-btn pink" data-dj-envia="' + d.id + '">Enviar pedido</button><button type="button" class="s-btn ghost" data-dj-book>Cancelar</button></div></div></div></section>' : '')
+      + (msg ? '<section class="s-sec tight"><div class="s-wrap"><p class="pt-portam ok" role="status">' + esc(msg) + '</p></div></section>' : '')
+      + '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div>'
+      + '<p class="s-eyebrow">Na cabine</p><h2 class="s-h h2s" style="margin-bottom:18px">PRÓXIMOS <em>SETS</em></h2>'
+      + (sets.length ? sets.map(i => { const st = minha[i.id]; return '<div class="p-ev pr-ev dj-set"><a class="dj-setl" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + ' · set ' + horaSet(d, i) + '</span></div><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + '</p></a>'
+          + '<div class="dj-setac">' + (st ? '<span class="dj-pedido">' + (st === 'pedido' ? 'Pedido na lista do DJ enviado · o DJ aceita e a casa aprova' : 'Na lista do DJ ✓') + '</span>' : '<button type="button" class="s-btn ghost" data-dj-lista="' + esc(i.id) + '">Pedir lugar na lista do DJ</button>') + '</div></div>'; }).join('') : '<p class="p-vazio">Sem sets marcados esta semana.</p>')
+      + '<p class="s-eyebrow" style="margin-top:28px">Para ouvir</p><h2 class="s-h h2s" style="margin-bottom:14px">MIXES</h2><ul class="dj-mixes">' + mixes(d).map(([t, min, pl]) => '<li><span class="dj-play" aria-hidden="true">▶</span><div><b>' + esc(t) + '</b><span>' + min + ' min · ' + esc(pl) + '</span></div></li>').join('') + '</ul>'
+      + '</div><div>'
+      + (d.casa ? '<p class="s-eyebrow">Residência</p><div class="inc" style="margin-top:12px"><div><h4>' + esc(d.casa) + '</h4><p>' + esc(NIVEL[d.nivel]) + ' · toca lá todos os meses.</p></div></div>' : '')
+      + '<p class="s-eyebrow" style="margin-top:22px">Rider técnico</p><ul class="dj-rider">' + rider(d).map(r => '<li>' + esc(r) + '</li>').join('') + '</ul>'
+      + '<p class="s-eyebrow" style="margin-top:22px">Como funciona</p><div class="inc" style="margin-top:12px"><div><h4>Regra da casa</h4><ul><li>O DJ tem o que o promoter tem: lista de convidados, link e comissão declarada pela casa.</li><li>A lista do DJ passa pela aprovação da casa, como a do promoter.</li><li>Bookings: a casa pede, o DJ aceita, recusa ou faz contraproposta de cachê.</li></ul></div></div>'
+      + '<p class="s-eyebrow" style="margin-top:26px">Outros DJs</p><div class="pr-outros">' + D.filter(x => x.id !== d.id).sort((a, b) => (b.cidade === d.cidade) - (a.cidade === d.cidade)).slice(0, 4).map(x => '<a href="dj.html#d=' + x.id + '"><span class="pr-av mini" style="background-image:url(img/' + x.foto + '.jpg)"></span><b>' + esc(x.art) + '</b><small>' + esc(NIVEL[x.nivel]) + '</small></a>').join('') + '</div>'
+      + '</div></div></div></section>';
+  };
+  el.addEventListener('click', ev => {
+    const sg = ev.target.closest('[data-dj-seg]'); if (sg) { ev.preventDefault(); const id = sg.dataset.djSeg; if (segue[id]) delete segue[id]; else segue[id] = 1; guardaSeg(); desenha(); return; }
+    const bk = ev.target.closest('[data-dj-book]'); if (bk) { ev.preventDefault(); form = !form; msg = null; desenha(); return; }
+    const en = ev.target.closest('[data-dj-envia]'); if (en) { const v = k => (el.querySelector('[data-djb="' + k + '"]') || {}).value || '', d = porId(en.dataset.djEnvia); const b = bookings(); b.unshift({id:'b' + Date.now().toString(36), dj:d.id, casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:v('data'), hora:v('hora'), cache:Math.max(0, +v('cache') || 0), estado:'pendente', t:Date.now(), nota:v('nota').trim()}); gravaB(b); form = false; msg = 'Pedido enviado a ' + d.art + ' para ' + dataTxt(v('data')) + ' · ' + v('hora') + ' · €' + fmt(+v('cache') || 0) + '. O DJ responde no portal.'; desenha(); return; }
+    const li = ev.target.closest('[data-dj-lista]'); if (li) { const d = porId(new URLSearchParams(location.hash.slice(1)).get('d')) || D[0], L = ler('streetfy:dj-listas', {}); (L[d.id] = L[d.id] || {})[li.dataset.djLista] = 'pedido'; gravar('streetfy:dj-listas', L); desenha(); }
+  });
+  window.addEventListener('hashchange', () => { msg = null; form = false; desenha(); window.scrollTo({top:0}); });
+  desenha();
+}
+
+/* ---------- portal: o que é só do DJ (bookings, agenda, rider, mixes) ---------- */
+const EU = 'nuno-v';
+let contra = {};
+function portalDJ(){
+  const d = porId(EU), b = bookings().filter(x => x.dj === EU), pend = b.filter(x => x.estado === 'pendente' || x.estado === 'contraproposta'), conf = b.filter(x => x.estado === 'confirmado').sort((x, y) => x.data.localeCompare(y.data)), sets = setsDe(d);
+  const EST = {pendente:'à espera de ti', contraproposta:'contraproposta enviada', confirmado:'confirmado', recusado:'recusado'};
+  return '<div class="pt-2c"><div class="pt-card dj-bks" id="bookings"><div class="pt-ch"><h3>Pedidos de booking</h3><span class="pt-mini-t">as casas pedem; aceitas, recusas ou propões outro cachê</span></div>'
+      + (pend.length ? pend.map(x => '<div class="dj-bk-i"><div><b>' + esc(x.casa) + '</b><span>' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + (x.nota ? ' · ' + esc(x.nota) : '') + '</span><span>Cachê proposto: <b>€' + fmt(x.cache) + '</b>' + (x.estado === 'contraproposta' ? ' · pediste <b>€' + fmt(x.contra) + '</b>, à espera da casa' : '') + '</span></div>'
+          + '<div class="dj-bk-ac"><button type="button" class="s-btn mint" data-djp="aceita" data-id="' + x.id + '">Aceitar €' + fmt(x.cache) + '</button><button type="button" class="s-btn ghost" data-djp="recusa" data-id="' + x.id + '">Recusar</button>' + (x.estado === 'pendente' ? '<span class="dj-cp"><input type="number" min="0" step="10" placeholder="€ outro valor" data-djc="' + x.id + '" value="' + esc(contra[x.id] || '') + '" aria-label="Contraproposta em euros"><button type="button" class="s-btn ghost" data-djp="contra" data-id="' + x.id + '">Contraproposta</button></span>' : '') + '</div></div>').join('') : '<p class="al-nota">Sem pedidos novos.</p>')
+      + '</div><div class="pt-card"><div class="pt-ch"><h3>Agenda de sets</h3><span class="pt-mini-t">confirmados e festas onde tocas</span></div><ul class="dj-ag">'
+      + conf.map(x => '<li><b>' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + esc(x.casa) + (x.nota ? ' · ' + esc(x.nota) : '') + ' · €' + fmt(x.cache) + '</span><i class="ok">confirmado</i></li>').join('')
+      + sets.map(i => '<li><b>' + esc(quando(i)) + ' · ' + horaSet(d, i) + '</b><span>' + esc(i.titulo) + ' · ' + esc(i.lugar || '') + '</span><i>no cartaz</i></li>').join('') + '</ul></div></div>'
+    + '<div class="pt-2c"><div class="pt-card"><div class="pt-ch"><h3>Rider técnico</h3><span class="pt-mini-t">aparece no teu perfil; uma linha por item</span></div><textarea class="dj-rid" data-dj-rider rows="6">' + esc(rider(d).join('\n')) + '</textarea><p class="al-nota" data-dj-rok></p></div>'
+    + '<div class="pt-card"><div class="pt-ch"><h3>Mixes</h3><span class="pt-mini-t">os que aparecem no teu perfil</span></div><ul class="dj-mixes">' + mixes(d).map(([t, m, p], k) => '<li><span class="dj-play" aria-hidden="true">▶</span><div><b>' + esc(t) + '</b><span>' + m + ' min · ' + esc(p) + '</span></div><button type="button" class="cd-lnk" data-djp="mixrm" data-k="' + k + '">Tirar</button></li>').join('') + '</ul>'
+    + '<div class="dj-mixf"><input data-djm="t" placeholder="nome do mix" maxlength="50"><input type="number" data-djm="m" placeholder="min" min="1" max="600"><select data-djm="p"><option>SoundCloud</option><option>Mixcloud</option><option>YouTube</option></select><button type="button" class="s-btn ghost" data-djp="mixadd">Juntar</button></div></div></div>';
+}
+/* lado da casa (portal do local): os bookings que pediu e as contrapropostas dos DJs */
+function portalCasa(casaK){
+  const L = bookings().filter(x => x.casaK === casaK).sort((a, b) => b.t - a.t), EST = {pendente:'à espera do DJ', contraproposta:'contraproposta do DJ', confirmado:'confirmado', recusado:'recusado'};
+  return '<div class="pt-card dj-bks" id="casa-djs"><div class="pt-ch"><h3>DJs · bookings</h3><a class="pt-mini" href="djs.html">Procurar DJs</a></div>'
+    + (L.length ? L.map(x => { const d = porId(x.dj) || {art:x.dj, foto:'dj'}; return '<div class="dj-bk-i"><div><b><a href="dj.html#d=' + x.dj + '">' + esc(d.art) + '</a> · ' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + (x.nota ? esc(x.nota) + ' · ' : '') + 'cachê €' + fmt(x.cache) + (x.estado === 'contraproposta' ? ' · o DJ pede <b>€' + fmt(x.contra) + '</b>' : '') + '</span><span class="pt-ap ' + (x.estado === 'confirmado' ? 'aprovada' : x.estado === 'recusado' ? 'recusada' : 'pendente') + '">' + EST[x.estado] + '</span></div>'
+        + (x.estado === 'contraproposta' ? '<div class="dj-bk-ac"><button type="button" class="s-btn mint" data-djp="casa-ok" data-id="' + x.id + '">Aceitar €' + fmt(x.contra) + '</button><button type="button" class="s-btn ghost" data-djp="casa-no" data-id="' + x.id + '">Recusar</button></div>' : '') + '</div>'; }).join('') : '<p class="al-nota">Ainda não pediste nenhum DJ. Abre o perfil de um DJ e toca em "Pedir booking".</p>')
+    + '</div>';
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-djp]'); if (!b) return;
+  const a = b.dataset.djp, L = bookings(), x = L.find(y => y.id === b.dataset.id), d = porId(EU);
+  if (a === 'aceita' && x) x.estado = 'confirmado';
+  if (a === 'casa-ok' && x) { x.cache = x.contra; x.estado = 'confirmado'; }
+  if (a === 'casa-no' && x) x.estado = 'recusado';
+  if (a === 'recusa' && x) x.estado = 'recusado';
+  if (a === 'contra' && x) { const v = +(document.querySelector('[data-djc="' + x.id + '"]') || {}).value; if (!v) return; x.estado = 'contraproposta'; x.contra = v; }
+  if (a === 'mixadd') { const g = k => (document.querySelector('[data-djm="' + k + '"]') || {}).value || ''; if (!g('t').trim()) return; const M = ler('streetfy:dj-mixes', {}); M[EU] = mixes(d).concat([[g('t').trim(), Math.max(1, +g('m') || 60), g('p')]]); gravar('streetfy:dj-mixes', M); }
+  if (a === 'mixrm') { const M = ler('streetfy:dj-mixes', {}); M[EU] = mixes(d).filter((_, k) => k !== +b.dataset.k); gravar('streetfy:dj-mixes', M); }
+  gravaB(L); document.dispatchEvent(new CustomEvent('streetfy-dj'));
+});
+document.addEventListener('input', ev => {
+  const c = ev.target.closest('[data-djc]'); if (c) { contra[c.dataset.djc] = c.value; return; }
+  const r = ev.target.closest('[data-dj-rider]'); if (r) { const R = ler('streetfy:dj-rider', {}); R[EU] = r.value.split('\n').map(s => s.trim()).filter(Boolean); gravar('streetfy:dj-rider', R); const ok = document.querySelector('[data-dj-rok]'); if (ok) ok.textContent = 'Guardado ✓ · já aparece no teu perfil.'; }
+});
+
+document.querySelectorAll('[data-djs]').forEach(grelha);
+document.querySelectorAll('[data-dj-perfil]').forEach(perfil);
+window.STREETFY_DJS = {lista:D, setsDe, porId, portalDJ, portalCasa, NIVEL, EU};
+})();
 </script><script>/* Xouty · euvou.js — o botão "Eu vou" (R110): qualquer pessoa indica uma festa aos seus seguidores.
    Até 3 por dia de evento, só do catálogo (R66). Quem abre pela indicação e faz check-in conta como presença verificada
    de quem indicou (R68), e é isso que leva a promoter (R69). Guardado neste aparelho em streetfy:eu-vou. */
@@ -3466,6 +3643,7 @@ function conjuntos(){
   const locais = [...vm.values()].sort((a, b) => (b.streetfy - a.streetfy) || (b.star - a.star));
   const pessoas = PR.map(p => ({n:p.nome, f:p.foto, h:'promoter.html#p=' + p.id, papel:'promoter', cid:p.cidade, niv:p.nivel, txt:p.nivel ? 'promoter · ' + p.nivel : 'promoter'}))
     .concat(CONCS.map(c => ({n:c[0], f:c[1], h:'concierge-perfil.html#c=' + c[2], papel:'concierge', cid:c[4], txt:'concierge · ' + c[3]})))
+    .concat(((window.STREETFY_DJS || {}).lista || []).map(d => ({n:d.art + ' · ' + d.nome, f:d.foto, h:'dj.html#d=' + d.id, papel:'dj', cid:d.cidade, txt:'DJ · ' + d.generos.join(', ')})))
     .concat(PESSOAS.map(p => ({n:p[0], f:p[1], h:p[2], papel:'pessoa', cid:'lisboa', txt:p[3]})))
     .filter(p => (ondePq.cid === 'todas' || p.cid === ondePq.cid) && (tem(p.n) || tem(p.txt)));
   return {eventos:evs, locais, pessoas};
@@ -3485,7 +3663,7 @@ const PQ_LO = [
   ['extra', 'Com o quê?', 0, [['streetfy', 'Bilhete e reserva no Xouty'], ['semana', 'Com eventos esta semana'], ['nota', '★ 4,5 ou mais']], v => [v.streetfy && 'streetfy', v.semana && 'semana', v.star >= 4.5 && 'nota'].filter(Boolean), 1]
 ];
 const PQ_PE = [
-  ['papel', 'Quem procuras?', 0, [['promoter', 'Promoters'], ['concierge', 'Concierges'], ['pessoa', 'Utilizadores']], p => [p.papel]],
+  ['papel', 'Quem procuras?', 0, [['promoter', 'Promoters'], ['concierge', 'Concierges'], ['dj', 'DJs'], ['pessoa', 'Utilizadores']], p => [p.papel]],
   ['niv', 'Que nível de promoter?', 0, [['rua', 'Rua'], ['bairro', 'Bairro'], ['cidade', 'Cidade']], p => p.niv ? [p.niv] : []]
 ];
 const PQ = {eventos:PQ_EV, locais:PQ_LO, pessoas:PQ_PE};
