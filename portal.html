@@ -1933,6 +1933,36 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-ev-a{color:inherit;text-decoration:none}.ct-ev-a::after{content:"";position:absolute;inset:0;border-radius:14px}
 .ct-ev.pass:has(.ct-ev-a){transition:transform .15s,box-shadow .15s}.ct-ev.pass:has(.ct-ev-a):hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink)}
 .ct-ev.pass .ct-val,.ct-ev.pass .ct-val-ok,.ct-ev.pass .ct-st{position:relative;z-index:2}
+
+/* Best friends do portal: tags privadas de quem cria */
+.bf h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
+.bf-priv{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:9px 12px;border-radius:10px;background:#f2f2f2;font-size:13px;color:var(--grey)}
+.bf-priv svg{flex:none;margin-top:2px;color:var(--ink)}.bf-priv b{color:var(--ink)}
+.bf-form{display:grid;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:14px;margin-bottom:16px;background:#fff}
+.bf-form h4{margin:0}
+.bf-form label{display:grid;gap:4px;font-size:13px;font-weight:700}
+.bf-form input,.bf-nova input{font:inherit;font-weight:500;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.bf-lbl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.bf-lbl small{font-weight:500;color:var(--grey)}
+.bf-tags{display:flex;flex-wrap:wrap;gap:6px}
+.bf-tag{font:700 13px/1 var(--fb);padding:7px 11px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.bf-tag i{font-style:normal;font-weight:600;color:var(--grey);font-size:12px}
+.bf-tag.on{background:var(--ink);color:#fff}.bf-tag.on i{color:#c4c4c4}
+.bf-tag.gerir{cursor:default}.bf-tag.gerir button{border:0;background:none;padding:0 0 0 2px;cursor:pointer;font:inherit;color:var(--pink)}
+.bf-nova{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.bf-nova input{flex:1 1 200px}
+.bf-msg{margin:0;color:#c4134c;font-size:13px;font-weight:700}
+.bf-fil{display:grid;gap:8px;margin-bottom:12px}
+.bf-res{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.bf-ra{display:flex;gap:8px;flex-wrap:wrap}
+.bf-l{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:6px}
+.bf-p{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.bf-p.on{border-color:var(--ink)}
+.bf-av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font:800 12px/1 var(--fb)}
+.bf-pc{flex:1;min-width:0;display:grid;gap:5px}.bf-pc b{font-size:14px}
+.bf-pt{display:flex;flex-wrap:wrap;gap:4px}.bf-pt em{font-style:normal;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:#f2f2f2;color:var(--ink)}.bf-pt small{color:var(--grey);font-size:12px}
+.bf-pa{display:flex;gap:10px;flex:none}
+.pt-bf{font:800 10px/1 var(--fb);letter-spacing:.06em;padding:4px 7px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;margin-left:6px;vertical-align:middle}
+small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3580,6 +3610,130 @@ window.STREETFY_CAND = {bloco, fila, ler, gravar, PADRAO, CK};
 /* a página própria (trabalhar.html, ligada no rodapé): só quem a abre vê as candidaturas */
 const pg = document.querySelector('[data-trabalhar]'); if (pg) pg.innerHTML = bloco();
 })();
+</script><script>/* Best friends do portal (local, promoter, concierge): a gente de confiança de quem cria, com tags próprias.
+   As tags e a lista são privadas: só quem as criou as vê; a pessoa nunca sabe que tem tag. Servem para filtrar
+   ("só simpáticos e educados") e criar uma lista ou proposta só com essas pessoas.
+   Guardado neste aparelho em streetfy:portal-bf, separado por papel. */
+(function(){
+const BK = 'streetfy:portal-bf';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const nid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+const TAGS0 = [['t1', 'Simpático'], ['t2', 'Educado'], ['t3', 'Pontual'], ['t4', 'Gasta bem'], ['t5', 'Traz amigos'], ['t6', 'Dança a noite toda']].map(([id, nome]) => ({id, nome}));
+const P = (nome, tags) => ({id:nid(), nome, tags, t:Date.now()});
+const PADRAO = {
+  local:{tags:TAGS0, pessoas:[P('Mariana Costa', ['t1', 't2', 't5']), P('Leonor Santos', ['t1', 't3']), P('Hugo Martins', ['t4', 't5']), P('Inês Carvalho', ['t1', 't2', 't3']), P('Sara Dias', ['t2', 't6'])]},
+  promoter:{tags:TAGS0, pessoas:[P('Mariana Costa', ['t1', 't5']), P('Kiko Rocha', ['t6', 't5']), P('Leonor Santos', ['t1', 't2'])]},
+  concierge:{tags:TAGS0, pessoas:[P('Joana Prates', ['t1', 't2', 't4']), P('Rui Prates', ['t2', 't4'])]}
+};
+let B = JSON.parse(JSON.stringify(PADRAO));
+try { const g = JSON.parse(localStorage.getItem(BK) || 'null'); if (g && g.local && g.promoter && g.concierge) B = g; } catch (e) {}
+const grava = () => { try { localStorage.setItem(BK, JSON.stringify(B)); } catch (e) {} };
+const UI = {};
+const ui = p => UI[p] || (UI[p] = {aberto:false, nome:'', sel:[], filtro:[], edit:null, gerir:false, msg:''});
+const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const tem = (p, nome) => !!(B[p] && B[p].pessoas.some(x => norm(x.nome) === norm(nome)));
+const tagNome = (p, id) => (B[p].tags.find(t => t.id === id) || {}).nome;
+const filtrados = p => { const f = ui(p).filtro; return B[p].pessoas.filter(x => f.every(t => x.tags.includes(t))).sort((a, b) => a.nome.localeCompare(b.nome, 'pt')); };
+const ini = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const CAD = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+
+function card(p){
+  if (!B[p]) return '';
+  const u = ui(p), d = B[p], lista = filtrados(p), conta = id => d.pessoas.filter(x => x.tags.includes(id)).length;
+  const chip = (t, on, attr, n) => '<button type="button" class="bf-tag' + (on ? ' on' : '') + '" ' + attr + '="' + t.id + '" aria-pressed="' + on + '">' + esc(t.nome) + (n != null ? ' <i>' + n + '</i>' : '') + '</button>';
+  const novaTag = '<span class="bf-nova"><input data-bf-in="tag" placeholder="nova tag, ex.: Respeita a fila" maxlength="24" aria-label="Nova tag"><button type="button" class="s-btn ghost" data-bf="novatag">Criar tag</button></span>';
+  const form = u.aberto ? '<div class="bf-form"><h4>Adicionar aos best friends</h4>'
+    + '<label>Nome<input data-bf-in="nome" value="' + esc(u.nome) + '" placeholder="nome da pessoa" list="bf-nomes" autocomplete="off"></label>'
+    + '<datalist id="bf-nomes">' + ['Mariana Costa', 'Leonor Santos', 'Hugo Martins', 'Joana Prates', 'Rui Prates', 'Inês Carvalho', 'Sara Dias', 'Kiko Rocha', 'Bruna Teixeira', 'Tomás F.', 'Duarte Pinto'].map(n => '<option value="' + esc(n) + '">').join('') + '</datalist>'
+    + '<div class="bf-lbl">Tags <small>só tu vês</small></div><div class="bf-tags">' + d.tags.map(t => chip(t, u.sel.includes(t.id), 'data-bf-tsel')).join('') + '</div>' + novaTag
+    + (u.msg ? '<p class="bf-msg" role="alert">' + esc(u.msg) + '</p>' : '')
+    + '<div class="pt-2"><button type="button" class="s-btn mint" data-bf="add">Adicionar</button><button type="button" class="s-btn ghost" data-bf="fechar">Cancelar</button></div></div>' : '';
+  const acao = p === 'concierge' ? 'Pôr na proposta' : 'Criar lista com ' + (lista.length === 1 ? 'esta pessoa' : 'estas ' + lista.length);
+  const pessoa = x => '<li class="bf-p' + (u.edit === x.id ? ' on' : '') + '"><span class="bf-av" aria-hidden="true">' + esc(ini(x.nome)) + '</span><div class="bf-pc"><b>' + esc(x.nome) + '</b>'
+    + '<span class="bf-pt">' + (x.tags.length ? x.tags.map(id => tagNome(p, id)).filter(Boolean).map(n => '<em>' + esc(n) + '</em>').join('') : '<small>sem tags</small>') + '</span>'
+    + (u.edit === x.id ? '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (x.tags.includes(t.id) ? ' on' : '') + '" data-bf-ptag="' + t.id + '" data-pid="' + x.id + '" aria-pressed="' + x.tags.includes(t.id) + '">' + esc(t.nome) + '</button>').join('') + '</div>' : '')
+    + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos best friends">Tirar</button></span></li>';
+  return '<div class="pt-card bf" id="bf" data-bf-papel="' + p + '"><div class="pt-ch"><h3>Best friends <span class="bf-n">' + d.pessoas.length + '</span></h3>'
+    + (u.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-bf="abrir">+ Adicionar</button>') + '</div>'
+    + '<p class="bf-priv">' + CAD + '<span><b>Privado.</b> Esta lista e as tags só aparecem para ti. A pessoa não sabe que está aqui nem que tags tem.</span></p>'
+    + form
+    + '<div class="bf-fil"><div class="bf-lbl">Filtrar por tag ' + (u.filtro.length ? '<button type="button" class="cd-lnk" data-bf="limpar">Limpar</button>' : '') + '<button type="button" class="cd-lnk" data-bf="gerir">' + (u.gerir ? 'Feito' : 'Gerir tags') + '</button></div>'
+    + '<div class="bf-tags">' + d.tags.map(t => u.gerir ? '<span class="bf-tag gerir">' + esc(t.nome) + ' <button type="button" data-bf-tagrm="' + t.id + '" aria-label="Apagar a tag ' + esc(t.nome) + '">✕</button></span>' : chip(t, u.filtro.includes(t.id), 'data-bf-filtro', conta(t.id))).join('') + '</div>'
+    + (u.gerir ? novaTag : '') + '</div>'
+    + '<div class="bf-res"><span><b>' + lista.length + '</b> ' + (lista.length === 1 ? 'pessoa' : 'pessoas') + (u.filtro.length ? ' · ' + esc(u.filtro.map(id => tagNome(p, id)).join(' + ')) : '') + '</span>'
+    + (lista.length ? '<span class="bf-ra"><button type="button" class="s-btn ghost" data-bf="copiar">Copiar nomes</button><button type="button" class="s-btn ink" data-bf="lista">' + acao + '</button></span>' : '') + '</div>'
+    + (lista.length ? '<ul class="bf-l">' + lista.map(pessoa).join('') + '</ul>' : '<p class="al-nota">' + (d.pessoas.length ? 'Ninguém tem todas estas tags. Tira uma do filtro.' : 'Ainda não tens best friends. Toca em "+ Adicionar" ou no "+ BF" ao lado de um nome numa lista.') + '</p>')
+    + '<p class="al-nota">Ex.: filtra "Simpático" + "Educado" e cria um convite só com essa gente. ' + (p === 'concierge' ? 'Os nomes vão para a proposta de lista.' : 'A lista nova aparece em Listas de convidados.') + '</p></div>';
+}
+
+const refaz = (p, foco) => {
+  const c = document.getElementById('bf'); if (!c) return;
+  c.outerHTML = card(p);
+  if (foco) { const n = document.querySelector('#bf ' + foco); if (n) n.focus({preventScroll:true}); }
+};
+const criaTag = (p, nome) => {
+  nome = String(nome || '').trim().replace(/\s+/g, ' ').slice(0, 24); if (!nome) return null;
+  const ja = B[p].tags.find(t => norm(t.nome) === norm(nome)); if (ja) return ja;
+  const t = {id:'t' + nid(), nome:nome.charAt(0).toUpperCase() + nome.slice(1)}; B[p].tags.push(t); grava(); return t;
+};
+const adiciona = p => {
+  const u = ui(p), nome = String(u.nome || '').trim().replace(/\s+/g, ' ');
+  if (!nome) { u.msg = 'Escreve o nome da pessoa.'; return refaz(p, '[data-bf-in="nome"]'); }
+  const ja = B[p].pessoas.find(x => norm(x.nome) === norm(nome));
+  if (ja) u.sel.forEach(t => { if (!ja.tags.includes(t)) ja.tags.push(t); });
+  else B[p].pessoas.push({id:nid(), nome, tags:u.sel.slice(), t:Date.now()});
+  grava(); Object.assign(u, {aberto:false, nome:'', sel:[], msg:''});
+  refaz(p); document.dispatchEvent(new CustomEvent('streetfy-bf'));
+};
+
+document.addEventListener('click', ev => {
+  const c = ev.target.closest('#bf'), de = ev.target.closest('[data-bf-de]');
+  if (de) {
+    ev.preventDefault();
+    const box = document.getElementById('bf'); if (!box) return;
+    const p = box.dataset.bfPapel, u = ui(p);
+    Object.assign(u, {aberto:true, nome:de.dataset.bfDe, sel:[], msg:''});
+    refaz(p); const n = document.getElementById('bf'); n.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+  if (!c) return;
+  const p = c.dataset.bfPapel, u = ui(p), d = B[p], b = ev.target.closest('button'); if (!b) return;
+  const a = b.dataset.bf;
+  if (a === 'abrir') { Object.assign(u, {aberto:true, nome:'', sel:u.filtro.slice(), msg:''}); return refaz(p, '[data-bf-in="nome"]'); }
+  if (a === 'fechar') { Object.assign(u, {aberto:false, msg:''}); return refaz(p); }
+  if (a === 'add') return adiciona(p);
+  if (a === 'novatag') { const i = c.querySelector('[data-bf-in="tag"]'), t = criaTag(p, i && i.value); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); return refaz(p, '[data-bf-in="tag"]'); }
+  if (a === 'limpar') { u.filtro = []; return refaz(p); }
+  if (a === 'gerir') { u.gerir = !u.gerir; return refaz(p); }
+  if (a === 'copiar') { const t = filtrados(p).map(x => x.nome).join('\n'); try { navigator.clipboard.writeText(t); b.textContent = 'Copiado ✓'; } catch (e) {} return; }
+  if (a === 'lista') {
+    const nomes = filtrados(p).map(x => x.nome); if (!nomes.length) return;
+    const titulo = 'Best friends' + (u.filtro.length ? ' · ' + u.filtro.map(id => tagNome(p, id)).join(' + ') : '');
+    document.dispatchEvent(new CustomEvent('streetfy-bf-lista', {detail:{papel:p, nomes, titulo}}));
+    return;
+  }
+  if (b.dataset.bfTsel) { const id = b.dataset.bfTsel; u.sel = u.sel.includes(id) ? u.sel.filter(x => x !== id) : u.sel.concat(id); return refaz(p); }
+  if (b.dataset.bfFiltro) { const id = b.dataset.bfFiltro; u.filtro = u.filtro.includes(id) ? u.filtro.filter(x => x !== id) : u.filtro.concat(id); return refaz(p); }
+  if (b.dataset.bfEdit) { u.edit = u.edit === b.dataset.bfEdit ? null : b.dataset.bfEdit; return refaz(p); }
+  if (b.dataset.bfPtag) { const x = d.pessoas.find(y => y.id === b.dataset.pid), id = b.dataset.bfPtag; if (x) { x.tags = x.tags.includes(id) ? x.tags.filter(t => t !== id) : x.tags.concat(id); grava(); } return refaz(p); }
+  if (b.dataset.bfRm) { d.pessoas = d.pessoas.filter(x => x.id !== b.dataset.bfRm); grava(); refaz(p); document.dispatchEvent(new CustomEvent('streetfy-bf')); return; }
+  if (b.dataset.bfTagrm) { const id = b.dataset.bfTagrm; d.tags = d.tags.filter(t => t.id !== id); d.pessoas.forEach(x => { x.tags = x.tags.filter(t => t !== id); }); u.filtro = u.filtro.filter(t => t !== id); u.sel = u.sel.filter(t => t !== id); grava(); return refaz(p); }
+});
+document.addEventListener('input', ev => {
+  const i = ev.target.closest('#bf [data-bf-in="nome"]'); if (!i) return;
+  const u = ui(i.closest('#bf').dataset.bfPapel); u.nome = i.value; u.msg = '';
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Enter') return;
+  const i = ev.target.closest('#bf [data-bf-in]'); if (!i) return;
+  ev.preventDefault();
+  const p = i.closest('#bf').dataset.bfPapel;
+  if (i.dataset.bfIn === 'nome') return adiciona(p);
+  const t = criaTag(p, i.value), u = ui(p); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); refaz(p, '[data-bf-in="tag"]');
+});
+
+window.STREETFY_BF = {card, tem};
+})();
 </script><script>/* Xouty · portal.js — dashboard do parceiro (lugar) e do promoter. portal.html#parceiro | #promoter
    Números fictícios; eventos, lugares e promoters reais do site. As listas criadas aqui ficam neste aparelho. */
 (function(){
@@ -3651,7 +3805,7 @@ function listas(){
     return '<div class="pt-lista' + (aberta === l.id ? ' on' : '') + '"><div class="pt-lh" data-pt="abrir" data-id="' + l.id + '"><div><b>' + esc(l.nome) + '</b><span>' + (i ? 'ligada a <a href="' + esc(hrefEv(i)) + '">' + esc(i.titulo) + '</a> · ' + esc(quando(i)) : esc(['independente', l.data, l.hora].filter(Boolean).join(' · '))) + ' · fecha ' + l.fecha + ' min antes</span></div>'
       + '<div class="pt-lnum"><span><b>' + dentro + '</b>/' + l.vagas + ' na lista</span>' + (ped ? '<span class="pt-ped">' + ped + ' a pedir</span>' : '') + (entraram ? '<span>' + entraram + ' entraram</span>' : '') + '</div></div>'
       + (aberta === l.id ? '<div class="pt-ld"><p class="pt-tags"><span>' + esc(l.beneficio) + '</span><span>' + (l.mais1 ? '+1 permitido' : 'sem +1') + '</span><span>' + ({eu:'só eu adiciono', promoters:'promoters da casa adicionam', equipa:'promoters e concierges adicionam', favoritos:'favoritos entram direto'})[l.quem] + '</span></p>'
-          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span><i class="' + n[1] + '">' + EST[n[1]] + '</i>' + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Marcar entrada</button>' : '') + '</li>').join('') + '</ul>'
+          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (window.STREETFY_BF ? (window.STREETFY_BF.tem(modo === 'parceiro' ? 'local' : 'promoter', n[0]) ? '<small class="pt-bf on" title="Está nos teus best friends">BF</small>' : '<button type="button" class="pt-bf" data-bf-de="' + esc(n[0]) + '" title="Adicionar aos best friends">+ BF</button>') : '') + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span><i class="' + n[1] + '">' + EST[n[1]] + '</i>' + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Marcar entrada</button>' : '') + '</li>').join('') + '</ul>'
           + '<form class="pt-add" data-id="' + l.id + '"><input name="nome" placeholder="Adicionar nome à lista" aria-label="Nome" required><button class="s-btn ink" type="submit">Adicionar</button></form>'
           + '<p class="al-nota">Na porta, a equipa vê esta lista no modo porta e marca a entrada; sem rede, a lista fica no telemóvel. Exportar em CSV ou partilhar o link da lista.</p></div>' : '') + '</div>'; };
   const form = formAberto ? '<form class="pt-form" data-pt-form><h4>Nova lista de convidados</h4>'
@@ -3754,6 +3908,7 @@ function concierge(){
     + '<div class="pt-card"><div class="pt-ch"><h3>Casas parceiras</h3><span class="pt-mini-t">só aparecem as casas que liberaram mesas ou listas a concierges</span></div><div class="lg-casas">'
     + casas.map(([nome, b, m, l, d, ab, key]) => '<div class="lg-casa' + (ab ? ' on' : '') + '"><div><b>' + esc(nome) + '</b><small>' + esc(b) + ' · ' + esc(d) + '</small></div><span class="lg-ok ' + (m ? 'sim' : 'nao') + '">' + (m ? '✓' : '✗') + ' mesas</span><span class="lg-ok ' + (l ? 'sim' : 'nao') + '">' + (l ? '✓' : '✗') + ' lista</span>' + (!m && !l ? ((PC && PC.relacao(key, 'concierge', EU_CONC) || {}).estado === 'pendente' ? '<span class="lg-e pendente">pedido enviado</span>' : '<a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent(key) + '">Ser parceiro</a>') : '') + '</div>').join('') + '</div></div>'
     + parcerias('concierge')
+    + (window.STREETFY_BF ? window.STREETFY_BF.card('concierge') : '')
     + '<div class="pt-card" id="proposta"><div class="pt-ch"><h3>Nova proposta · Lux Frágil</h3><span class="pt-mini-t">cada pedido segura a mesa 30 min · até ' + g.maxPedidos + ' pedidos por mesa</span></div>'
     + (!autorizado ? '<p class="cm-vazio">O Lux só aceita mesas e nomes na lista de concierges parceiros. <a href="perfil.html#lugar=' + encodeURIComponent('lisboa/lux fragil') + '">Pede para ser parceira no perfil do Lux</a>; quando o Lux aceitar, a planta abre aqui.</p>' : !g.mesas ? '<p class="cm-vazio">O Lux fechou as mesas a concierges. Podes pôr nomes na lista, se a lista estiver aberta.</p>' : '')
     + noiteAbas(prop.noite, 'data-lg-pnoite') + (g.mesas ? planta(prop.noite, true) : '')
@@ -3880,6 +4035,7 @@ function parceiro(){
     + evs.map(i => { const [v, cap, lista, rec] = d.lotacao[i.id] || [0, 0, 0, 0]; return '<tr><td><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a></td><td>' + esc(quando(i)) + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</td><td><div class="pt-occ"><i style="width:' + (cap ? v / cap * 100 : 0) + '%"></i></div>' + (i.preco === 0 ? 'entrada livre' : fmt(v) + ' / ' + fmt(cap)) + '</td><td>' + lista + '</td><td>' + (rec ? eur(rec) : '—') + '</td><td><a class="pt-mini" href="#parceiro" data-pt="naoimpl">Editar</a></td></tr>'; }).join('') + '</tbody></table></div></div>'
     + cardapio()
     + listas()
+    + (window.STREETFY_BF ? window.STREETFY_BF.card('local') : '')
     + parcerias('local')
     + plantaCard()
     + conciergesParceiro()
@@ -3895,6 +4051,7 @@ function promoter(){
     + '<div class="pt-card"><div class="pt-ch"><h3>Rumo ao próximo nível</h3><span class="pt-mini-t">já és promoter da cidade · mantém por 30 dias</span></div>' + d.nivel.map(([n, v, alvo]) => '<div class="pt-nv"><span>' + esc(n) + '</span><i><em style="width:' + Math.min(100, v / alvo * 100) + '%"></em></i><b>' + (typeof v === 'number' && v % 1 ? String(v).replace('.', ',') : fmt(v)) + ' / ' + (alvo % 1 ? String(alvo).replace('.', ',') : fmt(alvo)) + '</b></div>').join('') + '<p class="al-nota">Recalculado toda a semana. Trinta dias sem indicar, ou nota abaixo do piso, desce um nível (R70).</p></div></div>'
     + parcerias('promoter')
     + listas()
+    + (window.STREETFY_BF ? window.STREETFY_BF.card('promoter') : '')
     + '<div class="pt-2c"><div class="pt-card"><div class="pt-ch"><h3>Comissões por evento</h3></div><div class="pt-tw"><table class="pt-t"><thead><tr><th>Evento</th><th>Lugar</th><th>Bilhetes pelo teu link</th><th>Comissão</th><th>A receber</th></tr></thead><tbody>'
       + d.comissao.map(([id, lugar, bil, pct, preco]) => { const i = porId(id); return i ? '<tr><td><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a></td><td>' + esc(lugar) + '</td><td>' + bil + '</td><td>' + (pct ? pct + '%' : 'sem comissão') + '</td><td>' + (pct ? eur(bil * preco * pct / 100) : '—') + '</td></tr>' : ''; }).join('') + '</tbody></table></div></div>'
     + '<div class="pt-card"><div class="pt-ch"><h3>O teu link e QR</h3></div><p class="pt-link"><code>xouty.com/r/rita-m</code><button type="button" class="s-btn ghost" data-pt="copiar">Copiar</button></p><div class="pt-qr" aria-hidden="true">' + '<i></i>'.repeat(49) + '</div><p class="al-nota">Quem compra pelo teu link paga o mesmo preço; a comissão sai da parte do lugar. Cada presença verificada conta para o teu nível.</p>'
@@ -3963,6 +4120,20 @@ el.addEventListener('submit', ev => {
   redesenha();
 }, true);
 window.addEventListener('storage', ev => { if (ev.key === M.LG) { LIG = M.ler(); redesenha(); } });
+document.addEventListener('streetfy-bf', () => redesenha());
+document.addEventListener('streetfy-bf-lista', ev => {
+  const {nomes, titulo} = ev.detail;
+  if (modo === 'concierge') {
+    const ja = prop.nomes.split('\n').map(x => x.trim()).filter(Boolean);
+    prop.nomes = ja.concat(nomes.filter(n => !ja.includes(n))).join('\n'); propMsg = '';
+    redesenha(); const a = el.querySelector('#proposta'); if (a) a.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+  const id = 'bf' + Date.now().toString(36);
+  LISTAS[modo].unshift({id, nome:titulo, ev:'', data:'', hora:'', vagas:Math.max(10, nomes.length), fecha:30, quem:'eu', beneficio:'convite só para best friends', mais1:false, nomes:nomes.map(n => [n, 'aceite'])});
+  aberta = id; grava(); redesenha();
+  const l = el.querySelector('.pt-lista.on'); if (l) l.scrollIntoView({behavior:'smooth', block:'center'});
+});
 el.addEventListener('click', ev => { if (ev.target.closest('[data-pe-abrir]') && window.STREETFY_PLANTA_EDITOR) window.STREETFY_PLANTA_EDITOR.abrir(); });
 window.addEventListener('streetfy-planta', () => { LIG = M.ler(); redesenha(); });
 document.addEventListener('streetfy-planta-expirou', () => { if (!document.activeElement || !document.activeElement.matches('input,textarea,select')) redesenha(); });

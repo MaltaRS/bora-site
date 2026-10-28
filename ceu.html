@@ -1933,6 +1933,36 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-ev-a{color:inherit;text-decoration:none}.ct-ev-a::after{content:"";position:absolute;inset:0;border-radius:14px}
 .ct-ev.pass:has(.ct-ev-a){transition:transform .15s,box-shadow .15s}.ct-ev.pass:has(.ct-ev-a):hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink)}
 .ct-ev.pass .ct-val,.ct-ev.pass .ct-val-ok,.ct-ev.pass .ct-st{position:relative;z-index:2}
+
+/* Best friends do portal: tags privadas de quem cria */
+.bf h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
+.bf-priv{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:9px 12px;border-radius:10px;background:#f2f2f2;font-size:13px;color:var(--grey)}
+.bf-priv svg{flex:none;margin-top:2px;color:var(--ink)}.bf-priv b{color:var(--ink)}
+.bf-form{display:grid;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:14px;margin-bottom:16px;background:#fff}
+.bf-form h4{margin:0}
+.bf-form label{display:grid;gap:4px;font-size:13px;font-weight:700}
+.bf-form input,.bf-nova input{font:inherit;font-weight:500;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.bf-lbl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.bf-lbl small{font-weight:500;color:var(--grey)}
+.bf-tags{display:flex;flex-wrap:wrap;gap:6px}
+.bf-tag{font:700 13px/1 var(--fb);padding:7px 11px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.bf-tag i{font-style:normal;font-weight:600;color:var(--grey);font-size:12px}
+.bf-tag.on{background:var(--ink);color:#fff}.bf-tag.on i{color:#c4c4c4}
+.bf-tag.gerir{cursor:default}.bf-tag.gerir button{border:0;background:none;padding:0 0 0 2px;cursor:pointer;font:inherit;color:var(--pink)}
+.bf-nova{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.bf-nova input{flex:1 1 200px}
+.bf-msg{margin:0;color:#c4134c;font-size:13px;font-weight:700}
+.bf-fil{display:grid;gap:8px;margin-bottom:12px}
+.bf-res{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.bf-ra{display:flex;gap:8px;flex-wrap:wrap}
+.bf-l{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:6px}
+.bf-p{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.bf-p.on{border-color:var(--ink)}
+.bf-av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--mint);color:var(--ink);display:grid;place-items:center;font:800 12px/1 var(--fb)}
+.bf-pc{flex:1;min-width:0;display:grid;gap:5px}.bf-pc b{font-size:14px}
+.bf-pt{display:flex;flex-wrap:wrap;gap:4px}.bf-pt em{font-style:normal;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:#f2f2f2;color:var(--ink)}.bf-pt small{color:var(--grey);font-size:12px}
+.bf-pa{display:flex;gap:10px;flex:none}
+.pt-bf{font:800 10px/1 var(--fb);letter-spacing:.06em;padding:4px 7px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;margin-left:6px;vertical-align:middle}
+small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
