@@ -5356,8 +5356,8 @@ const bookings = () => { let b = ler(BK, null); if (!b) { const dia = k => { con
    pendente → (contraproposta) → aceite: a casa tem 48 h para pagar (e nunca menos de 72 h antes do set), senão expira e a data volta ao DJ
    → pago: o dinheiro fica retido no Xouty até ao set → realizado: o DJ fez check-in na cabine ou a casa confirmou; a casa tem até à libertação para abrir um problema
    → libertado: o DJ recebe 2 dias depois do set (D+2, como os bilhetes). Ramos: recusado, expirado, cancelado (pela casa ou pelo DJ), problema.
-   A casa paga o cachê + taxa de serviço do Xouty (5%) + IVA da taxa; o DJ recebe o cachê inteiro e passa a fatura-recibo à casa. */
-const TAXA = 0.05, IVA = 0.23, H = 36e5;
+   A casa paga o cachê + taxa de serviço do Xouty (6%) + IVA da taxa; o DJ recebe o cachê inteiro e passa a fatura-recibo à casa. */
+const TAXA = 0.06, IVA = 0.23, H = 36e5;
 const contas = c => { const taxa = Math.round(c * TAXA * 100) / 100, iva = Math.round(taxa * IVA * 100) / 100; return {cache:c, taxa, iva, total:Math.round((c + taxa + iva) * 100) / 100}; };
 const inicioSet = x => new Date(x.data + 'T' + (String(x.hora).match(/\d{2}:\d{2}/) || ['23:00'])[0]);
 /* sinal: set marcado com mais de 60 dias de antecedência paga só 30% do cachê (mais a taxa toda) na marcação; o sinal segue para o DJ
