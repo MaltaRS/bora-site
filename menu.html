@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Streetfy · Menu</title><meta name="description" content="O menu de um bar ou restaurante, como a casa o publica: pedir na mesa, chamar o garçom e pagar."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Streetfy · cartaz de rua ===== */
+<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Xouty · Menu</title><meta name="description" content="O menu de um bar ou restaurante, como a casa o publica: pedir na mesa, chamar o garçom e pagar."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Xouty · cartaz de rua ===== */
 /* Layout: página de uma coluna até 1240px; herói com foto em P&B e celular flutuante; faixa que corre; grade de cartões; celular fixo que troca de tela ao rolar; galeria horizontal; tudo em preto, papel, rosa e menta. */
 :root{--ink:#0b0b0b;--paper:#f2f2f2;--pink:#ff2e6e;--mint:#6fe3a5;--grey:#4f4f4f;--line:#dcdcdc;--fd:"Anton",Impact,"Arial Narrow",sans-serif;--fb:"Work Sans","Segoe UI",Helvetica,Arial,sans-serif}
 :root{color-scheme:light}
@@ -1282,7 +1282,7 @@ html.cm-tpl :is(.cm-chk,.cm-op1) input{accent-color:var(--pink)}html.cm-tpl .cm-
 html.cm-tpl .cm-cb p,html.cm-tpl .al-nota,html.cm-tpl .cm-vazio{color:var(--grey)}
 html.cm-tpl .cm-cf b.num{color:var(--ink)}
 html.cm-tpl a{color:inherit}
-/* 1 · cartaz de rua: o visual do Streetfy, tinta grossa e sombra dura */
+/* 1 · cartaz de rua: o visual do Xouty, tinta grossa e sombra dura */
 html.cm-t-rua{--sh:5px 5px 0 var(--mint);--sh-h:6px 6px 0 var(--pink)}
 /* 2 · tasca: papel creme, serifa, faixa de azulejo e preço com pontinhos */
 html.cm-t-tasca{--r:6px;--rb:6px;--bw:1.5px;--sh:0 1px 0 var(--line);--sh-h:0 6px 18px rgba(0,0,0,.12)}
@@ -1854,7 +1854,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
 .ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
 @media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
-/* indicar: partilhar fora do Streetfy */
+/* indicar: partilhar fora do Xouty */
 .ev-fora{display:grid;gap:6px;border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px}
 .ev-fora>span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .ev-fora>div{display:flex;gap:6px;flex-wrap:wrap}
@@ -1958,7 +1958,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
-</svg><div data-cardapio></div><script>/* Streetfy · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
+</svg><div data-cardapio></div><script>/* Xouty · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
    Curtir grava em streetfy:gostos (o mesmo da lista Hoje, do perfil e da página do evento).
    Seguir grava em segue:<cidade/lugar> (o mesmo do botão Seguir do perfil do local).
    Os botões podem estar dentro de um card que é link: o clique é tratado aqui e não abre o card.
@@ -2006,7 +2006,7 @@ function decora(raiz){
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => decora()); else decora();
 window.STREETFY_ACOES = {coracao, seguir, gosta, segue, decora};
 })();
-</script><script>/* Streetfy · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
+</script><script>/* Xouty · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
    1) O lugar fica num quadro logo abaixo da barra de pesquisa: país e cidade (e raio, quando a cidade tem centro). "Mudar" abre-o.
    2) Pílulas de topo: ao escolher uma, as outras somem e fica só a escolhida com "← Voltar".
    3) Com uma pílula escolhida abrem as perguntas, uma de cada vez, numa linha que desliza no telemóvel.
@@ -2143,7 +2143,7 @@ if(window.BORA&&window.BORA_XP){
   document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
-</script><script>/* Streetfy · cardapios.js — cardápios dos lugares, copiados da fonte pública de cada casa (consultadas a 26/10/2026).
+</script><script>/* Xouty · cardapios.js — cardápios dos lugares, copiados da fonte pública de cada casa (consultadas a 26/10/2026).
    No app real o parceiro carrega e edita o cardápio no portal; aqui o portal só liga ou desliga o botão (fica neste aparelho). */
 (function(){
 'use strict';
@@ -2220,7 +2220,7 @@ window.STREETFY_CARDAPIOS = {
   /* serviço à mesa, ligado por casa no portal: pedidos pela app, chamar o garçom, pagar a conta */
   servico:k => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}')[k] || {}; } catch (e) {} return Object.assign({pedidos:false, garcom:false, pagar:false, vista:'simples'}, (D[k] || {}).servico, v); },
   mudarServico:(k, campo, on) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:on}); try { localStorage.setItem(LS, JSON.stringify(v)); } catch (e) {} },
-  /* marca da casa: capa (foto do Streetfy ou carregada pela casa) e logo; carregadas ficam como data: URL neste aparelho */
+  /* marca da casa: capa (foto do Xouty ou carregada pela casa) e logo; carregadas ficam como data: URL neste aparelho */
   marca:k => { try { return JSON.parse(localStorage.getItem(LM) || '{}')[k] || {}; } catch (e) { return {}; } },
   mudarMarca:(k, campo, val) => { let v = {}; try { v = JSON.parse(localStorage.getItem(LM) || '{}'); } catch (e) {} v[k] = Object.assign(v[k] || {}, {[campo]:val}); if (!val) delete v[k][campo]; try { localStorage.setItem(LM, JSON.stringify(v)); return true; } catch (e) { return false; } },
   capa:k => { const m = window.STREETFY_CARDAPIOS.marca(k), v = m.capa || (D[k] || {}).img || 'noite'; return /^data:/.test(v) ? v : 'img/' + v + '.jpg'; },
@@ -2230,7 +2230,7 @@ window.STREETFY_CARDAPIOS = {
   tema, fonte, contraste
 };
 })();
-</script><script>/* Streetfy · cardapio.js — cardápio de mesa: cardapio.html#lugar=<cidade/lugar>[&mesa=12]
+</script><script>/* Xouty · cardapio.js — cardápio de mesa: cardapio.html#lugar=<cidade/lugar>[&mesa=12]
    Só o cardápio da casa dona do perfil. Com a mesa aberta: pedir, acompanhar, chamar o garçom e, se a casa ligar, pagar a conta.
    O QR da mesa abre este link já com &mesa=. Protótipo: nada é cobrado; o estado fica neste aparelho. */
 (function(){
@@ -2308,7 +2308,7 @@ function pagina(){
     + '</div></section>'
     + '<section class="s-sec tight cm' + (S.mesa ? ' com-barra' : '') + '"><div class="s-wrap"><div class="ca-casa">' + abrir + nav + menuFixo
     + (V === 'completa'
-      ? '<div class="cm-full">' + c.secoes.map(([t, sub, itens], si) => { const f = ((c.fotos || {})[t] || [c.img || 'noite'])[0]; return '<section class="cm-cs" id="cm-s' + si + '"><div class="cm-cs-h" style="background-image:url(img/' + esc(f) + '.jpg)"><div><h3>' + esc(t) + '</h3>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div></div><div class="cm-cards">' + itens.map((it, ii) => cartao(si, ii, it, cursos.includes(t), t)).join('') + '</div></section>'; }).join('') + '<p class="al-nota">Fotos ilustrativas do Streetfy até a casa carregar as suas no portal. Pratos, ingredientes e preços são os da casa.</p></div>'
+      ? '<div class="cm-full">' + c.secoes.map(([t, sub, itens], si) => { const f = ((c.fotos || {})[t] || [c.img || 'noite'])[0]; return '<section class="cm-cs" id="cm-s' + si + '"><div class="cm-cs-h" style="background-image:url(img/' + esc(f) + '.jpg)"><div><h3>' + esc(t) + '</h3>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div></div><div class="cm-cards">' + itens.map((it, ii) => cartao(si, ii, it, cursos.includes(t), t)).join('') + '</div></section>'; }).join('') + '<p class="al-nota">Fotos ilustrativas do Xouty até a casa carregar as suas no portal. Pratos, ingredientes e preços são os da casa.</p></div>'
       : '<div class="ca-secs">' + c.secoes.map(([t, sub, itens], si) => '<section class="ca-sec" id="cm-s' + si + '"><h3>' + esc(t) + (sub ? ' <small>' + esc(sub) + '</small>' : '') + '</h3><ul>' + itens.map((it, ii) => linha(si, ii, it, cursos.includes(t))).join('') + '</ul></section>').join('') + '</div>')
     + '<div class="ca-pe"><p><b>Horário</b> ' + esc(c.horario || '') + '</p>' + (c.notas || []).map(n => '<p>' + esc(n) + '</p>').join('')
     + '<p class="al-nota">Fonte do menu: <a href="' + esc(c.fonte[1]) + '" target="_blank" rel="noopener">' + esc(c.fonte[0]) + '</a>, consultada a 26/10/2026. Protótipo: pedidos, chamadas e pagamento são simulados e nada é cobrado.</p></div></div></div></section>'
@@ -2457,8 +2457,8 @@ window.addEventListener('storage', ev => { if (c && /^streetfy:cardapio-(servico
 function carrega(){
   const q = new URLSearchParams(location.hash.slice(1));
   k = q.get('lugar') || ''; c = CA.dados[k];
-  if (!c || !CA.visivel(k)) { document.title = 'Streetfy · Menu'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>MENU</em></h1><p class="s-lead">Este lugar não mostra menu de momento.</p></div></section>'; S = null; return; }
-  document.title = 'Streetfy · Menu · ' + c.nome;
+  if (!c || !CA.visivel(k)) { document.title = 'Xouty · Menu'; el.innerHTML = '<section class="s-sec tight"><div class="s-wrap"><h1 class="s-h">SEM <em>MENU</em></h1><p class="s-lead">Este lugar não mostra menu de momento.</p></div></section>'; S = null; return; }
+  document.title = 'Xouty · Menu · ' + c.nome;
   S = ler(); vista = null; aplicaTema();
   const m = q.get('mesa'); const sv = SV();
   if (m && (sv.pedidos || sv.garcom || sv.pagar) && S.mesa !== m && !S.pedidos.length) { S = novo(); S.mesa = m; S.desde = Date.now(); grava(); }
