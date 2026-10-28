@@ -87,7 +87,7 @@ let qtdMem = {}, ui = {noite:'n1', mesa:'', estilos:new Set(['techno', 'house'])
 const V = {};
 V.inicio = () => {
   const cid = ls('streetfy:app-cidade', 'lisboa'), cidade = cidadeDe(cid), qd = ls('streetfy:app-quando', 'hoje');
-  const lista = eventosDe({quando:qd}, 8), loc = locAtual();
+  const todos = eventosDe({quando:qd}), lista = todos.slice(0, 8), loc = locAtual();
   let ofertas = []; if (OF) { ofertasFrescas(); ofertas = OF.estado().ofertas.filter(o => OF.ativa(o) && OF.dentro(o.zona, loc)); }
   const amigosLa = AMIGOS.filter(a => a.st === 'la').slice(0, 3);
   return {tab:0, html:
@@ -96,12 +96,26 @@ V.inicio = () => {
     + lbl('Ofertas perto de ti', 'a posição fica no telemóvel · <button type="button" class="lk" data-go="ofertas" style="background:none;border:0;padding:0;color:var(--ac);font-weight:800;cursor:pointer">ver</button>')
     + (ofertas.length ? ofertas.slice(0, 2).map(o => oc(esc(OF.oQue(o)), esc(o.casa.nome) + ' · ' + esc(OF.estadoTxt(o)), esc(OF.PUB[o.publico]) + (o.alcool ? ' · 18+ · 1 com álcool por noite' : ''), ofBotao(o), 'um')).join('') : note('Nenhuma oferta na zona onde estás agora (' + esc(raw('streetfy:app-loc', 'Bairro Alto')) + '). Muda a zona em Ofertas.'))
     + lbl('Amigos lá agora', 'só quem partilha contigo') + '<button type="button" class="avs" data-go="pessoas/mapa" style="background:none;border:0;padding:4px 0;cursor:pointer">' + amigosLa.map(a => '<i style="background-image:url(' + PES(a.id) + ')"></i>').join('') + '<b>' + esc(amigosLa.map(a => a.nome.split(' ')[0]).join(', ')) + ' · ' + esc(localDe(amigosLa[0].k).nome) + ' e mais · ir ter ›</b></button>'
-    + lbl(qd === 'hoje' ? 'Hoje' : qd === 'amanha' ? 'Amanhã' : qd === 'fds' ? 'Fim de semana' : 'Todas as datas', eventosDe({quando:qd}).length + ' na cidade')
-    + lista.map(i => cardEv(i)).join('')
+    + titulo(qd === 'hoje' ? 'Hoje' : qd === 'amanha' ? 'Amanhã' : qd === 'fds' ? 'Fim de semana' : 'Todas as datas', 'Sair em <em>' + esc(cidade.nome) + '</em>')
+    + fres(todos.length, cidade.nome, todos)
+    + cards(lista)
     + btn('Ver todos os eventos', 'ghost', 'data-go="eventos"')
     + lbl('Experiências', 'céu, água, noite VIP, à tua porta') + '<a class="pc" href="' + hrefSite('experiencias.html') + '"><div class="im duo" style="background-image:url(../img/heli.jpg);height:96px"></div><div class="ov"><span class="poster-t" style="font-size:20px">Céu · Água · Noite VIP · À tua porta</span><span style="font-size:11px">abre o site das experiências</span></div></a>'};
 };
-const cardEv = i => '<div class="row lk" data-go="evento/' + esc(i.id) + '" role="button"><span class="th" style="background-image:url(' + esc(IMG(i.img)) + ')"></span><div><div class="t">' + esc(i.titulo) + (i.origem === 'patrocinado' ? ' ' + tag('patrocinado', 'dim') : '') + '</div><div class="s">' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + (horaDe(i) ? ' · ' + esc(horaDe(i)) : '') + ' · ' + esc(precoDe(i)) + (i.porNome ? ' · por ' + esc(i.porNome) : i.origem === 'bot' ? ' · via ' + esc(String(i.fonte || 'fonte').split(/ ·| /)[0]) : '') + '</div></div><span class="end ' + (i.aqui ? 'ac' : 'mu') + '">' + (i.aqui ? '● ' + i.aqui : i.vao ? i.vao + ' vão' : '') + '</span></div>';
+/* cartões iguais aos do site: 'cartoes' = card-l (cartaoLista), 'lista' = linha (cartaoLinha); preferência partilhada com o site em streetfy:vista */
+const VISTA_K = 'streetfy:vista';
+const vista = () => raw(VISTA_K, 'cartoes') === 'lista' ? 'lista' : 'cartoes';
+const ICO_GRADE = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor"/></svg>',
+  ICO_LISTA = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="4" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="10.5" width="18" height="3" rx="1.5" fill="currentColor"/><rect x="3" y="17" width="18" height="3" rx="1.5" fill="currentColor"/></svg>';
+const cards = (lista, forca) => {
+  const v = forca || vista(), t = F.T(), f = v === 'lista' ? F.cartoes.linha : v === 'poster' ? F.cartoes.poster : F.cartoes.lista;
+  const h = lista.map((i, k) => f(i.img ? i : Object.assign({}, i, {img:'lux'}), k, t)).join('').replace(/url\(img\//g, 'url(../img/');
+  return '<div class="s-cards' + (v === 'lista' ? ' vista-lista' : '') + '">' + h + '</div>';
+};
+const fvista = () => { const v = vista(); return '<span class="fvista" role="group" aria-label="Vista">' + [['cartoes', ICO_GRADE, 'Cartões'], ['lista', ICO_LISTA, 'Lista']].map(x => '<button type="button" data-vista="' + x[0] + '"' + (v === x[0] ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + ' title="' + x[2] + '">' + x[1] + '<span>' + x[2] + '</span></button>').join('') + '</span>'; };
+const fres = (n, onde, lista) => { const g = GO && lista ? lista.filter(i => GO.tem(i.id)).length : 0; return '<p class="fres"><span><b>' + n + '</b> ' + (n === 1 ? 'evento' : 'eventos') + (onde ? ' · ' + esc(onde) : '') + '</span>' + (g ? '<span class="fgostos">' + GO.icone + g + '</span>' : '') + fvista() + '</p>'; };
+const titulo = (eyebrow, h) => '<div class="s-top"><p class="s-eyebrow">' + eyebrow + '</p><h2 class="s-h h2s">' + h + '</h2></div>';
+const tituloEm = s => { const w = esc(s).split(' '); if (w.length < 2) return '<em>' + w[0] + '</em>'; const u = w.pop(); return w.join(' ') + ' <em>' + u + '</em>'; };
 const ofBotao = o => { const meu = OF.meus().find(v => v.oferta === o.id); if (meu) return btn('Ver o voucher', 'ghost', 'data-go="voucher/' + esc(meu.c) + '"'); return btn(OF.precisaSeguir(o) ? 'Seguir ' + esc(o.casa.nome) + ' e aceitar' : 'Aceitar · voucher', 'mint', 'data-act="aceitar" data-id="' + esc(o.id) + '"'); };
 
 V.cidade = () => ({tab:0, html:bar(true, 'Onde estás a sair') + F.PAISES[0].cidades.filter(c => c.aberta).map(c => row(null, esc(c.nome), (c.eventos || 0) + ' eventos · ' + (c.lugares || 0) + ' lugares', [ls('streetfy:app-cidade', 'lisboa') === c.id ? '✓' : '', 'ac'], 'data-act="cidade" data-id="' + esc(c.id) + '"')).join('') + note('A cidade escolhida vale para Hoje, Eventos e Ofertas. O GPS só sugere trocar.')});
@@ -110,11 +124,12 @@ V.eventos = (p, q) => {
   const qd = q.get('quando') || ls('streetfy:app-quando', 'hoje'), tipo = q.get('tipo') || 'tudo', busca = ui.busca;
   const lista = eventosDe({quando:qd, tipo, q:busca}), vis = lista.slice(0, ui.mais);
   return {tab:1, html:
-    bar(false, 'Eventos', esc(cidadeDe(ls('streetfy:app-cidade', 'lisboa')).nome) + ' · ' + lista.length + ' resultados', icob('search', '', '', 'Procurar'))
+    bar(false, 'Eventos', esc(cidadeDe(ls('streetfy:app-cidade', 'lisboa')).nome) + ' · o que há para sair', icob('search', '', '', 'Procurar'))
     + '<label class="search">' + ico('search', 's') + '<input data-busca placeholder="Procurar lugar, evento ou bairro" value="' + esc(busca) + '" enterkeyhint="search"></label>'
     + chips([['hoje', 'Hoje'], ['amanha', 'Amanhã'], ['fds', 'Fim de semana'], ['todas', 'Todas']].map(([v, t]) => ({v, t, on:qd === v})), 'data-set-quando')
     + chips([['tudo', 'Tudo'], ['festa', 'Festas'], ['concerto', 'Concertos'], ['clube', 'Clubes'], ['bar', 'Bares'], ['restaurante', 'Restaurantes'], ['livre', 'Entrada livre']].map(([v, t]) => ({v, t, on:tipo === v})), 'data-set-tipo')
-    + (vis.length ? vis.map(cardEv).join('') : note('Nada com estes filtros. Tira o tipo ou muda o dia.'))
+    + fres(lista.length, cidadeDe(ls('streetfy:app-cidade', 'lisboa')).nome, lista)
+    + (vis.length ? cards(vis) : note('Nada com estes filtros. Tira o tipo ou muda o dia.'))
     + (lista.length > ui.mais ? btn('Mostrar mais ' + (lista.length - ui.mais), 'ghost', 'data-act="mais"') : '')};
 };
 
@@ -137,16 +152,20 @@ V.evento = p => {
   else caixa = field('Sem bilhete aqui', 'perfil gerido pela IA · a saída é a fonte') + (i.fonteLink || i.href ? '<a class="btn" href="' + esc(i.fonteLink || i.href) + '" target="_blank" rel="noopener">Bilhetes na fonte · ' + esc(String(i.fonte || 'origem').split(/ ·| /)[0]) + '</a>' : '') + btn('É o teu lugar? Assume o perfil', 'ghost', 'data-site="parceiros.html"');
   return {tab:1, html:
     bar(true, '', '', icob('share', '', '', 'Partilhar') )
-    + '<div class="pc"><div class="im duo" style="background-image:url(' + esc(IMG(i.img)) + ')"></div><div class="ov">' + (i.origem === 'patrocinado' ? tag('patrocinado', 'dim') : i.soSeguidores ? tag('só para seguidores', 'mint') : i.origem === 'bot' ? tag('via ' + esc(String(i.fonte || 'fonte').split(/ ·| /)[0]), 'dim') : '') + '<span class="poster-t">' + esc(i.titulo) + '</span><span style="font-size:12px">' + esc(nome) + (i.bairro ? ' · ' + esc(i.bairro) : '') + ' · ' + esc(quando(i)) + (horaDe(i) ? ' · ' + esc(horaDe(i)) : '') + '</span></div></div>'
+    + '<div class="hero-ev"><div class="s-bg" style="background-image:url(' + esc(IMG(i.img)) + ')"></div><div class="s-tint"></div>'
+      + '<span class="s-tag' + (livre ? ' mint' : '') + '">' + esc(F.tag(i)) + '</span>' + (i.origem === 'patrocinado' ? '<span class="s-pat">patrocinado</span>' : '')
+      + (GO ? '<button type="button" class="s-gosto' + (GO.tem(i.id) ? ' on' : '') + '" data-f="gosto" data-v="' + esc(i.id) + '" aria-pressed="' + GO.tem(i.id) + '" aria-label="Gosto">' + GO.icone + '</button>' : '')
+      + '<div class="hb"><p class="s-eyebrow">' + esc(quando(i)) + (horaDe(i) ? ' · ' + esc(horaDe(i)) : '') + (i.soSeguidores ? ' · só para seguidores' : i.origem === 'bot' ? ' · via ' + esc(String(i.fonte || 'fonte').split(/ ·| /)[0]) : '') + '</p>'
+      + '<h1 class="s-h">' + tituloEm(i.titulo) + '</h1><p class="meta"><b>' + esc(nome) + '</b>' + (i.bairro ? ' · ' + esc(i.bairro) : '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + (livre ? ' · entrada livre' : ' · ' + esc(precoDe(i))) + (i.aqui ? ' · <span style="color:var(--pink);font-weight:800">● ' + i.aqui + ' aqui agora</span>' : i.vao ? ' · ' + i.vao + ' vão' : '') + '</p></div></div>'
     + '<div class="stats">' + [[precoDe(i), 'entrada'], [i.estilo ? cap(i.estilo) : '—', 'estilo'], [i.aqui ? '● ' + i.aqui : (i.vao || 0) + '', i.aqui ? 'aqui agora' : 'vão'], [i.star ? '★ ' + i.star : '—', 'nota']].map(x => '<div><b>' + esc(x[0]) + '</b><small>' + x[1] + '</small></div>').join('') + '</div>'
     + (i.porNome ? who(PES('mariana-c'), 'por ' + esc(i.porNome) + ' · promoter', 'evento criado na página de ' + esc(nome), tag('aprovado pela casa', 'mint')) : '')
-    + '<div class="sw">' + btn((GO && GO.tem(i.id) ? '♥ Gostas' : '♡ Gosto'), 'ghost', 'data-act="gosto" data-id="' + esc(i.id) + '"') + btn(sg ? 'A seguir ✓' : 'Seguir ' + esc(nome.split(' ')[0]), sg ? 'mint' : 'ghost', 'data-act="seguir" data-k="' + esc(k) + '"') + '</div>'
+    + '<div class="sw">' + btn(sg ? 'A seguir ✓' : 'Seguir ' + esc(/^\d/.test(nome) ? i.titulo : nome.split(' ')[0]), sg ? 'mint' : 'ghost', 'data-act="seguir" data-k="' + esc(k) + '"') + btn('Partilhar', 'ghost', 'data-act="toast" data-t="Ligação copiada (simulado)"') + '</div>'
     + (!livre && assumido(i) ? btn(EV && EV.tem(i.id) ? 'Eu vou ✓' : 'Eu vou · avisa quem te segue', EV && EV.tem(i.id) ? 'mint' : 'ghost', 'data-act="euvou" data-id="' + esc(i.id) + '"') : '')
     + (i.pp || i.descricao ? '<p class="desc">' + esc(i.descricao || i.pp) + '</p>' : '')
     + lbl('Bilhete') + caixa
     + (djs.length || proms.length ? lbl('Listas de convidados', 'QR depois de a casa aprovar') + djs.map(d => row(IMG(d.foto), 'Lista do ' + esc(d.art), esc(DJ.NIVEL[d.nivel] || 'DJ') + ' · aprovação da casa', ['pedir ›', 'ac'], 'data-go="lista/' + esc(i.id) + '?dj=' + esc(d.id) + '"')).join('') + proms.map(x => row(IMG(x.foto), 'Lista da ' + esc(x.nome), 'promoter · ' + (x.comissao && x.comissao.includes(i.id) ? 'com comissão' : 'sem comissão'), ['pedir ›', 'ac'], 'data-go="lista/' + esc(i.id) + '?p=' + esc(x.id) + '"')).join('') : '')
     + (k === 'lisboa/lux fragil' && assumido(i) ? lbl('Mesa VIP') + row('../img/mesa.jpg', 'Reservar mesa', 'planta do Lux · preço por mesa e por noite', ['›', 'ac'], 'data-go="mesa"') : '')
-    + (outros.length ? lbl('Outras noites em ' + esc(nome)) + outros.map(cardEv).join('') : '')
+    + (outros.length ? lbl('Outras noites em ' + esc(nome)) + cards(outros, 'lista') : '')
     + note('Casa cancela: devolução integral e automática. Sem direito de arrependimento (DL 24/2014, art. 17.º).')};
 };
 
@@ -400,6 +419,15 @@ const go = h => { location.hash = '#/' + h; };
 window.addEventListener('hashchange', () => render(false));
 
 /* ---------- ações ---------- */
+const pintaGosto = id => { const on = !!(GO && GO.tem(id)); app.querySelectorAll('[data-f="gosto"][data-v="' + CSS.escape(id) + '"]').forEach(b => { b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); const a = b.closest('a[data-id]'); if (a) a.classList.toggle('gostado', on); }); };
+app.addEventListener('click', ev => {
+  const g = ev.target.closest('[data-f="gosto"]');
+  if (g) { ev.preventDefault(); ev.stopPropagation(); if (GO) GO.alternar(g.dataset.v); pintaGosto(g.dataset.v); return; }
+  const v = ev.target.closest('[data-vista]');
+  if (v) { rawSet(VISTA_K, v.dataset.vista === 'lista' ? 'lista' : 'cartoes'); return render(true); }
+  const a = ev.target.closest('a[data-id]');
+  if (a && a.closest('.s-cards')) { ev.preventDefault(); go('evento/' + a.dataset.id); }
+});
 document.addEventListener('click', ev => {
   const b = ev.target.closest('[data-go],[data-back],[data-act],[data-site],[data-quando],[data-set-quando],[data-set-tipo],[data-tabp],[data-taba],[data-estilo],[data-noite],[data-mesa],[data-metodo],[data-loc]'); if (!b) return;
   const d = b.dataset;

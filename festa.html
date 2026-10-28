@@ -3282,11 +3282,11 @@ const P = (t, size) => '<div class="poster-t"' + (size ? ' style="font-size:' + 
 const guar = (t, s) => '<div class="guar">' + ico('shield', 'ic s') + '<span><b>' + t + '</b>' + s + '</span></div>';
 const menu = (t, s, q) => '<div class="menu"><span><span class="t">' + t + '</span><span class="s">' + s + '</span></span><span class="qty"><i>−</i>' + q + '<i class="on">+</i></span></div>';
 const card = (img, t, s, price, tag) => '<div style="border-radius:16px;overflow:hidden;background:#111;color:#fff"><div style="position:relative">' + im(img, 104, '', 'duo') + '<span class="tag live" style="position:absolute;top:8px;left:8px">' + tag + '</span></div><div style="padding:9px 11px;display:grid;gap:4px"><div style="font-family:var(--fd);font-size:20px;line-height:.95;text-transform:uppercase">' + t + '</div><div style="font-size:10.5px;opacity:.75">' + s + '</div><div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #2a2a2a;padding-top:5px;margin-top:2px"><span style="font-size:10px;opacity:.7">por pessoa, tudo incluído</span><b style="font-size:15px">' + price + '</b></div></div></div>';
-const nav5 = on => '<div class="nav lbl ink five">' + [['home','Início'],['cal','Eventos'],['spark',''],['ticket','Agenda'],['user','Perfil']].map((x, i) => i === 2 ? '<span class="mid' + (on === 2 ? ' on' : '') + '">' + ico('spark') + '</span>' : '<span class="' + (on === i ? 'on' : '') + '">' + ico(x[0]) + x[1] + '</span>').join('') + '</div>';
+const nav5 = on => '<div class="nav lbl ink five">' + [['home','Início'],['cal','Eventos'],['users',''],['ticket','Agenda'],['user','Perfil']].map((x, i) => i === 2 ? '<span class="mid' + (on === 2 ? ' on' : '') + '">' + ico('users') + '</span>' : '<span class="' + (on === i ? 'on' : '') + '">' + ico(x[0]) + x[1] + '</span>').join('') + '</div>';
 const sel = t => '<span class="tag" style="background:var(--ac2);color:#0b0b0b">' + t + '</span>';
 
 const S = [
- {c:'XP01', n:'Experiências', t:'21:05', g:'Descobrir', nav:2, f:() =>
+ {c:'XP01', n:'Experiências', t:'21:05', g:'Descobrir', nav:0, f:() =>
    im('aereo', 230, '', 'duo poster-side')
    + '<div class="hd" style="position:relative">' + icob('menu', 'margin:0;background:#111;color:#fff') + '<span class="tag" style="position:relative;background:#fff;color:#111;border:1.5px solid #111;font-size:10.5px;padding:6px 10px;border-radius:999px;margin-left:8px;letter-spacing:0;text-transform:none">' + ico('pin', 'ic xs') + ' Lisboa, PT ▾</span>' + icob('search', 'background:var(--ac);color:#fff') + '</div>'
    + '<div style="position:relative;margin-top:4px">' + P('VIVE<br>LISBOA<br>DE <em>CIMA</em>', 42) + '</div>'
@@ -3294,7 +3294,7 @@ const S = [
    + '<div class="cat" style="position:relative;margin-top:6px"><div class="on">' + ico('heli') + 'Céu</div><div>' + ico('boat') + 'Água</div><div>' + ico('glass') + 'Mesa VIP</div><div>' + ico('spark') + 'After</div><div>' + ico('chef') + 'Em casa</div><div>' + ico('car') + 'Motorista</div></div>'
    + '<div style="background:#111;color:#fff;border-radius:16px;overflow:hidden;display:flex"><div class="im duo" style="width:64px;flex:0 0 auto;background-image:url(img/tejo.jpg)"></div><div style="padding:9px 10px;flex:1"><div style="font-size:10px;color:var(--ac);font-weight:700">PÔR DO SOL HOJE 18:42</div><div style="font-family:var(--fd);font-size:18px;line-height:.95">LANCHA NO TEJO</div><div style="font-size:10.5px;opacity:.75;margin:3px 0 6px">2 h · até 8 · skipper e bebidas</div><div style="display:flex;justify-content:space-between;align-items:center"><b>€59,90<small style="font-weight:500;opacity:.7"> p/ pessoa</small></b><span class="tag" style="background:var(--ac2);color:#0b0b0b">Instantânea</span></div></div></div>'
    + '<div class="row" style="border:1px solid var(--ln);border-radius:14px;padding:8px 10px;background:var(--sf)">' + icob('chat', 'margin:0;background:#111;color:#fff') + '<div><div class="t">Não achou? Fala com o concierge</div><div class="s">gente de verdade · responde em ~3 min</div></div><span class="end" style="color:var(--ac)">→</span></div>'},
- {c:'XP02', n:'Categoria', t:'21:06', g:'Descobrir', nav:2, f:() =>
+ {c:'XP02', n:'Categoria', t:'21:06', g:'Descobrir', nav:0, f:() =>
    bar('back', '', 'set') + P('<em>CÉU</em>') + '<div class="desc">Helicóptero, avião e balão · 14 experiências</div>'
    + chips(['*sáb 25', '2 pessoas', 'Até €1.100', 'Instantânea'])
    + card('heli', 'Cascais e Cabo da Roca', 'Helicóptero · 30 min · até 3 · Heliporto de Algés', '€1.070', 'Instantânea')
@@ -3365,7 +3365,7 @@ const S = [
    + row('', 'Saiu na hora?', '', [sel('Sim')]) + row('', 'Sentiu-se seguro?', '', [sel('Sim')]) + row('', 'Foi como no anúncio?', '', [sel('Sim')])
    + '<div class="area">O piloto contornou o Cabo da Roca no pôr do sol. Valeu cada minuto.</div>'
    + btn('Publicar avaliação', 'mint')},
- {c:'XP13', n:'Concierge', t:'17:20', g:'Concierge e after', dark:true, nav:2, f:() =>
+ {c:'XP13', n:'Concierge', t:'17:20', g:'Concierge e after', dark:true, nav:0, f:() =>
    '<div class="hd">' + icob('back', 'margin:0') + '<span class="av im" style="background-image:url(img/pink.jpg)"></span><div><div class="t">Inês · Concierge Xouty</div><div class="s"><span style="color:var(--ac2)">●</span> online · responde em ~3 min</div></div></div>'
    + '<div class="bub me">Somos 12, aniversário no sábado. Jantar e depois um after até às 6h, perto do Cais.<small>17:12</small></div>'
    + '<div class="bub">Para 12 tenho duas salas privadas para jantar e um terraço licenciado em Santos para o after. Qual o orçamento por pessoa?<small>17:14</small></div>'
@@ -3422,7 +3422,7 @@ const S = [
    + lbl('O que muda') + kv([['Nome no ingresso', 'Rui Pereira'], ['QR', 'novo, o seu deixa de valer'], ['Pagamento', 'continua seu']])
    + guar('Grátis até 24 h antes', 'Depois disso, só o operador pode aceitar.')
    + btn('Transferir', 'mint')},
- {c:'XP21', n:'Criar a festa', t:'14:20', g:'Sua festa', nav:2, f:() =>
+ {c:'XP21', n:'Criar a festa', t:'14:20', g:'Sua festa', nav:0, f:() =>
    im('lx', 200, '', 'duo poster-side') + '<div style="position:relative;margin-top:6px">' + P('SUA<br><em>FESTA</em>', 46) + '</div><div class="desc" style="position:relative;max-width:140px;color:var(--fg)">Você monta, os convidados dividem. De 10 a 500 pessoas, só por convite.</div><div style="height:30px"></div>'
    + row('', 'Nome', '', ['Aniversário da Mariana']) + row('', 'Data', '', ['sáb 8 nov · 22:00'])
    + lbl('Tamanho') + '<div class="cat"><div>até 50<br><small style="font-weight:500;opacity:.7">casa ok</small></div><div class="on">51 a 150<br><small style="font-weight:500;opacity:.7">local alugado</small></div><div>151 a 500<br><small style="font-weight:500;opacity:.7">local licenciado</small></div></div>'
@@ -3803,7 +3803,16 @@ const flows = {
   lugar:[ex('U06', 'Perfil do lugar', 'venue', 1), N.U07, N.U08, ex('U09', 'Evento e bilhetes', 'event', 1), N.U10, ex('U11', 'Meu bilhete', 'ticket', 3), ex('U12', 'Reservar mesa', 'reserve'), N.U42, N.U37, N.U38],
   gente:[ex('U14', 'A pergunta', 'ask'), ex('U18', 'Quem está aqui', 'here'), N.U17, N.U19, N.U33, N.U25, N.U26, N.U39, N.U40, N.U41],
   agenda:[N.U13, ex('U15', 'Meu perfil', 'profile', 4), N.U16, N.U22, N.U23, N.U24, N.U27, N.U28, N.U29, N.U30],
-  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10, N.E11]
+  equipe:[ex('X07', 'Cardápio do bar', 'bar'), ex('X08', 'Pedido feito', 'order'), ex('E06', 'Modo porta', 'door'), N.E08, N.E09, N.E10, N.E11],
+  /* v2 (28/10/2026): as funções novas, por aba */
+  inicio2:[N.U43, N.U44, N.U45],
+  eventos2:[N.U47, N.U48, N.U49, N.U50, N.U51],
+  pessoas:[N.U52, N.U53, N.U54, N.U55, N.U57, N.U58],
+  agenda2:[N.U60, N.U61],
+  perfil2:[N.U63, N.U64, N.U65, N.U66],
+  menu:[N.U67, N.U68, N.U69],
+  porta2:[N.E12, N.E13, N.E14],
+  portal:[N.P01, N.P02, N.P03, N.P04, N.P05, N.P06, N.P07, N.P08, N.P09]
 };
 Object.keys(flows).forEach(k => { const el = document.querySelector('.stage[data-flow="' + k + '"]'); if (el) el.innerHTML = flows[k].map(cell).join(''); });
 const groups = []; XP.S.forEach(s => { if (!groups.includes(s.g)) groups.push(s.g); });

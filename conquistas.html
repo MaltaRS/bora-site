@@ -2850,7 +2850,7 @@ function perfil(id, souEu){
     + '<div class="gu-s">' + selos.map(s => '<span title="' + esc(s.d) + '"><i>' + esc(s.ic) + '</i>' + esc(s.n) + '</span>').join('') + '</div>'
     + (souEu ? '<a class="s-btn ghost" href="conquistas.html">Ver as conquistas</a>' : '') + '</div>';
 }
-window.STREETFY_GAMI = {cardCasa, cardPro, perfil, DESAFIOS};
+window.STREETFY_GAMI = {cardCasa, cardPro, perfil, DESAFIOS, XP, SELOS, BAIRROS, NIVEIS, AMIGOS, LIGA, AK, RK, DK, ler, gravar};
 if (!el) return;
 el.addEventListener('click', ev => {
   const b = ev.target.closest('[data-selo],[data-des]'); if (!b) return;

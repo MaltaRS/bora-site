@@ -3323,7 +3323,7 @@ function montar(bar){
 normalizaTempo();
 window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA, deEventoCasa, publicado, EV_CASA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
-window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, valPreco, valHora, valExtra, RAIO_KM, km, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
+window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, T, cartoes:{poster:cartaoPoster, lista:cartaoLista, linha:cartaoLinha}, presenca, preco, tag, im, valPreco, valHora, valExtra, RAIO_KM, km, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
 /* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */
 window.STREETFY_GOSTOS = {tem:id => GOSTOS.has(id), lista:() => [...GOSTOS], icone:ICO.coracao,
   alternar(id){ if (GOSTOS.has(id)) GOSTOS.delete(id); else GOSTOS.add(id); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} montados.forEach(m => m.render(false)); return GOSTOS.has(id); }};
@@ -3712,7 +3712,7 @@ function pagina(el){
   desenha();
 }
 
-window.STREETFY_OFERTAS = {card, monta:montaForm, validar, carrega, CASA};
+window.STREETFY_OFERTAS = {card, monta:montaForm, validar, carrega, CASA, aceitar, meus, motivo, precisaSeguir, seguir, dentro, oQue, ativa, estadoTxt, restantes, hhmm, SIM, PUB, TIPOS, estado:() => S};
 const pg = document.querySelector('[data-ofertas]'); if (pg) pagina(pg);
 })();
 </script><script>/* Funcionários da casa: o local atribui utilizadores comuns do Xouty a uma função (portaria, segurança, bar…),
@@ -5353,7 +5353,7 @@ function pagina(el){
   desenha();
 }
 
-window.STREETFY_OFERTAS = {card, monta:montaForm, validar, carrega, CASA};
+window.STREETFY_OFERTAS = {card, monta:montaForm, validar, carrega, CASA, aceitar, meus, motivo, precisaSeguir, seguir, dentro, oQue, ativa, estadoTxt, restantes, hhmm, SIM, PUB, TIPOS, estado:() => S};
 const pg = document.querySelector('[data-ofertas]'); if (pg) pagina(pg);
 })();
 </script><script>/* Xouty · djs.js — DJs: o mesmo papel do promoter (lista de convidados, link e comissão, aprovação pela casa) mais o que é só do DJ:
@@ -5794,7 +5794,7 @@ function perfil(id, souEu){
     + '<div class="gu-s">' + selos.map(s => '<span title="' + esc(s.d) + '"><i>' + esc(s.ic) + '</i>' + esc(s.n) + '</span>').join('') + '</div>'
     + (souEu ? '<a class="s-btn ghost" href="conquistas.html">Ver as conquistas</a>' : '') + '</div>';
 }
-window.STREETFY_GAMI = {cardCasa, cardPro, perfil, DESAFIOS};
+window.STREETFY_GAMI = {cardCasa, cardPro, perfil, DESAFIOS, XP, SELOS, BAIRROS, NIVEIS, AMIGOS, LIGA, AK, RK, DK, ler, gravar};
 if (!el) return;
 el.addEventListener('click', ev => {
   const b = ev.target.closest('[data-selo],[data-des]'); if (!b) return;
