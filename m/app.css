@@ -129,7 +129,7 @@ button{font:inherit;color:inherit}
 .selo.ok{color:var(--fg)}
 .selo i{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;margin:0 auto 5px;font-style:normal;font-family:var(--fd);font-size:19px;background:var(--sf);border:1.5px dashed var(--ln);color:var(--mu)}
 .selo.ok i{background:var(--ac);color:#fff;border:0;box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px #111}
-.selo .pb{height:3px;border-radius:9px;background:var(--ln);margin:4px 6px 0}.selo .pb i{display:block;height:100%;width:0;background:#111;border-radius:9px;border:0;margin:0;box-shadow:none}
+.selo .pb{display:block;height:3px;border-radius:9px;background:var(--ln);margin:4px 6px 0;overflow:hidden}.selo .pb i{display:block;height:100%;width:0;background:#111;border-radius:9px;border:0;margin:0;box-shadow:none}
 .barra{height:9px;border-radius:999px;background:var(--ln);overflow:hidden}.barra i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2))}
 .scr.dark .barra{background:#333}
 .steps{display:grid;gap:5px;font-size:12px}
