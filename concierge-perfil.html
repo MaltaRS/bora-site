@@ -2836,8 +2836,8 @@ const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.
 const nomeDe = (tipo, id) => USERS[id] ? USERS[id] : tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
 const DIA = 864e5, agora = Date.now();
 const PADRAO = () => [
-  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8, perm:{evento:false, lista:true}},
-  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6, perm:{evento:true, lista:true}},
+  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8, perm:{evento:false, lista:true, mesa:false}},
+  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6, perm:{evento:true, lista:true, mesa:true}},
   {id:'p3', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'marco-s', dir:'convite', estado:'aceite', t:agora - 60 * DIA, msg:'', comissao:0},
   {id:'p4', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'aceite', t:agora - 90 * DIA, msg:''},
   {id:'p5', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'beatriz-c', dir:'convite', estado:'aceite', t:agora - 40 * DIA, msg:''},
