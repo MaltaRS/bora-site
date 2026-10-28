@@ -1995,6 +1995,28 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .bf-obsl>span{display:flex;align-items:baseline;gap:6px}.bf-obsl small{font-weight:500;color:var(--grey)}.bf-obsl em{margin-left:auto;font-style:normal;font-weight:600;font-size:12px;color:var(--grey)}
 .bf-pobs{display:grid;gap:4px;font-size:12px;font-weight:700;position:relative;z-index:2}.bf-pobs input{font:inherit;font-weight:500;font-size:13px;padding:6px 9px;border:1.5px solid var(--ink);border-radius:8px;min-width:0}
 .bf-obs{font-size:12px;font-style:italic;color:var(--grey)}.bf-obs::before{content:"“"}.bf-obs::after{content:"”"}
+
+/* QR de entrada das listas: portal (porta) e Os meus planos */
+.pt-qrb{font:800 10px/1 var(--fb);letter-spacing:.06em;padding:5px 8px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.pt-qrb.on{background:var(--ink);color:#fff}
+.pt-qrv{flex-basis:100%;display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:#f2f2f2;font-weight:500}
+.pt-qrv .qr-svg{width:96px;height:96px;flex:none;border-radius:6px}
+.pt-qrv div{display:grid;gap:3px;min-width:0}.pt-qrv b{font:800 16px/1 var(--fb);letter-spacing:.06em}.pt-qrv span{font-size:12px;color:var(--grey)}
+.pt-porta{display:grid;gap:8px;margin:12px 0;padding:12px;border:2px dashed var(--ink);border-radius:12px;background:#fff}
+.pt-portaf{display:flex;gap:8px;flex-wrap:wrap}.pt-portaf input{flex:1 1 200px;font:inherit;font-weight:700;letter-spacing:.06em;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;text-transform:uppercase;min-width:0}
+.pt-portam{margin:0;padding:8px 10px;border-radius:8px;font-weight:700;font-size:14px}.pt-portam.ok{background:#dff7ea;color:#0b5a33}.pt-portam.erro{background:#ffe1ea;color:#a3123f}
+.pt-porta small{color:var(--grey);font-size:12px}
+.pt-ev small{font-weight:500;color:var(--grey)}
+.ct-ent{display:grid;gap:8px;margin-bottom:16px}
+.ct-ent-t{margin:0;font:800 12px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.ct-entc{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;background:#fff}
+.ct-entc>div{display:grid;gap:3px;min-width:0;flex:1 1 220px}.ct-entc span{font-size:13px;color:var(--grey)}
+.ct-ent-ok{color:#0b5a33!important;font-weight:700}.ct-ent-v{color:var(--ink)!important;font-weight:600}
+.ct-entc.usado{background:#f6f6f6}
+.ct-qrw{position:relative;justify-self:center}.ct-qrw .qr-svg{width:200px;height:200px;display:block}
+.ct-qrw em{position:absolute;inset:0;display:grid;place-items:center;font:400 44px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55);letter-spacing:.06em}
+.qe.agora{border:2px solid var(--mint);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#effcf5}
+.qe.agora .qe-txt b{font:800 14px/1.2 var(--fb);text-transform:none;letter-spacing:0}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3154,6 +3176,46 @@ document.addEventListener('input', ev => {
 });
 window.STREETFY_EUVOU = {MAX, ler, gravar, tem, alterna, botao, doDia, diaDe, diaTxt, hojeKey};
 })();
+</script><script>/* Entradas por lista de convidados: cada nome aceite numa lista recebe um QR único.
+   Na porta, a equipa lê o QR: o QR passa a usado (não entra duas vezes) e a pessoa fica com check-in feito no local.
+   Se a pessoa tem a presença pública (perfil › privacidade › "Onde estou agora"), todos a veem "lá agora"; só seguidores, ou só ela.
+   Guardado neste aparelho em streetfy:entradas; o check-in da própria conta vai para streetfy:eu-a-caminho (o mesmo do mapa dos amigos). */
+(function(){
+const K = 'streetfy:entradas', EK = 'streetfy:eu-a-caminho', EU = 'Mariana Costa', VALE = 6 * 36e5;
+const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const ler = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } };
+const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const hash = s => { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; };
+const codigo = (lista, nome) => 'XY-' + (hash(lista + '|' + norm(nome)).toString(36).toUpperCase() + '000000').slice(0, 6);
+const todas = () => ler(K, {});
+/* cria (ou devolve) a entrada de um nome numa lista; o código é sempre o mesmo para o mesmo nome na mesma lista */
+function garante(lista, listaNome, nome, local, localNome, quando){
+  const E = todas(), c = codigo(lista, nome);
+  if (!E[c]) { E[c] = {c, lista, listaNome, nome, local, localNome, quando:quando || '', criado:Date.now(), usado:0}; gravar(K, E); }
+  else if (E[c].listaNome !== listaNome || E[c].local !== local || (quando && E[c].quando !== quando)) { Object.assign(E[c], {listaNome, local, localNome}, quando ? {quando} : {}); gravar(K, E); }
+  return E[c];
+}
+/* quem já estava marcado como entrou antes de haver QR: fica usado, sem novo check-in */
+const jaUsado = (c, t) => { const E = todas(); if (E[c] && !E[c].usado) { E[c].usado = t || Date.now(); gravar(K, E); } return E[c]; };
+const de = c => todas()[String(c || '').trim().toUpperCase()] || null;
+/* a leitura na porta: inválido, já usado, ou entra e faz check-in */
+function lerQR(c){
+  const E = todas(), k = String(c || '').trim().toUpperCase(), e = E[k];
+  if (!e) return {ok:false, motivo:'invalido'};
+  if (e.usado) return {ok:false, motivo:'usado', e};
+  e.usado = Date.now(); gravar(K, E);
+  if (norm(e.nome) === norm(EU)) gravar(EK, {k:e.local, st:'la', t:e.usado, via:'qr'});
+  document.dispatchEvent(new CustomEvent('streetfy-entrada', {detail:e}));
+  return {ok:true, e};
+}
+const minhas = () => Object.values(todas()).filter(e => norm(e.nome) === norm(EU)).sort((a, b) => (a.usado ? 1 : 0) - (b.usado ? 1 : 0) || b.criado - a.criado);
+/* presença da própria conta: pub = todos, seg = seguidores, eu = só eu */
+const presenca = () => { const p = ler('streetfy:perfil-user', {}) || {}; return (p.vis && p.vis.presenca) || 'eu'; };
+const aquiAgora = local => { const s = ler(EK, null); return s && s.st === 'la' && s.k === local && Date.now() - s.t < VALE ? s : null; };
+const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+const qrSvg = seed => { let h = hash(seed); let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (Math.imul(h, 1103515245) + 12345) >>> 0; const cx = x > 13 ? x - 14 : x, cy = y > 13 ? y - 14 : y; const on = canto ? (cx === 0 || cx === 6 || cy === 0 || cy === 6 || (cx > 1 && cx < 5 && cy > 1 && cy < 5)) : (h >>> 16) % 2 === 0; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg class="qr-svg" viewBox="-1 -1 23 23" role="img" aria-label="QR de entrada ' + seed + '"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#0b0b0b">' + r + '</g></svg>'; };
+window.STREETFY_ENTRADAS = {codigo, garante, jaUsado, de, lerQR, minhas, presenca, aquiAgora, hhmm, qrSvg, EU, norm};
+})();
 </script><script>/* Xouty · conta.js — as páginas da conta: os meus planos (agenda.html), amigos (amigos.html), notificações (notificacoes.html),
    pesquisa (pesquisa.html) e entrar (entrar.html). Cada página tem <div data-conta="…">. Pessoas fictícias; eventos, lugares e
    promoters do catálogo do site. Tudo fica neste aparelho. */
@@ -3185,7 +3247,15 @@ const btnSeguir = i => A ? A.seguir(C.lugarKey(i)) : '';
 const cartao = (i, extra, estado) => '<article class="ct-ev">' + (A ? A.coracao(i.id) : '') + '<a class="ct-ev-im" href="' + esc(hrefEv(i)) + '" style="background-image:url(' + esc(imgI(i)) + ')"><span>' + esc(quando(i)) + (hora(i) ? ' · ' + esc(hora(i)) : '') + '</span></a><div class="ct-ev-b"><a href="' + esc(hrefEv(i)) + '"><b>' + esc(i.titulo) + '</b></a><a class="ct-ev-l" href="' + esc(hrefLugar(i)) + '">' + esc(ondeTxt(i)) + '</a>' + (estado ? '<span class="ct-est ' + estado[0] + '">' + estado[1] + '</span>' : '') + (extra || '') + '</div></article>';
 
 /* ---------- os meus planos ---------- */
-let aba = 'prox', qr = '', notaPend = {};   /* nota escolhida mas ainda não confirmada */
+let aba = 'prox', qr = '', eqr = '', notaPend = {};
+/* entradas em listas de convidados (entradas.js): QR único por pessoa; depois de lido na porta fica usado e o check-in está feito */
+const EN = window.STREETFY_ENTRADAS;
+if (EN && !EN.minhas().length) { const i = porId('l4'); if (i) EN.garante('c', 'Rita · Noite X', EN.EU, C.lugarKey(i), i.lugar, ''); }
+const VIS_TXT = {pub:'toda a gente vê que estás lá', seg:'os teus seguidores veem que estás lá', eu:'só tu vês (presença privada)'};
+const entradasBloco = () => { const m = EN ? EN.minhas() : []; if (!m.length) return '';
+  return '<div class="ct-ent"><p class="ct-ent-t">Entradas em listas de convidados</p>' + m.map(e => '<article class="ct-entc' + (e.usado ? ' usado' : '') + '"><div><b>' + esc(e.listaNome) + '</b><span>' + esc(e.localNome) + (e.quando ? ' · ' + esc(e.quando) : '') + '</span>'
+    + (e.usado ? '<span class="ct-ent-ok">Entraste às ' + EN.hhmm(e.usado) + ' · check-in feito · ' + VIS_TXT[EN.presenca()] + '</span>' : '<span class="ct-ent-v">QR válido para 1 entrada · mostra na porta</span>') + '</div>'
+    + '<button type="button" class="s-btn ' + (e.usado ? 'ghost' : 'ink') + '" data-ct-eqr="' + esc(e.c) + '">' + (e.usado ? 'Ver o QR usado' : 'Mostrar o QR') + '</button></article>').join('') + '</div>'; };   /* nota escolhida mas ainda não confirmada */
 const PLANOS = [['l4', 'bilhete', 'Bilhete · 2 pessoas', 'QR válido para as duas entradas'], ['l11', 'lista', 'Na lista da Rita M.', 'entrada grátis até 1h · nome na porta'], ['l7', 'reserva', 'Mesa para 4 · 21:00', 'cancelas sem custo até 2 h antes'], ['l3', 'quero', 'Quero ir', 'ainda sem bilhete']];
 const PASSADOS = [['Lux Frágil', 'Noite X', 'sex 17 out', 'lux', 5], ['B.Leza', 'Baile do B.Leza', 'sáb 18 out', 'dj', 4], ['Park Bar', 'Pôr do sol', 'dom 19 out', 'bairro', 0], ['Hot Clube de Portugal', 'Sessão de jazz', 'qui 16 out', 'alfama', 5]];
 const qrSvg = seed => { let h = 0; for (const c of seed) h = (h * 131 + c.charCodeAt(0)) >>> 0; let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (h * 1103515245 + 12345) >>> 0; const on = canto ? (x % 6 === 0 || y % 6 === 0 || (x % 14 > 1 && x % 14 < 5 && y % 14 > 1 && y % 14 < 5) || x === 20 || y === 20) && !((x === 6 || y === 6) && false) : (h >> 16) & 1; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg viewBox="-1 -1 23 23" class="ct-qr" role="img" aria-label="Código QR">' + r + '</svg>'; };
@@ -3197,7 +3267,7 @@ function agenda(){
   prox.sort((a, b) => k0(a[0]) - k0(b[0]));
   const EST = {bilhete:['ok', 'Bilhete'], lista:['lista', 'Lista'], reserva:['ok', 'Reserva'], quero:['quero', 'Quero ir'], euvou:['euvou', 'Eu vou']};
   return '<div class="ct-abas" role="tablist">' + [['prox', 'Próximos · ' + prox.length], ['pass', 'Já fui · ' + PASSADOS.length]].map(([k, n]) => '<button type="button" role="tab" data-ct-aba="' + k + '" class="' + (aba === k ? 'on' : '') + '" aria-selected="' + (aba === k) + '">' + n + '</button>').join('') + '</div>'
-    + (aba === 'prox' ? '<div class="ct-lista">' + prox.map(([i, t, txt, sub]) => cartao(i, '<p class="ct-sub">' + esc(txt) + ' · ' + esc(sub) + '</p><div class="ct-ac">'
+    + (aba === 'prox' ? entradasBloco() + '<div class="ct-lista">' + prox.map(([i, t, txt, sub]) => cartao(i, '<p class="ct-sub">' + esc(txt) + ' · ' + esc(sub) + '</p><div class="ct-ac">'
         + (t === 'bilhete' || t === 'lista' ? '<button type="button" class="s-btn ink" data-ct-qr="' + esc(i.id) + '">Mostrar o QR</button>' : '')
         + (t === 'quero' ? '<a class="s-btn pink" href="' + esc(hrefEv(i)) + '">Comprar bilhete</a>' : '')
         + (t === 'reserva' ? '<a class="s-btn ghost" href="' + esc(hrefLugar(i)) + '">Ver o local</a>' : '')
@@ -3206,6 +3276,7 @@ function agenda(){
       : '<div class="ct-lista">' + PASSADOS.map(([l, t, d, im, n0], k) => { const n = av[k] || n0, il = C.itens.find(x => (x.lugar || '') === l); return '<article class="ct-ev pass"><div class="ct-ev-im" style="background-image:url(img/' + im + '.jpg)"><span>' + esc(d) + '</span></div><div class="ct-ev-b"><b>' + (il ? '<a class="ct-ev-a" href="' + esc(hrefLugar(il)) + '">' + esc(t) + '</a>' : esc(t)) + '</b><span class="ct-ev-l">' + esc(l) + (il ? ' · ' + esc(((window.STREETFY_CIDADES || []).find(x => x.id === il.cidade) || {nome:il.cidade}).nome) : '') + '</span>'
         + (n ? '<span class="ct-st" aria-label="Avaliaste com ' + n + ' de 5">' + '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i></span>' : '<div class="ct-val' + (notaPend[k] ? ' esc' : '') + '"><span>Valeu?</span>' + [1, 2, 3, 4, 5].map(v => '<button type="button" data-ct-val="' + k + '" data-v="' + v + '" class="' + (v <= (notaPend[k] || 0) ? 'on' : '') + '" aria-pressed="' + (v === notaPend[k]) + '" aria-label="' + v + ' de 5">★</button>').join('') + '</div>'
         + (notaPend[k] ? '<div class="ct-val-ok"><span>' + notaPend[k] + ' de 5 · depois de gravada não muda</span><button type="button" class="s-btn pink" data-ct-valok="' + k + '">Confirmar avaliação</button><button type="button" class="cd-lnk" data-ct-valx="' + k + '">Cancelar</button></div>' : '')) + '</div></article>'; }).join('') + '</div><p class="al-nota">Só avalia quem fez check-in. A tua nota conta para o local e, se foste por uma indicação, para quem indicou (R68).</p>')
+    + (eqr && EN ? (() => { const e = EN.de(eqr); return e ? '<div class="ct-modal" role="dialog" aria-modal="true" aria-label="QR de entrada"><div class="ct-modal-c' + (e.usado ? ' usado' : '') + '"><button type="button" class="pe-x" data-ct-fechar aria-label="Fechar">✕</button><b>' + esc(e.listaNome) + '</b><span>' + esc(e.localNome) + '</span><div class="ct-qrw">' + EN.qrSvg(e.c) + (e.usado ? '<em>USADO</em>' : '') + '</div><p><b>' + esc(e.c) + '</b></p><p>' + (e.usado ? 'Lido na porta às ' + EN.hhmm(e.usado) + '. Check-in feito: ' + VIS_TXT[EN.presenca()] + '.' : 'Válido para 1 entrada. Na porta leem o QR, ele fica usado e o teu check-in fica feito.') + '</p><small>Protótipo: lê este código no Portal › lista › Porta.</small></div></div>' : ''; })() : '')
     + (qr ? (() => { const i = porId(qr), p = PLANOS.find(x => x[0] === qr); return '<div class="ct-modal" role="dialog" aria-modal="true" aria-label="QR do bilhete"><div class="ct-modal-c"><button type="button" class="pe-x" data-ct-fechar aria-label="Fechar">✕</button><b>' + esc(i.titulo) + '</b><span>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + (hora(i) ? ' · ' + esc(hora(i)) : '') + '</span>' + qrSvg(qr + 'mari') + '<p>' + esc(p ? p[2] : '') + '</p><small>Aumenta o brilho e mostra na porta. Protótipo: o QR não é válido.</small></div></div>'; })() : '');
 }
 
@@ -3381,10 +3452,11 @@ const VISTA = {agenda, amigos, notificacoes, pesquisa, entrar}[el.dataset.conta]
 function desenha(foco){ const y = window.scrollY; el.innerHTML = VISTA ? VISTA() : ''; window.scrollTo(0, y); if (foco) { const f = el.querySelector(foco); if (f) f.focus(); } }
 if (el.dataset.conta === 'pesquisa') { const m = /q=([^&]*)/.exec(location.hash); if (m) q = decodeURIComponent(m[1]); }
 el.addEventListener('click', ev => {
-  const t = ev.target.closest('[data-ct-aba],[data-ct-qr],[data-ct-fechar],[data-ct-val],[data-ct-valok],[data-ct-valx],[data-ct-seg],[data-ct-ped],[data-ct-f],[data-ct-rec],[data-ct-modo],[data-ct-voltar],[data-ct-social],[data-ct-sair]'); if (!t) return;
+  const t = ev.target.closest('[data-ct-aba],[data-ct-qr],[data-ct-eqr],[data-ct-fechar],[data-ct-val],[data-ct-valok],[data-ct-valx],[data-ct-seg],[data-ct-ped],[data-ct-f],[data-ct-rec],[data-ct-modo],[data-ct-voltar],[data-ct-social],[data-ct-sair]'); if (!t) return;
   if (t.dataset.ctAba) aba = t.dataset.ctAba;
   if (t.dataset.ctQr) qr = t.dataset.ctQr;
-  if (t.hasAttribute('data-ct-fechar')) qr = '';
+  if (t.dataset.ctEqr) eqr = t.dataset.ctEqr;
+  if (t.hasAttribute('data-ct-fechar')) { qr = ''; eqr = ''; }
   if (t.dataset.ctVal) notaPend[t.dataset.ctVal] = +t.dataset.v;
   if (t.dataset.ctValok) { const a = ls('streetfy:avaliacoes', {}); a[t.dataset.ctValok] = notaPend[t.dataset.ctValok]; gv('streetfy:avaliacoes', a); delete notaPend[t.dataset.ctValok]; }
   if (t.dataset.ctValx) delete notaPend[t.dataset.ctValx];
@@ -3396,7 +3468,7 @@ el.addEventListener('click', ev => {
   if (t.hasAttribute('data-ct-voltar')) { passo = 1; erro = ''; }
   if (t.dataset.ctSocial) { entra(); return; }
   if (t.hasAttribute('data-ct-sair')) { S.mudar('visitante'); location.reload(); return; }
-  desenha(t.dataset.ctQr ? '[data-ct-fechar]' : t.hasAttribute('data-ct-fechar') ? '[data-ct-qr="' + t.dataset.ctFechar + '"]' : '');
+  desenha(t.dataset.ctQr || t.dataset.ctEqr ? '[data-ct-fechar]' : t.hasAttribute('data-ct-fechar') ? '[data-ct-qr="' + t.dataset.ctFechar + '"]' : '');
 });
 el.addEventListener('submit', ev => {
   ev.preventDefault();
@@ -3412,7 +3484,8 @@ el.addEventListener('submit', ev => {
   if (f.matches('[data-ct-cod]')) { if (/^\d{6}$/.test(f.c.value)) entra(); else { erro = 'O código tem 6 dígitos.'; desenha('.ct-cod'); } }
 });
 el.addEventListener('input', ev => { const f = ev.target.closest('[data-ct-pesq] input'); if (!f) return; q = f.value; clearTimeout(el._t); el._t = setTimeout(() => { const r = el.querySelector('[data-ct-res]'); if (!r) return; const tmp = document.createElement('div'); tmp.innerHTML = pesquisa(); r.replaceWith(tmp.querySelector('[data-ct-res]')); el.querySelectorAll('[data-ct-f]').forEach((b, k) => { b.textContent = tmp.querySelectorAll('[data-ct-f]')[k].textContent; }); }, 150); });
-document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && qr) { qr = ''; desenha(); } });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && (qr || eqr)) { qr = ''; eqr = ''; desenha(); } });
+window.addEventListener('storage', ev => { if (ev.key === 'streetfy:entradas' && VISTA) desenha(); });
 desenha(el.dataset.conta === 'pesquisa' ? '[data-ct-pesq] input' : '');
 })();
 </script></body></html>

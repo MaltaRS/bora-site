@@ -1995,6 +1995,28 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .bf-obsl>span{display:flex;align-items:baseline;gap:6px}.bf-obsl small{font-weight:500;color:var(--grey)}.bf-obsl em{margin-left:auto;font-style:normal;font-weight:600;font-size:12px;color:var(--grey)}
 .bf-pobs{display:grid;gap:4px;font-size:12px;font-weight:700;position:relative;z-index:2}.bf-pobs input{font:inherit;font-weight:500;font-size:13px;padding:6px 9px;border:1.5px solid var(--ink);border-radius:8px;min-width:0}
 .bf-obs{font-size:12px;font-style:italic;color:var(--grey)}.bf-obs::before{content:"“"}.bf-obs::after{content:"”"}
+
+/* QR de entrada das listas: portal (porta) e Os meus planos */
+.pt-qrb{font:800 10px/1 var(--fb);letter-spacing:.06em;padding:5px 8px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.pt-qrb.on{background:var(--ink);color:#fff}
+.pt-qrv{flex-basis:100%;display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:#f2f2f2;font-weight:500}
+.pt-qrv .qr-svg{width:96px;height:96px;flex:none;border-radius:6px}
+.pt-qrv div{display:grid;gap:3px;min-width:0}.pt-qrv b{font:800 16px/1 var(--fb);letter-spacing:.06em}.pt-qrv span{font-size:12px;color:var(--grey)}
+.pt-porta{display:grid;gap:8px;margin:12px 0;padding:12px;border:2px dashed var(--ink);border-radius:12px;background:#fff}
+.pt-portaf{display:flex;gap:8px;flex-wrap:wrap}.pt-portaf input{flex:1 1 200px;font:inherit;font-weight:700;letter-spacing:.06em;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;text-transform:uppercase;min-width:0}
+.pt-portam{margin:0;padding:8px 10px;border-radius:8px;font-weight:700;font-size:14px}.pt-portam.ok{background:#dff7ea;color:#0b5a33}.pt-portam.erro{background:#ffe1ea;color:#a3123f}
+.pt-porta small{color:var(--grey);font-size:12px}
+.pt-ev small{font-weight:500;color:var(--grey)}
+.ct-ent{display:grid;gap:8px;margin-bottom:16px}
+.ct-ent-t{margin:0;font:800 12px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.ct-entc{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:2px solid var(--ink);border-radius:14px;padding:12px 14px;background:#fff}
+.ct-entc>div{display:grid;gap:3px;min-width:0;flex:1 1 220px}.ct-entc span{font-size:13px;color:var(--grey)}
+.ct-ent-ok{color:#0b5a33!important;font-weight:700}.ct-ent-v{color:var(--ink)!important;font-weight:600}
+.ct-entc.usado{background:#f6f6f6}
+.ct-qrw{position:relative;justify-self:center}.ct-qrw .qr-svg{width:200px;height:200px;display:block}
+.ct-qrw em{position:absolute;inset:0;display:grid;place-items:center;font:400 44px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55);letter-spacing:.06em}
+.qe.agora{border:2px solid var(--mint);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#effcf5}
+.qe.agora .qe-txt b{font:800 14px/1.2 var(--fb);text-transform:none;letter-spacing:0}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3180,14 +3202,14 @@ function desenha(){
     + (ver === 'eu' ? '<section class="u-bloco" id="privacidade"><div class="u-bh"><div><p class="s-eyebrow">Privacidade</p><h2 class="s-h h2s">QUEM VÊ <em>O QUÊ</em></h2></div><span class="u-vis eu">Só eu</span></div>'
         + '<ul class="u-priv">' + [['A seguir', 'aSeguir'], ['Já fui', 'jaFui'], ['Fotos', 'fotos'], ['Avaliações', 'aval'], ['Gostos', 'gostos'], ['Seguindo', 'seguindo'], ['Listas de convidados', 'listas'], ['Lista dos eventos (número)', 'nEventos'], ['Lista dos lugares (número)', 'nLugares'], ['Lista de seguidores (número)', 'nSeguidores'], ['Lista de quem segue (número)', 'nSeguindo']].map(([n, k]) => '<li><span>' + n + '</span><span class="u-seg">' + ['pub', 'seg', 'eu'].map(v => '<button type="button" data-vis="' + k + '" data-v="' + v + '"' + (U.vis[k] === v ? ' class="on"' : '') + '>' + VIS[v][0] + '</button>').join('') + '</span></li>').join('')
         + '<li><span>Aparecer em "Quem esteve" dos lugares</span><span class="u-seg"><button type="button" class="on">Sim</button><button type="button">Não</button></span></li>'
-        + '<li><span>Aparecer em "Quem está aqui" (por noite)</span><span class="u-seg"><button type="button">Todos</button><button type="button" class="on">Seguidores</button><button type="button">Ninguém</button></span></li></ul>'
+        + '<li><span>Aparecer em "Quem está aqui" (check-in, por noite)</span><span class="u-seg">' + [['pub', 'Todos'], ['seg', 'Seguidores'], ['eu', 'Ninguém']].map(([v, n]) => '<button type="button" data-vis="presenca" data-v="' + v + '"' + ((U.vis.presenca || 'eu') === v ? ' class="on"' : '') + '>' + n + '</button>').join('') + '</span></li></ul>'
         + '<p class="al-nota">Nunca é público: localização em segundo plano, o que pagaste, pedidos recusados. Muda um bloco e usa "Ver como" para conferir.</p></section>' : '')
     + '</div></div></div></section>');
 }
 el.addEventListener('click', ev => {
   const ln = ev.target.closest('[data-lista]'); if (ln) { painel(ln.dataset.lista); return; }
   const v = ev.target.closest('[data-ver]'); if (v) { ver = v.dataset.ver; desenha(); return; }
-  const vb = ev.target.closest('[data-vis]'); if (vb) { U.vis[vb.dataset.vis] = vb.dataset.v; desenha(); return; }
+  const vb = ev.target.closest('[data-vis]'); if (vb) { U.vis[vb.dataset.vis] = vb.dataset.v; if (souEu) { try { const o = JSON.parse(localStorage.getItem('streetfy:perfil-user') || '{}') || {}; o.vis = Object.assign({}, o.vis || {}, U.vis); localStorage.setItem('streetfy:perfil-user', JSON.stringify(o)); } catch (e) {} } desenha(); return; }
   const u = ev.target.closest('[data-u]'); if (u && u.dataset.u === 'seguir') { ev.preventDefault(); SEGUE[U.id] = SEGUE[U.id] ? '' : (U.privado ? 'pedido' : 'sim'); if (!SEGUE[U.id]) delete SEGUE[U.id]; gravaSegue(); carrega(); desenha(); return; }
   if (u) { ev.preventDefault(); if (u.dataset.u === 'partilhar') { const url = location.href; if (navigator.share) navigator.share({title:U.nome + ' no Xouty', url}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(U.nome + ' no Xouty · ' + url), '_blank', 'noopener'); } }
 });
