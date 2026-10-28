@@ -1963,6 +1963,21 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .bf-pa{display:flex;gap:10px;flex:none}
 .pt-bf{font:800 10px/1 var(--fb);letter-spacing:.06em;padding:4px 7px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;margin-left:6px;vertical-align:middle}
 small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
+.bf-av{background-size:cover;background-position:center}
+.bf-busca{position:relative}
+.bf-sug{list-style:none;margin:-4px 0 0;padding:4px;display:grid;gap:2px;border:2px solid var(--ink);border-radius:12px;background:#fff;max-height:280px;overflow:auto}
+.bf-sug:empty{display:none}
+.bf-sug button{width:100%;display:flex;align-items:center;gap:10px;padding:7px 8px;border:0;border-radius:8px;background:none;font:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.bf-sug button:hover,.bf-sug button:focus-visible{background:#f2f2f2;outline:none}
+.bf-sug b{display:block;font-size:14px}.bf-sug small{display:block;color:var(--grey);font-size:12px}
+.bf-esc{display:grid;gap:4px}
+.bf-escp{display:flex;align-items:center;gap:10px;padding:8px 10px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.bf-escp>span:not(.bf-av){flex:1;min-width:0}.bf-escp b{display:block;font-size:14px}.bf-escp small{color:var(--grey);font-size:12px}
+.bf-p.lk{position:relative;transition:transform .15s,box-shadow .15s}
+.bf-p.lk:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink);border-color:var(--ink)}
+.bf-pl{color:inherit;text-decoration:none}.bf-pl::after{content:"";position:absolute;inset:0;border-radius:12px}
+.bf-pc b small{font-weight:500;color:var(--grey);font-size:12px}
+.bf-pa,.bf-p .bf-tags{position:relative;z-index:2}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3629,11 +3644,17 @@ let B = JSON.parse(JSON.stringify(PADRAO));
 try { const g = JSON.parse(localStorage.getItem(BK) || 'null'); if (g && g.local && g.promoter && g.concierge) B = g; } catch (e) {}
 const grava = () => { try { localStorage.setItem(BK, JSON.stringify(B)); } catch (e) {} };
 const UI = {};
-const ui = p => UI[p] || (UI[p] = {aberto:false, nome:'', sel:[], filtro:[], edit:null, gerir:false, msg:''});
+const ui = p => UI[p] || (UI[p] = {aberto:false, nome:'', escolhido:false, sel:[], filtro:[], edit:null, gerir:false, msg:''});
 const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const tem = (p, nome) => !!(B[p] && B[p].pessoas.some(x => norm(x.nome) === norm(nome)));
 const tagNome = (p, id) => (B[p].tags.find(t => t.id === id) || {}).nome;
 const filtrados = p => { const f = ui(p).filtro; return B[p].pessoas.filter(x => f.every(t => x.tags.includes(t))).sort((a, b) => a.nome.localeCompare(b.nome, 'pt')); };
+/* gente com perfil no Xouty: id do perfil, nome, foto, @ */
+const GENTE = [['mari-costa', 'Mariana Costa', 'retrato'], ['leonor-s', 'Leonor Santos', 'tram'], ['hugo-m', 'Hugo Martins', 'dj'], ['ines-c', 'Inês Carvalho', 'alfama'], ['sara-d', 'Sara Dias', 'noite'], ['bruna-t', 'Bruna Teixeira', 'cocktail'], ['kiko-r', 'Kiko Rocha', 'club'], ['duarte-p', 'Duarte Pinto', 'shots']].map(([id, nome, foto]) => ({id, nome, foto, user:id.replace('-', '.')}));
+const perfilDe = nome => GENTE.find(g => norm(g.nome) === norm(nome));
+const hrefDe = g => g.id === 'mari-costa' ? 'user.html' : 'user.html#u=' + g.id;
+const avatar = (nome, cls) => { const g = perfilDe(nome); return g ? '<span class="bf-av ' + (cls || '') + '" style="background-image:url(img/' + g.foto + '.jpg)" aria-hidden="true"></span>' : '<span class="bf-av ' + (cls || '') + '" aria-hidden="true">' + esc(ini(nome)) + '</span>'; };
+const sugestoes = (p, q) => { const t = norm(q), ja = B[p].pessoas.map(x => norm(x.nome)); return GENTE.filter(g => !t || norm(g.nome).includes(t) || g.user.includes(t)).sort((a, b) => ja.includes(norm(a.nome)) - ja.includes(norm(b.nome))).slice(0, 6).map(g => '<li><button type="button" data-bf-sug="' + esc(g.nome) + '">' + avatar(g.nome) + '<span><b>' + esc(g.nome) + '</b><small>@' + esc(g.user) + (ja.includes(norm(g.nome)) ? ' · já é best friend' : '') + '</small></span></button></li>').join('') + (t && !GENTE.some(g => norm(g.nome) === t) ? '<li><button type="button" data-bf-sug="' + esc(q.trim()) + '"><span class="bf-av" aria-hidden="true">' + esc(ini(q)) + '</span><span><b>' + esc(q.trim()) + '</b><small>sem perfil no Xouty · só o nome</small></span></button></li>' : ''); };
 const ini = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
 const CAD = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 
@@ -3643,16 +3664,16 @@ function card(p){
   const chip = (t, on, attr, n) => '<button type="button" class="bf-tag' + (on ? ' on' : '') + '" ' + attr + '="' + t.id + '" aria-pressed="' + on + '">' + esc(t.nome) + (n != null ? ' <i>' + n + '</i>' : '') + '</button>';
   const novaTag = '<span class="bf-nova"><input data-bf-in="tag" placeholder="nova tag, ex.: Respeita a fila" maxlength="24" aria-label="Nova tag"><button type="button" class="s-btn ghost" data-bf="novatag">Criar tag</button></span>';
   const form = u.aberto ? '<div class="bf-form"><h4>Adicionar aos best friends</h4>'
-    + '<label>Nome<input data-bf-in="nome" value="' + esc(u.nome) + '" placeholder="nome da pessoa" list="bf-nomes" autocomplete="off"></label>'
-    + '<datalist id="bf-nomes">' + ['Mariana Costa', 'Leonor Santos', 'Hugo Martins', 'Joana Prates', 'Rui Prates', 'Inês Carvalho', 'Sara Dias', 'Kiko Rocha', 'Bruna Teixeira', 'Tomás F.', 'Duarte Pinto'].map(n => '<option value="' + esc(n) + '">').join('') + '</datalist>'
+    + (u.escolhido ? '<div class="bf-esc"><span class="bf-lbl">Pessoa</span><div class="bf-escp">' + avatar(u.nome) + '<span><b>' + esc(u.nome) + '</b><small>' + (perfilDe(u.nome) ? '@' + esc(perfilDe(u.nome).user) : 'sem perfil no Xouty') + '</small></span><button type="button" class="cd-lnk" data-bf="trocar">Trocar</button></div></div>'
+      : '<label class="bf-busca">Nome<input data-bf-in="nome" value="' + esc(u.nome) + '" placeholder="procura pelo nome ou @" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="bf-sug"></label><ul class="bf-sug" id="bf-sug" role="listbox">' + sugestoes(p, u.nome) + '</ul>')
     + '<div class="bf-lbl">Tags <small>só tu vês</small></div><div class="bf-tags">' + d.tags.map(t => chip(t, u.sel.includes(t.id), 'data-bf-tsel')).join('') + '</div>' + novaTag
     + (u.msg ? '<p class="bf-msg" role="alert">' + esc(u.msg) + '</p>' : '')
     + '<div class="pt-2"><button type="button" class="s-btn mint" data-bf="add">Adicionar</button><button type="button" class="s-btn ghost" data-bf="fechar">Cancelar</button></div></div>' : '';
   const acao = p === 'concierge' ? 'Pôr na proposta' : 'Criar lista com ' + (lista.length === 1 ? 'esta pessoa' : 'estas ' + lista.length);
-  const pessoa = x => '<li class="bf-p' + (u.edit === x.id ? ' on' : '') + '"><span class="bf-av" aria-hidden="true">' + esc(ini(x.nome)) + '</span><div class="bf-pc"><b>' + esc(x.nome) + '</b>'
+  const pessoa = x => { const g = perfilDe(x.nome); return '<li class="bf-p' + (u.edit === x.id ? ' on' : '') + (g ? ' lk' : '') + '">' + avatar(x.nome) + '<div class="bf-pc"><b>' + (g ? '<a class="bf-pl" href="' + esc(hrefDe(g)) + '">' + esc(x.nome) + '</a>' : esc(x.nome)) + (g ? ' <small>@' + esc(g.user) + '</small>' : '') + '</b>'
     + '<span class="bf-pt">' + (x.tags.length ? x.tags.map(id => tagNome(p, id)).filter(Boolean).map(n => '<em>' + esc(n) + '</em>').join('') : '<small>sem tags</small>') + '</span>'
     + (u.edit === x.id ? '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (x.tags.includes(t.id) ? ' on' : '') + '" data-bf-ptag="' + t.id + '" data-pid="' + x.id + '" aria-pressed="' + x.tags.includes(t.id) + '">' + esc(t.nome) + '</button>').join('') + '</div>' : '')
-    + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos best friends">Tirar</button></span></li>';
+    + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos best friends">Tirar</button></span></li>'; };
   return '<div class="pt-card bf" id="bf" data-bf-papel="' + p + '"><div class="pt-ch"><h3>Best friends <span class="bf-n">' + d.pessoas.length + '</span></h3>'
     + (u.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-bf="abrir">+ Adicionar</button>') + '</div>'
     + '<p class="bf-priv">' + CAD + '<span><b>Privado.</b> Esta lista e as tags só aparecem para ti. A pessoa não sabe que está aqui nem que tags tem.</span></p>'
@@ -3682,7 +3703,7 @@ const adiciona = p => {
   const ja = B[p].pessoas.find(x => norm(x.nome) === norm(nome));
   if (ja) u.sel.forEach(t => { if (!ja.tags.includes(t)) ja.tags.push(t); });
   else B[p].pessoas.push({id:nid(), nome, tags:u.sel.slice(), t:Date.now()});
-  grava(); Object.assign(u, {aberto:false, nome:'', sel:[], msg:''});
+  grava(); Object.assign(u, {aberto:false, nome:'', escolhido:false, sel:[], msg:''});
   refaz(p); document.dispatchEvent(new CustomEvent('streetfy-bf'));
 };
 
@@ -3692,14 +3713,16 @@ document.addEventListener('click', ev => {
     ev.preventDefault();
     const box = document.getElementById('bf'); if (!box) return;
     const p = box.dataset.bfPapel, u = ui(p);
-    Object.assign(u, {aberto:true, nome:de.dataset.bfDe, sel:[], msg:''});
+    Object.assign(u, {aberto:true, nome:de.dataset.bfDe, escolhido:true, sel:[], msg:''});
     refaz(p); const n = document.getElementById('bf'); n.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
   if (!c) return;
   const p = c.dataset.bfPapel, u = ui(p), d = B[p], b = ev.target.closest('button'); if (!b) return;
   const a = b.dataset.bf;
-  if (a === 'abrir') { Object.assign(u, {aberto:true, nome:'', sel:u.filtro.slice(), msg:''}); return refaz(p, '[data-bf-in="nome"]'); }
+  if (a === 'abrir') { Object.assign(u, {aberto:true, nome:'', escolhido:false, sel:u.filtro.slice(), msg:''}); return refaz(p, '[data-bf-in="nome"]'); }
+  if (a === 'trocar') { Object.assign(u, {escolhido:false, nome:''}); return refaz(p, '[data-bf-in="nome"]'); }
+  if (b.dataset.bfSug) { Object.assign(u, {nome:b.dataset.bfSug, escolhido:true, msg:''}); return refaz(p); }
   if (a === 'fechar') { Object.assign(u, {aberto:false, msg:''}); return refaz(p); }
   if (a === 'add') return adiciona(p);
   if (a === 'novatag') { const i = c.querySelector('[data-bf-in="tag"]'), t = criaTag(p, i && i.value); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); return refaz(p, '[data-bf-in="tag"]'); }
@@ -3721,14 +3744,14 @@ document.addEventListener('click', ev => {
 });
 document.addEventListener('input', ev => {
   const i = ev.target.closest('#bf [data-bf-in="nome"]'); if (!i) return;
-  const u = ui(i.closest('#bf').dataset.bfPapel); u.nome = i.value; u.msg = '';
+  const p = i.closest('#bf').dataset.bfPapel, u = ui(p); u.nome = i.value; u.msg = ''; const l = document.getElementById('bf-sug'); if (l) l.innerHTML = sugestoes(p, i.value);
 });
 document.addEventListener('keydown', ev => {
   if (ev.key !== 'Enter') return;
   const i = ev.target.closest('#bf [data-bf-in]'); if (!i) return;
   ev.preventDefault();
   const p = i.closest('#bf').dataset.bfPapel;
-  if (i.dataset.bfIn === 'nome') return adiciona(p);
+  if (i.dataset.bfIn === 'nome') { const f = document.querySelector('#bf-sug [data-bf-sug]'); if (f) f.click(); return; }
   const t = criaTag(p, i.value), u = ui(p); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); refaz(p, '[data-bf-in="tag"]');
 });
 
