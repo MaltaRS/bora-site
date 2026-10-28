@@ -1992,6 +1992,9 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .bf-ck{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--ink);display:grid;place-items:center;font:800 13px/1 var(--fb)}
 .bf-cl button.on .bf-ck{background:var(--mint)}
 .bf-cria [disabled]{opacity:.4;cursor:not-allowed}
+.bf-obsl>span{display:flex;align-items:baseline;gap:6px}.bf-obsl small{font-weight:500;color:var(--grey)}.bf-obsl em{margin-left:auto;font-style:normal;font-weight:600;font-size:12px;color:var(--grey)}
+.bf-pobs{display:grid;gap:4px;font-size:12px;font-weight:700;position:relative;z-index:2}.bf-pobs input{font:inherit;font-weight:500;font-size:13px;padding:6px 9px;border:1.5px solid var(--ink);border-radius:8px;min-width:0}
+.bf-obs{font-size:12px;font-style:italic;color:var(--grey)}.bf-obs::before{content:"“"}.bf-obs::after{content:"”"}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3658,7 +3661,7 @@ let B = JSON.parse(JSON.stringify(PADRAO));
 try { const g = JSON.parse(localStorage.getItem(BK) || 'null'); if (g && g.local && g.promoter && g.concierge) B = g; } catch (e) {}
 const grava = () => { try { localStorage.setItem(BK, JSON.stringify(B)); } catch (e) {} };
 const UI = {};
-const ui = p => UI[p] || (UI[p] = {aberto:false, nome:'', escolhido:false, sel:[], filtro:[], edit:null, gerir:false, msg:'', cria:null});
+const ui = p => UI[p] || (UI[p] = {aberto:false, nome:'', escolhido:false, obs:'', sel:[], filtro:[], edit:null, gerir:false, msg:'', cria:null});
 const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const tem = (p, nome) => !!(B[p] && B[p].pessoas.some(x => norm(x.nome) === norm(nome)));
 const tagNome = (p, id) => (B[p].tags.find(t => t.id === id) || {}).nome;
@@ -3695,12 +3698,14 @@ function card(p){
     + (u.escolhido ? '<div class="bf-esc"><span class="bf-lbl">Pessoa</span><div class="bf-escp">' + avatar(u.nome) + '<span><b>' + esc(u.nome) + '</b><small>' + (perfilDe(u.nome) ? '@' + esc(perfilDe(u.nome).user) : 'sem perfil no Xouty') + '</small></span><button type="button" class="cd-lnk" data-bf="trocar">Trocar</button></div></div>'
       : '<label class="bf-busca">Nome<input data-bf-in="nome" value="' + esc(u.nome) + '" placeholder="procura pelo nome ou @" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="bf-sug"></label><ul class="bf-sug" id="bf-sug" role="listbox">' + sugestoes(p, u.nome) + '</ul>')
     + '<div class="bf-lbl">Tags <small>só tu vês</small></div><div class="bf-tags">' + d.tags.map(t => chip(t, u.sel.includes(t.id), 'data-bf-tsel')).join('') + '</div>' + novaTag
+    + '<label class="bf-obsl"><span>Observação <small>só tu vês</small><em data-bf-cont>' + String(u.obs || '').length + '/25</em></span><input data-bf-in="obs" value="' + esc(u.obs) + '" maxlength="25" placeholder="ex.: chega sempre cedo"></label>'
     + (u.msg ? '<p class="bf-msg" role="alert">' + esc(u.msg) + '</p>' : '')
     + '<div class="pt-2"><button type="button" class="s-btn mint" data-bf="add">Adicionar</button><button type="button" class="s-btn ghost" data-bf="fechar">Cancelar</button></div></div>' : '';
   const acao = p === 'concierge' ? 'Pôr na proposta' : 'Criar lista com ' + (lista.length === 1 ? 'esta pessoa' : 'estas ' + lista.length);
   const pessoa = x => { const g = perfilDe(x.nome); return '<li class="bf-p' + (u.edit === x.id ? ' on' : '') + (g ? ' lk' : '') + '">' + avatar(x.nome) + '<div class="bf-pc"><b>' + (g ? '<a class="bf-pl" href="' + esc(hrefDe(g)) + '">' + esc(x.nome) + '</a>' : esc(x.nome)) + (g ? ' <small>@' + esc(g.user) + '</small>' : '') + '</b>'
+    + (x.obs && u.edit !== x.id ? '<span class="bf-obs">' + esc(x.obs) + '</span>' : '')
     + '<span class="bf-pt">' + (x.tags.length ? x.tags.map(id => tagNome(p, id)).filter(Boolean).map(n => '<em>' + esc(n) + '</em>').join('') : '<small>sem tags</small>') + '</span>'
-    + (u.edit === x.id ? '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (x.tags.includes(t.id) ? ' on' : '') + '" data-bf-ptag="' + t.id + '" data-pid="' + x.id + '" aria-pressed="' + x.tags.includes(t.id) + '">' + esc(t.nome) + '</button>').join('') + '</div>' : '')
+    + (u.edit === x.id ? '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (x.tags.includes(t.id) ? ' on' : '') + '" data-bf-ptag="' + t.id + '" data-pid="' + x.id + '" aria-pressed="' + x.tags.includes(t.id) + '">' + esc(t.nome) + '</button>').join('') + '</div><label class="bf-obsl bf-pobs"><span>Observação <em data-bf-cont>' + String(x.obs || '').length + '/25</em></span><input data-bf-pobs="' + x.id + '" value="' + esc(x.obs || '') + '" maxlength="25" placeholder="só tu vês"></label>' : '')
     + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos best friends">Tirar</button></span></li>'; };
   return '<div class="pt-card bf" id="bf" data-bf-papel="' + p + '"><div class="pt-ch"><h3>Best friends <span class="bf-n">' + d.pessoas.length + '</span></h3>'
     + (u.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-bf="abrir">+ Adicionar</button>') + '</div>'
@@ -3730,9 +3735,10 @@ const adiciona = p => {
   const u = ui(p), nome = String(u.nome || '').trim().replace(/\s+/g, ' ');
   if (!nome) { u.msg = 'Escreve o nome da pessoa.'; return refaz(p, '[data-bf-in="nome"]'); }
   const ja = B[p].pessoas.find(x => norm(x.nome) === norm(nome));
-  if (ja) u.sel.forEach(t => { if (!ja.tags.includes(t)) ja.tags.push(t); });
-  else B[p].pessoas.push({id:nid(), nome, tags:u.sel.slice(), t:Date.now()});
-  grava(); Object.assign(u, {aberto:false, nome:'', escolhido:false, sel:[], msg:''});
+  const obs = String(u.obs || '').trim().slice(0, 25);
+  if (ja) { u.sel.forEach(t => { if (!ja.tags.includes(t)) ja.tags.push(t); }); if (obs) ja.obs = obs; }
+  else B[p].pessoas.push({id:nid(), nome, tags:u.sel.slice(), obs, t:Date.now()});
+  grava(); Object.assign(u, {aberto:false, nome:'', escolhido:false, obs:'', sel:[], msg:''});
   refaz(p); document.dispatchEvent(new CustomEvent('streetfy-bf'));
 };
 
@@ -3742,14 +3748,14 @@ document.addEventListener('click', ev => {
     ev.preventDefault();
     const box = document.getElementById('bf'); if (!box) return;
     const p = box.dataset.bfPapel, u = ui(p);
-    Object.assign(u, {aberto:true, nome:de.dataset.bfDe, escolhido:true, sel:[], msg:''});
+    Object.assign(u, {aberto:true, nome:de.dataset.bfDe, escolhido:true, obs:'', sel:[], msg:''});
     refaz(p); const n = document.getElementById('bf'); n.scrollIntoView({behavior:'smooth', block:'start'});
     return;
   }
   if (!c) return;
   const p = c.dataset.bfPapel, u = ui(p), d = B[p], b = ev.target.closest('button'); if (!b) return;
   const a = b.dataset.bf;
-  if (a === 'abrir') { Object.assign(u, {aberto:true, nome:'', escolhido:false, sel:u.filtro.slice(), msg:''}); return refaz(p, '[data-bf-in="nome"]'); }
+  if (a === 'abrir') { Object.assign(u, {aberto:true, nome:'', escolhido:false, obs:'', sel:u.filtro.slice(), msg:''}); return refaz(p, '[data-bf-in="nome"]'); }
   if (a === 'trocar') { Object.assign(u, {escolhido:false, nome:''}); return refaz(p, '[data-bf-in="nome"]'); }
   if (b.dataset.bfSug) { Object.assign(u, {nome:b.dataset.bfSug, escolhido:true, msg:''}); return refaz(p); }
   if (a === 'fechar') { Object.assign(u, {aberto:false, msg:''}); return refaz(p); }
@@ -3778,6 +3784,12 @@ document.addEventListener('click', ev => {
   if (b.dataset.bfTagrm) { const id = b.dataset.bfTagrm; d.tags = d.tags.filter(t => t.id !== id); d.pessoas.forEach(x => { x.tags = x.tags.filter(t => t !== id); }); u.filtro = u.filtro.filter(t => t !== id); u.sel = u.sel.filter(t => t !== id); grava(); return refaz(p); }
 });
 document.addEventListener('input', ev => {
+  const ob = ev.target.closest('#bf [data-bf-in="obs"], #bf [data-bf-pobs]');
+  if (ob) {
+    const p = ob.closest('#bf').dataset.bfPapel, v = ob.value.slice(0, 25), c = ob.closest('label').querySelector('[data-bf-cont]'); if (c) c.textContent = v.length + '/25';
+    if (ob.dataset.bfPobs) { const x = B[p].pessoas.find(y => y.id === ob.dataset.bfPobs); if (x) { x.obs = v.trim(); grava(); } } else ui(p).obs = v;
+    return;
+  }
   const ln = ev.target.closest('#bf [data-bf-in="lnome"]'); if (ln) { const c = ui(ln.closest('#bf').dataset.bfPapel).cria; if (c) c.nome = ln.value; return; }
   const i = ev.target.closest('#bf [data-bf-in="nome"]'); if (!i) return;
   const p = i.closest('#bf').dataset.bfPapel, u = ui(p); u.nome = i.value; u.msg = ''; const l = document.getElementById('bf-sug'); if (l) l.innerHTML = sugestoes(p, i.value);
@@ -3787,6 +3799,7 @@ document.addEventListener('keydown', ev => {
   const i = ev.target.closest('#bf [data-bf-in]'); if (!i) return;
   ev.preventDefault();
   const p = i.closest('#bf').dataset.bfPapel;
+  if (i.dataset.bfIn === 'obs') return adiciona(p);
   if (i.dataset.bfIn === 'lnome') { const b = document.querySelector('#bf [data-bf="criar"]'); if (b && !b.disabled) b.click(); return; }
   if (i.dataset.bfIn === 'nome') { const f = document.querySelector('#bf-sug [data-bf-sug]'); if (f) f.click(); return; }
   const t = criaTag(p, i.value), u = ui(p); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); refaz(p, '[data-bf-in="tag"]');
