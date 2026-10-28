@@ -2124,6 +2124,8 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .of-code{font:800 15px/1 var(--fb)!important;letter-spacing:.08em;color:var(--ink)!important}
 .of-qr{position:relative;flex:none}.of-qr .qr-svg{width:120px;height:120px;display:block}
 .of-qr em{position:absolute;inset:0;display:grid;place-items:center;font:400 24px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55)}
+.of-sg{flex-basis:100%;font-size:12px;color:var(--grey)}.of-sgm{display:grid;gap:10px;text-align:left;max-width:420px}.of-sgm b{font:400 28px/1 var(--fd);text-transform:uppercase}.of-sgm p{margin:0;font-size:15px}.of-sgm small{color:var(--grey)}
+[data-ofertas] .ct-modal{z-index:1300}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2529,9 +2531,10 @@ function alcance(z){
 
 /* ---------- dados ---------- */
 const SEMENTE = () => { const t = Date.now(), z = {tipo:'poli', pts:BAIRRO_ALTO};
-  return {ofertas:[{id:'o1', casa:CASA, tipo:'bebida', titulo:'1 cerveja', alcool:true, alt:'ou 1 refrigerante', qtd:40, validade:45, inicio:t - 20 * 6e4, fim:t + 100 * 6e4, zona:z, publico:'todos', criada:t - 20 * 6e4, base:{aceites:7, usadas:4}, alcanceIni:0}], vouchers:{}}; };
+  return {ofertas:[{id:'o1', casa:CASA, tipo:'bebida', titulo:'1 cerveja', alcool:true, alt:'ou 1 refrigerante', qtd:40, validade:45, inicio:t - 20 * 6e4, fim:t + 100 * 6e4, zona:z, publico:'todos', criada:t - 20 * 6e4, base:{aceites:7, usadas:4}, alcanceIni:0},
+    {id:'o2', casa:CASA, tipo:'bilhete', titulo:'entrada grátis até à 1h', alcool:false, alt:'', qtd:25, validade:120, inicio:t - 10 * 6e4, fim:t + 150 * 6e4, zona:z, publico:'seguidores', criada:t - 10 * 6e4, base:{aceites:3, usadas:1}, alcanceIni:0}], vouchers:{}}; };
 let S = null;
-const carrega = () => { S = ler(K, null); if (!S || !S.ofertas) { S = SEMENTE(); S.ofertas[0].alcanceIni = alcance(S.ofertas[0].zona).pessoas || 260; gravar(K, S); } return S; };
+const carrega = () => { S = ler(K, null); if (!S || !S.ofertas) { S = SEMENTE(); S.ofertas.forEach(o => { o.alcanceIni = alcance(o.zona).pessoas || 260; }); gravar(K, S); } return S; };
 const grava = () => gravar(K, S);
 const vouchersDe = o => Object.values(S.vouchers).filter(v => v.oferta === o.id);
 const aceites = o => (o.base ? o.base.aceites : 0) + vouchersDe(o).length;
@@ -2547,16 +2550,18 @@ const segueCasa = o => { try { return localStorage.getItem('segue:' + o.casa.k) 
 const jaVeio = o => o.casa.k === CASA.k; /* protótipo: a Mariana já esteve no Lux (Já fui) */
 const noite = t => { const d = new Date(t - 6 * 36e5); return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate(); }; /* a noite vai até às 6h */
 const meus = () => Object.values(S.vouchers).filter(v => v.nome === EU).sort((a, b) => b.aceite - a.aceite);
-function motivo(o, loc){
+function motivo(o, loc, semSeg){
   if (!ativa(o)) return 'Esta oferta já não está ativa.';
   if (!dentro(o.zona, loc)) return 'Só para quem está na zona da oferta.';
-  if (o.publico === 'seguidores' && !segueCasa(o)) return 'Só para quem segue o ' + o.casa.nome + '.';
+  if (o.publico === 'seguidores' && !segueCasa(o) && !semSeg) return 'Só para quem segue o ' + o.casa.nome + '.';
   if (o.publico === 'novos' && jaVeio(o)) return 'Só para quem nunca foi ao ' + o.casa.nome + '.';
   if (o.alcool && idade() < 18) return 'Ofertas com álcool são só para maiores de 18.';
   if (meus().some(v => v.oferta === o.id)) return 'Já aceitaste esta oferta.';
   if (o.alcool && meus().some(v => { const x = S.ofertas.find(y => y.id === v.oferta); return x && x.alcool && noite(v.aceite) === noite(Date.now()); })) return 'Só uma oferta com álcool por pessoa por noite.';
   return '';
 }
+const precisaSeguir = o => o.publico === 'seguidores' && !segueCasa(o);
+const seguir = o => { try { localStorage.setItem('segue:' + o.casa.k, '1'); } catch (e) {} };
 function aceitar(id, loc){
   carrega(); const o = S.ofertas.find(x => x.id === id); if (!o) return {ok:false, txt:'Oferta não encontrada.'};
   const m = motivo(o, loc); if (m) return {ok:false, txt:m};
@@ -2667,7 +2672,7 @@ document.addEventListener('change', ev => {
 
 /* ---------- página do utilizador: ofertas perto de ti ---------- */
 function pagina(el){
-  let loc = null, locNome = '', msg = null, mapa = null, ag = null;
+  let loc = null, locNome = '', msg = null, mapa = null, ag = null, pergunta = '';
   try { const s = JSON.parse(sessionStorage.getItem(LK) || 'null'); if (s) { loc = s.p; locNome = s.n; } } catch (e) {}
   const guarda = () => { try { sessionStorage.setItem(LK, JSON.stringify({p:loc, n:locNome})); } catch (e) {} };
   const QR = c => window.STREETFY_ENTRADAS ? window.STREETFY_ENTRADAS.qrSvg(c) : '';
@@ -2675,11 +2680,11 @@ function pagina(el){
     carrega();
     const at = S.ofertas.filter(ativa), perto = loc ? at.filter(o => dentro(o.zona, loc)) : [], longe = at.filter(o => !perto.includes(o));
     const vs = meus(), vAt = vs.filter(v => !v.usado && v.expira > Date.now()), vOut = vs.filter(v => !vAt.includes(v));
-    const of = (o, aqui) => { const m = aqui ? motivo(o, loc) : '', d = loc ? dist(loc, [o.casa.lat, o.casa.lng]) : 0;
-      return '<article class="of-u' + (aqui ? '' : ' fora') + '"><div class="of-uc"><span class="of-ut">' + esc(TIPOS[o.tipo]) + ' grátis · ' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b>'
+    const of = (o, aqui) => { const m = aqui ? motivo(o, loc, true) : '', d = loc ? dist(loc, [o.casa.lat, o.casa.lng]) : 0;
+      return '<article class="of-u' + (aqui ? '' : ' fora') + '"><div class="of-uc"><span class="of-ut">' + esc(o.tipo === 'bilhete' ? 'Bilhete' : TIPOS[o.tipo]) + ' grátis · ' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b>'
         + '<span>' + (aqui ? 'Estás na zona · ' : 'Só para quem está em ' + esc(nomeZona(o.zona).replace(/^zona desenhada · /, '')) + ' · ') + 'faltam ' + restantes(o) + ' · até às ' + hhmm(o.fim) + (loc ? ' · a ' + (d < 1000 ? fmt(d) + ' m' : (d / 1000).toFixed(1).replace('.', ',') + ' km') : '') + '</span>'
         + '<span class="of-chips">' + (o.alcool ? '<i>18+</i><i>1 com álcool por noite</i>' : '') + '<i>voucher ' + o.validade + ' min</i>' + (o.publico !== 'todos' ? '<i>' + esc(PUB[o.publico]) + '</i>' : '') + '</span></div>'
-        + (aqui ? (m ? '<p class="of-m">' + esc(m) + '</p>' : '<button type="button" class="s-btn pink" data-ofu="aceita" data-id="' + o.id + '">Aceitar oferta</button>') : '')
+        + (aqui ? (m ? '<p class="of-m">' + esc(m) + '</p>' : '<button type="button" class="s-btn pink" data-ofu="aceita" data-id="' + o.id + '">Aceitar oferta</button>' + (precisaSeguir(o) ? '<small class="of-sg">só para seguidores do ' + esc(o.casa.nome) + '</small>' : '')) : '')
         + '<a class="s-btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=' + o.casa.lat + ',' + o.casa.lng + '" target="_blank" rel="noopener">Como chegar</a></article>'; };
     const vc = v => { const o = S.ofertas.find(x => x.id === v.oferta) || {titulo:'Oferta', casa:CASA}, st = v.usado ? 'usado às ' + hhmm(v.usado) : v.expira < Date.now() ? 'expirou às ' + hhmm(v.expira) : 'válido até às ' + hhmm(v.expira) + ' · faltam ' + Math.max(0, Math.ceil((v.expira - Date.now()) / 6e4)) + ' min';
       return '<article class="of-v' + (v.usado || v.expira < Date.now() ? ' off' : '') + '"><div class="of-qr">' + QR(v.c) + (v.usado ? '<em>USADO</em>' : v.expira < Date.now() ? '<em>EXPIROU</em>' : '') + '</div><div><span class="of-ut">' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b><span class="of-code">' + esc(v.c) + '</span><span>' + esc(st) + '</span>' + (!v.usado && v.expira > Date.now() ? '<small>Mostra no bar ou na porta: a equipa lê o QR e entrega. Só serve uma vez.</small>' : '') + '</div></article>'; };
@@ -2691,7 +2696,9 @@ function pagina(el){
       + '<div class="of-mapa of-mapa-u" id="of-mapa-u"></div>'
       + '<h3 class="po-t">' + (loc ? 'Perto de ti agora · ' + perto.length : 'Ofertas ativas · ' + at.length) + '</h3>'
       + (loc ? (perto.length ? perto.map(o => of(o, true)).join('') : '<p class="al-nota">Nenhuma oferta para a zona onde estás. Experimenta o Bairro Alto.</p>') + (longe.length ? '<h3 class="po-t">Noutras zonas</h3>' + longe.map(o => of(o, false)).join('') : '') : at.map(o => of(o, false)).join(''))
-      + (vOut.length ? '<h3 class="po-t">Vouchers usados e expirados</h3>' + vOut.map(vc).join('') : '') + '</div>';
+      + (vOut.length ? '<h3 class="po-t">Vouchers usados e expirados</h3>' + vOut.map(vc).join('') : '') + '</div>'
+      + (pergunta ? (() => { const o = S.ofertas.find(x => x.id === pergunta); return o ? '<div class="ct-modal" role="dialog" aria-modal="true" aria-labelledby="of-sg-t"><div class="ct-modal-c of-sgm"><b id="of-sg-t">Somente para seguidores</b><p>Esta oferta (' + esc(oQue(o)) + ') é só para quem segue o ' + esc(o.casa.nome) + '. Deseja seguir o ' + esc(o.casa.nome) + '?</p><small>Passas a ver os eventos e as ofertas da casa no teu Xouty. Podes deixar de seguir quando quiseres.</small><div class="pt-2"><button type="button" class="s-btn pink" data-ofu="seg-sim">Seguir e aceitar</button><button type="button" class="s-btn ghost" data-ofu="seg-nao">Agora não</button></div></div></div>' : ''; })() : '');
+    if (pergunta) { const b = el.querySelector('[data-ofu="seg-sim"]'); if (b) b.focus(); }
     montaMapa(at);
   };
   const montaMapa = at => {
@@ -2708,9 +2715,17 @@ function pagina(el){
     const a = b.dataset.ofu;
     if (a === 'sim') { const s = SIM.find(x => x[0] === b.dataset.n); loc = [s[1], s[2]]; locNome = s[0] + ' (simulado)'; msg = null; guarda(); return desenha(); }
     if (a === 'geo') { if (!navigator.geolocation) { msg = {ok:false, txt:'Este navegador não dá a localização.'}; return desenha(); } b.textContent = 'A procurar…'; navigator.geolocation.getCurrentPosition(p => { loc = [p.coords.latitude, p.coords.longitude]; locNome = 'a tua localização'; msg = null; guarda(); desenha(); }, () => { msg = {ok:false, txt:'Sem acesso à localização. Podes simular um sítio.'}; desenha(); }, {timeout:8000, maximumAge:60000}); return; }
-    if (a === 'aceita') { const r = aceitar(b.dataset.id, loc); msg = r.ok ? {ok:true, txt:'Aceite! O teu voucher está em cima: mostra-o no ' + r.o.casa.nome + ' até às ' + hhmm(r.v.expira) + '.'} : {ok:false, txt:r.txt}; desenha(); window.scrollTo({top:0, behavior:'smooth'}); }
+    if (a === 'seg-nao') { pergunta = ''; return desenha(); }
+    if (a === 'aceita' || a === 'seg-sim') {
+      const id = a === 'seg-sim' ? pergunta : b.dataset.id; carrega(); const o = S.ofertas.find(x => x.id === id);
+      if (a === 'aceita' && o && precisaSeguir(o)) { pergunta = id; return desenha(); }
+      if (a === 'seg-sim' && o) seguir(o);
+      pergunta = '';
+      const r = aceitar(id, loc); msg = r.ok ? {ok:true, txt:(a === 'seg-sim' ? 'Já segues o ' + r.o.casa.nome + '. ' : '') + 'Aceite! O teu voucher está em cima: mostra-o no ' + r.o.casa.nome + ' até às ' + hhmm(r.v.expira) + '.'} : {ok:false, txt:r.txt}; desenha(); window.scrollTo({top:0, behavior:'smooth'}); }
   });
   window.addEventListener('storage', ev => { if (ev.key === K) desenha(); });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && pergunta) { pergunta = ''; desenha(); } });
+  el.addEventListener('click', ev => { if (pergunta && ev.target.classList.contains('ct-modal')) { pergunta = ''; desenha(); } });
   clearInterval(ag); ag = setInterval(() => { if (!document.hidden && !document.activeElement.matches('input')) desenha(); }, 60000);
   desenha();
 }
