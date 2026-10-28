@@ -2352,6 +2352,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .gu-s i{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:11px}
 .gu .s-btn{justify-self:start}
 @media (max-width:560px){.gd-r{grid-template-columns:1fr 1fr;}.gd-r>div{grid-column:1/-1}}
+/* ---------- booking-pagar.html: a casa paga o DJ (booking-pagar.js) e os estados no portal ---------- */
+.bp-tl{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;counter-reset:p}
+.bp-tl li{display:grid;justify-items:center;text-align:center;gap:4px;position:relative;color:var(--grey)}
+.bp-tl li::before{content:"";position:absolute;top:17px;left:-50%;right:50%;height:3px;background:var(--line);z-index:0}.bp-tl li:first-child::before{display:none}
+.bp-tl li.ok::before,.bp-tl li.agora::before{background:var(--ink)}
+.bp-tl i{position:relative;z-index:1;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px/1 var(--fb);font-style:normal;background:#fff;border:2px solid var(--line)}
+.bp-tl li.ok i{background:var(--ink);color:#fff;border-color:var(--ink)}.bp-tl li.agora i{background:var(--pink);color:#fff;border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,46,110,.2)}
+.bp-tl b{font-size:13px;color:var(--ink)}.bp-tl small{font-size:11px}
+.bp-g{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.bp-f{display:grid;gap:14px;min-width:0}
+.bp-h{margin:0;font-family:var(--fd);font-weight:400;font-size:22px;text-transform:uppercase}
+.bp-m{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:#fff}
+.bp-m.on{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--pink)}.bp-m.dis{opacity:.5;cursor:default}
+.bp-m input{accent-color:var(--pink);margin-top:4px;width:18px;height:18px;flex:0 0 auto}.bp-m b{display:block}.bp-m small{color:var(--grey);font-size:13px}
+.bp-mb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border:2px dashed var(--ink);border-radius:12px;padding:12px;background:#fafafa}.bp-mb small{display:block;font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.08em;font-weight:800}.bp-mb b{font:400 22px/1.1 var(--fd)}
+.bp-chk{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px;cursor:pointer}.bp-chk input{accent-color:var(--pink);width:18px;height:18px}
+.bp-in{font:inherit;font-size:15px;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;max-width:220px}
+.bp-reg{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.bp-side{position:sticky;top:90px;min-width:0}
+.bp-dj{display:flex;gap:12px;align-items:center}.bp-dj>div{flex:1;min-width:0}.bp-dj b{display:block;font-size:17px}.bp-dj small{color:var(--grey);font-size:13px}
+.bp-av{width:48px;height:48px;border-radius:50%;background:center/cover #ccc;flex:0 0 auto}
+.bp-c{margin:0;display:grid;gap:6px}.bp-c div{display:flex;justify-content:space-between;gap:10px;font-size:14px}.bp-c dt{color:var(--grey)}.bp-c dd{margin:0;font-weight:700}
+.bp-c .tot{border-top:2px solid var(--ink);padding-top:8px;font-size:18px}.bp-c .tot dt{color:var(--ink);font-weight:800}.bp-c .tot dd{font:400 28px/1 var(--fd)}
+.bp-prazo{margin:0;font-size:13px;background:#fff3b0;border-radius:8px;padding:8px 10px}
+.bp-pay{width:100%;text-align:center}
+.bp-ok{justify-items:center;text-align:center;padding:30px 18px}.bp-ok h2{margin:0;font-size:clamp(40px,6vw,64px)}.bp-ok p{margin:0;color:var(--grey)}.bp-ok .bp-c{width:100%;max-width:420px;text-align:left}
+.dj-prazo{background:#fff3b0;border-radius:8px;padding:4px 8px;font-size:13px}
+.dj-conf,.dj-prob{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:700}
+.dj-prob select{font:inherit;font-size:13px;padding:6px 8px;border:2px solid var(--ink);border-radius:8px}
+.dj-ag .dj-est{display:block;font-size:12px;color:var(--grey)}
+@media (max-width:900px){.bp-g{grid-template-columns:minmax(0,1fr)}.bp-side{position:static;order:-1}}
+@media (max-width:560px){.bp-tl{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.bp-tl li:nth-child(4)::before{display:none}.bp-mb{grid-template-columns:1fr}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>

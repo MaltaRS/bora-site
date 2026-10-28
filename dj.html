@@ -2352,6 +2352,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .gu-s i{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:11px}
 .gu .s-btn{justify-self:start}
 @media (max-width:560px){.gd-r{grid-template-columns:1fr 1fr;}.gd-r>div{grid-column:1/-1}}
+/* ---------- booking-pagar.html: a casa paga o DJ (booking-pagar.js) e os estados no portal ---------- */
+.bp-tl{list-style:none;margin:18px 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;counter-reset:p}
+.bp-tl li{display:grid;justify-items:center;text-align:center;gap:4px;position:relative;color:var(--grey)}
+.bp-tl li::before{content:"";position:absolute;top:17px;left:-50%;right:50%;height:3px;background:var(--line);z-index:0}.bp-tl li:first-child::before{display:none}
+.bp-tl li.ok::before,.bp-tl li.agora::before{background:var(--ink)}
+.bp-tl i{position:relative;z-index:1;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px/1 var(--fb);font-style:normal;background:#fff;border:2px solid var(--line)}
+.bp-tl li.ok i{background:var(--ink);color:#fff;border-color:var(--ink)}.bp-tl li.agora i{background:var(--pink);color:#fff;border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,46,110,.2)}
+.bp-tl b{font-size:13px;color:var(--ink)}.bp-tl small{font-size:11px}
+.bp-g{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.bp-f{display:grid;gap:14px;min-width:0}
+.bp-h{margin:0;font-family:var(--fd);font-weight:400;font-size:22px;text-transform:uppercase}
+.bp-m{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:#fff}
+.bp-m.on{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--pink)}.bp-m.dis{opacity:.5;cursor:default}
+.bp-m input{accent-color:var(--pink);margin-top:4px;width:18px;height:18px;flex:0 0 auto}.bp-m b{display:block}.bp-m small{color:var(--grey);font-size:13px}
+.bp-mb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border:2px dashed var(--ink);border-radius:12px;padding:12px;background:#fafafa}.bp-mb small{display:block;font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:.08em;font-weight:800}.bp-mb b{font:400 22px/1.1 var(--fd)}
+.bp-chk{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px;cursor:pointer}.bp-chk input{accent-color:var(--pink);width:18px;height:18px}
+.bp-in{font:inherit;font-size:15px;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;max-width:220px}
+.bp-reg{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.bp-side{position:sticky;top:90px;min-width:0}
+.bp-dj{display:flex;gap:12px;align-items:center}.bp-dj>div{flex:1;min-width:0}.bp-dj b{display:block;font-size:17px}.bp-dj small{color:var(--grey);font-size:13px}
+.bp-av{width:48px;height:48px;border-radius:50%;background:center/cover #ccc;flex:0 0 auto}
+.bp-c{margin:0;display:grid;gap:6px}.bp-c div{display:flex;justify-content:space-between;gap:10px;font-size:14px}.bp-c dt{color:var(--grey)}.bp-c dd{margin:0;font-weight:700}
+.bp-c .tot{border-top:2px solid var(--ink);padding-top:8px;font-size:18px}.bp-c .tot dt{color:var(--ink);font-weight:800}.bp-c .tot dd{font:400 28px/1 var(--fd)}
+.bp-prazo{margin:0;font-size:13px;background:#fff3b0;border-radius:8px;padding:8px 10px}
+.bp-pay{width:100%;text-align:center}
+.bp-ok{justify-items:center;text-align:center;padding:30px 18px}.bp-ok h2{margin:0;font-size:clamp(40px,6vw,64px)}.bp-ok p{margin:0;color:var(--grey)}.bp-ok .bp-c{width:100%;max-width:420px;text-align:left}
+.dj-prazo{background:#fff3b0;border-radius:8px;padding:4px 8px;font-size:13px}
+.dj-conf,.dj-prob{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:700}
+.dj-prob select{font:inherit;font-size:13px;padding:6px 8px;border:2px solid var(--ink);border-radius:8px}
+.dj-ag .dj-est{display:block;font-size:12px;color:var(--grey)}
+@media (max-width:900px){.bp-g{grid-template-columns:minmax(0,1fr)}.bp-side{position:static;order:-1}}
+@media (max-width:560px){.bp-tl{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.bp-tl li:nth-child(4)::before{display:none}.bp-mb{grid-template-columns:1fr}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3460,7 +3492,35 @@ const BK = 'streetfy:dj-bookings';
 const bookings = () => { let b = ler(BK, null); if (!b) { const dia = k => { const x = new Date(); x.setDate(x.getDate() + k); return x.toISOString().slice(0, 10); }; b = [
   {id:'b1', dj:'nuno-v', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:dia(10), hora:'01:00 – 03:00', cache:600, estado:'pendente', t:Date.now() - 36e5, nota:'Noite X · sala de baixo'},
   {id:'b2', dj:'nuno-v', casa:'B.Leza', casaK:'lisboa/b leza', data:dia(11), hora:'23:00 – 01:00', cache:450, estado:'pendente', t:Date.now() - 5 * 36e5, nota:'Abertura antes do baile'},
-  {id:'b3', dj:'nuno-v', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:dia(3), hora:'02:30 – 05:00', cache:600, estado:'confirmado', t:Date.now() - 4 * 864e5, nota:'Lux Sessions'}]; gravar(BK, b); } return b; };
+  {id:'b3', dj:'nuno-v', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:dia(3), hora:'02:30 – 05:00', cache:600, estado:'pago', t:Date.now() - 4 * 864e5, pagoT:Date.now() - 3 * 864e5, metodo:'repasse', nota:'Lux Sessions'}]; gravar(BK, b); }
+  return passaTempo(b); };
+/* ---------- pagamento do booking (lado de quem contrata) ----------
+   pendente → (contraproposta) → aceite: a casa tem 48 h para pagar (e nunca menos de 72 h antes do set), senão expira e a data volta ao DJ
+   → pago: o dinheiro fica retido no Xouty até ao set → realizado: o DJ fez check-in na cabine ou a casa confirmou; a casa tem até à libertação para abrir um problema
+   → libertado: o DJ recebe 2 dias depois do set (D+2, como os bilhetes). Ramos: recusado, expirado, cancelado (pela casa ou pelo DJ), problema.
+   A casa paga o cachê + taxa de serviço do Xouty (5%) + IVA da taxa; o DJ recebe o cachê inteiro e passa a fatura-recibo à casa. */
+const TAXA = 0.05, IVA = 0.23, H = 36e5;
+const contas = c => { const taxa = Math.round(c * TAXA * 100) / 100, iva = Math.round(taxa * IVA * 100) / 100; return {cache:c, taxa, iva, total:Math.round((c + taxa + iva) * 100) / 100}; };
+const inicioSet = x => new Date(x.data + 'T' + (String(x.hora).match(/\d{2}:\d{2}/) || ['23:00'])[0]);
+const prazoPagar = x => Math.min((x.aceiteT || Date.now()) + 48 * H, inicioSet(x).getTime() - 72 * H);
+/* cancelamento pela casa: mais de 14 dias antes, o cachê volta todo; entre 14 dias e 72 h, metade fica para o DJ; com menos de 72 h, fica tudo para o DJ. A taxa não volta. */
+const multa = x => { const d = (inicioSet(x) - Date.now()) / H; return d > 14 * 24 ? 0 : d > 72 ? 0.5 : 1; };
+const diaMais = (s, k) => { const d = new Date(s + 'T12:00'); d.setDate(d.getDate() + k); return d.toISOString().slice(0, 10); };
+function passaTempo(b){
+  let mudou = false; const agora = Date.now(), hoje = new Date().toISOString().slice(0, 10);
+  b.forEach(x => {
+    if (x.estado === 'confirmado') { x.estado = 'pago'; x.pagoT = x.pagoT || x.t; x.metodo = x.metodo || 'repasse'; mudou = true; }   /* os antigos "confirmado" eram já pagos */
+    if (x.estado === 'aceite' && agora > prazoPagar(x)) { x.estado = 'expirado'; mudou = true; }
+    if (x.estado === 'realizado' && hoje >= x.liberaEm) { x.estado = 'libertado'; mudou = true; }
+  });
+  /* um set já tocado, à espera da confirmação da casa (para se ver o passo depois do set) */
+  if (!b.some(x => x.id === 'b4')) { b.push({id:'b4', dj:'kiara-s', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:diaMais(hoje, -1), hora:'23:30 – 01:30', cache:450, estado:'pago', t:agora - 9 * 864e5, pagoT:agora - 8 * 864e5, metodo:'mbway', nota:'Terraço · warm-up'}); mudou = true; }
+  if (mudou) gravar(BK, b);
+  return b;
+}
+const METODO = {repasse:'descontado do repasse de bilhetes', mbway:'MB WAY', multibanco:'referência Multibanco', cartao:'cartão'};
+const quandoH = t => { const d = new Date(t); return dataTxt(d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0')) + ' às ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+const eurC = n => '€' + (Math.round(n * 100) / 100).toFixed(2).replace('.', ',').replace(/,00$/, '');
 const gravaB = b => gravar(BK, b);
 const dataTxt = s => { const d = new Date(s + 'T12:00'); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate() + ' ' + ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'][d.getMonth()]; };
 let segue = ler('streetfy:segue-djs', {});
@@ -3526,31 +3586,68 @@ function perfil(el){
 const EU = 'nuno-v';
 let contra = {};
 function portalDJ(){
-  const d = porId(EU), b = bookings().filter(x => x.dj === EU), pend = b.filter(x => x.estado === 'pendente' || x.estado === 'contraproposta'), conf = b.filter(x => x.estado === 'confirmado').sort((x, y) => x.data.localeCompare(y.data)), sets = setsDe(d);
-  const EST = {pendente:'à espera de ti', contraproposta:'contraproposta enviada', confirmado:'confirmado', recusado:'recusado'};
+  const d = porId(EU), b = bookings().filter(x => x.dj === EU), pend = b.filter(x => x.estado === 'pendente' || x.estado === 'contraproposta'), conf = b.filter(x => /^(aceite|pago|realizado|libertado|problema)$/.test(x.estado)).sort((x, y) => x.data.localeCompare(y.data)), sets = setsDe(d);
+  const EST = {pendente:'à espera de ti', contraproposta:'contraproposta enviada', aceite:'à espera do pagamento', pago:'pago · garantido', realizado:'a receber', libertado:'recebido', problema:'em análise'};
+  const estDJ = x => x.estado === 'aceite' ? 'a casa paga até ' + quandoH(prazoPagar(x)) + '; só fica garantido depois' : x.estado === 'pago' ? 'o cachê está retido no Xouty até ao set' : x.estado === 'realizado' ? 'recebes €' + fmt(x.cache) + ' a ' + dataTxt(x.liberaEm) : x.estado === 'libertado' ? '€' + fmt(x.cache) + ' na tua conta · passa a fatura-recibo à casa' : x.estado === 'problema' ? 'a casa abriu um problema; o Xouty responde em 48 h' : '';
   return '<div class="pt-2c"><div class="pt-card dj-bks" id="bookings"><div class="pt-ch"><h3>Pedidos de booking</h3><span class="pt-mini-t">as casas pedem; aceitas, recusas ou propões outro cachê</span></div>'
       + (pend.length ? pend.map(x => '<div class="dj-bk-i"><div><b>' + esc(x.casa) + '</b><span>' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + (x.nota ? ' · ' + esc(x.nota) : '') + '</span><span>Cachê proposto: <b>€' + fmt(x.cache) + '</b>' + (x.estado === 'contraproposta' ? ' · pediste <b>€' + fmt(x.contra) + '</b>, à espera da casa' : '') + '</span></div>'
           + '<div class="dj-bk-ac"><button type="button" class="s-btn mint" data-djp="aceita" data-id="' + x.id + '">Aceitar €' + fmt(x.cache) + '</button><button type="button" class="s-btn ghost" data-djp="recusa" data-id="' + x.id + '">Recusar</button>' + (x.estado === 'pendente' ? '<span class="dj-cp"><input type="number" min="0" step="10" placeholder="€ outro valor" data-djc="' + x.id + '" value="' + esc(contra[x.id] || '') + '" aria-label="Contraproposta em euros"><button type="button" class="s-btn ghost" data-djp="contra" data-id="' + x.id + '">Contraproposta</button></span>' : '') + '</div></div>').join('') : '<p class="al-nota">Sem pedidos novos.</p>')
       + '</div><div class="pt-card"><div class="pt-ch"><h3>Agenda de sets</h3><span class="pt-mini-t">confirmados e festas onde tocas</span></div><ul class="dj-ag">'
-      + conf.map(x => '<li><b>' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + esc(x.casa) + (x.nota ? ' · ' + esc(x.nota) : '') + ' · €' + fmt(x.cache) + '</span><i class="ok">confirmado</i></li>').join('')
+      + conf.map(x => '<li><b>' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + esc(x.casa) + (x.nota ? ' · ' + esc(x.nota) : '') + ' · €' + fmt(x.cache) + '</span><small class="dj-est">' + esc(estDJ(x)) + '</small>' + (x.estado === 'pago' && x.data === new Date().toISOString().slice(0, 10) ? '<button type="button" class="s-btn mint" data-djp="cheguei" data-id="' + x.id + '">Cheguei à cabine</button>' : '') + (x.estado === 'pago' ? '<button type="button" class="cd-lnk" data-djp="dj-cancela" data-id="' + x.id + '">Não posso ir</button>' : '') + '<i class="' + (x.estado === 'aceite' || x.estado === 'problema' ? '' : 'ok') + '">' + EST[x.estado] + '</i></li>').join('')
       + sets.map(i => '<li><b>' + esc(quando(i)) + ' · ' + horaSet(d, i) + '</b><span>' + esc(i.titulo) + ' · ' + esc(i.lugar || '') + '</span><i>no cartaz</i></li>').join('') + '</ul></div></div>'
     + '<div class="pt-2c"><div class="pt-card"><div class="pt-ch"><h3>Rider técnico</h3><span class="pt-mini-t">aparece no teu perfil; uma linha por item</span></div><textarea class="dj-rid" data-dj-rider rows="6">' + esc(rider(d).join('\n')) + '</textarea><p class="al-nota" data-dj-rok></p></div>'
     + '<div class="pt-card"><div class="pt-ch"><h3>Mixes</h3><span class="pt-mini-t">os que aparecem no teu perfil</span></div><ul class="dj-mixes">' + mixes(d).map(([t, m, p], k) => '<li><span class="dj-play" aria-hidden="true">▶</span><div><b>' + esc(t) + '</b><span>' + m + ' min · ' + esc(p) + '</span></div><button type="button" class="cd-lnk" data-djp="mixrm" data-k="' + k + '">Tirar</button></li>').join('') + '</ul>'
     + '<div class="dj-mixf"><input data-djm="t" placeholder="nome do mix" maxlength="50"><input type="number" data-djm="m" placeholder="min" min="1" max="600"><select data-djm="p"><option>SoundCloud</option><option>Mixcloud</option><option>YouTube</option></select><button type="button" class="s-btn ghost" data-djp="mixadd">Juntar</button></div></div></div>';
 }
+/* o que a casa vê e pode fazer em cada estado */
+function linhaCasa(x, passou){
+  const c = contas(x.cache);
+  if (x.estado === 'aceite') return '<span class="dj-prazo">Paga até <b>' + esc(quandoH(prazoPagar(x))) + '</b>. Sem pagamento, o booking expira e o DJ fica livre.</span>';
+  if (x.estado === 'pago') return '<span>' + eurC(c.total) + ' pagos (' + esc(METODO[x.metodo] || '') + ')' + (passou ? ' · o set já passou: confirma que o DJ tocou' : ' · se cancelares agora, ' + (multa(x) === 0 ? 'o cachê volta todo' : multa(x) === 1 ? 'o cachê fica todo para o DJ' : 'metade do cachê fica para o DJ')) + '</span>';
+  if (x.estado === 'realizado') return '<span>O DJ recebe a ' + esc(dataTxt(x.liberaEm)) + '. Até lá podes abrir um problema.</span>';
+  if (x.estado === 'libertado') return '<span>€' + fmt(x.cache) + ' entregues ao DJ. A fatura-recibo dele e a fatura da taxa do Xouty ficam nos documentos da casa.</span>';
+  if (x.estado === 'cancelado') return '<span>' + esc(x.cancelTxt || '') + '</span>';
+  if (x.estado === 'problema') return '<span>Abriste: "' + esc(x.problema) + '". O dinheiro fica parado até o Xouty decidir (48 h).</span>';
+  if (x.estado === 'expirado') return '<span>Não foi pago a tempo. <a href="dj.html#d=' + esc(x.dj) + '">Pedir de novo</a></span>';
+  return '';
+}
+let cancelAberto = '', probAberto = '';
+const probForm = x => probAberto === x.id ? '<span class="dj-prob"><select data-djprob="' + x.id + '" aria-label="O que aconteceu"><option>O DJ não apareceu</option><option>Chegou muito atrasado</option><option>Tocou bem menos tempo</option><option>Outro</option></select><button type="button" class="pt-mini" data-djp="casa-prob" data-id="' + x.id + '">Enviar</button><button type="button" class="pt-mini" data-djp="prob-nao" data-id="' + x.id + '">Fechar</button></span>' : '<button type="button" class="pt-mini" data-djp="prob-abre" data-id="' + x.id + '">Houve um problema</button>';
+function acoesCasa(x, passou){
+  const ac = h => '<div class="dj-bk-ac">' + h + '</div>';
+  if (x.estado === 'aceite') return ac('<a class="s-btn pink" href="booking-pagar.html#b=' + encodeURIComponent(x.id) + '">Pagar ' + eurC(contas(x.cache).total) + '</a><button type="button" class="s-btn ghost" data-djp="casa-desiste" data-id="' + x.id + '">Desistir</button>');
+  if (x.estado === 'pago' && passou) return ac('<button type="button" class="s-btn mint" data-djp="casa-tocou" data-id="' + x.id + '">O DJ tocou ✓</button>' + probForm(x));
+  if (x.estado === 'pago') { const m = multa(x); return ac(cancelAberto === x.id ? '<span class="dj-conf">Cancelar? ' + (m === 0 ? 'Recebes de volta €' + fmt(x.cache) + ' (a taxa não volta).' : m === 1 ? 'O DJ fica com os €' + fmt(x.cache) + '.' : 'O DJ fica com €' + fmt(x.cache / 2) + ' e recebes €' + fmt(x.cache / 2) + '.') + ' <button type="button" class="pt-mini" data-djp="casa-cancela" data-id="' + x.id + '">Sim, cancelar</button><button type="button" class="pt-mini" data-djp="cancel-nao" data-id="' + x.id + '">Não</button></span>' : '<a class="pt-mini" href="booking-pagar.html#b=' + encodeURIComponent(x.id) + '">Recibo</a><button type="button" class="pt-mini" data-djp="cancel-abre" data-id="' + x.id + '">Cancelar booking</button>'); }
+  if (x.estado === 'realizado') return ac('<a class="pt-mini" href="booking-pagar.html#b=' + encodeURIComponent(x.id) + '">Recibo</a>' + probForm(x));
+  if (x.estado === 'libertado') return ac('<a class="pt-mini" href="booking-pagar.html#b=' + encodeURIComponent(x.id) + '">Recibo</a>');
+  return '';
+}
 /* lado da casa (portal do local): os bookings que pediu e as contrapropostas dos DJs */
 function portalCasa(casaK){
-  const L = bookings().filter(x => x.casaK === casaK).sort((a, b) => b.t - a.t), EST = {pendente:'à espera do DJ', contraproposta:'contraproposta do DJ', confirmado:'confirmado', recusado:'recusado'};
+  const L = bookings().filter(x => x.casaK === casaK).sort((a, b) => b.t - a.t), EST = {pendente:'à espera do DJ', contraproposta:'contraproposta do DJ', aceite:'aceite · falta pagar', pago:'pago · retido até ao set', realizado:'set confirmado', libertado:'pago ao DJ', recusado:'recusado', expirado:'expirou sem pagamento', cancelado:'cancelado', problema:'problema em análise'};
+  const cls = e => /^(pago|realizado|libertado)$/.test(e) ? 'aprovada' : /^(recusado|expirado|cancelado)$/.test(e) ? 'recusada' : 'pendente';
+  const passou = x => Date.now() > inicioSet(x).getTime();
   return '<div class="pt-card dj-bks" id="casa-djs"><div class="pt-ch"><h3>DJs · bookings</h3><a class="pt-mini" href="djs.html">Procurar DJs</a></div>'
-    + (L.length ? L.map(x => { const d = porId(x.dj) || {art:x.dj, foto:'dj'}; return '<div class="dj-bk-i"><div><b><a href="dj.html#d=' + x.dj + '">' + esc(d.art) + '</a> · ' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + (x.nota ? esc(x.nota) + ' · ' : '') + 'cachê €' + fmt(x.cache) + (x.estado === 'contraproposta' ? ' · o DJ pede <b>€' + fmt(x.contra) + '</b>' : '') + '</span><span class="pt-ap ' + (x.estado === 'confirmado' ? 'aprovada' : x.estado === 'recusado' ? 'recusada' : 'pendente') + '">' + EST[x.estado] + '</span></div>'
-        + (x.estado === 'contraproposta' ? '<div class="dj-bk-ac"><button type="button" class="s-btn mint" data-djp="casa-ok" data-id="' + x.id + '">Aceitar €' + fmt(x.contra) + '</button><button type="button" class="s-btn ghost" data-djp="casa-no" data-id="' + x.id + '">Recusar</button></div>' : '') + '</div>'; }).join('') : '<p class="al-nota">Ainda não pediste nenhum DJ. Abre o perfil de um DJ e toca em "Pedir booking".</p>')
+    + (L.length ? L.map(x => { const d = porId(x.dj) || {art:x.dj, foto:'dj'}; return '<div class="dj-bk-i"><div><b><a href="dj.html#d=' + x.dj + '">' + esc(d.art) + '</a> · ' + esc(dataTxt(x.data)) + ' · ' + esc(x.hora) + '</b><span>' + (x.nota ? esc(x.nota) + ' · ' : '') + 'cachê €' + fmt(x.cache) + (x.estado === 'contraproposta' ? ' · o DJ pede <b>€' + fmt(x.contra) + '</b>' : '') + '</span><span class="pt-ap ' + cls(x.estado) + '">' + EST[x.estado] + '</span>' + linhaCasa(x, passou(x)) + '</div>'
+        + (x.estado === 'contraproposta' ? '<div class="dj-bk-ac"><button type="button" class="s-btn mint" data-djp="casa-ok" data-id="' + x.id + '">Aceitar €' + fmt(x.contra) + ' e pagar</button><button type="button" class="s-btn ghost" data-djp="casa-no" data-id="' + x.id + '">Recusar</button></div>' : '')
+        + acoesCasa(x, passou(x)) + '</div>'; }).join('') : '<p class="al-nota">Ainda não pediste nenhum DJ. Abre o perfil de um DJ e toca em "Pedir booking".</p>')
     + '</div>';
 }
 document.addEventListener('click', ev => {
   const b = ev.target.closest('[data-djp]'); if (!b) return;
   const a = b.dataset.djp, L = bookings(), x = L.find(y => y.id === b.dataset.id), d = porId(EU);
-  if (a === 'aceita' && x) x.estado = 'confirmado';
-  if (a === 'casa-ok' && x) { x.cache = x.contra; x.estado = 'confirmado'; }
+  if (a === 'aceita' && x) { x.estado = 'aceite'; x.aceiteT = Date.now(); }
+  if (a === 'casa-ok' && x) { x.cache = x.contra; x.estado = 'aceite'; x.aceiteT = Date.now(); gravaB(L); location.href = 'booking-pagar.html#b=' + encodeURIComponent(x.id); return; }
+  if (a === 'casa-desiste' && x) { x.estado = 'cancelado'; x.cancelTxt = 'Desististe antes de pagar. Nada foi cobrado.'; }
+  if (a === 'cancel-abre') cancelAberto = b.dataset.id;
+  if (a === 'cancel-nao') cancelAberto = '';
+  if (a === 'prob-abre') probAberto = b.dataset.id;
+  if (a === 'prob-nao') probAberto = '';
+  if (a === 'casa-cancela' && x) { const m = multa(x), dj = x.cache * m; x.estado = 'cancelado'; x.multa = m; x.cancelTxt = 'Cancelaste. ' + (dj ? 'O DJ recebe €' + fmt(dj) + '. ' : '') + (x.cache - dj ? '€' + fmt(x.cache - dj) + ' voltam pelo mesmo meio em até 5 dias úteis.' : ''); cancelAberto = ''; }
+  if (a === 'casa-tocou' && x) { x.estado = 'realizado'; x.realizadoT = Date.now(); x.por = 'casa'; x.liberaEm = diaMais(x.data, 2); }
+  if (a === 'cheguei' && x) { x.chegouT = Date.now(); x.por = 'dj'; x.estado = 'realizado'; x.liberaEm = diaMais(x.data, 2); }
+  if (a === 'casa-prob' && x) { const sl = document.querySelector('[data-djprob="' + x.id + '"]'); x.problema = sl ? sl.value : 'Outro'; x.estado = 'problema'; probAberto = ''; }
+  if (a === 'dj-cancela' && x) { x.estado = 'cancelado'; x.cancelTxt = 'O DJ cancelou. Recebes de volta tudo o que pagaste, taxa incluída, em até 5 dias úteis.'; }
   if (a === 'casa-no' && x) x.estado = 'recusado';
   if (a === 'recusa' && x) x.estado = 'recusado';
   if (a === 'contra' && x) { const v = +(document.querySelector('[data-djc="' + x.id + '"]') || {}).value; if (!v) return; x.estado = 'contraproposta'; x.contra = v; }
@@ -3565,6 +3662,6 @@ document.addEventListener('input', ev => {
 
 document.querySelectorAll('[data-djs]').forEach(grelha);
 document.querySelectorAll('[data-dj-perfil]').forEach(perfil);
-window.STREETFY_DJS = {lista:D, setsDe, porId, portalDJ, portalCasa, NIVEL, EU, bookings, gravaB};
+window.STREETFY_DJS = {lista:D, setsDe, porId, portalDJ, portalCasa, NIVEL, EU, bookings, gravaB, contas, prazoPagar, inicioSet, multa, quandoH, dataTxt, eurC, METODO, diaMais, TAXA, IVA};
 })();
 </script></body></html>
