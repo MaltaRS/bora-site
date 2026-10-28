@@ -2126,6 +2126,16 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .of-qr em{position:absolute;inset:0;display:grid;place-items:center;font:400 24px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55)}
 .of-sg{flex-basis:100%;font-size:12px;color:var(--grey)}.of-sgm{display:grid;gap:10px;text-align:left;max-width:420px}.of-sgm b{font:400 28px/1 var(--fd);text-transform:uppercase}.of-sgm p{margin:0;font-size:15px}.of-sgm small{color:var(--grey)}
 [data-ofertas] .ct-modal{z-index:1300}
+.of-v{position:relative;transition:transform .15s,box-shadow .15s}
+.of-v:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--ink)}
+.of-vb{position:absolute;inset:0;border:0;background:none;border-radius:16px;cursor:zoom-in;z-index:1}
+.of-vb:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.of-va{position:relative;z-index:2;display:flex;gap:8px;margin-top:4px}
+.of-big{display:grid;gap:8px;justify-items:center;text-align:center;max-width:380px}
+.of-big b{font:400 28px/1.05 var(--fd);text-transform:uppercase}
+.of-big .ct-qrw .qr-svg{width:min(280px,70vw);height:auto}
+.of-big .of-code{margin:0;font:800 20px/1 var(--fb);letter-spacing:.1em}
+.of-big p{margin:0}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2672,7 +2682,8 @@ document.addEventListener('change', ev => {
 
 /* ---------- página do utilizador: ofertas perto de ti ---------- */
 function pagina(el){
-  let loc = null, locNome = '', msg = null, mapa = null, ag = null, pergunta = '';
+  let loc = null, locNome = '', msg = null, mapa = null, ag = null, pergunta = '', qrAberto = '';
+  const hrefCasa = o => 'perfil.html#lugar=' + encodeURIComponent(o.casa.k);
   try { const s = JSON.parse(sessionStorage.getItem(LK) || 'null'); if (s) { loc = s.p; locNome = s.n; } } catch (e) {}
   const guarda = () => { try { sessionStorage.setItem(LK, JSON.stringify({p:loc, n:locNome})); } catch (e) {} };
   const QR = c => window.STREETFY_ENTRADAS ? window.STREETFY_ENTRADAS.qrSvg(c) : '';
@@ -2687,7 +2698,9 @@ function pagina(el){
         + (aqui ? (m ? '<p class="of-m">' + esc(m) + '</p>' : '<button type="button" class="s-btn pink" data-ofu="aceita" data-id="' + o.id + '">Aceitar oferta</button>' + (precisaSeguir(o) ? '<small class="of-sg">só para seguidores do ' + esc(o.casa.nome) + '</small>' : '')) : '')
         + '<a class="s-btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=' + o.casa.lat + ',' + o.casa.lng + '" target="_blank" rel="noopener">Como chegar</a></article>'; };
     const vc = v => { const o = S.ofertas.find(x => x.id === v.oferta) || {titulo:'Oferta', casa:CASA}, st = v.usado ? 'usado às ' + hhmm(v.usado) : v.expira < Date.now() ? 'expirou às ' + hhmm(v.expira) : 'válido até às ' + hhmm(v.expira) + ' · faltam ' + Math.max(0, Math.ceil((v.expira - Date.now()) / 6e4)) + ' min';
-      return '<article class="of-v' + (v.usado || v.expira < Date.now() ? ' off' : '') + '"><div class="of-qr">' + QR(v.c) + (v.usado ? '<em>USADO</em>' : v.expira < Date.now() ? '<em>EXPIROU</em>' : '') + '</div><div><span class="of-ut">' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b><span class="of-code">' + esc(v.c) + '</span><span>' + esc(st) + '</span>' + (!v.usado && v.expira > Date.now() ? '<small>Mostra no bar ou na porta: a equipa lê o QR e entrega. Só serve uma vez.</small>' : '') + '</div></article>'; };
+      return '<article class="of-v' + (v.usado || v.expira < Date.now() ? ' off' : '') + '"><button type="button" class="of-vb" data-ofu="qr" data-c="' + esc(v.c) + '" aria-label="Abrir o QR do voucher ' + esc(v.c) + ' em grande"></button><div class="of-qr">' + QR(v.c) + (v.usado ? '<em>USADO</em>' : v.expira < Date.now() ? '<em>EXPIROU</em>' : '') + '</div><div><span class="of-ut">' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b><span class="of-code">' + esc(v.c) + '</span><span>' + esc(st) + '</span>' + (!v.usado && v.expira > Date.now() ? '<small>Toca para abrir o QR em grande. Mostra no bar ou na porta: a equipa lê o QR e entrega. Só serve uma vez.</small>' : '') + '<span class="of-va"><a class="s-btn ghost" href="' + hrefCasa(o) + '">Ver perfil</a></span></div></article>'; };
+    const grande = () => { const v = S.vouchers[qrAberto]; if (!v) return ''; const o = S.ofertas.find(x => x.id === v.oferta) || {titulo:'Oferta', casa:CASA}, off = v.usado || v.expira < Date.now();
+      return '<div class="ct-modal" role="dialog" aria-modal="true" aria-label="Voucher ' + esc(v.c) + '"><div class="ct-modal-c of-big' + (off ? ' usado' : '') + '"><button type="button" class="pe-x" data-ofu="qr-x" aria-label="Fechar">✕</button><span class="of-ut">' + esc(o.casa.nome) + '</span><b>' + esc(oQue(o)) + '</b><div class="ct-qrw">' + QR(v.c) + (v.usado ? '<em>USADO</em>' : v.expira < Date.now() ? '<em>EXPIROU</em>' : '') + '</div><p class="of-code">' + esc(v.c) + '</p><p>' + (v.usado ? 'Usado às ' + hhmm(v.usado) + '.' : v.expira < Date.now() ? 'Expirou às ' + hhmm(v.expira) + '.' : 'Válido até às ' + hhmm(v.expira) + ' · faltam ' + Math.max(0, Math.ceil((v.expira - Date.now()) / 6e4)) + ' min. Aumenta o brilho e mostra no bar ou na porta.') + '</p><div class="pt-2"><a class="s-btn ink" href="' + hrefCasa(o) + '">Ver perfil</a><a class="s-btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=' + o.casa.lat + ',' + o.casa.lng + '" target="_blank" rel="noopener">Como chegar</a></div></div></div>'; };
     el.innerHTML = '<div class="of-pg">'
       + '<p class="bf-priv"><span><b>A tua posição não sai do telemóvel.</b> O Xouty manda as zonas das ofertas e é o teu telemóvel que vê se estás dentro. As casas só veem quantas pessoas receberam, nunca quem.</span></p>'
       + '<div class="of-loc"><b>' + (loc ? 'Estás em: ' + esc(locNome) : 'Onde estás?') + '</b><div class="of-locb"><button type="button" class="s-btn ink" data-ofu="geo">Usar a minha localização</button>' + SIM.map(s => '<button type="button" class="bf-tag' + (locNome === s[0] ? ' on' : '') + '" data-ofu="sim" data-n="' + esc(s[0]) + '">' + esc(s[0]) + '</button>').join('') + '</div><small>Protótipo: escolhe um sítio para simular onde estás.</small></div>'
@@ -2698,7 +2711,9 @@ function pagina(el){
       + (loc ? (perto.length ? perto.map(o => of(o, true)).join('') : '<p class="al-nota">Nenhuma oferta para a zona onde estás. Experimenta o Bairro Alto.</p>') + (longe.length ? '<h3 class="po-t">Noutras zonas</h3>' + longe.map(o => of(o, false)).join('') : '') : at.map(o => of(o, false)).join(''))
       + (vOut.length ? '<h3 class="po-t">Vouchers usados e expirados</h3>' + vOut.map(vc).join('') : '') + '</div>'
       + (pergunta ? (() => { const o = S.ofertas.find(x => x.id === pergunta); return o ? '<div class="ct-modal" role="dialog" aria-modal="true" aria-labelledby="of-sg-t"><div class="ct-modal-c of-sgm"><b id="of-sg-t">Somente para seguidores</b><p>Esta oferta (' + esc(oQue(o)) + ') é só para quem segue o ' + esc(o.casa.nome) + '. Deseja seguir o ' + esc(o.casa.nome) + '?</p><small>Passas a ver os eventos e as ofertas da casa no teu Xouty. Podes deixar de seguir quando quiseres.</small><div class="pt-2"><button type="button" class="s-btn pink" data-ofu="seg-sim">Seguir e aceitar</button><button type="button" class="s-btn ghost" data-ofu="seg-nao">Agora não</button></div></div></div>' : ''; })() : '');
+    if (qrAberto && !pergunta) el.insertAdjacentHTML('beforeend', grande());
     if (pergunta) { const b = el.querySelector('[data-ofu="seg-sim"]'); if (b) b.focus(); }
+    else if (qrAberto) { const b = el.querySelector('[data-ofu="qr-x"]'); if (b) b.focus(); }
     montaMapa(at);
   };
   const montaMapa = at => {
@@ -2716,6 +2731,8 @@ function pagina(el){
     if (a === 'sim') { const s = SIM.find(x => x[0] === b.dataset.n); loc = [s[1], s[2]]; locNome = s[0] + ' (simulado)'; msg = null; guarda(); return desenha(); }
     if (a === 'geo') { if (!navigator.geolocation) { msg = {ok:false, txt:'Este navegador não dá a localização.'}; return desenha(); } b.textContent = 'A procurar…'; navigator.geolocation.getCurrentPosition(p => { loc = [p.coords.latitude, p.coords.longitude]; locNome = 'a tua localização'; msg = null; guarda(); desenha(); }, () => { msg = {ok:false, txt:'Sem acesso à localização. Podes simular um sítio.'}; desenha(); }, {timeout:8000, maximumAge:60000}); return; }
     if (a === 'seg-nao') { pergunta = ''; return desenha(); }
+    if (a === 'qr') { qrAberto = b.dataset.c; return desenha(); }
+    if (a === 'qr-x') { const c = qrAberto; qrAberto = ''; desenha(); const v = el.querySelector('[data-ofu="qr"][data-c="' + c + '"]'); if (v) v.focus(); return; }
     if (a === 'aceita' || a === 'seg-sim') {
       const id = a === 'seg-sim' ? pergunta : b.dataset.id; carrega(); const o = S.ofertas.find(x => x.id === id);
       if (a === 'aceita' && o && precisaSeguir(o)) { pergunta = id; return desenha(); }
@@ -2724,8 +2741,8 @@ function pagina(el){
       const r = aceitar(id, loc); msg = r.ok ? {ok:true, txt:(a === 'seg-sim' ? 'Já segues o ' + r.o.casa.nome + '. ' : '') + 'Aceite! O teu voucher está em cima: mostra-o no ' + r.o.casa.nome + ' até às ' + hhmm(r.v.expira) + '.'} : {ok:false, txt:r.txt}; desenha(); window.scrollTo({top:0, behavior:'smooth'}); }
   });
   window.addEventListener('storage', ev => { if (ev.key === K) desenha(); });
-  document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && pergunta) { pergunta = ''; desenha(); } });
-  el.addEventListener('click', ev => { if (pergunta && ev.target.classList.contains('ct-modal')) { pergunta = ''; desenha(); } });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && (pergunta || qrAberto)) { pergunta = ''; qrAberto = ''; desenha(); } });
+  el.addEventListener('click', ev => { if ((pergunta || qrAberto) && ev.target.classList.contains('ct-modal')) { pergunta = ''; qrAberto = ''; desenha(); } });
   clearInterval(ag); ag = setInterval(() => { if (!document.hidden && !document.activeElement.matches('input')) desenha(); }, 60000);
   desenha();
 }
