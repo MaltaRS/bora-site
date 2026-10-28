@@ -2091,6 +2091,40 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .card-l:hover .s-im::before{filter:grayscale(0)}
 .card-l .s-im>*{z-index:1}
 
+/* Ofertas na rua */
+.of-form label small{font-weight:500;color:var(--grey)}
+.of-form input[type=number],.of-form input[type=text],.of-form input:not([type]){font:inherit;font-size:15px;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;min-width:0}
+.of-form select{width:100%;font:inherit;font-size:16px;font-weight:700;padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink)}
+.of-form input[type=range]{width:100%;accent-color:var(--pink)}
+.of-mapa{height:320px;border:2px solid var(--ink);border-radius:14px;overflow:hidden;z-index:0}
+.of-mapa-u{height:300px;margin:6px 0 4px}
+.of-dica{margin:0;font-size:13px;color:var(--grey)}
+.of-alc{margin:0;font-size:14px;display:grid;gap:2px}.of-alc small{color:var(--grey);font-size:12px}
+.of-regra{margin:0;padding:8px 10px;border-radius:10px;background:#f2f2f2;font-size:12px;color:var(--grey)}
+.of-tip{font:800 11px/1 var(--fb);background:#0b0b0b;color:#fff;border:0;border-radius:6px;padding:4px 7px}.of-tip::before{display:none}
+.of-c{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;background:#fff;display:grid;gap:10px}
+.of-c.on{border:2px solid var(--ink);box-shadow:4px 4px 0 var(--pink)}
+.of-ch{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.of-ch div{display:grid;gap:3px;min-width:0;flex:1 1 260px}.of-ch span{font-size:13px;color:var(--grey)}
+.of-est{font:800 10px/1 var(--fb)!important;letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:#eee;color:var(--grey)!important;flex:none!important}.of-est.on{background:#dff7ea;color:#0b5a33!important}
+.of-num{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.of-num div{display:grid;gap:2px;padding:8px;border-radius:10px;background:#f6f6f6}.of-num b{font:400 24px/1 var(--fd)}.of-num span{font-size:11px;color:var(--grey)}
+@media (max-width:560px){.of-num{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.of-c .cd-lnk{justify-self:start}
+.of-pg{display:grid;gap:12px;max-width:820px}
+.of-loc{display:grid;gap:8px;padding:12px 14px;border:2px solid var(--ink);border-radius:14px;background:#fff}.of-loc small{color:var(--grey);font-size:12px}
+.of-locb{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.of-u{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:14px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:4px 4px 0 var(--pink)}
+.of-u.fora{box-shadow:none;border-color:var(--line);opacity:.75}
+.of-uc{display:grid;gap:4px;flex:1 1 280px;min-width:0}.of-uc b{font:400 26px/1.05 var(--fd);text-transform:uppercase}.of-uc>span{font-size:13px;color:var(--grey)}
+.of-ut{font:800 11px/1 var(--fb)!important;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)!important}
+.of-chips{display:flex;gap:4px;flex-wrap:wrap}.of-chips i{font-style:normal;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:#f2f2f2;color:var(--ink)}
+.of-m{margin:0;font-size:13px;font-weight:700;color:#a3123f;flex-basis:100%}
+.of-v{display:flex;gap:14px;align-items:center;padding:14px;border:2px solid var(--ink);border-radius:16px;background:#fff}
+.of-v.off{opacity:.6}
+.of-v>div:last-child{display:grid;gap:3px;min-width:0}.of-v b{font:400 24px/1.05 var(--fd);text-transform:uppercase}.of-v span{font-size:13px;color:var(--grey)}.of-v small{font-size:12px;color:var(--grey)}
+.of-code{font:800 15px/1 var(--fb)!important;letter-spacing:.08em;color:var(--ink)!important}
+.of-qr{position:relative;flex:none}.of-qr .qr-svg{width:120px;height:120px;display:block}
+.of-qr em{position:absolute;inset:0;display:grid;place-items:center;font:400 24px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55)}
+
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
 .ph{width:272px;max-width:100%;border-radius:40px;border:8px solid #0a0a0a;background:var(--bg);color:var(--fg);font-family:var(--ff);font-size:12.5px;line-height:1.35;padding:8px 12px 12px;position:relative;box-shadow:0 20px 44px rgba(0,0,0,.28);min-height:560px;display:flex;flex-direction:column;overflow:hidden}
@@ -4297,7 +4331,7 @@ const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } c
 const eu = ls('streetfy:perfil-user', null) || {};
 const PAPEIS = {
   utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
-    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['ofertas.html', 'Ofertas perto de ti'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
   promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
