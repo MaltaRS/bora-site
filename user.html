@@ -1019,7 +1019,10 @@ html.lb-aberta{overflow:hidden}
 .u-est{font:800 10px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:5px 7px;border-radius:5px;background:#efefef;color:var(--ink)}
 .u-est.ok{background:var(--mint)}
 .u-hist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.u-hist li{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px}
+.u-hist li{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px;transition:transform .15s,box-shadow .15s}
+.u-hist li:hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink)}
+.u-hist a::after{content:"";position:absolute;inset:0;border-radius:10px}
+.u-hist a:focus-visible{outline:none}.u-hist li:has(a:focus-visible){outline:3px solid var(--pink);outline-offset:2px}
 .u-hist a{text-decoration:none;color:var(--ink);display:grid;gap:2px;min-width:0}.u-hist a span{color:var(--grey);font-size:13px}
 .u-chk{font:800 10px/1 var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);white-space:nowrap}.u-chk.ok{color:#1f8a52}
 .u-aval{border:2px solid var(--ink);border-radius:14px;background:#fff;padding:12px 14px;display:grid;gap:6px}
@@ -1925,6 +1928,11 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .am-meu i{width:38px;height:38px;border-radius:50%;background:center/cover;flex:0 0 auto}
 .am-meu span{flex:1;min-width:180px;display:grid}.am-meu b{font-size:15px}.am-meu small{font-size:12px;color:var(--grey)}
 .am-meu .s-btn{padding:8px 13px;font-size:13px}
+
+/* Já fui: o cartão inteiro abre o local; as estrelas ficam por cima */
+.ct-ev-a{color:inherit;text-decoration:none}.ct-ev-a::after{content:"";position:absolute;inset:0;border-radius:14px}
+.ct-ev.pass:has(.ct-ev-a){transition:transform .15s,box-shadow .15s}.ct-ev.pass:has(.ct-ev-a):hover{transform:translateY(-2px);box-shadow:3px 3px 0 var(--ink)}
+.ct-ev.pass .ct-val,.ct-ev.pass .ct-val-ok,.ct-ev.pass .ct-st{position:relative;z-index:2}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2984,6 +2992,7 @@ const porId = id => C.itens.find(i => i.id === id);
 const A = window.STREETFY_ACOES;
 const hrefEv = i => 'bilhete.html#lugar=' + encodeURIComponent(C.lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
 const hrefLugar = i => 'perfil.html#lugar=' + encodeURIComponent(C.lugarKey(i));
+const cidNome = i => { const c = i && (window.STREETFY_CIDADES || []).find(x => x.id === i.cidade); return c ? c.nome : (i && i.cidade ? i.cidade.charAt(0).toUpperCase() + i.cidade.slice(1) : ''); };
 const quando = i => { const ks = (i._ks || []).slice().sort((a, b) => a - b); if (!ks.length) return 'esta semana'; if (ks[0] === 0) return 'hoje'; if (ks[0] === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + ks[0]); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate(); };
 const VIS = {pub:['Público', 'pub'], seg:['Seguidores', 'seg'], eu:['Só eu', 'eu']};
 const NIVEL = {pub:0, seg:1, eu:2};
@@ -3054,7 +3063,7 @@ function painel(tipo){
   let corpo;
   if (!pode(vis)) corpo = '<p class="u-pn-priv">' + esc(primeiro()) + ' mostra isto só a ' + (U.vis[vis] === 'eu' ? 'si mesmo' : 'quem segue o perfil') + '.</p>';
   else if (tipo === 'eventos') corpo = U.aSeguir.map(([id, est]) => { const i = porId(id); return i ? '<a class="u-pn-l" href="' + esc(hrefEv(i)) + '"><span class="u-pn-av" style="background-image:url(' + esc(img(i)) + ')"></span><b>' + esc(i.titulo) + '</b><small>' + esc(i.lugar || '') + ' · ' + esc(quando(i)) + ' · ' + esc(est) + '</small></a>' : ''; }).join('')
-      + U.jaFui.map(([lugar, data, ev, ok]) => { const i = lugarPorNome(lugar); return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(ev) + '</b><small>' + esc(lugar) + ' · ' + esc(data) + ' · ' + (ok ? 'check-in ✓' : 'estive lá') + '</small></a>'; }).join('');
+      + U.jaFui.map(([lugar, data, ev, ok]) => { const i = lugarPorNome(lugar); return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(ev) + '</b><small>' + esc(lugar) + (cidNome(i) ? ' · ' + esc(cidNome(i)) : '') + ' · ' + esc(data) + ' · ' + (ok ? 'check-in ✓' : 'estive lá') + '</small></a>'; }).join('');
   else if (tipo === 'lugares') corpo = [...new Set(U.jaFui.map(x => x[0]).concat(U.seguindo.lugares))].map(n => { const i = lugarPorNome(n), vezes = U.jaFui.filter(x => x[0] === n).length; return '<a class="u-pn-l" href="' + (i ? esc(hrefLugar(i)) : '#') + '"><span class="u-pn-av" style="background-image:url(' + (i ? esc(img(i)) : 'img/noite.jpg') + ')"></span><b>' + esc(n) + '</b><small>' + (i && i.bairro ? esc(i.bairro) + ' · ' : '') + (vezes ? vezes + (vezes === 1 ? ' vez' : ' vezes') + ' este mês' : 'segue') + '</small>' + (A && i ? A.seguir(C.lugarKey(i)) : '') + '</a>'; }).join('');
   else if (tipo === 'seguidores') corpo = U.seguidores.map(([n, f, s]) => '<a class="u-pn-l" href="' + hrefPessoa(n) + '"><span class="u-pn-av redondo" style="background-image:url(img/' + f + '.jpg)"></span><b>' + esc(n) + '</b><small>' + esc(s) + '</small></a>').join('');
   else { const prom = ((window.STREETFY_PROMOTERS || {}).lista || []);
@@ -3097,7 +3106,7 @@ function desenha(){
     + (!souEu && U.privado && SEGUE[U.id] !== 'sim' ? '' : (souEu ? '<div class="u-ver"><small>Ver como</small>' + [['eu', 'Eu'], ['seg', 'Um seguidor'], ['pub', 'Público']].map(v => '<button type="button" data-ver="' + v[0] + '"' + (ver === v[0] ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + v[1] + '</button>').join('') + '<span class="u-ver-nota">' + (ver === 'eu' ? 'Vês tudo, com a etiqueta de quem vê cada bloco.' : ocultos + (ocultos === 1 ? ' bloco escondido' : ' blocos escondidos') + ' para ' + (ver === 'seg' ? 'um seguidor' : 'quem não te segue') + '.') + '</span></div>' : '<p class="u-ver-nota" style="margin:0 0 18px">' + (ver === 'seg' ? 'Segues ' + esc(primeiro()) + ': vês o que mostra a seguidores.' : 'Não segues ' + esc(primeiro()) + ': vês só o que é público.') + '</p>')
     + '<div class="u-grid"><div class="u-col">'
     + bloco('aSeguir', 'A seguir', 'VOU <em>A ESTAS</em>', aSeguir.map(([i, est]) => '<a class="p-ev pr-ev" href="' + esc(hrefEv(i)) + '">' + (A ? A.coracao(i.id) : '') + '<div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + (i.hora ? ' · ' + esc(String(i.hora).replace(/^\D+\s/, '')) : '') + '</span><span class="u-est">' + esc(est) + '</span></div><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + '</p></a>').join(''))
-    + bloco('jaFui', 'Já fui', 'ONDE <em>ESTIVE</em>', '<ul class="u-hist">' + U.jaFui.map(([lugar, data, ev, check]) => { const i = lugarPorNome(lugar); return '<li><a href="' + (i ? esc(hrefLugar(i)) : '#') + '"><b>' + esc(lugar) + '</b><span>' + esc(ev) + ' · ' + esc(data) + '</span></a><span class="u-chk ' + (check ? 'ok' : '') + '">' + (check ? 'check-in ✓' : 'estive lá') + '</span></li>'; }).join('') + '</ul><p class="al-nota">"Check-in ✓" foi confirmado no local; "estive lá" foi marcado depois, sem confirmação.</p>')
+    + bloco('jaFui', 'Já fui', 'ONDE <em>ESTIVE</em>', '<ul class="u-hist">' + U.jaFui.map(([lugar, data, ev, check]) => { const i = lugarPorNome(lugar); return '<li><a href="' + (i ? esc(hrefLugar(i)) : '#') + '"><b>' + esc(lugar) + (cidNome(i) ? ' · ' + esc(cidNome(i)) : '') + '</b><span>' + esc(ev) + ' · ' + esc(data) + '</span></a><span class="u-chk ' + (check ? 'ok' : '') + '">' + (check ? 'check-in ✓' : 'estive lá') + '</span></li>'; }).join('') + '</ul><p class="al-nota">"Check-in ✓" foi confirmado no local; "estive lá" foi marcado depois, sem confirmação.</p>')
     + bloco('fotos', 'Fotos', 'DAS <em>NOITES</em>', '<div class="p-fotos pr-galeria" data-p="fotos">' + U.fotos.map(f => '<figure class="p-foto"><div style="background-image:url(img/' + f[0] + '.jpg)"></div><figcaption>' + esc(f[1]) + '</figcaption></figure>').join('') + '</div>')
     + bloco('aval', 'Avaliações', 'O QUE <em>ACHOU</em>', U.aval.map(([lugar, n, txt, resp]) => '<div class="u-aval"><div class="u-aval-h"><b>' + esc(lugar) + '</b><span>' + '★'.repeat(n) + '<i>' + '★'.repeat(5 - n) + '</i></span></div><p>' + esc(txt) + '</p>' + (resp ? '<p class="u-resp"><b>Resposta do lugar</b> ' + esc(resp) + '</p>' : '') + '<small>check-in confirmado · só avalia quem esteve</small></div>').join(''))
     + '</div><div class="u-col">'
