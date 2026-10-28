@@ -2259,6 +2259,9 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
   .en-lh{display:none}.en-sx{display:inline}.en-lr{padding-bottom:10px;border-bottom:1.5px dashed var(--line);grid-template-columns:minmax(0,1fr) 92px 34px;grid-template-areas:"n p x" "q d d"}.en-lr>:nth-child(1){grid-area:n}.en-lr>:nth-child(2){grid-area:p}.en-lr>:nth-child(3){grid-area:q}.en-lr>:nth-child(4){grid-area:d}.en-lr>:nth-child(5){grid-area:x}
   .en-lur{grid-template-columns:minmax(0,1fr) 34px;grid-template-areas:"b x" "h c"}.en-lur>:nth-child(1){grid-area:b}.en-lur>:nth-child(2){grid-area:h}.en-lur>:nth-child(3){grid-area:c}.en-lur>:nth-child(4){grid-area:x}
   .en-seg{width:100%}.en-seg button{flex:1}.en-acts{justify-content:stretch}.en-acts>*{flex:1;text-align:center}}
+.en-venda{display:grid;gap:6px}.en-venda>small{font-size:12px;color:var(--grey)}
+.en-lk{border:0;background:none;padding:0;font:inherit;font-weight:700;color:var(--pink);text-decoration:underline;cursor:pointer}
+.en-pg-b .en-vd{font-size:12px;color:var(--grey);border-bottom:1px dashed var(--line);padding-bottom:4px}.en-pg-b .en-vd b{color:var(--ink)}
 
 /* componentes dos celulares (compartilhados com o app de demonstração) */
 /* palco, célula, celular */
@@ -4069,7 +4072,7 @@ function deEventoCasa(e){
   return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
     tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
     hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
-    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
 }
 const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
 try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}

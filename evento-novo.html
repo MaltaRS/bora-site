@@ -2259,6 +2259,9 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
   .en-lh{display:none}.en-sx{display:inline}.en-lr{padding-bottom:10px;border-bottom:1.5px dashed var(--line);grid-template-columns:minmax(0,1fr) 92px 34px;grid-template-areas:"n p x" "q d d"}.en-lr>:nth-child(1){grid-area:n}.en-lr>:nth-child(2){grid-area:p}.en-lr>:nth-child(3){grid-area:q}.en-lr>:nth-child(4){grid-area:d}.en-lr>:nth-child(5){grid-area:x}
   .en-lur{grid-template-columns:minmax(0,1fr) 34px;grid-template-areas:"b x" "h c"}.en-lur>:nth-child(1){grid-area:b}.en-lur>:nth-child(2){grid-area:h}.en-lur>:nth-child(3){grid-area:c}.en-lur>:nth-child(4){grid-area:x}
   .en-seg{width:100%}.en-seg button{flex:1}.en-acts{justify-content:stretch}.en-acts>*{flex:1;text-align:center}}
+.en-venda{display:grid;gap:6px}.en-venda>small{font-size:12px;color:var(--grey)}
+.en-lk{border:0;background:none;padding:0;font:inherit;font-weight:700;color:var(--pink);text-decoration:underline;cursor:pointer}
+.en-pg-b .en-vd{font-size:12px;color:var(--grey);border-bottom:1px dashed var(--line);padding-bottom:4px}.en-pg-b .en-vd b{color:var(--ink)}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2597,7 +2600,7 @@ function deEventoCasa(e){
   return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
     tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
     hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
-    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
 }
 const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
 try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}
@@ -3636,9 +3639,13 @@ const dataTxt = s => { if (!s) return 'sem data'; const d = new Date(s + 'T12:00
 const imgUrl = c => /^(https?|data):/.test(c || '') ? c : 'img/' + (c || 'lux') + '.jpg';
 const todos = () => ler(K, []);
 const novo = () => ({id:'c' + Date.now().toString(36), estado:'novo', titulo:'', data:maisDias(7), hora:'23:00', horaFim:'06:00', tipos:['festa', 'clube'], estilo:'house', capa:'lux', resumo:'', desc:'', idade:'18',
-  lineup:[], entrada:'paga', lotacao:900, lotes:[{nome:'1.º lote', preco:10, qtd:200, ate:maisDias(3)}, {nome:'2.º lote', preco:14, qtd:400, ate:''}],
+  lineup:[], entrada:'paga', lotacao:900, vendaAte:'', vendaAuto:true, lotes:[{nome:'1.º lote', preco:10, qtd:200, ate:maisDias(3)}, {nome:'2.º lote', preco:14, qtd:400, ate:''}],
   lista:{on:true, vagas:120, ate:'01:00', beneficio:'entrada grátis até à 1h', mais1:true, quem:'todos', promoters:[], aprovar:true},
   mesas:{on:true, sel:null}, pub:'agora', pubEm:'', seguidores:false});
+/* fim da venda: enquanto a casa não mexe, acompanha a abertura do evento */
+const fimEvento = () => { if (!E.data) return ''; const fecha = E.horaFim || '06:00', d = new Date(E.data + 'T12:00'); if (fecha <= (E.hora || '00:00')) d.setDate(d.getDate() + 1); return iso(d) + 'T' + fecha; };
+const sincVenda = () => { if (E.vendaAuto || !E.vendaAte) E.vendaAte = E.data && E.hora ? E.data + 'T' + E.hora : ''; };
+const dtTxt = s => s ? dataTxt(s.slice(0, 10)) + ' · ' + s.slice(11, 16) : '';
 /* editar um evento do catálogo (os que já existiam): começa a partir do que o catálogo mostra */
 function doCatalogo(i){
   if (F && F.normalizaTempo) F.normalizaTempo();
@@ -3651,6 +3658,8 @@ let E, aviso = null, feito = null, apagar = false;
 function carrega(){
   const id = idHash(), g = todos().find(x => x.id === id);
   E = g ? JSON.parse(JSON.stringify(g)) : (id && C.itens.find(i => i.id === id && C.lugarKey(i) === CASA.k) ? doCatalogo(C.itens.find(i => i.id === id)) : novo());
+  if (E.vendaAuto === undefined) E.vendaAuto = !E.vendaAte;
+  sincVenda();
   if (!E.mesas.sel) E.mesas.sel = mesasDaCasa().reduce((o, m) => (o[m.nome] = m.preco, o), {});
   aviso = null; feito = null; apagar = false;
 }
@@ -3677,6 +3686,12 @@ function erros(modo){
     const tot = ls.reduce((a, l) => a + +l.qtd, 0);
     if (+E.lotacao && tot > +E.lotacao) r.push(['lotes', 'Os lotes somam ' + tot + ' bilhetes, mais do que a lotação (' + E.lotacao + ').']);
     if (E.lotes.some(l => l.ate && E.data && l.ate > E.data)) r.push(['lotes', 'Um lote acaba depois do evento.']);
+    if (!E.vendaAte) r.push(['venda', 'Diz até quando se vendem bilhetes.']);
+    else {
+      if (new Date(E.vendaAte) <= new Date()) r.push(['venda', 'O fim da venda já passou.']);
+      if (fimEvento() && E.vendaAte > fimEvento()) r.push(['venda', 'A venda não pode passar do fim do evento (' + dtTxt(fimEvento()) + ').']);
+      if (E.lotes.some(l => +l.qtd > 0 && l.ate && l.ate > E.vendaAte.slice(0, 10))) r.push(['venda', 'Há um lote à venda depois do fim da venda.']);
+    }
   }
   if (E.lista.on && !(+E.lista.vagas > 0)) r.push(['lista', 'Diz quantas vagas tem a lista.']);
   if (E.lista.on && E.lista.quem === 'escolher' && !E.lista.promoters.length) r.push(['lista', 'Escolhe os promoters que podem pôr nomes, ou deixa "todos".']);
@@ -3694,7 +3709,7 @@ function preview(){
     + '<div class="bd"><h3>' + esc(E.titulo || 'Nome do evento') + '</h3><p>' + esc(CASA.lugar) + ' · ' + esc(CASA.bairro) + '</p><div class="op"><i>✓</i>' + esc(dataTxt(E.data)) + (E.hora ? ' · ' + esc(E.hora) + (E.horaFim ? ' – ' + esc(E.horaFim) : '') : '') + '</div><span class="pp">' + esc(E.resumo || 'A frase curta que aparece no cartão.') + '</span></div></div>'
     + '<div class="en-pg"><span class="en-pg-t">Página do evento</span>'
     + (E.lineup.length ? '<div class="en-lu">' + E.lineup.map(x => '<span>' + (x.foto ? '<i style="background-image:url(img/' + esc(x.foto) + '.jpg)"></i>' : '<i class="sem"></i>') + esc(x.nome) + (x.hora ? '<small>' + esc(x.hora) + '</small>' : '') + '</span>').join('') + '</div>' : '<p class="en-pg-v">Sem line-up ainda: aparece "residentes da casa".</p>')
-    + '<div class="en-pg-b">' + (livre ? '<b>Grátis</b><span>chega e entra · check-in à porta</span>' : lotes.map(l => '<div><span>' + esc(l.nome) + (l.ate ? ' <small>até ' + esc(dataTxt(l.ate)) + '</small>' : '') + '</span><b>' + eur(+l.preco) + '</b></div>').join('')) + '</div>'
+    + '<div class="en-pg-b">' + (livre ? '<b>Grátis</b><span>chega e entra · check-in à porta</span>' : (E.vendaAte ? '<div class="en-vd"><span>Venda até</span><b>' + esc(dtTxt(E.vendaAte)) + '</b></div>' : '') + lotes.map(l => '<div><span>' + esc(l.nome) + (l.ate ? ' <small>até ' + esc(dataTxt(l.ate)) + '</small>' : '') + '</span><b>' + eur(+l.preco) + '</b></div>').join('')) + '</div>'
     + '<div class="en-badges">' + [E.idade !== '0' ? E.idade + '+' : 'todas as idades', E.lista.on ? 'lista de convidados' : '', E.mesas.on && Object.keys(E.mesas.sel).length ? Object.keys(E.mesas.sel).length + ' mesas VIP' : '', E.seguidores ? 'só seguidores' : ''].filter(Boolean).map(b => '<span>' + esc(b) + '</span>').join('') + '</div></div>';
 }
 
@@ -3731,6 +3746,7 @@ function form(){
       + (E.entrada === 'paga' ? '<div class="en-lotes"><div class="en-lh"><span>Lote</span><span>Preço</span><span>Bilhetes</span><span>À venda até</span><span></span></div>'
         + E.lotes.map((l, k) => '<div class="en-lr"><input data-f="lotes.' + k + '.nome" value="' + esc(l.nome) + '" aria-label="Nome do lote"><label class="en-eur">€<input type="number" min="0" step="0.5" data-f="lotes.' + k + '.preco" value="' + esc(l.preco) + '" aria-label="Preço"></label><label class="en-eur"><input type="number" min="0" step="10" data-f="lotes.' + k + '.qtd" value="' + esc(l.qtd) + '" aria-label="Bilhetes"><span class="en-sx">bilhetes</span></label><label class="en-eur"><span class="en-sx">até</span><input type="date" data-f="lotes.' + k + '.ate" value="' + esc(l.ate) + '" min="' + HOJE + '" aria-label="À venda até"></label><button type="button" class="en-x" data-tira-lote="' + k + '" aria-label="Tirar lote"' + (E.lotes.length < 2 ? ' disabled' : '') + '>×</button></div>').join('')
         + '<button type="button" class="pt-mini" data-lote>+ Lote</button><p class="en-sum" data-sum>' + somaTxt(lotesTot, receita) + '</p></div>' + err(es, 'lotes')
+        + '<div class="en-venda">' + inp('vendaAte', 'Fim da venda <em>obrigatório</em>', ' max="' + fimEvento() + '"', 'datetime-local') + '<small>' + (E.vendaAuto ? 'Acompanha a abertura do evento. Muda se quiseres vender durante a festa ou fechar antes.' : 'Escolhido por ti. <button type="button" class="en-lk" data-venda-auto>Voltar à hora de abertura</button>') + ' Depois desta hora o botão de comprar some e a página mostra "Vendas encerradas".</small></div>' + err(es, 'venda')
         + '<p class="al-nota">Quem compra paga a taxa de serviço (6% + €0,50) à parte. O dinheiro chega 2 dias depois do evento. Lote sem data passa ao seguinte quando esgota.</p>' : '<p class="al-nota">Sem bilhete: a pessoa diz "Eu vou" e faz check-in à porta. A lotação continua a contar.</p>'))
     + sec(6, 'Lista de convidados', 'cada nome aceite recebe um QR para a porta',
       sw('lista.on', 'Este evento tem lista', 'sem lista, os promoters só vendem pelo link')
@@ -3796,6 +3812,8 @@ function guardar(modo){
 el.addEventListener('input', ev => {
   const i = ev.target.closest('[data-f]'); if (!i || i.type === 'checkbox') return;
   poe(E, i.dataset.f, i.type === 'number' ? (i.value === '' ? '' : +i.value) : i.value);
+  if (i.dataset.f === 'vendaAte') E.vendaAuto = false;
+  if (/^(data|hora|horaFim)$/.test(i.dataset.f)) { sincVenda(); const v = el.querySelector('[data-f="vendaAte"]'); if (v) { if (v !== document.activeElement) v.value = E.vendaAte; v.max = fimEvento(); } }
   const c = el.querySelector('[data-cnt="' + i.dataset.f + '"]'); if (c) c.textContent = i.value.length + '/' + i.maxLength;
   atualizaPv();
 });
@@ -3822,6 +3840,7 @@ el.addEventListener('click', ev => {
   else if (d.tiraLote) E.lotes.splice(+d.tiraLote, 1);
   else if (d.quem) E.lista.quem = d.quem;
   else if (d.prom) E.lista.promoters = E.lista.promoters.includes(d.prom) ? E.lista.promoters.filter(x => x !== d.prom) : E.lista.promoters.concat(d.prom);
+  else if (d.vendaAuto !== undefined) { E.vendaAuto = true; sincVenda(); }
   else if (d.pub) { E.pub = d.pub; aviso = null; }
   else if (d.guardar) return guardar(d.guardar);
   else if (d.apagar) { if (d.apagar === 'sim') { gravar(K, todos().filter(x => x.id !== E.id)); location.href = 'portal.html#parceiro'; return; } apagar = d.apagar === '1'; }
