@@ -1935,7 +1935,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-ev.pass .ct-val,.ct-ev.pass .ct-val-ok,.ct-ev.pass .ct-st{position:relative;z-index:2}
 
 /* Best friends do portal: tags privadas de quem cria */
-.bf h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
+.bf h3 .bf-n,.st h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
 .bf-priv{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:9px 12px;border-radius:10px;background:#f2f2f2;font-size:13px;color:var(--grey)}
 .bf-priv svg{flex:none;margin-top:2px;color:var(--ink)}.bf-priv b{color:var(--ink)}
 .bf-form{display:grid;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:14px;margin-bottom:16px;background:#fff}
@@ -2017,6 +2017,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .ct-qrw em{position:absolute;inset:0;display:grid;place-items:center;font:400 44px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55);letter-spacing:.06em}
 .qe.agora{border:2px solid var(--mint);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#effcf5}
 .qe.agora .qe-txt b{font:800 14px/1.2 var(--fb);text-transform:none;letter-spacing:0}
+
+/* Funcionários da casa e Modo porta */
+.st-form select,.st-form input[type=date]{font:inherit;font-weight:500;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.st-form input[disabled]{opacity:.4}
+.st-funcs{display:grid;gap:8px;margin:8px 0 12px;padding:12px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+.st-funcs h4{margin:0}
+.st-f{display:grid;gap:6px;padding:8px 0;border-top:1px solid var(--line)}
+.st-fh{display:flex;align-items:center;gap:10px;justify-content:space-between}.st-fh small{color:var(--grey);font-size:12px}
+.st-fh input{flex:1;font:inherit;font-weight:700;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}
+.st-f.nova .s-btn{justify-self:start}
+.st-l{margin-top:8px}
+.st-p{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.st-p.fim{opacity:.55}
+.st-p a{color:inherit;text-decoration:none}.st-p a:hover{text-decoration:underline}
+.st-fn{display:inline-block;font:800 10px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:var(--ink);color:#fff;vertical-align:middle;margin-left:4px}
+.st-per{font-size:12px;color:var(--grey)}
+.st-e{font-style:normal;font-weight:700}.st-e.ativo{color:#0b7a45}.st-e.futuro{color:#b26a00}.st-e.fim{color:var(--grey)}
+.po,.po-sem{display:grid;gap:14px;max-width:720px}
+.po-quem{display:flex;gap:12px;align-items:center;padding:12px 14px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+.po-quem .bf-av{width:46px;height:46px}.po-quem div{display:grid;gap:2px}.po-quem span{font-size:13px;color:var(--grey)}
+.po-ler{display:grid;gap:8px;padding:16px;border:2px dashed var(--ink);border-radius:14px;background:#fff}
+.po-ler label{font-weight:800}.po-ler input{font-size:20px!important}.po-ler small{color:var(--grey);font-size:12px}
+.po-res{display:grid;gap:4px;padding:16px 18px;border-radius:14px;font-size:15px}
+.po-res b{font:400 30px/1 var(--fd);text-transform:uppercase}
+.po-res.ok{background:#dff7ea;color:#0b5a33;border:2px solid #0b7a45}.po-res.erro{background:#ffe1ea;color:#a3123f;border:2px solid #a3123f}
+.po-t{margin:8px 0 0;font:800 12px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.po-l,.po-hist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.po-l li{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.po-l li div{flex:1;min-width:0;display:grid;gap:2px}.po-l li span{font-size:12px;color:var(--grey)}
+.po-l li i{font-style:normal;font-weight:700;font-size:12px;color:#0b7a45}.po-l li.usado{opacity:.7}
+.po-hist li{display:flex;justify-content:space-between;gap:10px;padding:8px 11px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:14px}
+.po-hist li.ok b{color:#0b7a45}.po-hist li.erro b{color:#a3123f}.po-hist span{color:var(--grey);font-size:13px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2759,7 +2791,7 @@ const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } c
 const eu = ls('streetfy:perfil-user', null) || {};
 const PAPEIS = {
   utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
-    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
   promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
@@ -2835,6 +2867,197 @@ b.addEventListener('click', () => abrir(!nav.classList.contains('aberto')));
 nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(false); });
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
 window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
+})();
+</script><script>/* Entradas por lista de convidados: cada nome aceite numa lista recebe um QR único.
+   Na porta, a equipa lê o QR: o QR passa a usado (não entra duas vezes) e a pessoa fica com check-in feito no local.
+   Se a pessoa tem a presença pública (perfil › privacidade › "Onde estou agora"), todos a veem "lá agora"; só seguidores, ou só ela.
+   Guardado neste aparelho em streetfy:entradas; o check-in da própria conta vai para streetfy:eu-a-caminho (o mesmo do mapa dos amigos). */
+(function(){
+const K = 'streetfy:entradas', EK = 'streetfy:eu-a-caminho', EU = 'Mariana Costa', VALE = 6 * 36e5;
+const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const ler = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } };
+const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const hash = s => { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return h; };
+const codigo = (lista, nome) => 'XY-' + (hash(lista + '|' + norm(nome)).toString(36).toUpperCase() + '000000').slice(0, 6);
+const todas = () => ler(K, {});
+/* cria (ou devolve) a entrada de um nome numa lista; o código é sempre o mesmo para o mesmo nome na mesma lista */
+function garante(lista, listaNome, nome, local, localNome, quando){
+  const E = todas(), c = codigo(lista, nome);
+  if (!E[c]) { E[c] = {c, lista, listaNome, nome, local, localNome, quando:quando || '', criado:Date.now(), usado:0}; gravar(K, E); }
+  else if (E[c].listaNome !== listaNome || E[c].local !== local || (quando && E[c].quando !== quando)) { Object.assign(E[c], {listaNome, local, localNome}, quando ? {quando} : {}); gravar(K, E); }
+  return E[c];
+}
+/* quem já estava marcado como entrou antes de haver QR: fica usado, sem novo check-in */
+const jaUsado = (c, t) => { const E = todas(); if (E[c] && !E[c].usado) { E[c].usado = t || Date.now(); gravar(K, E); } return E[c]; };
+const de = c => todas()[String(c || '').trim().toUpperCase()] || null;
+/* a leitura na porta: inválido, já usado, ou entra e faz check-in */
+function lerQR(c, por){
+  const E = todas(), k = String(c || '').trim().toUpperCase(), e = E[k];
+  if (!e) return {ok:false, motivo:'invalido'};
+  if (e.usado) return {ok:false, motivo:'usado', e};
+  e.usado = Date.now(); if (por) e.por = por; gravar(K, E);
+  if (norm(e.nome) === norm(EU)) gravar(EK, {k:e.local, st:'la', t:e.usado, via:'qr'});
+  document.dispatchEvent(new CustomEvent('streetfy-entrada', {detail:e}));
+  return {ok:true, e};
+}
+const minhas = () => Object.values(todas()).filter(e => norm(e.nome) === norm(EU)).sort((a, b) => (a.usado ? 1 : 0) - (b.usado ? 1 : 0) || b.criado - a.criado);
+/* presença da própria conta: pub = todos, seg = seguidores, eu = só eu */
+const presenca = () => { const p = ler('streetfy:perfil-user', {}) || {}; return (p.vis && p.vis.presenca) || 'eu'; };
+const aquiAgora = local => { const s = ler(EK, null); return s && s.st === 'la' && s.k === local && Date.now() - s.t < VALE ? s : null; };
+const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+const qrSvg = seed => { let h = hash(seed); let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (Math.imul(h, 1103515245) + 12345) >>> 0; const cx = x > 13 ? x - 14 : x, cy = y > 13 ? y - 14 : y; const on = canto ? (cx === 0 || cx === 6 || cy === 0 || cy === 6 || (cx > 1 && cx < 5 && cy > 1 && cy < 5)) : (h >>> 16) % 2 === 0; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg class="qr-svg" viewBox="-1 -1 23 23" role="img" aria-label="QR de entrada ' + seed + '"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#0b0b0b">' + r + '</g></svg>'; };
+window.STREETFY_ENTRADAS = {codigo, garante, jaUsado, de, lerQR, minhas, presenca, aquiAgora, hhmm, qrSvg, EU, norm};
+})();
+</script><script>/* Funcionários da casa: o local atribui utilizadores comuns do Xouty a uma função (portaria, segurança, bar…),
+   com data de início e fim, ou indeterminado. Cada função tem as suas permissões; "Ler QR na entrada" dá acesso ao Modo porta,
+   onde o QR lido passa a usado e a pessoa fica com check-in feito (entradas.js).
+   Guardado neste aparelho em streetfy:funcionarios. Protótipo: a casa é o Lux Frágil e "tu" és a Mariana Costa. */
+(function(){
+const K = 'streetfy:funcionarios', CASA = {k:'lisboa/lux fragil', nome:'Lux Frágil'};
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const nid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const dTxt = s => { if (!s) return ''; const [y, m, d] = s.split('-').map(Number); return d + ' ' + MESES[m - 1] + (y !== new Date().getFullYear() ? ' ' + y : ''); };
+const PERMS = [['qr', 'Ler QR na entrada'], ['lista', 'Ver as listas de convidados'], ['mesas', 'Ver reservas de mesa'], ['pedidos', 'Receber pedidos do menu']];
+const permNome = k => (PERMS.find(p => p[0] === k) || [k, k])[1];
+const GENTE = [['mari-costa', 'Mariana Costa', 'retrato'], ['leonor-s', 'Leonor Santos', 'tram'], ['hugo-m', 'Hugo Martins', 'dj'], ['ines-c', 'Inês Carvalho', 'alfama'], ['sara-d', 'Sara Dias', 'noite'], ['bruna-t', 'Bruna Teixeira', 'cocktail'], ['kiko-r', 'Kiko Rocha', 'club'], ['duarte-p', 'Duarte Pinto', 'shots']].map(([id, nome, foto]) => ({id, nome, foto, user:id.replace('-', '.')}));
+const perfilDe = nome => GENTE.find(g => norm(g.nome) === norm(nome));
+const ini = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const avatar = nome => { const g = perfilDe(nome); return g ? '<span class="bf-av" style="background-image:url(img/' + g.foto + '.jpg)" aria-hidden="true"></span>' : '<span class="bf-av" aria-hidden="true">' + esc(ini(nome)) + '</span>'; };
+const PADRAO = () => ({
+  funcoes:[{id:'f1', nome:'Portaria', perms:['qr', 'lista']}, {id:'f2', nome:'Segurança', perms:['qr']}, {id:'f3', nome:'Hostess', perms:['lista', 'mesas']}, {id:'f4', nome:'Bar', perms:['pedidos']}],
+  pessoas:[{id:'s1', nome:'Mariana Costa', funcao:'f1', inicio:hoje(), fim:''}, {id:'s2', nome:'Duarte Pinto', funcao:'f2', inicio:'2026-09-01', fim:''}, {id:'s3', nome:'Bruna Teixeira', funcao:'f4', inicio:'2026-10-01', fim:'2026-12-31'}]
+});
+const ler = () => { try { const g = JSON.parse(localStorage.getItem(K) || 'null'); if (g && g.funcoes && g.pessoas) return g; } catch (e) {} return PADRAO(); };
+let S = ler();
+const grava = () => { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} };
+const funcao = id => S.funcoes.find(f => f.id === id) || {nome:'sem função', perms:[]};
+/* estado da atribuição hoje: ativo, ainda não começou, ou terminou */
+const estado = p => { const h = hoje(); return p.inicio && p.inicio > h ? 'futuro' : p.fim && p.fim < h ? 'fim' : 'ativo'; };
+const periodo = p => 'desde ' + dTxt(p.inicio) + ' · ' + (p.fim ? 'até ' + dTxt(p.fim) : 'indeterminado');
+/* as funções ativas de alguém na casa, e se pode X */
+const minhas = nome => { S = ler(); return S.pessoas.filter(p => norm(p.nome) === norm(nome)); };
+const pode = (nome, perm) => minhas(nome).some(p => estado(p) === 'ativo' && funcao(p.funcao).perms.includes(perm));
+
+/* ---------- cartão do portal (só o local) ---------- */
+const U = {aberto:false, nome:'', escolhido:false, funcao:'f1', inicio:'', fim:'', indet:true, msg:'', gerir:false, nf:'', nfp:['qr']};
+const sugestoes = q => { const t = norm(q), ja = S.pessoas.filter(p => estado(p) !== 'fim').map(p => norm(p.nome)); return GENTE.filter(g => !t || norm(g.nome).includes(t) || g.user.includes(t)).slice(0, 6).map(g => '<li><button type="button" data-st-sug="' + esc(g.nome) + '">' + avatar(g.nome) + '<span><b>' + esc(g.nome) + '</b><small>@' + esc(g.user) + (ja.includes(norm(g.nome)) ? ' · já trabalha cá' : '') + '</small></span></button></li>').join(''); };
+function card(){
+  S = ler();
+  const ord = {ativo:0, futuro:1, fim:2}, lista = S.pessoas.slice().sort((a, b) => ord[estado(a)] - ord[estado(b)] || a.nome.localeCompare(b.nome, 'pt'));
+  const permChips = (sel, attr, fid) => PERMS.map(([k, n]) => '<button type="button" class="bf-tag' + (sel.includes(k) ? ' on' : '') + '" ' + attr + '="' + k + '"' + (fid ? ' data-fid="' + fid + '"' : '') + ' aria-pressed="' + sel.includes(k) + '">' + (sel.includes(k) ? '✓ ' : '') + esc(n) + '</button>').join('');
+  const form = U.aberto ? '<div class="bf-form st-form"><h4>Atribuir funcionário</h4>'
+    + (U.escolhido ? '<div class="bf-esc"><span class="bf-lbl">Pessoa</span><div class="bf-escp">' + avatar(U.nome) + '<span><b>' + esc(U.nome) + '</b><small>' + (perfilDe(U.nome) ? '@' + esc(perfilDe(U.nome).user) : '') + '</small></span><button type="button" class="cd-lnk" data-st="trocar">Trocar</button></div></div>'
+      : '<label class="bf-busca">Utilizador do Xouty<input data-st-in="nome" value="' + esc(U.nome) + '" placeholder="procura pelo nome ou @" autocomplete="off"></label><ul class="bf-sug" id="st-sug">' + sugestoes(U.nome) + '</ul>')
+    + '<label>Função<select data-st-in="funcao">' + S.funcoes.map(f => '<option value="' + f.id + '"' + (U.funcao === f.id ? ' selected' : '') + '>' + esc(f.nome) + ' · ' + esc(f.perms.map(permNome).join(', ') || 'sem permissões') + '</option>').join('') + '</select></label>'
+    + '<div class="pt-2"><label>Início<input type="date" data-st-in="inicio" value="' + esc(U.inicio || hoje()) + '"></label><label>Fim<input type="date" data-st-in="fim" value="' + esc(U.fim) + '"' + (U.indet ? ' disabled' : '') + '></label></div>'
+    + '<label class="pt-r"><input type="checkbox" data-st-in="indet"' + (U.indet ? ' checked' : '') + '> Indeterminado (sem data de fim)</label>'
+    + (U.msg ? '<p class="bf-msg" role="alert">' + esc(U.msg) + '</p>' : '')
+    + '<div class="pt-2"><button type="button" class="s-btn mint" data-st="add">Atribuir</button><button type="button" class="s-btn ghost" data-st="fechar">Cancelar</button></div></div>' : '';
+  const gerir = U.gerir ? '<div class="st-funcs"><h4>Funções e permissões</h4>' + S.funcoes.map(f => '<div class="st-f"><div class="st-fh"><b>' + esc(f.nome) + '</b>' + (S.pessoas.some(p => p.funcao === f.id && estado(p) !== 'fim') ? '<small>em uso</small>' : '<button type="button" class="cd-lnk" data-st-frm="' + f.id + '">Apagar</button>') + '</div><div class="bf-tags">' + permChips(f.perms, 'data-st-fperm', f.id) + '</div></div>').join('')
+    + '<div class="st-f nova"><div class="st-fh"><input data-st-in="nf" value="' + esc(U.nf) + '" placeholder="nova função, ex.: Bengaleiro" maxlength="24" aria-label="Nova função"></div><div class="bf-tags">' + permChips(U.nfp, 'data-st-nperm') + '</div><button type="button" class="s-btn ghost" data-st="novaf">Criar função</button></div></div>' : '';
+  const linha = p => { const f = funcao(p.funcao), e = estado(p), g = perfilDe(p.nome);
+    return '<li class="st-p ' + e + '">' + avatar(p.nome) + '<div class="bf-pc"><b>' + (g ? '<a href="' + (g.id === 'mari-costa' ? 'user.html' : 'user.html#u=' + g.id) + '">' + esc(p.nome) + '</a>' : esc(p.nome)) + ' <span class="st-fn">' + esc(f.nome) + '</span></b>'
+      + '<span class="st-per">' + esc(periodo(p)) + ' · <i class="st-e ' + e + '">' + (e === 'ativo' ? 'ativo' : e === 'futuro' ? 'começa a ' + dTxt(p.inicio) : 'terminou') + '</i></span>'
+      + '<span class="bf-pt">' + (f.perms.length ? f.perms.map(k => '<em>' + esc(permNome(k)) + '</em>').join('') : '<small>sem permissões no Xouty</small>') + '</span></div>'
+      + '<span class="bf-pa">' + (e !== 'fim' ? '<button type="button" class="cd-lnk" data-st-fim="' + p.id + '">Terminar hoje</button>' : '') + '<button type="button" class="cd-lnk" data-st-rm="' + p.id + '">Tirar</button></span></li>'; };
+  return '<div class="pt-card st" id="funcionarios"><div class="pt-ch"><h3>Funcionários da casa <span class="bf-n">' + S.pessoas.filter(p => estado(p) === 'ativo').length + '</span></h3>'
+    + (U.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-st="abrir">+ Atribuir funcionário</button>') + '</div>'
+    + '<p class="bf-priv"><span>Utilizadores comuns do Xouty que trabalham cá. Cada um tem uma função, com início e fim (ou indeterminado), e só pode o que a função deixa. Quem tem "Ler QR na entrada" abre o <b>Modo porta</b> no menu da conta: o QR lido fica usado e a pessoa fica com check-in.</span></p>'
+    + form
+    + '<div class="bf-lbl">Equipa <button type="button" class="cd-lnk" data-st="gerir">' + (U.gerir ? 'Feito' : 'Gerir funções') + '</button></div>' + gerir
+    + '<ul class="bf-l st-l">' + lista.map(linha).join('') + '</ul>'
+    + '<p class="al-nota">Protótipo: a Mariana (a tua conta) está como Portaria, para experimentares o <a href="modo-porta.html">Modo porta</a>.</p></div>';
+}
+const refaz = foco => { const c = document.getElementById('funcionarios'); if (!c) return; c.outerHTML = card(); if (foco) { const n = document.querySelector('#funcionarios ' + foco); if (n) n.focus({preventScroll:true}); } };
+const atribui = () => {
+  const nome = String(U.nome || '').trim();
+  if (!nome || !U.escolhido) { U.msg = 'Escolhe um utilizador do Xouty.'; return refaz(); }
+  const inicio = U.inicio || hoje(), fim = U.indet ? '' : U.fim;
+  if (!U.indet && !fim) { U.msg = 'Põe a data de fim ou marca "Indeterminado".'; return refaz(); }
+  if (fim && fim < inicio) { U.msg = 'O fim não pode ser antes do início.'; return refaz(); }
+  S.pessoas.push({id:nid(), nome, funcao:U.funcao, inicio, fim}); grava();
+  Object.assign(U, {aberto:false, nome:'', escolhido:false, inicio:'', fim:'', indet:true, msg:''}); refaz();
+};
+document.addEventListener('click', ev => {
+  const c = ev.target.closest('#funcionarios'); if (!c) return;
+  const b = ev.target.closest('button'); if (!b) return;
+  const a = b.dataset.st;
+  if (a === 'abrir') { Object.assign(U, {aberto:true, nome:'', escolhido:false, msg:''}); return refaz('[data-st-in="nome"]'); }
+  if (a === 'fechar') { U.aberto = false; U.msg = ''; return refaz(); }
+  if (a === 'trocar') { Object.assign(U, {escolhido:false, nome:''}); return refaz('[data-st-in="nome"]'); }
+  if (b.dataset.stSug) { Object.assign(U, {nome:b.dataset.stSug, escolhido:true, msg:''}); return refaz(); }
+  if (a === 'add') return atribui();
+  if (a === 'gerir') { U.gerir = !U.gerir; return refaz(); }
+  if (b.dataset.stFperm) { const f = S.funcoes.find(x => x.id === b.dataset.fid), k = b.dataset.stFperm; if (f) { f.perms = f.perms.includes(k) ? f.perms.filter(x => x !== k) : f.perms.concat(k); grava(); } return refaz(); }
+  if (b.dataset.stNperm) { const k = b.dataset.stNperm; U.nfp = U.nfp.includes(k) ? U.nfp.filter(x => x !== k) : U.nfp.concat(k); return refaz(); }
+  if (a === 'novaf') { const n = String(U.nf || '').trim().slice(0, 24); if (!n || S.funcoes.some(f => norm(f.nome) === norm(n))) return; S.funcoes.push({id:'f' + nid(), nome:n.charAt(0).toUpperCase() + n.slice(1), perms:U.nfp.slice()}); U.nf = ''; U.nfp = ['qr']; grava(); return refaz(); }
+  if (b.dataset.stFrm) { S.funcoes = S.funcoes.filter(f => f.id !== b.dataset.stFrm); grava(); return refaz(); }
+  if (b.dataset.stFim) { const p = S.pessoas.find(x => x.id === b.dataset.stFim); if (p) { p.fim = hoje() < p.inicio ? p.inicio : hoje(); if (p.inicio > hoje()) p.inicio = hoje(); grava(); } return refaz(); }
+  if (b.dataset.stRm) { S.pessoas = S.pessoas.filter(x => x.id !== b.dataset.stRm); grava(); return refaz(); }
+});
+document.addEventListener('input', ev => {
+  const i = ev.target.closest('#funcionarios [data-st-in]'); if (!i) return;
+  const k = i.dataset.stIn;
+  if (k === 'nome') { U.nome = i.value; U.msg = ''; const l = document.getElementById('st-sug'); if (l) l.innerHTML = sugestoes(i.value); }
+  if (k === 'nf') U.nf = i.value;
+  if (k === 'inicio' || k === 'fim') U[k] = i.value;
+});
+document.addEventListener('change', ev => {
+  const i = ev.target.closest('#funcionarios [data-st-in]'); if (!i) return;
+  const k = i.dataset.stIn;
+  if (k === 'funcao') U.funcao = i.value;
+  if (k === 'inicio' || k === 'fim') U[k] = i.value;
+  if (k === 'indet') { U.indet = i.checked; refaz(); }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Enter') return;
+  const i = ev.target.closest('#funcionarios [data-st-in="nome"], #funcionarios [data-st-in="nf"]'); if (!i) return;
+  ev.preventDefault();
+  if (i.dataset.stIn === 'nome') { const f = document.querySelector('#st-sug [data-st-sug]'); if (f) f.click(); }
+  else { const b = document.querySelector('#funcionarios [data-st="novaf"]'); if (b) b.click(); }
+});
+
+/* ---------- Modo porta (modo-porta.html): só para quem tem uma função ativa com "Ler QR na entrada" ---------- */
+function porta(el){
+  const EN = window.STREETFY_ENTRADAS, EU = EN ? EN.EU : 'Mariana Costa';
+  let res = null, lidos = [];
+  const ativa = () => minhas(EU).find(p => estado(p) === 'ativo' && funcao(p.funcao).perms.includes('qr'));
+  const desenha = foco => {
+    const a = ativa(), todas = minhas(EU);
+    if (!a) {
+      el.innerHTML = '<div class="po-sem"><h2 class="s-h h2s">SEM ACESSO À <em>PORTA</em></h2><p>O Modo porta é só para quem a casa atribuiu uma função com "Ler QR na entrada", dentro das datas.</p>'
+        + (todas.length ? '<ul class="po-hist">' + todas.map(p => '<li><b>' + esc(funcao(p.funcao).nome) + ' · ' + esc(CASA.nome) + '</b><span>' + esc(periodo(p)) + ' · ' + (estado(p) === 'ativo' ? 'a função não lê QR' : estado(p) === 'futuro' ? 'ainda não começou' : 'já terminou') + '</span></li>').join('') + '</ul>' : '')
+        + '<p class="al-nota">Protótipo: no <a href="portal.html#parceiro">Portal › Funcionários da casa</a> atribui-te a Portaria ou a Segurança.</p></div>';
+      return;
+    }
+    const f = funcao(a.funcao), daCasa = EN ? Object.values(JSON.parse(localStorage.getItem('streetfy:entradas') || '{}')).filter(e => e.local === CASA.k) : [];
+    el.innerHTML = '<div class="po"><div class="po-quem">' + avatar(EU) + '<div><b>' + esc(f.nome) + ' · ' + esc(CASA.nome) + '</b><span>' + esc(EU) + ' · ' + esc(periodo(a)) + '</span></div></div>'
+      + '<div class="po-ler"><label for="po-c">Código do QR</label><div class="pt-portaf"><input id="po-c" data-po-in placeholder="XY-…" autocapitalize="characters" autocomplete="off"><button type="button" class="s-btn ink" data-po="ler">Ler</button></div>'
+      + '<small>No telemóvel da porta, a câmara lê o QR. No protótipo escreves o código' + (f.perms.includes('lista') ? ' ou tocas em "Ler" num nome da lista.' : '.') + '</small></div>'
+      + (res ? '<div class="po-res ' + (res.ok ? 'ok' : 'erro') + '" role="status"><b>' + esc(res.t) + '</b><span>' + esc(res.s) + '</span></div>' : '')
+      + (f.perms.includes('lista') ? '<h3 class="po-t">Listas de hoje · ' + esc(CASA.nome) + '</h3>' + (daCasa.length ? '<ul class="po-l">' + daCasa.sort((x, y) => (x.usado ? 1 : 0) - (y.usado ? 1 : 0) || x.nome.localeCompare(y.nome, 'pt')).map(e => '<li class="' + (e.usado ? 'usado' : '') + '">' + avatar(e.nome) + '<div><b>' + esc(e.nome) + '</b><span>' + esc(e.listaNome) + ' · ' + esc(e.c) + '</span></div>' + (e.usado ? '<i>entrou ' + EN.hhmm(e.usado) + (e.por ? ' · ' + esc(e.por) : '') + '</i>' : '<button type="button" class="s-btn mint" data-po-c="' + esc(e.c) + '">Ler</button>') + '</li>').join('') + '</ul>' : '<p class="al-nota">Ainda não há QR emitidos para listas desta casa. Abre uma lista no portal para os nomes receberem QR.</p>') : '<p class="al-nota">A tua função lê QR, mas não vê as listas.</p>')
+      + (lidos.length ? '<h3 class="po-t">Lidos por ti agora</h3><ul class="po-hist">' + lidos.map(r => '<li class="' + (r.ok ? 'ok' : 'erro') + '"><b>' + esc(r.t) + '</b><span>' + esc(r.h) + '</span></li>').join('') + '</ul>' : '') + '</div>';
+    if (foco) { const n = el.querySelector(foco); if (n) n.focus(); }
+  };
+  const le = c => {
+    const a = ativa(); if (!a || !EN) return desenha();
+    const e = EN.de(c), agora = EN.hhmm(Date.now());
+    if (!e) res = {ok:false, t:'QR inválido', s:'Este código não está em nenhuma lista.'};
+    else if (e.local !== CASA.k) res = {ok:false, t:'QR de outra casa', s:e.nome + ' · ' + e.localNome + '. Não serve aqui.'};
+    else { const r = EN.lerQR(e.c, EU + ' · ' + funcao(a.funcao).nome); res = r.ok ? {ok:true, t:'Pode entrar: ' + e.nome, s:e.listaNome + ' · QR usado às ' + EN.hhmm(r.e.usado) + ' · check-in feito'} : {ok:false, t:'QR já usado', s:e.nome + ' entrou às ' + EN.hhmm(e.usado) + (e.por ? ' (' + e.por + ')' : '') + '. Não entra outra vez.'}; }
+    lidos.unshift({ok:res.ok, t:res.t, h:agora}); lidos = lidos.slice(0, 8);
+    desenha('[data-po-in]');
+  };
+  el.addEventListener('click', ev => { const b = ev.target.closest('[data-po],[data-po-c]'); if (!b) return; if (b.dataset.poC) return le(b.dataset.poC); const i = el.querySelector('[data-po-in]'); le(i ? i.value : ''); });
+  el.addEventListener('keydown', ev => { if (ev.key === 'Enter' && ev.target.matches('[data-po-in]')) { ev.preventDefault(); le(ev.target.value); } });
+  window.addEventListener('storage', ev => { if (ev.key === K || ev.key === 'streetfy:entradas') desenha(); });
+  desenha('[data-po-in]');
+}
+window.STREETFY_FUNC = {card, pode, minhas, porta, CASA};
+const el = document.querySelector('[data-porta]'); if (el) porta(el);
 })();
 </script><script>/* Xouty · promoters.js — grelha de promoters (promoters.html, [data-promoters]) e perfil do promoter (promoter.html#p=<id>, [data-promoter]).
    Cada promoter promove festas do catálogo: as escolhidas por ele (ids) e, até 6, as festas da cidade dele nos estilos que indica,
@@ -3687,11 +3910,11 @@ function garante(lista, listaNome, nome, local, localNome, quando){
 const jaUsado = (c, t) => { const E = todas(); if (E[c] && !E[c].usado) { E[c].usado = t || Date.now(); gravar(K, E); } return E[c]; };
 const de = c => todas()[String(c || '').trim().toUpperCase()] || null;
 /* a leitura na porta: inválido, já usado, ou entra e faz check-in */
-function lerQR(c){
+function lerQR(c, por){
   const E = todas(), k = String(c || '').trim().toUpperCase(), e = E[k];
   if (!e) return {ok:false, motivo:'invalido'};
   if (e.usado) return {ok:false, motivo:'usado', e};
-  e.usado = Date.now(); gravar(K, E);
+  e.usado = Date.now(); if (por) e.por = por; gravar(K, E);
   if (norm(e.nome) === norm(EU)) gravar(EK, {k:e.local, st:'la', t:e.usado, via:'qr'});
   document.dispatchEvent(new CustomEvent('streetfy-entrada', {detail:e}));
   return {ok:true, e};
@@ -3733,7 +3956,7 @@ const tituloCria = p => { const c = ui(p).cria; return 'Best friends' + (c.tags.
 function criaPainel(p){
   const c = ui(p).cria, d = B[p], quem = daCria(p), dentro = quem.filter(x => !c.fora.includes(x.id));
   return '<div class="bf-cria" role="region" aria-label="Criar lista com best friends"><h4>' + (p === 'concierge' ? 'Pôr best friends na proposta' : 'Nova lista com best friends') + '</h4>'
-    + (p === 'concierge' ? '' : '<label>Evento <small>obrigatório: a lista é sempre de um evento</small><select data-bf-in="lev">' + (EVS[p] || []).map(e => '<option value="' + esc(e.id) + '"' + (c.ev === e.id ? ' selected' : '') + '>' + esc(e.nome) + '</option>').join('') + '</select></label><label>Nome da lista<input data-bf-in="lnome" value="' + esc(c.nome) + '" placeholder="' + esc(tituloCria(p)) + '" maxlength="60"></label>')
+    + '<label>' + (p === 'concierge' ? 'Noite (evento)' : 'Evento') + ' <small>obrigatório: a lista é sempre de um evento</small><select data-bf-in="lev">' + (EVS[p] || []).map(e => '<option value="' + esc(e.id) + '"' + (c.ev === e.id ? ' selected' : '') + '>' + esc(e.nome) + '</option>').join('') + '</select></label>' + (p === 'concierge' ? '' : '<label>Nome da lista<input data-bf-in="lnome" value="' + esc(c.nome) + '" placeholder="' + esc(tituloCria(p)) + '" maxlength="60"></label>')
     + '<div class="bf-lbl">Quem entra <small>marca e desmarca as tags</small></div>'
     + '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (c.tags.includes(t.id) ? ' on' : '') + '" data-bf-ctag="' + t.id + '" aria-pressed="' + c.tags.includes(t.id) + '">' + (c.tags.includes(t.id) ? '✓ ' : '') + esc(t.nome) + '</button>').join('') + '</div>'
     + (c.tags.length > 1 ? '<div class="bf-modo" role="group" aria-label="Como juntar as tags"><button type="button" data-bf-cmodo="todas" class="' + (c.modo === 'todas' ? 'on' : '') + '">Com todas as tags</button><button type="button" data-bf-cmodo="uma" class="' + (c.modo === 'uma' ? 'on' : '') + '">Com pelo menos uma</button></div>' : '')
@@ -3833,7 +4056,7 @@ document.addEventListener('click', ev => {
   if (a === 'criar' && u.cria) {
     const nomes = daCria(p).filter(x => !u.cria.fora.includes(x.id)).map(x => x.nome); if (!nomes.length) return;
     const titulo = String(u.cria.nome || '').trim() || tituloCria(p), evId = u.cria.ev;
-    if (p !== 'concierge' && !evId) return;
+    if (!evId) return;
     u.cria = null; refaz(p);
     document.dispatchEvent(new CustomEvent('streetfy-bf-lista', {detail:{papel:p, nomes, titulo, ev:evId}}));
     return;
@@ -3876,6 +4099,157 @@ document.addEventListener('keydown', ev => {
 });
 
 window.STREETFY_BF = {card, tem};
+})();
+</script><script>/* Funcionários da casa: o local atribui utilizadores comuns do Xouty a uma função (portaria, segurança, bar…),
+   com data de início e fim, ou indeterminado. Cada função tem as suas permissões; "Ler QR na entrada" dá acesso ao Modo porta,
+   onde o QR lido passa a usado e a pessoa fica com check-in feito (entradas.js).
+   Guardado neste aparelho em streetfy:funcionarios. Protótipo: a casa é o Lux Frágil e "tu" és a Mariana Costa. */
+(function(){
+const K = 'streetfy:funcionarios', CASA = {k:'lisboa/lux fragil', nome:'Lux Frágil'};
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const norm = s => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const nid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const dTxt = s => { if (!s) return ''; const [y, m, d] = s.split('-').map(Number); return d + ' ' + MESES[m - 1] + (y !== new Date().getFullYear() ? ' ' + y : ''); };
+const PERMS = [['qr', 'Ler QR na entrada'], ['lista', 'Ver as listas de convidados'], ['mesas', 'Ver reservas de mesa'], ['pedidos', 'Receber pedidos do menu']];
+const permNome = k => (PERMS.find(p => p[0] === k) || [k, k])[1];
+const GENTE = [['mari-costa', 'Mariana Costa', 'retrato'], ['leonor-s', 'Leonor Santos', 'tram'], ['hugo-m', 'Hugo Martins', 'dj'], ['ines-c', 'Inês Carvalho', 'alfama'], ['sara-d', 'Sara Dias', 'noite'], ['bruna-t', 'Bruna Teixeira', 'cocktail'], ['kiko-r', 'Kiko Rocha', 'club'], ['duarte-p', 'Duarte Pinto', 'shots']].map(([id, nome, foto]) => ({id, nome, foto, user:id.replace('-', '.')}));
+const perfilDe = nome => GENTE.find(g => norm(g.nome) === norm(nome));
+const ini = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+const avatar = nome => { const g = perfilDe(nome); return g ? '<span class="bf-av" style="background-image:url(img/' + g.foto + '.jpg)" aria-hidden="true"></span>' : '<span class="bf-av" aria-hidden="true">' + esc(ini(nome)) + '</span>'; };
+const PADRAO = () => ({
+  funcoes:[{id:'f1', nome:'Portaria', perms:['qr', 'lista']}, {id:'f2', nome:'Segurança', perms:['qr']}, {id:'f3', nome:'Hostess', perms:['lista', 'mesas']}, {id:'f4', nome:'Bar', perms:['pedidos']}],
+  pessoas:[{id:'s1', nome:'Mariana Costa', funcao:'f1', inicio:hoje(), fim:''}, {id:'s2', nome:'Duarte Pinto', funcao:'f2', inicio:'2026-09-01', fim:''}, {id:'s3', nome:'Bruna Teixeira', funcao:'f4', inicio:'2026-10-01', fim:'2026-12-31'}]
+});
+const ler = () => { try { const g = JSON.parse(localStorage.getItem(K) || 'null'); if (g && g.funcoes && g.pessoas) return g; } catch (e) {} return PADRAO(); };
+let S = ler();
+const grava = () => { try { localStorage.setItem(K, JSON.stringify(S)); } catch (e) {} };
+const funcao = id => S.funcoes.find(f => f.id === id) || {nome:'sem função', perms:[]};
+/* estado da atribuição hoje: ativo, ainda não começou, ou terminou */
+const estado = p => { const h = hoje(); return p.inicio && p.inicio > h ? 'futuro' : p.fim && p.fim < h ? 'fim' : 'ativo'; };
+const periodo = p => 'desde ' + dTxt(p.inicio) + ' · ' + (p.fim ? 'até ' + dTxt(p.fim) : 'indeterminado');
+/* as funções ativas de alguém na casa, e se pode X */
+const minhas = nome => { S = ler(); return S.pessoas.filter(p => norm(p.nome) === norm(nome)); };
+const pode = (nome, perm) => minhas(nome).some(p => estado(p) === 'ativo' && funcao(p.funcao).perms.includes(perm));
+
+/* ---------- cartão do portal (só o local) ---------- */
+const U = {aberto:false, nome:'', escolhido:false, funcao:'f1', inicio:'', fim:'', indet:true, msg:'', gerir:false, nf:'', nfp:['qr']};
+const sugestoes = q => { const t = norm(q), ja = S.pessoas.filter(p => estado(p) !== 'fim').map(p => norm(p.nome)); return GENTE.filter(g => !t || norm(g.nome).includes(t) || g.user.includes(t)).slice(0, 6).map(g => '<li><button type="button" data-st-sug="' + esc(g.nome) + '">' + avatar(g.nome) + '<span><b>' + esc(g.nome) + '</b><small>@' + esc(g.user) + (ja.includes(norm(g.nome)) ? ' · já trabalha cá' : '') + '</small></span></button></li>').join(''); };
+function card(){
+  S = ler();
+  const ord = {ativo:0, futuro:1, fim:2}, lista = S.pessoas.slice().sort((a, b) => ord[estado(a)] - ord[estado(b)] || a.nome.localeCompare(b.nome, 'pt'));
+  const permChips = (sel, attr, fid) => PERMS.map(([k, n]) => '<button type="button" class="bf-tag' + (sel.includes(k) ? ' on' : '') + '" ' + attr + '="' + k + '"' + (fid ? ' data-fid="' + fid + '"' : '') + ' aria-pressed="' + sel.includes(k) + '">' + (sel.includes(k) ? '✓ ' : '') + esc(n) + '</button>').join('');
+  const form = U.aberto ? '<div class="bf-form st-form"><h4>Atribuir funcionário</h4>'
+    + (U.escolhido ? '<div class="bf-esc"><span class="bf-lbl">Pessoa</span><div class="bf-escp">' + avatar(U.nome) + '<span><b>' + esc(U.nome) + '</b><small>' + (perfilDe(U.nome) ? '@' + esc(perfilDe(U.nome).user) : '') + '</small></span><button type="button" class="cd-lnk" data-st="trocar">Trocar</button></div></div>'
+      : '<label class="bf-busca">Utilizador do Xouty<input data-st-in="nome" value="' + esc(U.nome) + '" placeholder="procura pelo nome ou @" autocomplete="off"></label><ul class="bf-sug" id="st-sug">' + sugestoes(U.nome) + '</ul>')
+    + '<label>Função<select data-st-in="funcao">' + S.funcoes.map(f => '<option value="' + f.id + '"' + (U.funcao === f.id ? ' selected' : '') + '>' + esc(f.nome) + ' · ' + esc(f.perms.map(permNome).join(', ') || 'sem permissões') + '</option>').join('') + '</select></label>'
+    + '<div class="pt-2"><label>Início<input type="date" data-st-in="inicio" value="' + esc(U.inicio || hoje()) + '"></label><label>Fim<input type="date" data-st-in="fim" value="' + esc(U.fim) + '"' + (U.indet ? ' disabled' : '') + '></label></div>'
+    + '<label class="pt-r"><input type="checkbox" data-st-in="indet"' + (U.indet ? ' checked' : '') + '> Indeterminado (sem data de fim)</label>'
+    + (U.msg ? '<p class="bf-msg" role="alert">' + esc(U.msg) + '</p>' : '')
+    + '<div class="pt-2"><button type="button" class="s-btn mint" data-st="add">Atribuir</button><button type="button" class="s-btn ghost" data-st="fechar">Cancelar</button></div></div>' : '';
+  const gerir = U.gerir ? '<div class="st-funcs"><h4>Funções e permissões</h4>' + S.funcoes.map(f => '<div class="st-f"><div class="st-fh"><b>' + esc(f.nome) + '</b>' + (S.pessoas.some(p => p.funcao === f.id && estado(p) !== 'fim') ? '<small>em uso</small>' : '<button type="button" class="cd-lnk" data-st-frm="' + f.id + '">Apagar</button>') + '</div><div class="bf-tags">' + permChips(f.perms, 'data-st-fperm', f.id) + '</div></div>').join('')
+    + '<div class="st-f nova"><div class="st-fh"><input data-st-in="nf" value="' + esc(U.nf) + '" placeholder="nova função, ex.: Bengaleiro" maxlength="24" aria-label="Nova função"></div><div class="bf-tags">' + permChips(U.nfp, 'data-st-nperm') + '</div><button type="button" class="s-btn ghost" data-st="novaf">Criar função</button></div></div>' : '';
+  const linha = p => { const f = funcao(p.funcao), e = estado(p), g = perfilDe(p.nome);
+    return '<li class="st-p ' + e + '">' + avatar(p.nome) + '<div class="bf-pc"><b>' + (g ? '<a href="' + (g.id === 'mari-costa' ? 'user.html' : 'user.html#u=' + g.id) + '">' + esc(p.nome) + '</a>' : esc(p.nome)) + ' <span class="st-fn">' + esc(f.nome) + '</span></b>'
+      + '<span class="st-per">' + esc(periodo(p)) + ' · <i class="st-e ' + e + '">' + (e === 'ativo' ? 'ativo' : e === 'futuro' ? 'começa a ' + dTxt(p.inicio) : 'terminou') + '</i></span>'
+      + '<span class="bf-pt">' + (f.perms.length ? f.perms.map(k => '<em>' + esc(permNome(k)) + '</em>').join('') : '<small>sem permissões no Xouty</small>') + '</span></div>'
+      + '<span class="bf-pa">' + (e !== 'fim' ? '<button type="button" class="cd-lnk" data-st-fim="' + p.id + '">Terminar hoje</button>' : '') + '<button type="button" class="cd-lnk" data-st-rm="' + p.id + '">Tirar</button></span></li>'; };
+  return '<div class="pt-card st" id="funcionarios"><div class="pt-ch"><h3>Funcionários da casa <span class="bf-n">' + S.pessoas.filter(p => estado(p) === 'ativo').length + '</span></h3>'
+    + (U.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-st="abrir">+ Atribuir funcionário</button>') + '</div>'
+    + '<p class="bf-priv"><span>Utilizadores comuns do Xouty que trabalham cá. Cada um tem uma função, com início e fim (ou indeterminado), e só pode o que a função deixa. Quem tem "Ler QR na entrada" abre o <b>Modo porta</b> no menu da conta: o QR lido fica usado e a pessoa fica com check-in.</span></p>'
+    + form
+    + '<div class="bf-lbl">Equipa <button type="button" class="cd-lnk" data-st="gerir">' + (U.gerir ? 'Feito' : 'Gerir funções') + '</button></div>' + gerir
+    + '<ul class="bf-l st-l">' + lista.map(linha).join('') + '</ul>'
+    + '<p class="al-nota">Protótipo: a Mariana (a tua conta) está como Portaria, para experimentares o <a href="modo-porta.html">Modo porta</a>.</p></div>';
+}
+const refaz = foco => { const c = document.getElementById('funcionarios'); if (!c) return; c.outerHTML = card(); if (foco) { const n = document.querySelector('#funcionarios ' + foco); if (n) n.focus({preventScroll:true}); } };
+const atribui = () => {
+  const nome = String(U.nome || '').trim();
+  if (!nome || !U.escolhido) { U.msg = 'Escolhe um utilizador do Xouty.'; return refaz(); }
+  const inicio = U.inicio || hoje(), fim = U.indet ? '' : U.fim;
+  if (!U.indet && !fim) { U.msg = 'Põe a data de fim ou marca "Indeterminado".'; return refaz(); }
+  if (fim && fim < inicio) { U.msg = 'O fim não pode ser antes do início.'; return refaz(); }
+  S.pessoas.push({id:nid(), nome, funcao:U.funcao, inicio, fim}); grava();
+  Object.assign(U, {aberto:false, nome:'', escolhido:false, inicio:'', fim:'', indet:true, msg:''}); refaz();
+};
+document.addEventListener('click', ev => {
+  const c = ev.target.closest('#funcionarios'); if (!c) return;
+  const b = ev.target.closest('button'); if (!b) return;
+  const a = b.dataset.st;
+  if (a === 'abrir') { Object.assign(U, {aberto:true, nome:'', escolhido:false, msg:''}); return refaz('[data-st-in="nome"]'); }
+  if (a === 'fechar') { U.aberto = false; U.msg = ''; return refaz(); }
+  if (a === 'trocar') { Object.assign(U, {escolhido:false, nome:''}); return refaz('[data-st-in="nome"]'); }
+  if (b.dataset.stSug) { Object.assign(U, {nome:b.dataset.stSug, escolhido:true, msg:''}); return refaz(); }
+  if (a === 'add') return atribui();
+  if (a === 'gerir') { U.gerir = !U.gerir; return refaz(); }
+  if (b.dataset.stFperm) { const f = S.funcoes.find(x => x.id === b.dataset.fid), k = b.dataset.stFperm; if (f) { f.perms = f.perms.includes(k) ? f.perms.filter(x => x !== k) : f.perms.concat(k); grava(); } return refaz(); }
+  if (b.dataset.stNperm) { const k = b.dataset.stNperm; U.nfp = U.nfp.includes(k) ? U.nfp.filter(x => x !== k) : U.nfp.concat(k); return refaz(); }
+  if (a === 'novaf') { const n = String(U.nf || '').trim().slice(0, 24); if (!n || S.funcoes.some(f => norm(f.nome) === norm(n))) return; S.funcoes.push({id:'f' + nid(), nome:n.charAt(0).toUpperCase() + n.slice(1), perms:U.nfp.slice()}); U.nf = ''; U.nfp = ['qr']; grava(); return refaz(); }
+  if (b.dataset.stFrm) { S.funcoes = S.funcoes.filter(f => f.id !== b.dataset.stFrm); grava(); return refaz(); }
+  if (b.dataset.stFim) { const p = S.pessoas.find(x => x.id === b.dataset.stFim); if (p) { p.fim = hoje() < p.inicio ? p.inicio : hoje(); if (p.inicio > hoje()) p.inicio = hoje(); grava(); } return refaz(); }
+  if (b.dataset.stRm) { S.pessoas = S.pessoas.filter(x => x.id !== b.dataset.stRm); grava(); return refaz(); }
+});
+document.addEventListener('input', ev => {
+  const i = ev.target.closest('#funcionarios [data-st-in]'); if (!i) return;
+  const k = i.dataset.stIn;
+  if (k === 'nome') { U.nome = i.value; U.msg = ''; const l = document.getElementById('st-sug'); if (l) l.innerHTML = sugestoes(i.value); }
+  if (k === 'nf') U.nf = i.value;
+  if (k === 'inicio' || k === 'fim') U[k] = i.value;
+});
+document.addEventListener('change', ev => {
+  const i = ev.target.closest('#funcionarios [data-st-in]'); if (!i) return;
+  const k = i.dataset.stIn;
+  if (k === 'funcao') U.funcao = i.value;
+  if (k === 'inicio' || k === 'fim') U[k] = i.value;
+  if (k === 'indet') { U.indet = i.checked; refaz(); }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Enter') return;
+  const i = ev.target.closest('#funcionarios [data-st-in="nome"], #funcionarios [data-st-in="nf"]'); if (!i) return;
+  ev.preventDefault();
+  if (i.dataset.stIn === 'nome') { const f = document.querySelector('#st-sug [data-st-sug]'); if (f) f.click(); }
+  else { const b = document.querySelector('#funcionarios [data-st="novaf"]'); if (b) b.click(); }
+});
+
+/* ---------- Modo porta (modo-porta.html): só para quem tem uma função ativa com "Ler QR na entrada" ---------- */
+function porta(el){
+  const EN = window.STREETFY_ENTRADAS, EU = EN ? EN.EU : 'Mariana Costa';
+  let res = null, lidos = [];
+  const ativa = () => minhas(EU).find(p => estado(p) === 'ativo' && funcao(p.funcao).perms.includes('qr'));
+  const desenha = foco => {
+    const a = ativa(), todas = minhas(EU);
+    if (!a) {
+      el.innerHTML = '<div class="po-sem"><h2 class="s-h h2s">SEM ACESSO À <em>PORTA</em></h2><p>O Modo porta é só para quem a casa atribuiu uma função com "Ler QR na entrada", dentro das datas.</p>'
+        + (todas.length ? '<ul class="po-hist">' + todas.map(p => '<li><b>' + esc(funcao(p.funcao).nome) + ' · ' + esc(CASA.nome) + '</b><span>' + esc(periodo(p)) + ' · ' + (estado(p) === 'ativo' ? 'a função não lê QR' : estado(p) === 'futuro' ? 'ainda não começou' : 'já terminou') + '</span></li>').join('') + '</ul>' : '')
+        + '<p class="al-nota">Protótipo: no <a href="portal.html#parceiro">Portal › Funcionários da casa</a> atribui-te a Portaria ou a Segurança.</p></div>';
+      return;
+    }
+    const f = funcao(a.funcao), daCasa = EN ? Object.values(JSON.parse(localStorage.getItem('streetfy:entradas') || '{}')).filter(e => e.local === CASA.k) : [];
+    el.innerHTML = '<div class="po"><div class="po-quem">' + avatar(EU) + '<div><b>' + esc(f.nome) + ' · ' + esc(CASA.nome) + '</b><span>' + esc(EU) + ' · ' + esc(periodo(a)) + '</span></div></div>'
+      + '<div class="po-ler"><label for="po-c">Código do QR</label><div class="pt-portaf"><input id="po-c" data-po-in placeholder="XY-…" autocapitalize="characters" autocomplete="off"><button type="button" class="s-btn ink" data-po="ler">Ler</button></div>'
+      + '<small>No telemóvel da porta, a câmara lê o QR. No protótipo escreves o código' + (f.perms.includes('lista') ? ' ou tocas em "Ler" num nome da lista.' : '.') + '</small></div>'
+      + (res ? '<div class="po-res ' + (res.ok ? 'ok' : 'erro') + '" role="status"><b>' + esc(res.t) + '</b><span>' + esc(res.s) + '</span></div>' : '')
+      + (f.perms.includes('lista') ? '<h3 class="po-t">Listas de hoje · ' + esc(CASA.nome) + '</h3>' + (daCasa.length ? '<ul class="po-l">' + daCasa.sort((x, y) => (x.usado ? 1 : 0) - (y.usado ? 1 : 0) || x.nome.localeCompare(y.nome, 'pt')).map(e => '<li class="' + (e.usado ? 'usado' : '') + '">' + avatar(e.nome) + '<div><b>' + esc(e.nome) + '</b><span>' + esc(e.listaNome) + ' · ' + esc(e.c) + '</span></div>' + (e.usado ? '<i>entrou ' + EN.hhmm(e.usado) + (e.por ? ' · ' + esc(e.por) : '') + '</i>' : '<button type="button" class="s-btn mint" data-po-c="' + esc(e.c) + '">Ler</button>') + '</li>').join('') + '</ul>' : '<p class="al-nota">Ainda não há QR emitidos para listas desta casa. Abre uma lista no portal para os nomes receberem QR.</p>') : '<p class="al-nota">A tua função lê QR, mas não vê as listas.</p>')
+      + (lidos.length ? '<h3 class="po-t">Lidos por ti agora</h3><ul class="po-hist">' + lidos.map(r => '<li class="' + (r.ok ? 'ok' : 'erro') + '"><b>' + esc(r.t) + '</b><span>' + esc(r.h) + '</span></li>').join('') + '</ul>' : '') + '</div>';
+    if (foco) { const n = el.querySelector(foco); if (n) n.focus(); }
+  };
+  const le = c => {
+    const a = ativa(); if (!a || !EN) return desenha();
+    const e = EN.de(c), agora = EN.hhmm(Date.now());
+    if (!e) res = {ok:false, t:'QR inválido', s:'Este código não está em nenhuma lista.'};
+    else if (e.local !== CASA.k) res = {ok:false, t:'QR de outra casa', s:e.nome + ' · ' + e.localNome + '. Não serve aqui.'};
+    else { const r = EN.lerQR(e.c, EU + ' · ' + funcao(a.funcao).nome); res = r.ok ? {ok:true, t:'Pode entrar: ' + e.nome, s:e.listaNome + ' · QR usado às ' + EN.hhmm(r.e.usado) + ' · check-in feito'} : {ok:false, t:'QR já usado', s:e.nome + ' entrou às ' + EN.hhmm(e.usado) + (e.por ? ' (' + e.por + ')' : '') + '. Não entra outra vez.'}; }
+    lidos.unshift({ok:res.ok, t:res.t, h:agora}); lidos = lidos.slice(0, 8);
+    desenha('[data-po-in]');
+  };
+  el.addEventListener('click', ev => { const b = ev.target.closest('[data-po],[data-po-c]'); if (!b) return; if (b.dataset.poC) return le(b.dataset.poC); const i = el.querySelector('[data-po-in]'); le(i ? i.value : ''); });
+  el.addEventListener('keydown', ev => { if (ev.key === 'Enter' && ev.target.matches('[data-po-in]')) { ev.preventDefault(); le(ev.target.value); } });
+  window.addEventListener('storage', ev => { if (ev.key === K || ev.key === 'streetfy:entradas') desenha(); });
+  desenha('[data-po-in]');
+}
+window.STREETFY_FUNC = {card, pode, minhas, porta, CASA};
+const el = document.querySelector('[data-porta]'); if (el) porta(el);
 })();
 </script><script>/* Xouty · portal.js — dashboard do parceiro (lugar) e do promoter. portal.html#parceiro | #promoter
    Números fictícios; eventos, lugares e promoters reais do site. As listas criadas aqui ficam neste aparelho. */
@@ -3947,23 +4321,25 @@ const EST = {pedido:'pediu', aceite:'na lista', entrou:'entrou ✓', recusado:'r
 /* QR de entrada por nome (entradas.js): o local da lista é o do evento, ou a casa */
 const EN = window.STREETFY_ENTRADAS;
 const localDe = l => { const i = l.ev ? porId(l.ev) : null; return i && i.lugar ? {k:C.lugarKey(i), nome:i.lugar} : modo === 'parceiro' || !l.lugar ? {k:'lisboa/lux fragil', nome:'Lux Frágil'} : {k:'', nome:l.lugar}; };
-const entradaDe = (l, n) => { if (!EN || (n[1] !== 'aceite' && n[1] !== 'entrou')) return null; const lo = localDe(l), i = l.ev ? porId(l.ev) : null, e = EN.garante(l.id, l.nome, n[0], lo.k, lo.nome, i ? quando(i) : [l.data, l.hora].filter(Boolean).join(' · ')); return n[1] === 'entrou' && !e.usado ? EN.jaUsado(e.c, Date.now() - 36e5) : e; };
+const entradaDe = (l, n) => { if (!EN || (n[1] !== 'aceite' && n[1] !== 'entrou')) return null; const lo = localDe(l), i = l.ev ? porId(l.ev) : null, e = EN.garante(l.id, l.nome, n[0], lo.k, lo.nome, i ? quando(i) : [l.data, l.hora].filter(Boolean).join(' · ')); if (e.usado && n[1] === 'aceite') { n[1] = 'entrou'; grava(); } /* lido no Modo porta por um funcionário */
+  return n[1] === 'entrou' && !e.usado ? EN.jaUsado(e.c, Date.now() - 36e5) : e; };
 let qrVer = '', porta = null;
 const evsDe = m => (m === 'parceiro' ? D.parceiro.eventos : D.promoter.comissao.map(c => c[0])).map(porId).filter(Boolean).map(i => ({id:i.id, nome:i.titulo + ' · ' + quando(i)}));
 /* lê o QR na porta: marca usado, passa o nome a "entrou" e faz o check-in da pessoa */
 function portaLe(c, listaAberta){
-  const r = EN.lerQR(c), e = r.e;
+  const r = EN.lerQR(c, 'Portal da casa'), e = r.e;
   if (!r.ok) { porta = {lista:listaAberta || (e && e.lista), ok:false, txt:r.motivo === 'usado' ? 'QR já usado às ' + EN.hhmm(e.usado) + ' (' + e.nome + '). Não entra outra vez.' : 'QR inválido: este código não está em nenhuma lista.'}; return; }
   Object.values(LISTAS).forEach(L => L.forEach(x => { if (x.id === e.lista) x.nomes.forEach(n => { if (EN.norm(n[0]) === EN.norm(e.nome)) n[1] = 'entrou'; }); }));
   porta = {lista:e.lista, ok:true, txt:'Entrou: ' + e.nome + ' · ' + EN.hhmm(e.usado) + '. QR marcado como usado e check-in feito no ' + e.localNome + '.'};
 }
 function listas(){
   const L = LISTAS[modo], evs = modo === 'parceiro' ? D.parceiro.eventos : D.promoter.comissao.map(c => c[0]);
-  const card = l => { const i = l.ev ? porId(l.ev) : null, dentro = l.nomes.filter(n => n[1] === 'aceite' || n[1] === 'entrou').length, entraram = l.nomes.filter(n => n[1] === 'entrou').length, ped = l.nomes.filter(n => n[1] === 'pedido').length;
+  const card = l => { l.nomes.forEach(n => entradaDe(l, n)); /* todos os aceites têm QR, mesmo com a lista fechada */
+    const i = l.ev ? porId(l.ev) : null, dentro = l.nomes.filter(n => n[1] === 'aceite' || n[1] === 'entrou').length, entraram = l.nomes.filter(n => n[1] === 'entrou').length, ped = l.nomes.filter(n => n[1] === 'pedido').length;
     return '<div class="pt-lista' + (aberta === l.id ? ' on' : '') + '"><div class="pt-lh" data-pt="abrir" data-id="' + l.id + '"><div><b>' + esc(l.nome) + '</b><span>' + (i ? 'ligada a <a href="' + esc(hrefEv(i)) + '">' + esc(i.titulo) + '</a> · ' + esc(quando(i)) : esc(['independente', l.data, l.hora].filter(Boolean).join(' · '))) + ' · fecha ' + l.fecha + ' min antes</span></div>'
       + '<div class="pt-lnum"><span><b>' + dentro + '</b>/' + l.vagas + ' na lista</span>' + (ped ? '<span class="pt-ped">' + ped + ' a pedir</span>' : '') + (entraram ? '<span>' + entraram + ' entraram</span>' : '') + '</div></div>'
       + (aberta === l.id ? '<div class="pt-ld"><p class="pt-tags"><span>' + esc(l.beneficio) + '</span><span>' + (l.mais1 ? '+1 permitido' : 'sem +1') + '</span><span>' + ({eu:'só eu adiciono', promoters:'promoters da casa adicionam', equipa:'promoters e concierges adicionam', favoritos:'favoritos entram direto'})[l.quem] + '</span></p>'
-          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (window.STREETFY_BF ? (window.STREETFY_BF.tem(modo === 'parceiro' ? 'local' : 'promoter', n[0]) ? '<small class="pt-bf on" title="Está nos teus best friends">BF</small>' : '<button type="button" class="pt-bf" data-bf-de="' + esc(n[0]) + '" title="Adicionar aos best friends">+ BF</button>') : '') + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span>' + (() => { const e = entradaDe(l, n); return '<i class="' + n[1] + '">' + EST[n[1]] + (e && e.usado ? ' ' + EN.hhmm(e.usado) : '') + '</i>' + (e ? '<button type="button" class="pt-qrb' + (qrVer === e.c ? ' on' : '') + '" data-pt="qr" data-c="' + e.c + '" aria-label="QR de ' + esc(n[0]) + '">QR' + (e.usado ? ' usado' : '') + '</button>' : ''); })() + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Ler QR</button>' : '') + (qrVer && EN && qrVer === EN.codigo(l.id, n[0]) ? (() => { const e = EN.de(qrVer); return '<div class="pt-qrv">' + EN.qrSvg(e.c) + '<div><b>' + esc(e.c) + '</b><span>' + esc(n[0]) + ' · ' + esc(e.localNome) + '</span><span>' + (e.usado ? 'Usado às ' + EN.hhmm(e.usado) + ' · já não entra outra vez' : 'Válido para 1 entrada · a pessoa vê este QR em Os meus planos') + '</span></div></div>'; })() : '') + '</li>').join('') + '</ul>'
+          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (window.STREETFY_BF ? (window.STREETFY_BF.tem(modo === 'parceiro' ? 'local' : 'promoter', n[0]) ? '<small class="pt-bf on" title="Está nos teus best friends">BF</small>' : '<button type="button" class="pt-bf" data-bf-de="' + esc(n[0]) + '" title="Adicionar aos best friends">+ BF</button>') : '') + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span>' + (() => { const e = entradaDe(l, n); return '<i class="' + n[1] + '">' + EST[n[1]] + (e && e.usado ? ' ' + EN.hhmm(e.usado) : '') + '</i>' + (e ? '<button type="button" class="pt-qrb' + (qrVer === e.c ? ' on' : '') + '" data-pt="qr" data-c="' + e.c + '" aria-label="QR de ' + esc(n[0]) + '">QR' + (e.usado ? ' usado' : '') + '</button>' : ''); })() + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Ler QR</button>' : '') + (qrVer && EN && qrVer === EN.codigo(l.id, n[0]) ? (() => { const e = EN.de(qrVer); return '<div class="pt-qrv">' + EN.qrSvg(e.c) + '<div><b>' + esc(e.c) + '</b><span>' + esc(n[0]) + ' · ' + esc(e.localNome) + '</span><span>' + (e.usado ? 'Usado às ' + EN.hhmm(e.usado) + (e.por ? ' · lido por ' + e.por : '') + ' · já não entra outra vez' : 'Válido para 1 entrada · a pessoa vê este QR em Os meus planos') + '</span></div></div>'; })() : '') + '</li>').join('') + '</ul>'
           + (EN ? '<div class="pt-porta"><b>Porta · ler QR</b><div class="pt-portaf"><input data-pt-porta placeholder="código do QR, ex.: ' + esc((l.nomes.find(n => n[1] === 'aceite') ? EN.codigo(l.id, l.nomes.find(n => n[1] === 'aceite')[0]) : 'XY-…')) + '" aria-label="Código do QR" autocapitalize="characters"><button type="button" class="s-btn ink" data-pt="ler" data-id="' + l.id + '">Ler</button></div>' + (porta && porta.lista === l.id ? '<p class="pt-portam ' + (porta.ok ? 'ok' : 'erro') + '" role="status">' + esc(porta.txt) + '</p>' : '') + '<small>No telemóvel da porta, a câmara lê o QR. Aqui escreves o código ou tocas em "Ler QR" ao lado do nome.</small></div>' : '')
           + '<form class="pt-add" data-id="' + l.id + '"><input name="nome" placeholder="Adicionar nome à lista" aria-label="Nome" required><button class="s-btn ink" type="submit">Adicionar</button></form>'
           + '<p class="al-nota">Na porta, a equipa vê esta lista no modo porta e marca a entrada; sem rede, a lista fica no telemóvel. Exportar em CSV ou partilhar o link da lista.</p></div>' : '') + '</div>'; };
@@ -4065,7 +4441,7 @@ function concierge(){
     + '<div class="pt-card"><div class="pt-ch"><h3>Casas parceiras</h3><span class="pt-mini-t">só aparecem as casas que liberaram mesas ou listas a concierges</span></div><div class="lg-casas">'
     + casas.map(([nome, b, m, l, d, ab, key]) => '<div class="lg-casa' + (ab ? ' on' : '') + '"><div><b>' + esc(nome) + '</b><small>' + esc(b) + ' · ' + esc(d) + '</small></div><span class="lg-ok ' + (m ? 'sim' : 'nao') + '">' + (m ? '✓' : '✗') + ' mesas</span><span class="lg-ok ' + (l ? 'sim' : 'nao') + '">' + (l ? '✓' : '✗') + ' lista</span>' + (!m && !l ? ((PC && PC.relacao(key, 'concierge', EU_CONC) || {}).estado === 'pendente' ? '<span class="lg-e pendente">pedido enviado</span>' : '<a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent(key) + '">Ser parceiro</a>') : '') + '</div>').join('') + '</div></div>'
     + parcerias('concierge')
-    + (window.STREETFY_BF ? window.STREETFY_BF.card('concierge') : '')
+    + (window.STREETFY_BF ? window.STREETFY_BF.card('concierge', NOITES.map(n => ({id:n.id, nome:n.nome + ' · ' + n.dia + ' · Lux Frágil'}))) : '')
     + '<div class="pt-card" id="proposta"><div class="pt-ch"><h3>Nova proposta · Lux Frágil</h3><span class="pt-mini-t">cada pedido segura a mesa 30 min · até ' + g.maxPedidos + ' pedidos por mesa</span></div>'
     + (!autorizado ? '<p class="cm-vazio">O Lux só aceita mesas e nomes na lista de concierges parceiros. <a href="perfil.html#lugar=' + encodeURIComponent('lisboa/lux fragil') + '">Pede para ser parceira no perfil do Lux</a>; quando o Lux aceitar, a planta abre aqui.</p>' : !g.mesas ? '<p class="cm-vazio">O Lux fechou as mesas a concierges. Podes pôr nomes na lista, se a lista estiver aberta.</p>' : '')
     + noiteAbas(prop.noite, 'data-lg-pnoite') + (g.mesas ? planta(prop.noite, true) : '')
@@ -4193,6 +4569,7 @@ function parceiro(){
     + cardapio()
     + listas()
     + (window.STREETFY_BF ? window.STREETFY_BF.card('local', evsDe('parceiro')) : '')
+    + (window.STREETFY_FUNC ? window.STREETFY_FUNC.card() : '')
     + parcerias('local')
     + plantaCard()
     + conciergesParceiro()
@@ -4277,10 +4654,12 @@ el.addEventListener('submit', ev => {
 }, true);
 window.addEventListener('storage', ev => { if (ev.key === M.LG) { LIG = M.ler(); redesenha(); } });
 document.addEventListener('streetfy-bf', () => redesenha());
+window.addEventListener('storage', ev => { if (ev.key === 'streetfy:entradas' || ev.key === 'streetfy:funcionarios') redesenha(); });
 el.addEventListener('keydown', ev => { if (ev.key !== 'Enter') return; const i = ev.target.closest('[data-pt-porta]'); if (!i) return; ev.preventDefault(); const b = i.closest('.pt-porta').querySelector('[data-pt="ler"]'); if (b) b.click(); });
 document.addEventListener('streetfy-bf-lista', ev => {
   const {nomes, titulo, ev:evId} = ev.detail;
   if (modo === 'concierge') {
+    if (evId) { prop.noite = evId; prop.mesa = ''; }
     const ja = prop.nomes.split('\n').map(x => x.trim()).filter(Boolean);
     prop.nomes = ja.concat(nomes.filter(n => !ja.includes(n))).join('\n'); propMsg = '';
     redesenha(); const a = el.querySelector('#proposta'); if (a) a.scrollIntoView({behavior:'smooth', block:'start'});

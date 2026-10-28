@@ -1935,7 +1935,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-ev.pass .ct-val,.ct-ev.pass .ct-val-ok,.ct-ev.pass .ct-st{position:relative;z-index:2}
 
 /* Best friends do portal: tags privadas de quem cria */
-.bf h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
+.bf h3 .bf-n,.st h3 .bf-n{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--ink);color:#fff;font:800 12px/1 var(--fb);vertical-align:middle;margin-left:6px}
 .bf-priv{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:9px 12px;border-radius:10px;background:#f2f2f2;font-size:13px;color:var(--grey)}
 .bf-priv svg{flex:none;margin-top:2px;color:var(--ink)}.bf-priv b{color:var(--ink)}
 .bf-form{display:grid;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:14px;margin-bottom:16px;background:#fff}
@@ -2017,6 +2017,38 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .ct-qrw em{position:absolute;inset:0;display:grid;place-items:center;font:400 44px/1 var(--fd);color:#d4161f;transform:rotate(-14deg);background:rgba(255,255,255,.55);letter-spacing:.06em}
 .qe.agora{border:2px solid var(--mint);border-radius:12px;padding:8px 10px;margin-bottom:8px;background:#effcf5}
 .qe.agora .qe-txt b{font:800 14px/1.2 var(--fb);text-transform:none;letter-spacing:0}
+
+/* Funcionários da casa e Modo porta */
+.st-form select,.st-form input[type=date]{font:inherit;font-weight:500;padding:9px 11px;border:2px solid var(--ink);border-radius:10px;background:#fff;min-width:0}
+.st-form input[disabled]{opacity:.4}
+.st-funcs{display:grid;gap:8px;margin:8px 0 12px;padding:12px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+.st-funcs h4{margin:0}
+.st-f{display:grid;gap:6px;padding:8px 0;border-top:1px solid var(--line)}
+.st-fh{display:flex;align-items:center;gap:10px;justify-content:space-between}.st-fh small{color:var(--grey);font-size:12px}
+.st-fh input{flex:1;font:inherit;font-weight:700;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}
+.st-f.nova .s-btn{justify-self:start}
+.st-l{margin-top:8px}
+.st-p{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px}
+.st-p.fim{opacity:.55}
+.st-p a{color:inherit;text-decoration:none}.st-p a:hover{text-decoration:underline}
+.st-fn{display:inline-block;font:800 10px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:var(--ink);color:#fff;vertical-align:middle;margin-left:4px}
+.st-per{font-size:12px;color:var(--grey)}
+.st-e{font-style:normal;font-weight:700}.st-e.ativo{color:#0b7a45}.st-e.futuro{color:#b26a00}.st-e.fim{color:var(--grey)}
+.po,.po-sem{display:grid;gap:14px;max-width:720px}
+.po-quem{display:flex;gap:12px;align-items:center;padding:12px 14px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+.po-quem .bf-av{width:46px;height:46px}.po-quem div{display:grid;gap:2px}.po-quem span{font-size:13px;color:var(--grey)}
+.po-ler{display:grid;gap:8px;padding:16px;border:2px dashed var(--ink);border-radius:14px;background:#fff}
+.po-ler label{font-weight:800}.po-ler input{font-size:20px!important}.po-ler small{color:var(--grey);font-size:12px}
+.po-res{display:grid;gap:4px;padding:16px 18px;border-radius:14px;font-size:15px}
+.po-res b{font:400 30px/1 var(--fd);text-transform:uppercase}
+.po-res.ok{background:#dff7ea;color:#0b5a33;border:2px solid #0b7a45}.po-res.erro{background:#ffe1ea;color:#a3123f;border:2px solid #a3123f}
+.po-t{margin:8px 0 0;font:800 12px/1 var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.po-l,.po-hist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.po-l li{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.po-l li div{flex:1;min-width:0;display:grid;gap:2px}.po-l li span{font-size:12px;color:var(--grey)}
+.po-l li i{font-style:normal;font-weight:700;font-size:12px;color:#0b7a45}.po-l li.usado{opacity:.7}
+.po-hist li{display:flex;justify-content:space-between;gap:10px;padding:8px 11px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:14px}
+.po-hist li.ok b{color:#0b7a45}.po-hist li.erro b{color:#a3123f}.po-hist span{color:var(--grey);font-size:13px}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2273,7 +2305,7 @@ const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } c
 const eu = ls('streetfy:perfil-user', null) || {};
 const PAPEIS = {
   utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
-    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
   promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
