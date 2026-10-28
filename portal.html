@@ -2049,6 +2049,14 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .po-l li i{font-style:normal;font-weight:700;font-size:12px;color:#0b7a45}.po-l li.usado{opacity:.7}
 .po-hist li{display:flex;justify-content:space-between;gap:10px;padding:8px 11px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:14px}
 .po-hist li.ok b{color:#0b7a45}.po-hist li.erro b{color:#a3123f}.po-hist span{color:var(--grey);font-size:13px}
+.pt-favs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 4px}
+.pt-favs-t{flex-basis:100%;font-size:13px;font-weight:800}.pt-favs-t small{font-weight:500;color:var(--grey);margin-left:4px}
+.pt-favs>small{color:var(--grey);font-size:12px}
+.pt-fav{display:inline-flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font:700 13px/1 var(--fb);color:var(--ink);cursor:pointer}
+.pt-fav .bf-av{width:26px;height:26px;font-size:10px}
+.pt-fav b{font-size:15px;color:#0b7a45}
+.pt-fav:hover{background:var(--mint)}
+.pt-fav[hidden]{display:none}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -3927,7 +3935,7 @@ const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(
 const qrSvg = seed => { let h = hash(seed); let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (Math.imul(h, 1103515245) + 12345) >>> 0; const cx = x > 13 ? x - 14 : x, cy = y > 13 ? y - 14 : y; const on = canto ? (cx === 0 || cx === 6 || cy === 0 || cy === 6 || (cx > 1 && cx < 5 && cy > 1 && cy < 5)) : (h >>> 16) % 2 === 0; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg class="qr-svg" viewBox="-1 -1 23 23" role="img" aria-label="QR de entrada ' + seed + '"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#0b0b0b">' + r + '</g></svg>'; };
 window.STREETFY_ENTRADAS = {codigo, garante, jaUsado, de, lerQR, minhas, presenca, aquiAgora, hhmm, qrSvg, EU, norm};
 })();
-</script><script>/* Best friends do portal (local, promoter, concierge): a gente de confiança de quem cria, com tags próprias.
+</script><script>/* Favoritos do portal (local, promoter, concierge): a gente de confiança de quem cria, com tags próprias.
    As tags e a lista são privadas: só quem as criou as vê; a pessoa nunca sabe que tem tag. Servem para filtrar
    ("só simpáticos e educados") e criar uma lista ou proposta só com essas pessoas.
    Guardado neste aparelho em streetfy:portal-bf, separado por papel. */
@@ -3952,10 +3960,10 @@ const tem = (p, nome) => !!(B[p] && B[p].pessoas.some(x => norm(x.nome) === norm
 const tagNome = (p, id) => (B[p].tags.find(t => t.id === id) || {}).nome;
 /* passo "criar lista": tags a marcar/desmarcar, todas ou qualquer uma, e pessoas a tirar uma a uma */
 const daCria = p => { const c = ui(p).cria; return B[p].pessoas.filter(x => !c.tags.length || (c.modo === 'todas' ? c.tags.every(t => x.tags.includes(t)) : c.tags.some(t => x.tags.includes(t)))).sort((a, b) => a.nome.localeCompare(b.nome, 'pt')); };
-const tituloCria = p => { const c = ui(p).cria; return 'Best friends' + (c.tags.length ? ' · ' + c.tags.map(id => tagNome(p, id)).join(c.modo === 'todas' ? ' + ' : ' ou ') : ''); };
+const tituloCria = p => { const c = ui(p).cria; return 'Favoritos' + (c.tags.length ? ' · ' + c.tags.map(id => tagNome(p, id)).join(c.modo === 'todas' ? ' + ' : ' ou ') : ''); };
 function criaPainel(p){
   const c = ui(p).cria, d = B[p], quem = daCria(p), dentro = quem.filter(x => !c.fora.includes(x.id));
-  return '<div class="bf-cria" role="region" aria-label="Criar lista com best friends"><h4>' + (p === 'concierge' ? 'Pôr best friends na proposta' : 'Nova lista com best friends') + '</h4>'
+  return '<div class="bf-cria" role="region" aria-label="Criar lista com favoritos"><h4>' + (p === 'concierge' ? 'Pôr favoritos na proposta' : 'Nova lista com favoritos') + '</h4>'
     + '<label>' + (p === 'concierge' ? 'Noite (evento)' : 'Evento') + ' <small>obrigatório: a lista é sempre de um evento</small><select data-bf-in="lev">' + (EVS[p] || []).map(e => '<option value="' + esc(e.id) + '"' + (c.ev === e.id ? ' selected' : '') + '>' + esc(e.nome) + '</option>').join('') + '</select></label>' + (p === 'concierge' ? '' : '<label>Nome da lista<input data-bf-in="lnome" value="' + esc(c.nome) + '" placeholder="' + esc(tituloCria(p)) + '" maxlength="60"></label>')
     + '<div class="bf-lbl">Quem entra <small>marca e desmarca as tags</small></div>'
     + '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (c.tags.includes(t.id) ? ' on' : '') + '" data-bf-ctag="' + t.id + '" aria-pressed="' + c.tags.includes(t.id) + '">' + (c.tags.includes(t.id) ? '✓ ' : '') + esc(t.nome) + '</button>').join('') + '</div>'
@@ -3970,7 +3978,7 @@ const GENTE = [['mari-costa', 'Mariana Costa', 'retrato'], ['leonor-s', 'Leonor 
 const perfilDe = nome => GENTE.find(g => norm(g.nome) === norm(nome));
 const hrefDe = g => g.id === 'mari-costa' ? 'user.html' : 'user.html#u=' + g.id;
 const avatar = (nome, cls) => { const g = perfilDe(nome); return g ? '<span class="bf-av ' + (cls || '') + '" style="background-image:url(img/' + g.foto + '.jpg)" aria-hidden="true"></span>' : '<span class="bf-av ' + (cls || '') + '" aria-hidden="true">' + esc(ini(nome)) + '</span>'; };
-const sugestoes = (p, q) => { const t = norm(q), ja = B[p].pessoas.map(x => norm(x.nome)); return GENTE.filter(g => !t || norm(g.nome).includes(t) || g.user.includes(t)).sort((a, b) => ja.includes(norm(a.nome)) - ja.includes(norm(b.nome))).slice(0, 6).map(g => '<li><button type="button" data-bf-sug="' + esc(g.nome) + '">' + avatar(g.nome) + '<span><b>' + esc(g.nome) + '</b><small>@' + esc(g.user) + (ja.includes(norm(g.nome)) ? ' · já é best friend' : '') + '</small></span></button></li>').join('') + (t && !GENTE.some(g => norm(g.nome) === t) ? '<li><button type="button" data-bf-sug="' + esc(q.trim()) + '"><span class="bf-av" aria-hidden="true">' + esc(ini(q)) + '</span><span><b>' + esc(q.trim()) + '</b><small>sem perfil no Xouty · só o nome</small></span></button></li>' : ''); };
+const sugestoes = (p, q) => { const t = norm(q), ja = B[p].pessoas.map(x => norm(x.nome)); return GENTE.filter(g => !t || norm(g.nome).includes(t) || g.user.includes(t)).sort((a, b) => ja.includes(norm(a.nome)) - ja.includes(norm(b.nome))).slice(0, 6).map(g => '<li><button type="button" data-bf-sug="' + esc(g.nome) + '">' + avatar(g.nome) + '<span><b>' + esc(g.nome) + '</b><small>@' + esc(g.user) + (ja.includes(norm(g.nome)) ? ' · já é favorito' : '') + '</small></span></button></li>').join('') + (t && !GENTE.some(g => norm(g.nome) === t) ? '<li><button type="button" data-bf-sug="' + esc(q.trim()) + '"><span class="bf-av" aria-hidden="true">' + esc(ini(q)) + '</span><span><b>' + esc(q.trim()) + '</b><small>sem perfil no Xouty · só o nome</small></span></button></li>' : ''); };
 const ini = n => n.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
 const CAD = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 
@@ -3981,7 +3989,7 @@ function card(p, eventos){
   const u = ui(p), d = B[p], lista = filtrados(p), conta = id => d.pessoas.filter(x => x.tags.includes(id)).length;
   const chip = (t, on, attr, n) => '<button type="button" class="bf-tag' + (on ? ' on' : '') + '" ' + attr + '="' + t.id + '" aria-pressed="' + on + '">' + esc(t.nome) + (n != null ? ' <i>' + n + '</i>' : '') + '</button>';
   const novaTag = '<span class="bf-nova"><input data-bf-in="tag" placeholder="nova tag, ex.: Respeita a fila" maxlength="24" aria-label="Nova tag"><button type="button" class="s-btn ghost" data-bf="novatag">Criar tag</button></span>';
-  const form = u.aberto ? '<div class="bf-form"><h4>Adicionar aos best friends</h4>'
+  const form = u.aberto ? '<div class="bf-form"><h4>Adicionar aos favoritos</h4>'
     + (u.escolhido ? '<div class="bf-esc"><span class="bf-lbl">Pessoa</span><div class="bf-escp">' + avatar(u.nome) + '<span><b>' + esc(u.nome) + '</b><small>' + (perfilDe(u.nome) ? '@' + esc(perfilDe(u.nome).user) : 'sem perfil no Xouty') + '</small></span><button type="button" class="cd-lnk" data-bf="trocar">Trocar</button></div></div>'
       : '<label class="bf-busca">Nome<input data-bf-in="nome" value="' + esc(u.nome) + '" placeholder="procura pelo nome ou @" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="bf-sug"></label><ul class="bf-sug" id="bf-sug" role="listbox">' + sugestoes(p, u.nome) + '</ul>')
     + '<div class="bf-lbl">Tags <small>só tu vês</small></div><div class="bf-tags">' + d.tags.map(t => chip(t, u.sel.includes(t.id), 'data-bf-tsel')).join('') + '</div>' + novaTag
@@ -3993,8 +4001,8 @@ function card(p, eventos){
     + (x.obs && u.edit !== x.id ? '<span class="bf-obs">' + esc(x.obs) + '</span>' : '')
     + '<span class="bf-pt">' + (x.tags.length ? x.tags.map(id => tagNome(p, id)).filter(Boolean).map(n => '<em>' + esc(n) + '</em>').join('') : '<small>sem tags</small>') + '</span>'
     + (u.edit === x.id ? '<div class="bf-tags">' + d.tags.map(t => '<button type="button" class="bf-tag' + (x.tags.includes(t.id) ? ' on' : '') + '" data-bf-ptag="' + t.id + '" data-pid="' + x.id + '" aria-pressed="' + x.tags.includes(t.id) + '">' + esc(t.nome) + '</button>').join('') + '</div><label class="bf-obsl bf-pobs"><span>Observação <em data-bf-cont>' + String(x.obs || '').length + '/25</em></span><input data-bf-pobs="' + x.id + '" value="' + esc(x.obs || '') + '" maxlength="25" placeholder="só tu vês"></label>' : '')
-    + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos best friends">Tirar</button></span></li>'; };
-  return '<div class="pt-card bf" id="bf" data-bf-papel="' + p + '"><div class="pt-ch"><h3>Best friends <span class="bf-n">' + d.pessoas.length + '</span></h3>'
+    + '</div><span class="bf-pa"><button type="button" class="cd-lnk" data-bf-edit="' + x.id + '">' + (u.edit === x.id ? 'Feito' : 'Tags') + '</button><button type="button" class="cd-lnk" data-bf-rm="' + x.id + '" aria-label="Tirar ' + esc(x.nome) + ' dos favoritos">Tirar</button></span></li>'; };
+  return '<div class="pt-card bf" id="bf" data-bf-papel="' + p + '"><div class="pt-ch"><h3>Favoritos <span class="bf-n">' + d.pessoas.length + '</span></h3>'
     + (u.aberto ? '' : '<button type="button" class="s-btn mint pt-novo" data-bf="abrir">+ Adicionar</button>') + '</div>'
     + '<p class="bf-priv">' + CAD + '<span><b>Privado.</b> Esta lista e as tags só aparecem para ti. A pessoa não sabe que está aqui nem que tags tem.</span></p>'
     + form
@@ -4004,7 +4012,7 @@ function card(p, eventos){
     + (u.cria ? criaPainel(p) : '')
     + '<div class="bf-res"><span><b>' + lista.length + '</b> ' + (lista.length === 1 ? 'pessoa' : 'pessoas') + (u.filtro.length ? ' · ' + esc(u.filtro.map(id => tagNome(p, id)).join(' + ')) : '') + '</span>'
     + (lista.length ? '<span class="bf-ra"><button type="button" class="s-btn ghost" data-bf="copiar">Copiar nomes</button>' + (u.cria ? '' : '<button type="button" class="s-btn ink" data-bf="lista">' + acao + '</button>') + '</span>' : '') + '</div>'
-    + (lista.length ? '<ul class="bf-l">' + lista.map(pessoa).join('') + '</ul>' : '<p class="al-nota">' + (d.pessoas.length ? 'Ninguém tem todas estas tags. Tira uma do filtro.' : 'Ainda não tens best friends. Toca em "+ Adicionar" ou no "+ BF" ao lado de um nome numa lista.') + '</p>')
+    + (lista.length ? '<ul class="bf-l">' + lista.map(pessoa).join('') + '</ul>' : '<p class="al-nota">' + (d.pessoas.length ? 'Ninguém tem todas estas tags. Tira uma do filtro.' : 'Ainda não tens favoritos. Toca em "+ Adicionar" ou no "+ Favorito" ao lado de um nome numa lista.') + '</p>')
     + '<p class="al-nota">Ex.: filtra "Simpático" + "Educado" e cria um convite só com essa gente. ' + (p === 'concierge' ? 'Os nomes vão para a proposta de lista.' : 'A lista nova aparece em Listas de convidados.') + '</p></div>';
 }
 
@@ -4098,7 +4106,7 @@ document.addEventListener('keydown', ev => {
   const t = criaTag(p, i.value), u = ui(p); if (t && u.aberto && !u.sel.includes(t.id)) u.sel.push(t.id); refaz(p, '[data-bf-in="tag"]');
 });
 
-window.STREETFY_BF = {card, tem};
+window.STREETFY_BF = {card, tem, pessoas:p => (B[p] ? B[p].pessoas.map(x => x.nome).sort((a, b) => a.localeCompare(b, 'pt')) : []), avatar};
 })();
 </script><script>/* Funcionários da casa: o local atribui utilizadores comuns do Xouty a uma função (portaria, segurança, bar…),
    com data de início e fim, ou indeterminado. Cada função tem as suas permissões; "Ler QR na entrada" dá acesso ao Modo porta,
@@ -4321,8 +4329,8 @@ const EST = {pedido:'pediu', aceite:'na lista', entrou:'entrou ✓', recusado:'r
 /* QR de entrada por nome (entradas.js): o local da lista é o do evento, ou a casa */
 const EN = window.STREETFY_ENTRADAS;
 const localDe = l => { const i = l.ev ? porId(l.ev) : null; return i && i.lugar ? {k:C.lugarKey(i), nome:i.lugar} : modo === 'parceiro' || !l.lugar ? {k:'lisboa/lux fragil', nome:'Lux Frágil'} : {k:'', nome:l.lugar}; };
-/* o nome que sai da casa (porta, QR do convidado): nunca as tags privadas dos best friends */
-const nomePub = l => l.pub || (/^Best friends\b/.test(l.nome) ? 'Convidados · ' + ((porId(l.ev) || {}).titulo || 'lista') : l.nome);
+/* o nome que sai da casa (porta, QR do convidado): nunca as tags privadas dos favoritos */
+const nomePub = l => l.pub || (/^(Best friends|Favoritos)\b/.test(l.nome) ? 'Convidados · ' + ((porId(l.ev) || {}).titulo || 'lista') : l.nome);
 const entradaDe = (l, n) => { if (!EN || (n[1] !== 'aceite' && n[1] !== 'entrou')) return null; const lo = localDe(l), i = l.ev ? porId(l.ev) : null, e = EN.garante(l.id, nomePub(l), n[0], lo.k, lo.nome, i ? quando(i) : [l.data, l.hora].filter(Boolean).join(' · ')); if (e.usado && n[1] === 'aceite') { n[1] = 'entrou'; grava(); } /* lido no Modo porta por um funcionário */
   return n[1] === 'entrou' && !e.usado ? EN.jaUsado(e.c, Date.now() - 36e5) : e; };
 let qrVer = '', porta = null;
@@ -4341,9 +4349,11 @@ function listas(){
     return '<div class="pt-lista' + (aberta === l.id ? ' on' : '') + '"><div class="pt-lh" data-pt="abrir" data-id="' + l.id + '"><div><b>' + esc(l.nome) + '</b><span>' + (i ? 'ligada a <a href="' + esc(hrefEv(i)) + '">' + esc(i.titulo) + '</a> · ' + esc(quando(i)) : esc(['independente', l.data, l.hora].filter(Boolean).join(' · '))) + ' · fecha ' + l.fecha + ' min antes</span></div>'
       + '<div class="pt-lnum"><span><b>' + dentro + '</b>/' + l.vagas + ' na lista</span>' + (ped ? '<span class="pt-ped">' + ped + ' a pedir</span>' : '') + (entraram ? '<span>' + entraram + ' entraram</span>' : '') + '</div></div>'
       + (aberta === l.id ? '<div class="pt-ld"><p class="pt-tags"><span>' + esc(l.beneficio) + '</span><span>' + (l.mais1 ? '+1 permitido' : 'sem +1') + '</span><span>' + ({eu:'só eu adiciono', promoters:'promoters da casa adicionam', equipa:'promoters e concierges adicionam', favoritos:'favoritos entram direto'})[l.quem] + '</span></p>'
-          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (window.STREETFY_BF ? (window.STREETFY_BF.tem(modo === 'parceiro' ? 'local' : 'promoter', n[0]) ? '<small class="pt-bf on" title="Está nos teus best friends">BF</small>' : '<button type="button" class="pt-bf" data-bf-de="' + esc(n[0]) + '" title="Adicionar aos best friends">+ BF</button>') : '') + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span>' + (() => { const e = entradaDe(l, n); return '<i class="' + n[1] + '">' + EST[n[1]] + (e && e.usado ? ' ' + EN.hhmm(e.usado) : '') + '</i>' + (e ? '<button type="button" class="pt-qrb' + (qrVer === e.c ? ' on' : '') + '" data-pt="qr" data-c="' + e.c + '" aria-label="QR de ' + esc(n[0]) + '">QR' + (e.usado ? ' usado' : '') + '</button>' : ''); })() + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Ler QR</button>' : '') + (qrVer && EN && qrVer === EN.codigo(l.id, n[0]) ? (() => { const e = EN.de(qrVer); return '<div class="pt-qrv">' + EN.qrSvg(e.c) + '<div><b>' + esc(e.c) + '</b><span>' + esc(n[0]) + ' · ' + esc(e.localNome) + '</span><span>' + (e.usado ? 'Usado às ' + EN.hhmm(e.usado) + (e.por ? ' · lido por ' + e.por : '') + ' · já não entra outra vez' : 'Válido para 1 entrada · a pessoa vê este QR em Os meus planos') + '</span></div></div>'; })() : '') + '</li>').join('') + '</ul>'
+          + '<ul class="pt-nomes">' + l.nomes.map((n, k) => '<li><span>' + esc(n[0]) + (window.STREETFY_BF ? (window.STREETFY_BF.tem(modo === 'parceiro' ? 'local' : 'promoter', n[0]) ? '<small class="pt-bf on" title="Está nos teus favoritos">★ Fav</small>' : '<button type="button" class="pt-bf" data-bf-de="' + esc(n[0]) + '" title="Adicionar aos favoritos">+ Favorito</button>') : '') + (n[2] ? '<small class="pt-orig' + (/concierge/.test(n[2]) ? ' cc' : '') + '">via ' + esc(n[2]) + '</small>' : '') + '</span>' + (() => { const e = entradaDe(l, n); return '<i class="' + n[1] + '">' + EST[n[1]] + (e && e.usado ? ' ' + EN.hhmm(e.usado) : '') + '</i>' + (e ? '<button type="button" class="pt-qrb' + (qrVer === e.c ? ' on' : '') + '" data-pt="qr" data-c="' + e.c + '" aria-label="QR de ' + esc(n[0]) + '">QR' + (e.usado ? ' usado' : '') + '</button>' : ''); })() + (n[1] === 'pedido' ? '<button type="button" data-pt="aceitar" data-id="' + l.id + '" data-k="' + k + '">Aceitar</button><button type="button" data-pt="recusar" data-id="' + l.id + '" data-k="' + k + '">Recusar</button>' : '') + (n[1] === 'aceite' ? '<button type="button" data-pt="entrou" data-id="' + l.id + '" data-k="' + k + '">Ler QR</button>' : '') + (qrVer && EN && qrVer === EN.codigo(l.id, n[0]) ? (() => { const e = EN.de(qrVer); return '<div class="pt-qrv">' + EN.qrSvg(e.c) + '<div><b>' + esc(e.c) + '</b><span>' + esc(n[0]) + ' · ' + esc(e.localNome) + '</span><span>' + (e.usado ? 'Usado às ' + EN.hhmm(e.usado) + (e.por ? ' · lido por ' + e.por : '') + ' · já não entra outra vez' : 'Válido para 1 entrada · a pessoa vê este QR em Os meus planos') + '</span></div></div>'; })() : '') + '</li>').join('') + '</ul>'
           + (EN ? '<div class="pt-porta"><b>Porta · ler QR</b><div class="pt-portaf"><input data-pt-porta placeholder="código do QR, ex.: ' + esc((l.nomes.find(n => n[1] === 'aceite') ? EN.codigo(l.id, l.nomes.find(n => n[1] === 'aceite')[0]) : 'XY-…')) + '" aria-label="Código do QR" autocapitalize="characters"><button type="button" class="s-btn ink" data-pt="ler" data-id="' + l.id + '">Ler</button></div>' + (porta && porta.lista === l.id ? '<p class="pt-portam ' + (porta.ok ? 'ok' : 'erro') + '" role="status">' + esc(porta.txt) + '</p>' : '') + '<small>No telemóvel da porta, a câmara lê o QR. Aqui escreves o código ou tocas em "Ler QR" ao lado do nome.</small></div>' : '')
-          + '<form class="pt-add" data-id="' + l.id + '"><input name="nome" placeholder="Adicionar nome à lista" aria-label="Nome" required><button class="s-btn ink" type="submit">Adicionar</button></form>'
+          + '<form class="pt-add" data-id="' + l.id + '"><input name="nome" placeholder="Adicionar nome à lista ou procurar nos favoritos" aria-label="Nome" autocomplete="off" required><button class="s-btn ink" type="submit">Adicionar</button></form>'
+          + (() => { const BF = window.STREETFY_BF; if (!BF) return ''; const ja = l.nomes.map(n => n[0].toLowerCase()), fav = BF.pessoas(modo === 'parceiro' ? 'local' : 'promoter'), fora = fav.filter(n => !ja.includes(n.toLowerCase()));
+              return '<div class="pt-favs"><span class="pt-favs-t">★ Favoritos <small>' + (fav.length ? 'toca para pôr na lista' : 'ainda não tens favoritos') + '</small></span>' + (fav.length && !fora.length ? '<small>Todos os teus favoritos já estão nesta lista.</small>' : '') + fora.map(n => '<button type="button" class="pt-fav" data-pt="addfav" data-id="' + l.id + '" data-nome="' + esc(n) + '">' + BF.avatar(n) + '<span>' + esc(n) + '</span><b aria-hidden="true">+</b></button>').join('') + '</div>'; })()
           + '<p class="al-nota">Na porta, a equipa vê esta lista no modo porta e marca a entrada; sem rede, a lista fica no telemóvel. Exportar em CSV ou partilhar o link da lista.</p></div>' : '') + '</div>'; };
   const form = formAberto ? '<form class="pt-form" data-pt-form><h4>Nova lista de convidados</h4>'
     + '<label>Nome da lista<input name="nome" required placeholder="ex.: Lista VIP de sexta"></label>'
@@ -4656,6 +4666,8 @@ el.addEventListener('submit', ev => {
 }, true);
 window.addEventListener('storage', ev => { if (ev.key === M.LG) { LIG = M.ler(); redesenha(); } });
 document.addEventListener('streetfy-bf', () => redesenha());
+/* ao escrever um nome na lista, os favoritos filtram-se pelo que se escreve */
+el.addEventListener('input', ev => { const i = ev.target.closest('.pt-add input'); if (!i) return; const t = i.value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''), box = i.closest('.pt-ld') && i.closest('.pt-ld').querySelector('.pt-favs'); if (box) box.querySelectorAll('.pt-fav').forEach(b => { b.hidden = !!t && !b.dataset.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(t); }); });
 window.addEventListener('storage', ev => { if (ev.key === 'streetfy:entradas' || ev.key === 'streetfy:funcionarios') redesenha(); });
 el.addEventListener('keydown', ev => { if (ev.key !== 'Enter') return; const i = ev.target.closest('[data-pt-porta]'); if (!i) return; ev.preventDefault(); const b = i.closest('.pt-porta').querySelector('[data-pt="ler"]'); if (b) b.click(); });
 document.addEventListener('streetfy-bf-lista', ev => {
@@ -4670,7 +4682,7 @@ document.addEventListener('streetfy-bf-lista', ev => {
   const id = 'bf' + Date.now().toString(36);
   if (!evId) return;
   const ie = porId(evId);
-  LISTAS[modo].unshift({id, nome:titulo, pub:'Convidados · ' + (ie ? ie.titulo : 'lista'), ev:evId, vagas:Math.max(10, nomes.length), fecha:30, quem:'eu', beneficio:'convite só para best friends', mais1:false, nomes:nomes.map(n => [n, 'aceite'])});
+  LISTAS[modo].unshift({id, nome:titulo, pub:'Convidados · ' + (ie ? ie.titulo : 'lista'), ev:evId, vagas:Math.max(10, nomes.length), fecha:30, quem:'eu', beneficio:'convite só para favoritos', mais1:false, nomes:nomes.map(n => [n, 'aceite'])});
   aberta = id; grava(); redesenha();
   const l = el.querySelector('.pt-lista.on'); if (l) l.scrollIntoView({behavior:'smooth', block:'center'});
 });
@@ -4705,6 +4717,7 @@ el.addEventListener('click', ev => {
   if (a === 'abrir') aberta = aberta === b.dataset.id ? null : b.dataset.id;
   if (l && a === 'aceitar') l.nomes[+b.dataset.k][1] = 'aceite';
   if (l && a === 'recusar') l.nomes.splice(+b.dataset.k, 1);
+  if (l && a === 'addfav' && !l.nomes.some(n => n[0].toLowerCase() === b.dataset.nome.toLowerCase())) l.nomes.push([b.dataset.nome, 'aceite']);
   if (l && a === 'entrou') { const n = l.nomes[+b.dataset.k]; if (EN) { entradaDe(l, n); portaLe(EN.codigo(l.id, n[0])); } else n[1] = 'entrou'; }
   if (a === 'qr') qrVer = qrVer === b.dataset.c ? '' : b.dataset.c;
   if (l && a === 'ler') { const i = b.closest('.pt-porta').querySelector('[data-pt-porta]'); portaLe(i ? i.value : '', l.id); }
