@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Streetfy · Página não encontrada</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Streetfy · cartaz de rua ===== */
+<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Xouty · Página não encontrada</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Xouty · cartaz de rua ===== */
 /* Layout: página de uma coluna até 1240px; herói com foto em P&B e celular flutuante; faixa que corre; grade de cartões; celular fixo que troca de tela ao rolar; galeria horizontal; tudo em preto, papel, rosa e menta. */
 :root{--ink:#0b0b0b;--paper:#f2f2f2;--pink:#ff2e6e;--mint:#6fe3a5;--grey:#4f4f4f;--line:#dcdcdc;--fd:"Anton",Impact,"Arial Narrow",sans-serif;--fb:"Work Sans","Segoe UI",Helvetica,Arial,sans-serif}
 :root{color-scheme:light}
@@ -37,8 +37,13 @@ img{max-width:100%;display:block}
 .s-nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .3s,box-shadow .3s,color .3s}
 .s-nav .s-wrap{display:flex;align-items:center;gap:22px;height:72px}
 .s-nav.on{background:rgba(242,242,242,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
-.s-logo{font-family:var(--fd);font-size:30px;line-height:1;letter-spacing:.02em;text-decoration:none;display:flex;align-items:center;gap:6px}
-.s-logo i{width:12px;height:12px;border-radius:50%;background:var(--pink);display:block}
+.s-logo{font-family:'Permanent Marker','Comic Sans MS',cursive;font-size:24px;line-height:1;text-decoration:none;display:inline-flex;flex-direction:column;align-items:stretch;gap:3px;background:#0b0b0b;color:#fff;padding:5px 9px;border-radius:9px;flex:none}
+.s-logo .xl-n{display:block;transform:rotate(-4deg);padding:1px 2px;white-space:nowrap}
+.s-logo .xl-n b{color:var(--pink);font-weight:400}
+.s-logo .xl-n i{color:var(--mint);font-style:normal}
+.s-logo .xl-bc{display:block;height:7px;background:repeating-linear-gradient(90deg,#4a4a4a 0 3px,transparent 3px 4px,#4a4a4a 4px 5px,transparent 5px 6px,#4a4a4a 6px 10px,transparent 10px 11px,#4a4a4a 11px 13px,transparent 13px 15px)}
+.s-logo .xl-bc.t{clip-path:polygon(0 0,100% 0,100% 45%,0 100%)}
+.s-logo .xl-bc.b{clip-path:polygon(0 55%,100% 0,100% 100%,0 100%)}
 .s-menu{display:flex;gap:22px;margin-left:auto;list-style:none;padding:0;margin-block:0}
 .s-menu a{text-decoration:none;font-weight:600;font-size:15px;position:relative;padding:4px 0}
 .s-menu a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--pink);transition:right .25s}
@@ -295,7 +300,6 @@ img{max-width:100%;display:block}
 .dsl{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:var(--pink);vertical-align:-.06em;margin:0 .12em}
 .s-eyebrow .dsl{width:.8em;height:.8em;vertical-align:-.1em;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
 
-.s-logo em{font-style:normal;color:var(--pink)}
 
 /* camadas da lista: etiqueta de patrocinado e crédito da fonte do bot (R73, R76) */
 .s-pat{position:absolute;top:18px;right:18px;background:var(--mint);color:var(--ink);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 8px;border-radius:5px}
@@ -437,7 +441,7 @@ img{max-width:100%;display:block}
 @media (max-width:640px){.s-conta{gap:2px}.s-ico{width:38px;height:38px}.s-av{width:36px;height:36px}.s-nav .s-entrar{display:inline-flex!important}}
 /* telemóvel: o cabeçalho cabe sempre (o idioma fica no rodapé) */
 @media (max-width:640px){.s-nav .s-lang{display:none}.s-nav .s-wrap{gap:10px}.s-conta{margin-left:auto}.s-nav .s-burger{margin-left:2px!important;flex:0 0 auto}}
-@media (max-width:420px){.s-logo{font-size:24px}.s-logo i{width:10px;height:10px}.s-ico{width:34px;height:34px}.s-ico svg{width:20px;height:20px}.s-av{width:34px;height:34px}.s-burger{width:40px;height:40px}}
+@media (max-width:420px){.s-logo{font-size:19px;padding:4px 7px}.s-logo .xl-bc{height:5px}.s-ico{width:34px;height:34px}.s-ico svg{width:20px;height:20px}.s-av{width:34px;height:34px}.s-burger{width:40px;height:40px}}
 @media (max-width:900px){.s-nav.aberto .s-menu .so-movel:has(> a:not(.s-btn)){margin-top:0}.s-nav.aberto .s-menu .so-movel a:not(.s-btn){display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}}
 /* seguir o local nos cards (acoes.js) */
 .s-segue{font:inherit;font-size:13px;font-weight:800;line-height:1;padding:9px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;white-space:nowrap}
@@ -1277,7 +1281,7 @@ html.cm-tpl :is(.cm-chk,.cm-op1) input{accent-color:var(--pink)}html.cm-tpl .cm-
 html.cm-tpl .cm-cb p,html.cm-tpl .al-nota,html.cm-tpl .cm-vazio{color:var(--grey)}
 html.cm-tpl .cm-cf b.num{color:var(--ink)}
 html.cm-tpl a{color:inherit}
-/* 1 · cartaz de rua: o visual do Streetfy, tinta grossa e sombra dura */
+/* 1 · cartaz de rua: o visual do Xouty, tinta grossa e sombra dura */
 html.cm-t-rua{--sh:5px 5px 0 var(--mint);--sh-h:6px 6px 0 var(--pink)}
 /* 2 · tasca: papel creme, serifa, faixa de azulejo e preço com pontinhos */
 html.cm-t-tasca{--r:6px;--rb:6px;--bw:1.5px;--sh:0 1px 0 var(--line);--sh-h:0 6px 18px rgba(0,0,0,.12)}
@@ -1849,7 +1853,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
 .ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
 @media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
-/* indicar: partilhar fora do Streetfy */
+/* indicar: partilhar fora do Xouty */
 .ev-fora{display:grid;gap:6px;border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px}
 .ev-fora>span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .ev-fora>div{display:flex;gap:6px;flex-wrap:wrap}
@@ -1954,7 +1958,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
-<a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
+<a class="s-logo" href="index.html" aria-label="Xouty · início"><span class="xl-bc t"></span><span class="xl-n"><b>X</b>OUT<i>Y</i></span><span class="xl-bc b"></span></a>
 <ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
@@ -1962,12 +1966,12 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 <div class="cols">
 <div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html">A tua festa</a></div>
 <div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="amigos-mapa.html">Mapa dos amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
-<div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Streetfy</a></div>
+<div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Xouty</a></div>
 <div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
 <div><h4>Legal</h4><a href="#">Termos</a><a href="privacidade.html">Privacidade</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
 </div>
-<p class="legal"><b>Streetfy</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
-</div></footer><script>/* Streetfy · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
+<p class="legal"><b>Xouty</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
+</div></footer><script>/* Xouty · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
    Curtir grava em streetfy:gostos (o mesmo da lista Hoje, do perfil e da página do evento).
    Seguir grava em segue:<cidade/lugar> (o mesmo do botão Seguir do perfil do local).
    Os botões podem estar dentro de um card que é link: o clique é tratado aqui e não abre o card.
@@ -2015,7 +2019,7 @@ function decora(raiz){
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => decora()); else decora();
 window.STREETFY_ACOES = {coracao, seguir, gosta, segue, decora};
 })();
-</script><script>/* Streetfy · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
+</script><script>/* Xouty · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
    1) O lugar fica num quadro logo abaixo da barra de pesquisa: país e cidade (e raio, quando a cidade tem centro). "Mudar" abre-o.
    2) Pílulas de topo: ao escolher uma, as outras somem e fica só a escolhida com "← Voltar".
    3) Com uma pílula escolhida abrem as perguntas, uma de cada vez, numa linha que desliza no telemóvel.
@@ -2152,7 +2156,7 @@ if(window.BORA&&window.BORA_XP){
   document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
-</script><script>/* Streetfy · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
+</script><script>/* Xouty · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
    A conta é o único sítio onde se escolhe quem está a usar o site (no protótipo: Mariana, Lux Frágil, Rita, Lara, ou sem sessão).
    Também guarda o modelo das notificações (STREETFY_SESSAO), usado por notificacoes.html e pelo número no sino. */
 (function(){

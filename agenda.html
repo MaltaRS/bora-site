@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Streetfy · Os meus planos</title><meta name="description" content="Os teus planos no Streetfy: bilhetes com QR, listas, reservas e as festas a que vais."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Streetfy · cartaz de rua ===== */
+<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Xouty · Os meus planos</title><meta name="description" content="Os teus planos no Xouty: bilhetes com QR, listas, reservas e as festas a que vais."><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap"><style>/* ===== Site do Xouty · cartaz de rua ===== */
 /* Layout: página de uma coluna até 1240px; herói com foto em P&B e celular flutuante; faixa que corre; grade de cartões; celular fixo que troca de tela ao rolar; galeria horizontal; tudo em preto, papel, rosa e menta. */
 :root{--ink:#0b0b0b;--paper:#f2f2f2;--pink:#ff2e6e;--mint:#6fe3a5;--grey:#4f4f4f;--line:#dcdcdc;--fd:"Anton",Impact,"Arial Narrow",sans-serif;--fb:"Work Sans","Segoe UI",Helvetica,Arial,sans-serif}
 :root{color-scheme:light}
@@ -37,8 +37,13 @@ img{max-width:100%;display:block}
 .s-nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .3s,box-shadow .3s,color .3s}
 .s-nav .s-wrap{display:flex;align-items:center;gap:22px;height:72px}
 .s-nav.on{background:rgba(242,242,242,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
-.s-logo{font-family:var(--fd);font-size:30px;line-height:1;letter-spacing:.02em;text-decoration:none;display:flex;align-items:center;gap:6px}
-.s-logo i{width:12px;height:12px;border-radius:50%;background:var(--pink);display:block}
+.s-logo{font-family:'Permanent Marker','Comic Sans MS',cursive;font-size:24px;line-height:1;text-decoration:none;display:inline-flex;flex-direction:column;align-items:stretch;gap:3px;background:#0b0b0b;color:#fff;padding:5px 9px;border-radius:9px;flex:none}
+.s-logo .xl-n{display:block;transform:rotate(-4deg);padding:1px 2px;white-space:nowrap}
+.s-logo .xl-n b{color:var(--pink);font-weight:400}
+.s-logo .xl-n i{color:var(--mint);font-style:normal}
+.s-logo .xl-bc{display:block;height:7px;background:repeating-linear-gradient(90deg,#4a4a4a 0 3px,transparent 3px 4px,#4a4a4a 4px 5px,transparent 5px 6px,#4a4a4a 6px 10px,transparent 10px 11px,#4a4a4a 11px 13px,transparent 13px 15px)}
+.s-logo .xl-bc.t{clip-path:polygon(0 0,100% 0,100% 45%,0 100%)}
+.s-logo .xl-bc.b{clip-path:polygon(0 55%,100% 0,100% 100%,0 100%)}
 .s-menu{display:flex;gap:22px;margin-left:auto;list-style:none;padding:0;margin-block:0}
 .s-menu a{text-decoration:none;font-weight:600;font-size:15px;position:relative;padding:4px 0}
 .s-menu a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--pink);transition:right .25s}
@@ -295,7 +300,6 @@ img{max-width:100%;display:block}
 .dsl{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:var(--pink);vertical-align:-.06em;margin:0 .12em}
 .s-eyebrow .dsl{width:.8em;height:.8em;vertical-align:-.1em;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
 
-.s-logo em{font-style:normal;color:var(--pink)}
 
 /* camadas da lista: etiqueta de patrocinado e crédito da fonte do bot (R73, R76) */
 .s-pat{position:absolute;top:18px;right:18px;background:var(--mint);color:var(--ink);font-weight:800;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 8px;border-radius:5px}
@@ -437,7 +441,7 @@ img{max-width:100%;display:block}
 @media (max-width:640px){.s-conta{gap:2px}.s-ico{width:38px;height:38px}.s-av{width:36px;height:36px}.s-nav .s-entrar{display:inline-flex!important}}
 /* telemóvel: o cabeçalho cabe sempre (o idioma fica no rodapé) */
 @media (max-width:640px){.s-nav .s-lang{display:none}.s-nav .s-wrap{gap:10px}.s-conta{margin-left:auto}.s-nav .s-burger{margin-left:2px!important;flex:0 0 auto}}
-@media (max-width:420px){.s-logo{font-size:24px}.s-logo i{width:10px;height:10px}.s-ico{width:34px;height:34px}.s-ico svg{width:20px;height:20px}.s-av{width:34px;height:34px}.s-burger{width:40px;height:40px}}
+@media (max-width:420px){.s-logo{font-size:19px;padding:4px 7px}.s-logo .xl-bc{height:5px}.s-ico{width:34px;height:34px}.s-ico svg{width:20px;height:20px}.s-av{width:34px;height:34px}.s-burger{width:40px;height:40px}}
 @media (max-width:900px){.s-nav.aberto .s-menu .so-movel:has(> a:not(.s-btn)){margin-top:0}.s-nav.aberto .s-menu .so-movel a:not(.s-btn){display:block;font-family:var(--fd);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em;padding:10px 0;border-bottom:1px solid var(--line)}}
 /* seguir o local nos cards (acoes.js) */
 .s-segue{font:inherit;font-size:13px;font-weight:800;line-height:1;padding:9px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;white-space:nowrap}
@@ -1277,7 +1281,7 @@ html.cm-tpl :is(.cm-chk,.cm-op1) input{accent-color:var(--pink)}html.cm-tpl .cm-
 html.cm-tpl .cm-cb p,html.cm-tpl .al-nota,html.cm-tpl .cm-vazio{color:var(--grey)}
 html.cm-tpl .cm-cf b.num{color:var(--ink)}
 html.cm-tpl a{color:inherit}
-/* 1 · cartaz de rua: o visual do Streetfy, tinta grossa e sombra dura */
+/* 1 · cartaz de rua: o visual do Xouty, tinta grossa e sombra dura */
 html.cm-t-rua{--sh:5px 5px 0 var(--mint);--sh-h:6px 6px 0 var(--pink)}
 /* 2 · tasca: papel creme, serifa, faixa de azulejo e preço com pontinhos */
 html.cm-t-tasca{--r:6px;--rb:6px;--bw:1.5px;--sh:0 1px 0 var(--line);--sh-h:0 6px 18px rgba(0,0,0,.12)}
@@ -1849,7 +1853,7 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .ct-row:has(> :nth-child(3):last-child){grid-template-columns:56px minmax(0,1fr) auto}
 .ct-row:has(> :nth-child(2):last-child){grid-template-columns:56px minmax(0,1fr)}
 @media (max-width:520px){.ct-row{gap:8px}.ct-row-d{display:none}.ct-row{grid-template-columns:56px minmax(0,1fr) auto}}
-/* indicar: partilhar fora do Streetfy */
+/* indicar: partilhar fora do Xouty */
 .ev-fora{display:grid;gap:6px;border-top:1.5px solid var(--line);padding-top:10px;margin-top:2px}
 .ev-fora>span{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
 .ev-fora>div{display:flex;gap:6px;flex-wrap:wrap}
@@ -1954,20 +1958,20 @@ button.lg-m:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
 </svg><header class="s-nav on" id="nav" data-always="1"><div class="s-wrap">
-<a class="s-logo" href="index.html"><i></i><span>STREET<em>FY</em></span></a>
+<a class="s-logo" href="index.html" aria-label="Xouty · início"><span class="xl-bc t"></span><span class="xl-n"><b>X</b>OUT<i>Y</i></span><span class="xl-bc b"></span></a>
 <ul class="s-menu" id="menu-nav"><li><a href="hoje.html">Hoje</a></li><li><a href="amigos.html">Amigos</a></li><li><a href="experiencias.html">Experiências</a></li><li><a href="concierge.html">Concierge</a></li><li><a href="promoters.html">Promoters</a></li><li class="so-movel"><a href="agenda.html">Os meus planos</a></li><li class="so-movel"><a href="trabalhar.html">Perfil profissional</a></li><li class="so-movel"><a href="parceiros.html">Para locais</a></li><li class="so-movel"><a class="s-btn ink" href="app.html">Descarregar</a></li></ul>
 <a class="s-btn ink" href="app.html">Descarregar</a>
 <button class="s-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu-nav"><i></i><i></i><i></i></button>
-</div></header><section class="s-sec tight ed-pg ct-pg"><div class="s-wrap"><div class="crumbs ed-crumbs"><a href="index.html">Streetfy</a> › <span>Os meus planos</span></div><h1 class="s-h" style="font-size:clamp(48px,7vw,96px)">OS MEUS <em>PLANOS</em></h1><p class="s-lead ct-lead">Bilhetes, listas, reservas e as festas a que disseste "Eu vou". Os QR ficam no telemóvel, mesmo sem rede.</p><div data-conta="agenda"></div></div></section><footer class="s-foot"><div class="s-wrap">
+</div></header><section class="s-sec tight ed-pg ct-pg"><div class="s-wrap"><div class="crumbs ed-crumbs"><a href="index.html">Xouty</a> › <span>Os meus planos</span></div><h1 class="s-h" style="font-size:clamp(48px,7vw,96px)">OS MEUS <em>PLANOS</em></h1><p class="s-lead ct-lead">Bilhetes, listas, reservas e as festas a que disseste "Eu vou". Os QR ficam no telemóvel, mesmo sem rede.</p><div data-conta="agenda"></div></div></section><footer class="s-foot"><div class="s-wrap">
 <div class="cols">
 <div><h4>Descobrir</h4><a href="hoje.html">Hoje em Lisboa</a><a href="hoje.html#onde=pt/porto">Hoje no Porto</a><a href="cidades.html">Cidades</a><a href="pesquisa.html">Pesquisar</a><a href="experiencias.html">Experiências</a><a href="concierge.html">Concierges</a><a href="promoters.html">Promoters</a><a href="festa.html">A tua festa</a></div>
 <div><h4>A tua conta</h4><a href="user.html">O meu perfil</a><a href="agenda.html">Os meus planos</a><a href="amigos.html">Amigos</a><a href="amigos-mapa.html">Mapa dos amigos</a><a href="notificacoes.html">Notificações</a><a href="editar.html">Editar perfil</a><a href="entrar.html">Entrar ou criar conta</a></div>
-<div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Streetfy</a></div>
+<div><h4>Profissionais</h4><a href="trabalhar.html">Perfil profissional</a><a href="parceiros.html">Para locais</a><a href="portal.html#parceiro">Portal do local</a><a href="portal.html#planta">Desenhar a planta</a><a href="portal.html#promoter">Portal do promoter</a><a href="portal.html#concierge">Portal do concierge</a><a href="portal.html#equipa">Equipa Xouty</a></div>
 <div><h4>Ajuda</h4><a href="ajuda.html">Central de ajuda</a><a href="precos.html">Preços e taxas</a><a href="presenca.html">Presença e check-in</a><a href="app.html">O app</a><a href="sobre.html">Sobre</a></div>
 <div><h4>Legal</h4><a href="#">Termos</a><a href="privacidade.html">Privacidade</a><a href="#">Cookies</a><a href="#">Livro de Reclamações</a><a href="index.html">English</a></div>
 </div>
-<p class="legal"><b>Streetfy</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
-</div></footer><script>/* Streetfy · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
+<p class="legal"><b>Xouty</b> é nome em teste, registo em curso. Só para maiores de 18. Lugares reais de Lisboa e do Porto, operadores e pessoas fictícios, preços de referência de outubro de 2026.<br>Fotos · Wikimedia Commons: Pink Street (Benjamín Mejías Valencia, CC BY 2.0) · Lisbon aerial view e Bay of Lisbon (Zinneke, CC BY-SA 3.0) · Robinson R44 (Ian Kirk, CC BY 2.0) · Cessna 172 RG (Don Ramey Logan, CC BY 4.0) · Cascais Bay (Marco Alioli e pedrik, CC BY 2.0) · Montgolfiade Münster (Dietmar Rabich, CC BY-SA 4.0) · Tagus River sunset, Alfama Stairs e Mercado da Ribeira (Pedro Ribeiro Simões, CC BY 2.0) · Ponte 25 de Abril (Pedro Simões, CC BY 2.0) · Tram by night, Night in Lisbon e Table for 4 (Susanne Nilsson, CC BY-SA 2.0) · LX Factory (TJ DeGroat, CC BY 2.0) · 03.LuxFragil (Fssmgn arquitectos, CC BY 3.0) · Party in 808 Nightclub e DJ Tiesto party (Vyacheslav Argenberg, CC BY 4.0) · Last Word cocktail (Minderbinder, CC BY-SA 3.0) · Woman enjoys listening to vinyl records (Shixart1985, CC BY 2.0). · Porto: Cais da Ribeira à noite (Gerd Eichmann, CC BY-SA 4.0) · Ponte D. Luís à noite (Effeietsanders, CC BY-SA 3.0) · Casa da Música (Sergio Miranda, CC BY 2.0) · Rua Galeria de Paris (Davitof, CC BY-SA 3.0) · Foz do Douro (Carlos Pinto, CC BY-SA 2.0) · Porto by Night (Chris, CC BY-SA 2.0) · Mercado Ferreira Borges (Matt Kieffer, CC BY-SA 2.0)</p>
+</div></footer><script>/* Xouty · acoes.js — o "curtir" dos cards de eventos e o "Seguir" dos cards de locais, iguais em todo o site.
    Curtir grava em streetfy:gostos (o mesmo da lista Hoje, do perfil e da página do evento).
    Seguir grava em segue:<cidade/lugar> (o mesmo do botão Seguir do perfil do local).
    Os botões podem estar dentro de um card que é link: o clique é tratado aqui e não abre o card.
@@ -2015,7 +2019,7 @@ function decora(raiz){
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => decora()); else decora();
 window.STREETFY_ACOES = {coracao, seguir, gosta, segue, decora};
 })();
-</script><script>/* Streetfy · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
+</script><script>/* Xouty · filtro-a.js — o filtro "modelo A" usado em todo o site (pesquisa, Hoje, página inicial, promoters, concierges).
    1) O lugar fica num quadro logo abaixo da barra de pesquisa: país e cidade (e raio, quando a cidade tem centro). "Mudar" abre-o.
    2) Pílulas de topo: ao escolher uma, as outras somem e fica só a escolhida com "← Voltar".
    3) Com uma pílula escolhida abrem as perguntas, uma de cada vez, numa linha que desliza no telemóvel.
@@ -2152,7 +2156,7 @@ if(window.BORA&&window.BORA_XP){
   document.querySelectorAll('[data-screen]').forEach(el=>{let s=N[el.dataset.screen]; if(!s&&K5){const sc=SC.find(x=>x.code===el.dataset.screen); if(sc&&R[sc.k]) s={t:B.TIME[sc.k],dark:!!(K5.darkFor&&K5.darkFor.includes(sc.k)),f:()=>R[sc.k](K5),navHtml:B.nav(K5,sc.k)};} if(!s)return; el.innerHTML='<div class="ph'+(s.dark?' dark':'')+'">'+B.sb(s.t)+'<div class="body" style="position:relative">'+s.f()+'</div>'+(s.navHtml||(s.nav!==undefined?XP.nav5(s.nav):''))+'</div>';});
 }
 })();
-</script><script src="dados-bot.js?v=1792961315" data-v="1792961315"></script><script>/* Streetfy · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
+</script><script src="dados-bot.js?v=1792961315" data-v="1792961315"></script><script>/* Xouty · filtros.js — estrutura de filtros do catálogo: país → cidade → tipo → quando → estilo → bairro.
    Numa página:
      <div class="fbar" data-filtros data-resultados="#lista" data-dias="#dias" data-bairros="#bairros"></div>
      <div id="lista" data-resultados data-cartao="poster|lista" data-max="12"></div>
@@ -2228,10 +2232,10 @@ const ITENS = [
 const L = {
  pt:{pais:'País', cidade:'Cidade', tipo:'Tipo', quando:'Quando', estilo:'Estilo', tudo:'Tudo', festa:'Festas', concerto:'Concertos', bar:'Bares', clube:'Clubes', restaurante:'Restaurantes', livre:'Entrada livre', patrocinado:'Patrocinado', via:'via', vista:'Vista', cartoes:'Cartões', lista:'Lista', todasCid:'Todas', portugal:'Portugal', maisArredores:'+ 25 km à volta', todas:'Todas as datas', todasCurto:'Todas', todasSub:'ativos e futuros', procurar:'Procurar', procurarPh:'nome do lugar ou do evento', nadaNome:'Nada neste dia com esse nome.', semanaToda:n => 'Ver a semana inteira (' + n + ')', perfilDe:'Perfil de', procura:'procura', g_rolando:'A rolar', gs_rolando:'agora', g_jaja:'Já já rola', gs_jaja:'começa nas próximas 2 horas', g_vai:'Vai rolar', gs_vai:'mais tarde e nos próximos dias', g_rolou:'Já rolou', gs_rolou:'já acabou', g_diatodo:'O dia todo', gs_diatodo:'sem hora marcada', gt_rolando:'A <em>ROLAR</em>', gt_jaja:'JÁ JÁ <em>ROLA</em>', gt_vai:'VAI <em>ROLAR</em>', gt_diatodo:'O DIA <em>TODO</em>', gt_rolou:'JÁ <em>ROLOU</em>', gosto:'Gosto', jaGosto:'Já gostas · tirar', gostos:n => n === 1 ? '1 gosto primeiro' : n + ' gostos primeiro', pelosGostos:'e pelo que gostas', mais:n => 'Mostrar mais ' + n, hoje:'Hoje', amanha:'Amanhã', fds:'Fim de semana', semana:'Semana', todos:'Todos', breve:'em breve', aqui:'aqui', aquiAgora:'aqui agora', vao:'vão', amigos:'amigos', noApp:'bilhete e reserva no app',
    destaque:n => n + ' em destaque', limpar:'Limpar filtros', nada:'NADA COM ESTES FILTROS', nadaTxt:c => 'Em ' + c + ' nenhum lugar bate com tudo o que escolheste. Tira o tipo ou muda o dia.',
-   naoAbriu:'AINDA NÃO ABRIU', breveTxt:(c, q) => 'O Streetfy chega a ' + c + ' ' + (q || 'em breve') + '. Deixa o e-mail e avisamos-te primeiro.', avisar:'Avisa-me quando abrir', agora:o => 'pessoas ' + o + ' agora', agoraNada:'pessoas aqui agora', tags:{}},
+   naoAbriu:'AINDA NÃO ABRIU', breveTxt:(c, q) => 'O Xouty chega a ' + c + ' ' + (q || 'em breve') + '. Deixa o e-mail e avisamos-te primeiro.', avisar:'Avisa-me quando abrir', agora:o => 'pessoas ' + o + ' agora', agoraNada:'pessoas aqui agora', tags:{}},
  en:{pais:'Country', cidade:'City', tipo:'Type', quando:'When', estilo:'Style', tudo:'All', festa:'Parties', concerto:'Concerts', bar:'Bars', clube:'Clubs', restaurante:'Restaurants', livre:'Free entry', patrocinado:'Sponsored', via:'via', vista:'View', cartoes:'Cards', lista:'List', todasCid:'All', portugal:'Portugal', maisArredores:'+ 25 km around', todas:'All dates', todasCurto:'All', todasSub:'live and upcoming', procurar:'Search', procurarPh:'venue or event name', nadaNome:'Nothing on this day with that name.', semanaToda:n => 'See the whole week (' + n + ')', perfilDe:'Profile of', procura:'search', g_rolando:'On now', gs_rolando:'right now', g_jaja:'Up next', gs_jaja:'starts within 2 hours', g_vai:'Later', gs_vai:'later tonight and the next days', g_rolou:'Already happened', gs_rolou:'over', g_diatodo:'All day', gs_diatodo:'no set time', gt_rolando:'ON <em>NOW</em>', gt_jaja:'UP <em>NEXT</em>', gt_vai:'<em>LATER</em>', gt_diatodo:'ALL <em>DAY</em>', gt_rolou:'ALREADY <em>HAPPENED</em>', gosto:'Like', jaGosto:'Liked · remove', gostos:n => n === 1 ? '1 like first' : n + ' likes first', pelosGostos:'and by what you like', mais:n => 'Show ' + n + ' more', hoje:'Tonight', amanha:'Tomorrow', fds:'Weekend', semana:'This week', todos:'All styles', breve:'coming soon', aqui:'here', aquiAgora:'here now', vao:'going', amigos:'friends', noApp:'tickets and bookings in the app',
    destaque:n => n + ' featured', limpar:'Clear filters', nada:'NOTHING MATCHES', nadaTxt:c => 'In ' + c + ' nothing matches all your filters. Drop the type or change the day.',
-   naoAbriu:'NOT OPEN YET', breveTxt:(c, q) => 'Streetfy reaches ' + c + ' ' + (q || 'soon') + '. Leave your e-mail and we tell you first.', avisar:'Tell me when it opens', agora:o => 'people ' + o + ' right now', agoraNada:'people here right now',
+   naoAbriu:'NOT OPEN YET', breveTxt:(c, q) => 'Xouty reaches ' + c + ' ' + (q || 'soon') + '. Leave your e-mail and we tell you first.', avisar:'Tell me when it opens', agora:o => 'people ' + o + ' right now', agoraNada:'people here right now',
    tags:{'Entrada livre':'Free entry', 'Bar · até às 3h':'Bar · open till 3am', 'Bar · até às 2h':'Bar · open till 2am', 'Bar a bar':'Bar to bar', 'Pôr do sol':'Sunset', 'Clássica':'Classical'}}
 };
 /* camadas (R73–R79): 0 patrocinado · 1 parceiro · 2 promoter · 3 bot. Os itens do catálogo são do parceiro salvo indicação; os do bot chegam de dados-bot.js com crédito à fonte. */
@@ -2455,8 +2459,8 @@ function grupo(k, lbl, ops, cur){
 }
 /* a barra no modelo A (filtro-a.js): pesquisa, o quadro do lugar, as pílulas de tipo e, com um tipo escolhido, as perguntas */
 const FA_T = {
-  pt:{quando:'Quando?', estilo:'Que estilo?', preco:'Quanto?', hora:'A que horas?', extra:'Mais alguma coisa?', semana:'Esta semana', gratis:'Grátis', p10:'Até €10', p20:'Até €20', pmais:'Mais de €20', tarde:'Fim de tarde', noite:'Noite', madrugada:'Madrugada', streetfy:'Bilhete no Streetfy', agora:'Gente lá agora', amigos:'Amigos vão', pais:'todo o país', raio:'+ 25 km à volta', ev:n => n + (n === 1 ? ' evento' : ' eventos')},
-  en:{quando:'When?', estilo:'What style?', preco:'How much?', hora:'What time?', extra:'Anything else?', semana:'This week', gratis:'Free', p10:'Up to €10', p20:'Up to €20', pmais:'Over €20', tarde:'Late afternoon', noite:'Night', madrugada:'After midnight', streetfy:'Ticket on Streetfy', agora:'People there now', amigos:'Friends going', pais:'the whole country', raio:'+ 25 km around', ev:n => n + (n === 1 ? ' event' : ' events')}
+  pt:{quando:'Quando?', estilo:'Que estilo?', preco:'Quanto?', hora:'A que horas?', extra:'Mais alguma coisa?', semana:'Esta semana', gratis:'Grátis', p10:'Até €10', p20:'Até €20', pmais:'Mais de €20', tarde:'Fim de tarde', noite:'Noite', madrugada:'Madrugada', streetfy:'Bilhete no Xouty', agora:'Gente lá agora', amigos:'Amigos vão', pais:'todo o país', raio:'+ 25 km à volta', ev:n => n + (n === 1 ? ' evento' : ' eventos')},
+  en:{quando:'When?', estilo:'What style?', preco:'How much?', hora:'What time?', extra:'Anything else?', semana:'This week', gratis:'Free', p10:'Up to €10', p20:'Up to €20', pmais:'Over €20', tarde:'Late afternoon', noite:'Night', madrugada:'After midnight', streetfy:'Ticket on Xouty', agora:'People there now', amigos:'Friends going', pais:'the whole country', raio:'+ 25 km around', ev:n => n + (n === 1 ? ' event' : ' events')}
 };
 const contaCidade = cid => { const c = (PAISES[0].cidades.find(x => x.id === cid) || {}).centro; return ITENS.filter(i => cid === 'todas' || i.cidade === cid || (c && i.lat && i.lng && km(c[0], c[1], i.lat, i.lng) <= RAIO_KM)).length; };
 function passosFA(e, t, semQuando){
@@ -2648,7 +2652,7 @@ window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, mo
 window.STREETFY_GOSTOS = {tem:id => GOSTOS.has(id), lista:() => [...GOSTOS], icone:ICO.coracao,
   alternar(id){ if (GOSTOS.has(id)) GOSTOS.delete(id); else GOSTOS.add(id); try { localStorage.setItem(GOSTOS_K, JSON.stringify([...GOSTOS])); } catch (x) {} montados.forEach(m => m.render(false)); return GOSTOS.has(id); }};
 })();
-</script><script>/* Streetfy · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
+</script><script>/* Xouty · nav.js — o cabeçalho de todas as páginas: menu no telemóvel, pesquisa, notificações e a conta.
    A conta é o único sítio onde se escolhe quem está a usar o site (no protótipo: Mariana, Lux Frágil, Rita, Lara, ou sem sessão).
    Também guarda o modelo das notificações (STREETFY_SESSAO), usado por notificacoes.html e pelo número no sino. */
 (function(){
@@ -2739,7 +2743,7 @@ nav.addEventListener('click', ev => { if (ev.target.closest('.s-menu a')) abrir(
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') abrir(false); });
 window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(false); });
 })();
-</script><script>/* Streetfy · promoters.js — grelha de promoters (promoters.html, [data-promoters]) e perfil do promoter (promoter.html#p=<id>, [data-promoter]).
+</script><script>/* Xouty · promoters.js — grelha de promoters (promoters.html, [data-promoters]) e perfil do promoter (promoter.html#p=<id>, [data-promoter]).
    Cada promoter promove festas do catálogo: as escolhidas por ele (ids) e, até 6, as festas da cidade dele nos estilos que indica,
    pelas mais importantes. Pessoas fictícias; eventos e lugares reais. No site real: tabela promoter + indicacao (R66–R72). */
 (function(){
@@ -2888,10 +2892,10 @@ function listaHtml(p, f, modo){
 function perfil(el){
   const desenha = () => {
     const q = new URLSearchParams(location.hash.slice(1)), id = q.get('p') || P[0].id, p = P.find(x => x.id === id) || P[0], f = festasDe(p), s = !!segue[p.id], lista = q.get('lista') === '1', modo = q.get('modo') === 'promoter' ? 'promoter' : 'eu';
-    document.title = 'Streetfy · ' + p.nome + ' · ' + NIVEL[p.nivel];
+    document.title = 'Xouty · ' + p.nome + ' · ' + NIVEL[p.nivel];
     const url = location.origin + location.pathname + '#p=' + p.id;
     el.innerHTML = '<section class="p-hero perfil pr-hero"><div class="s-bg" style="background-image:url(img/' + p.foto + '.jpg)"></div><div class="s-tint"></div><div class="s-wrap">'
-      + '<div class="crumbs"><a href="index.html">Streetfy</a> › <a href="promoters.html#lista">Promoters</a> › <span>' + esc(p.nome) + '</span></div>'
+      + '<div class="crumbs"><a href="index.html">Xouty</a> › <a href="promoters.html#lista">Promoters</a> › <span>' + esc(p.nome) + '</span></div>'
       + '<div class="pr-cab"><div class="pr-av" style="background-image:url(' + RETRATO(p) + ')"></div><div><h1 class="s-h" style="font-size:clamp(52px,8vw,110px)">' + esc(p.nome.toUpperCase()).replace(/ ([^ ]+)$/, ' <em>$1</em>') + '</h1>'
       + '<span class="pr-nivel ' + p.nivel + '">' + NIVEL[p.nivel] + '</span> <span class="p-meta">' + esc(NOME_CID(p.cidade)) + ' · ' + p.estilos.map(cap).join(', ') + '</span></div></div>'
       + '<p class="s-lead" style="margin-top:14px;max-width:56ch">' + esc(p.bio) + '</p>'
@@ -2910,7 +2914,7 @@ function perfil(el){
     const pn = ev.target.closest('[data-pn]'); if (pn) { painelP(P.find(x => x.id === pn.dataset.pnId), pn.dataset.pn); return; }
     const a = ev.target.closest('[data-lc]'); if (a) { ev.preventDefault(); acaoLista(a.dataset); desenha(); return; }
     const s = ev.target.closest('[data-seguir-p]'); if (s) { ev.preventDefault(); const id = s.dataset.seguirP; if (segue[id]) delete segue[id]; else segue[id] = 1; guarda(); desenha(); return; }
-    const sh = ev.target.closest('[data-partilhar-p]'); if (sh) { ev.preventDefault(); const t = sh.dataset.titulo + ' · promoter no Streetfy'; if (navigator.share) navigator.share({title:t, url:sh.href}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(t + ' · ' + sh.href), '_blank', 'noopener'); }
+    const sh = ev.target.closest('[data-partilhar-p]'); if (sh) { ev.preventDefault(); const t = sh.dataset.titulo + ' · promoter no Xouty'; if (navigator.share) navigator.share({title:t, url:sh.href}).catch(() => {}); else window.open('https://wa.me/?text=' + encodeURIComponent(t + ' · ' + sh.href), '_blank', 'noopener'); }
   });
   window.addEventListener('hashchange', () => { desenha(); window.scrollTo({top:0}); });
   desenha();
@@ -2966,7 +2970,7 @@ document.querySelectorAll('[data-promoters]').forEach(grelha);
 document.querySelectorAll('[data-promoter]').forEach(perfil);
 window.STREETFY_PROMOTERS = {lista:P, festasDe};
 })();
-</script><script>/* Streetfy · euvou.js — o botão "Eu vou" (R110): qualquer pessoa indica uma festa aos seus seguidores.
+</script><script>/* Xouty · euvou.js — o botão "Eu vou" (R110): qualquer pessoa indica uma festa aos seus seguidores.
    Até 3 por dia de evento, só do catálogo (R66). Quem abre pela indicação e faz check-in conta como presença verificada
    de quem indicou (R68), e é isso que leva a promoter (R69). Guardado neste aparelho em streetfy:eu-vou. */
 (function(){
@@ -3003,7 +3007,7 @@ const AMIGOS = [['Leonor S.', 'tram'], ['Hugo M.', 'dj'], ['Inês C.', 'alfama']
 const indic = () => { try { return JSON.parse(localStorage.getItem(IK) || '[]') || []; } catch (e) { return []; } };
 const indicadosDe = id => indic().filter(x => x.id === id).reduce((a, x) => a.concat(x.para), []).filter((n, k, l) => l.indexOf(n) === k);
 let aberto = '', esc2 = new Set();
-/* partilhar fora do Streetfy: WhatsApp (link wa.me), Instagram (folha de partilha do telemóvel; no computador copia e abre as mensagens) e copiar o link */
+/* partilhar fora do Xouty: WhatsApp (link wa.me), Instagram (folha de partilha do telemóvel; no computador copia e abre as mensagens) e copiar o link */
 const ICO_WA = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
 const ICO_IG = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>';
 const ICO_LK = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -3012,7 +3016,7 @@ const textoEv = (i, msg) => (msg || 'Bora?') + ' ' + i.titulo + (i.lugar && i.lu
 /* no telemóvel, o endereço da própria app (whatsapp://) leva sempre o texto; o wa.me no iPhone às vezes abre a app sem a mensagem */
 const MOVEL = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const hrefWa = (i, msg) => (MOVEL ? 'whatsapp://send?text=' : 'https://wa.me/?text=') + encodeURIComponent(textoEv(i, msg) + urlEv(i));
-const fora = i => '<div class="ev-fora"><span>Ou manda fora do Streetfy</span><div><a class="ev-sh wa" href="' + esc(hrefWa(i, '')) + '" data-ev-sh="wa"' + (MOVEL ? '' : ' target="_blank" rel="noopener"') + ' aria-label="Mandar por WhatsApp" title="WhatsApp">' + ICO_WA + '<b>WhatsApp</b></a><button type="button" class="ev-sh ig" data-ev-sh="ig" aria-label="Mandar pelo Instagram" title="Instagram">' + ICO_IG + '<b>Instagram</b></button><button type="button" class="ev-sh lk" data-ev-sh="lk" aria-label="Copiar o link" title="Copiar link">' + ICO_LK + '<b>Copiar link</b></button></div></div>';
+const fora = i => '<div class="ev-fora"><span>Ou manda fora do Xouty</span><div><a class="ev-sh wa" href="' + esc(hrefWa(i, '')) + '" data-ev-sh="wa"' + (MOVEL ? '' : ' target="_blank" rel="noopener"') + ' aria-label="Mandar por WhatsApp" title="WhatsApp">' + ICO_WA + '<b>WhatsApp</b></a><button type="button" class="ev-sh ig" data-ev-sh="ig" aria-label="Mandar pelo Instagram" title="Instagram">' + ICO_IG + '<b>Instagram</b></button><button type="button" class="ev-sh lk" data-ev-sh="lk" aria-label="Copiar o link" title="Copiar link">' + ICO_LK + '<b>Copiar link</b></button></div></div>';
 const copia = t => (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject()).catch(() => { const a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} a.remove(); if (!ok) throw new Error('sem cópia'); });
 function painel(i){
   const ja = indicadosDe(i.id);
@@ -3038,7 +3042,7 @@ document.addEventListener('click', ev => {
     ev.preventDefault();
     if (sh.dataset.evSh === 'lk') { copia(url).then(() => nota(w, 'Link copiado. Cola onde quiseres.'), () => nota(w, 'Não deu para copiar: ' + url)); return; }
     /* Instagram: no telemóvel abre a folha de partilha (escolhe Instagram); no computador copia a mensagem e abre as mensagens do Instagram */
-    if (navigator.share) { navigator.share({title:i.titulo + ' · Streetfy', text:txt, url}).catch(() => {}); return; }
+    if (navigator.share) { navigator.share({title:i.titulo + ' · Xouty', text:txt, url}).catch(() => {}); return; }
     copia(txt + url).then(() => { nota(w, 'Mensagem copiada. Cola na conversa do Instagram que abriu.'); window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener'); }, () => nota(w, 'Não deu para copiar: ' + url));
     return;
   }
@@ -3079,7 +3083,7 @@ document.addEventListener('input', ev => {
 });
 window.STREETFY_EUVOU = {MAX, ler, gravar, tem, alterna, botao, doDia, diaDe, diaTxt, hojeKey};
 })();
-</script><script>/* Streetfy · conta.js — as páginas da conta: os meus planos (agenda.html), amigos (amigos.html), notificações (notificacoes.html),
+</script><script>/* Xouty · conta.js — as páginas da conta: os meus planos (agenda.html), amigos (amigos.html), notificações (notificacoes.html),
    pesquisa (pesquisa.html) e entrar (entrar.html). Cada página tem <div data-conta="…">. Pessoas fictícias; eventos, lugares e
    promoters do catálogo do site. Tudo fica neste aparelho. */
 (function(){
@@ -3199,12 +3203,12 @@ const PQ_EV = [
   ['quando', 'Quando?', 1, [['hoje', 'Hoje'], ['amanha', 'Amanhã'], ['fds', 'Fim de semana'], ['semana', 'Esta semana']], valQuando],
   ['preco', 'Quanto?', 1, [['gratis', 'Grátis'], ['10', 'Até €10'], ['20', 'Até €20'], ['mais', 'Mais de €20']], i => BF.valPreco(i)],
   ['hora', 'A que horas?', 0, [['tarde', 'Fim de tarde'], ['noite', 'Noite'], ['madrugada', 'Madrugada']], i => BF.valHora(i)],
-  ['extra', 'Mais alguma coisa?', 0, [['streetfy', 'Bilhete no Streetfy'], ['agora', 'Gente lá agora'], ['amigos', 'Amigos vão']], i => BF.valExtra(i), 1]
+  ['extra', 'Mais alguma coisa?', 0, [['streetfy', 'Bilhete no Xouty'], ['agora', 'Gente lá agora'], ['amigos', 'Amigos vão']], i => BF.valExtra(i), 1]
 ];
 const PQ_LO = [
   ['bairro', 'Que bairro?', 0, 'dados', v => [v.i.bairro]],
   ['tipo', 'Que tipo de local?', 0, [['bar', 'Bares'], ['clube', 'Clubes'], ['restaurante', 'Restaurantes'], ['concerto', 'Salas de concertos'], ['festa', 'Festas']], v => [...v.tipos]],
-  ['extra', 'Com o quê?', 0, [['streetfy', 'Bilhete e reserva no Streetfy'], ['semana', 'Com eventos esta semana'], ['nota', '★ 4,5 ou mais']], v => [v.streetfy && 'streetfy', v.semana && 'semana', v.star >= 4.5 && 'nota'].filter(Boolean), 1]
+  ['extra', 'Com o quê?', 0, [['streetfy', 'Bilhete e reserva no Xouty'], ['semana', 'Com eventos esta semana'], ['nota', '★ 4,5 ou mais']], v => [v.streetfy && 'streetfy', v.semana && 'semana', v.star >= 4.5 && 'nota'].filter(Boolean), 1]
 ];
 const PQ_PE = [
   ['papel', 'Quem procuras?', 0, [['promoter', 'Promoters'], ['concierge', 'Concierges'], ['pessoa', 'Utilizadores']], p => [p.papel]],
@@ -3291,7 +3295,7 @@ function entrar(){
   if (logado) { const q2 = S.PAPEIS[papel]; return '<div class="ct-vazio"><b>Já tens sessão iniciada como ' + esc(q2.nome) + '</b><p>' + esc(q2.sub) + '</p><div class="ct-ac"><a class="s-btn ink" href="' + esc(q2.perfil) + '">Ir para o perfil</a><button type="button" class="s-btn ghost" data-ct-sair>Terminar sessão</button></div></div>'; }
   if (passo === 2) return '<form class="ct-form" data-ct-cod><h2>Escreve o código</h2><p>Mandámos 6 dígitos para <b>' + esc(cont) + '</b>.</p><input name="c" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" class="ct-cod" aria-label="Código de 6 dígitos" required>' + (erro ? '<p class="cd-erro" role="alert">' + esc(erro) + '</p>' : '') + '<button class="s-btn pink" type="submit">Entrar</button><button type="button" class="cd-lnk" data-ct-voltar>Mudar o número ou e-mail</button><small class="ct-dica">Protótipo: qualquer código de 6 dígitos serve.</small></form>';
   return '<div class="ct-abas" role="tablist">' + [['entrar', 'Entrar'], ['criar', 'Criar conta']].map(([k, n]) => '<button type="button" role="tab" data-ct-modo="' + k + '" class="' + (modo === k ? 'on' : '') + '" aria-selected="' + (modo === k) + '">' + n + '</button>').join('') + '</div>'
-    + '<form class="ct-form" data-ct-ent>' + (modo === 'criar' ? '<div class="cd-2"><label>Nome<input name="nome" value="' + esc(novo.nome) + '" autocomplete="name" required></label><label>Nome de utilizador<input name="user" value="' + esc(novo.user) + '" autocapitalize="none" placeholder="ex.: mari.costa" required></label></div><label>Data de nascimento<input type="date" name="nasc" value="' + esc(novo.nasc) + '" required><small>o Streetfy é para maiores de 18; não aparece no perfil</small></label>' : '')
+    + '<form class="ct-form" data-ct-ent>' + (modo === 'criar' ? '<div class="cd-2"><label>Nome<input name="nome" value="' + esc(novo.nome) + '" autocomplete="name" required></label><label>Nome de utilizador<input name="user" value="' + esc(novo.user) + '" autocapitalize="none" placeholder="ex.: mari.costa" required></label></div><label>Data de nascimento<input type="date" name="nasc" value="' + esc(novo.nasc) + '" required><small>o Xouty é para maiores de 18; não aparece no perfil</small></label>' : '')
     + '<label>Telemóvel ou e-mail<input name="cont" value="' + esc(cont) + '" autocomplete="username" placeholder="+351 9xx xxx xxx ou nome@exemplo.pt" required></label>'
     + (modo === 'criar' ? '<label class="cd-chk"><input type="checkbox" name="termos"' + (novo.termos ? ' checked' : '') + '><span>Aceito os <a href="#">termos</a> e a <a href="privacidade.html">política de privacidade</a>.</span></label>' : '')
     + (erro ? '<p class="cd-erro" role="alert">' + esc(erro) + '</p>' : '') + '<button class="s-btn pink" type="submit">' + (modo === 'criar' ? 'Criar conta' : 'Continuar') + '</button>'
@@ -3329,7 +3333,7 @@ el.addEventListener('submit', ev => {
   if (f.matches('[data-ct-pesq]')) { q = f.q.value; const r = ls('streetfy:pesquisas', []).filter(x => x !== q.trim()); if (q.trim()) { r.unshift(q.trim()); gv('streetfy:pesquisas', r.slice(0, 5)); } history.replaceState(null, '', q ? '#q=' + encodeURIComponent(q) : location.pathname); desenha(); return; }
   if (f.matches('[data-ct-ent]')) {
     cont = f.cont.value.trim();
-    if (modo === 'criar') { novo = {nome:f.nome.value.trim(), user:f.user.value.trim().toLowerCase(), nasc:f.nasc.value, termos:f.termos.checked}; if (!/^[a-z0-9_][a-z0-9._]{2,23}$/.test(novo.user)) erro = 'Nome de utilizador: 3 a 24 letras minúsculas, números, ponto ou _.'; else if (idade(novo.nasc) < 18) erro = 'O Streetfy é só para maiores de 18.'; else if (!novo.termos) erro = 'Falta aceitar os termos.'; else erro = ''; }
+    if (modo === 'criar') { novo = {nome:f.nome.value.trim(), user:f.user.value.trim().toLowerCase(), nasc:f.nasc.value, termos:f.termos.checked}; if (!/^[a-z0-9_][a-z0-9._]{2,23}$/.test(novo.user)) erro = 'Nome de utilizador: 3 a 24 letras minúsculas, números, ponto ou _.'; else if (idade(novo.nasc) < 18) erro = 'O Xouty é só para maiores de 18.'; else if (!novo.termos) erro = 'Falta aceitar os termos.'; else erro = ''; }
     else erro = '';
     if (!erro && !/^(\+?\d[\d ]{8,15}|[^\s@]+@[^\s@]+\.[a-z]{2,})$/i.test(cont)) erro = 'Escreve um telemóvel ou um e-mail válido.';
     if (!erro) passo = 2; desenha(passo === 2 ? '.ct-cod' : '[name=cont]'); return;
