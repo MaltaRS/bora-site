@@ -2337,6 +2337,21 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .gm-dj.ok{color:var(--ink)}.gm-dj.ok .gm-ic{background:var(--mint)}.gm-dj b{display:block;font-size:14px}.gm-dj small{font-size:12px;color:var(--grey)}
 .gm-reg{margin:0;padding:0;list-style:none;display:grid;gap:8px}.gm-reg li{background:#fff;border-left:5px solid var(--pink);border-radius:0 12px 12px 0;padding:10px 14px;font-size:15px}
 @media (max-width:760px){.gm-top,.gm-2{grid-template-columns:minmax(0,1fr)}.gm-nivel img{width:64px;height:64px}.gm-rank li{grid-template-columns:24px 34px minmax(0,1fr) auto}.gm-rank li small{display:none}.gm-rank img{width:34px;height:34px}}
+/* conquistas no portal (desafios da casa, liga do mês) e no perfil */
+.gd-l{display:grid;gap:8px}
+.gd-r{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.gd-r.fim{opacity:.55}.gd-r b{display:block;font-size:15px}.gd-r small{color:var(--grey);font-size:12px}
+.gd-n{font-size:12px;color:var(--grey);text-align:center;line-height:1.1}.gd-n b{display:block;font:400 22px/1 var(--fd);color:var(--ink)}
+.gd-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.gd-g .gd-p{grid-column:1/-1}
+.gd-f .s-btn{justify-self:start}
+.gp{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.gp b{font:400 40px/1 var(--fd)}.gp>span:last-child{color:var(--grey);font-size:14px}
+.gu{display:grid;gap:12px}
+.gu-n{display:flex;gap:12px;align-items:center}.gu-n>span{width:52px;height:52px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font:400 26px/1 var(--fd);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink)}
+.gu-n b{display:block;font-size:17px}.gu-n small{color:var(--grey);font-size:13px}
+.gu-s{display:flex;flex-wrap:wrap;gap:6px}.gu-s span{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;border:1.5px solid var(--ink);border-radius:999px;padding:4px 10px 4px 4px;background:#fff}
+.gu-s i{width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-size:11px}
+.gu .s-btn{justify-self:start}
+@media (max-width:560px){.gd-r{grid-template-columns:1fr 1fr;}.gd-r>div{grid-column:1/-1}}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2603,7 +2618,7 @@ const papel = () => { try { return localStorage.getItem(SK) || 'utilizador'; } c
 const eu = ls('streetfy:perfil-user', null) || {};
 const PAPEIS = {
   utilizador:{nome:eu.nome || 'Mariana Costa', sub:'@' + (eu.user || 'mari.costa'), foto:eu.foto || 'retrato', tipo:'Utilizadora', perfil:'user.html',
-    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['conquistas.html', 'Conquistas (exemplos)'], ['ofertas.html', 'Ofertas perto de ti'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
+    itens:[['user.html', 'O meu perfil'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['conquistas.html', 'Conquistas'], ['ofertas.html', 'Ofertas perto de ti'], ['modo-porta.html', 'Modo porta (funcionário)'], ['notificacoes.html', 'Notificações'], ['editar.html', 'Editar perfil'], ['trabalhar.html', 'Perfil profissional']]},
   promoter:{nome:'Rita M.', sub:'Promoter da cidade · Lisboa', foto:'retrato', tipo:'Promoter', perfil:'promoter.html#p=rita-m',
     itens:[['promoter.html#p=rita-m', 'O meu perfil público'], ['portal.html#promoter', 'Portal do promoter'], ['agenda.html', 'Os meus planos'], ['amigos.html', 'Amigos'], ['amigos-mapa.html', 'Mapa dos amigos'], ['notificacoes.html', 'Notificações'], ['trabalhar.html', 'Perfil profissional']]},
   concierge:{nome:'Lara V.', sub:'Concierge · Lisboa', foto:'cocktail', tipo:'Concierge', perfil:'concierge-perfil.html#c=lara-v',
