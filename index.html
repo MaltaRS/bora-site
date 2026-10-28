@@ -1,5 +1,5 @@
 <!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Xouty · o teu ponto de encontro: festas, bares, restaurantes e experiências de Portugal com preço final, presença ao vivo e gente de verdade. Protótipo."><title>Xouty</title>
-
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=Rubik+Spray+Paint&family=Rubik+Wet+Paint&family=Permanent+Marker&family=Rock+Salt&display=swap">
 <style>
 /* ===== Site do Xouty · cartaz de rua ===== */
@@ -2437,6 +2437,20 @@ const estilosSel = e => e.estilo === 'todos' ? [] : String(e.estilo).split(',').
 const CAMADA = {patrocinado:0, parceiro:1, promoter:2, bot:3};
 ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 (window.STREETFY_BOT || []).forEach(i => ITENS.push(i));
+/* eventos criados pela casa (evento-novo.html, guardados em streetfy:eventos-casa): os publicados entram no catálogo como os outros do parceiro.
+   Um evento do catálogo editado pela casa guarda-se com o mesmo id e sobrepõe-se ao original. Rascunhos e agendados ainda por sair ficam só no portal. */
+const EV_CASA = {k:'lisboa/lux fragil', lugar:'Lux Frágil', bairro:'Santa Apolónia', cidade:'lisboa', lat:38.7141, lng:-9.121};
+function deEventoCasa(e){
+  const lotes = (e.lotes || []).filter(l => +l.qtd > 0), livre = e.entrada !== 'paga' || !lotes.length;
+  const hoje = new Date().toISOString().slice(0, 10), ativo = lotes.find(l => !l.ate || l.ate >= hoje) || lotes[lotes.length - 1];
+  const nomes = (e.lineup || []).map(x => x.nome).filter(Boolean);
+  return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
+    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
+    hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+}
+const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
+try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}
 /* cidades do bot (Portugal inteiro): abrem no filtro se tiverem eventos; Faro, que estava "em breve", abre também */
 { const pt = PAISES[0];
   { const tot = (window.STREETFY_CIDADES || []).reduce((a, c) => ({e:a.e + c.eventos, l:a.l + c.lugares}), {e:0, l:0});
@@ -2471,7 +2485,7 @@ function ordenar(lista){
   const af = new Map(base.map(i => [i.id, GOSTOS.size ? afinidade(i) : 0]));
   return base.sort((a, b) => (gosta(b) - gosta(a)) || (pat(a) - pat(b)) || (importancia(b) + af.get(b.id) - importancia(a) - af.get(a.id)) || ((a._fora ? 1 : 0) - (b._fora ? 1 : 0)) || (camada(a) - camada(b)));
 }
-const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+const im = i => /^(https?:|data:|img\/)/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
 const hrefPerfil = i => 'perfil.html#lugar=' + encodeURIComponent(lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
 const PADRAO = {pais:'pt', cidade:'todas', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:'', q:'', preco:'', hora:'', extra:''};
@@ -2838,7 +2852,7 @@ function montar(bar){
   return {estado:() => e, set, render};
 }
 normalizaTempo();
-window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
+window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA, deEventoCasa, publicado, EV_CASA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
 window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, valPreco, valHora, valExtra, RAIO_KM, km, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
 /* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */

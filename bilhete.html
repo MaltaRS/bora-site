@@ -2174,6 +2174,91 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 .dj-rid{width:100%;box-sizing:border-box;font:inherit;font-size:14px;padding:10px 12px;border:2px solid var(--ink);border-radius:12px;resize:vertical}
 .dj-mixf{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.dj-mixf input,.dj-mixf select{font:inherit;font-size:14px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;min-width:0}.dj-mixf input[data-djm="t"]{flex:1 1 180px}.dj-mixf input[type=number]{width:80px}
 .dj-card{position:relative}
+/* ---------- evento-novo.html: a casa cria o evento (eventos-casa.js) ---------- */
+.en{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start;margin-top:18px}
+.en-f{display:grid;gap:16px;min-width:0}
+.en-s{gap:14px}
+.en-sh{display:flex;gap:12px;align-items:center}
+.en-sh>span{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:400 18px/1 var(--fd)}
+.en-sh h3{margin:0;font-family:var(--fd);font-weight:400;font-size:24px;text-transform:uppercase;line-height:1}
+.en-sh small{display:block;font-size:12px;color:var(--grey);margin-top:3px}
+.en-l{display:grid;gap:5px;font-size:12px;font-weight:800;color:var(--grey);min-width:0}
+.en-l em{font-style:normal;color:var(--pink);font-weight:700;margin-left:4px}
+.en-lt{display:flex;gap:6px;align-items:baseline}.en-l small.en-cnt{margin-left:auto;font-weight:600}
+.en input:not([type=checkbox]):not([type=file]),.en select,.en textarea{font:inherit;font-size:15px;font-weight:500;color:var(--ink);padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:#fff;width:100%;min-width:0}
+.en textarea{resize:vertical;line-height:1.45}
+.en input:focus-visible,.en select:focus-visible,.en textarea:focus-visible{outline:3px solid var(--pink);outline-offset:1px}
+.en-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.en-3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px}
+.en-err{margin:0;font-size:13px;font-weight:700;color:#c4003f}
+.en-casa{display:flex;gap:12px;align-items:center;border:2px dashed var(--ink);border-radius:12px;padding:10px 12px;background:#fafafa}
+.en-casa>div{flex:1;min-width:0}.en-casa b{display:block}.en-casa small{color:var(--grey);font-size:12px}
+.en-casa-av{width:42px;height:42px;border-radius:10px;background:center/cover;flex:0 0 auto}
+.en-capas{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.en-capas button,.en-up{aspect-ratio:4/3;border-radius:10px;border:2px solid transparent;background:center/cover #ddd;cursor:pointer;padding:0;max-width:100%}
+.en-capas button.on{border-color:var(--pink);box-shadow:0 0 0 2px var(--pink)}
+.en-up{border:2px dashed var(--ink);background:#fff;display:grid;place-items:center;align-content:center;font:400 26px/1 var(--fd);color:var(--ink)}
+.en-up span{font:800 11px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.en-djs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.en-dj{display:grid;justify-items:center;gap:3px;padding:10px 6px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font:inherit;color:var(--ink);text-align:center}
+.en-dj i{width:46px;height:46px;border-radius:50%;background:center/cover #ccc;border:2px solid #fff;box-shadow:0 0 0 2px var(--line)}
+.en-dj b{font-size:14px;line-height:1.1}.en-dj small{font-size:11px;color:var(--grey)}
+.en-dj.on{border-color:var(--ink);background:var(--ink);color:#fff}.en-dj.on small{color:#c9c9c9}.en-dj.on i{box-shadow:0 0 0 2px var(--mint)}
+.en-lus{display:grid;gap:8px}
+.en-lur{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr) 110px 34px;gap:8px;align-items:center}
+.en-lur b{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.en-lur b small{font-weight:500;color:var(--grey);font-size:11px;display:block}
+.en-eur{display:flex;align-items:center;gap:4px;font-weight:800;min-width:0}
+.en-x{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);background:#fff;font:700 18px/1 var(--fb);cursor:pointer;color:var(--ink)}.en-x:disabled{opacity:.3;cursor:default}
+.en-art{display:flex;gap:8px}.en-art input{flex:1}
+.en-seg{display:flex;flex-wrap:wrap;gap:0;border:2px solid var(--ink);border-radius:999px;overflow:hidden;width:max-content;max-width:100%}
+.en-seg button{font:800 13px/1 var(--fb);padding:11px 16px;border:0;background:#fff;color:var(--ink);cursor:pointer}
+.en-seg button+button{border-left:2px solid var(--ink)}
+.en-seg button.on{background:var(--ink);color:#fff}
+.en-lotes{display:grid;gap:8px}
+.en-lh,.en-lr{display:grid;grid-template-columns:minmax(0,1.3fr) 100px 90px minmax(0,1.2fr) 34px;gap:8px;align-items:center}
+.en-lh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.en-lotes>.pt-mini{justify-self:start}
+.en-sx{display:none;font-size:12px;font-weight:700;color:var(--grey)}
+.en-sum{margin:0;font-size:13px;color:var(--grey)}.en-sum b{color:var(--ink)}
+.en-sw{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700;font-size:15px}
+.en-sw small{display:block;font-weight:500;font-size:12px;color:var(--grey)}
+.en-z{display:grid;gap:6px}.en-z>b{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--grey)}
+.en-ms{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.en-m{border:2px solid var(--line);border-radius:10px;padding:8px 10px;display:grid;gap:6px;background:#fff}
+.en-m.on{border-color:var(--ink)}
+.en-m label{display:flex;align-items:center;gap:6px;cursor:pointer}.en-m small{color:var(--grey);font-size:11px;margin-left:auto}
+.en-m input[type=checkbox]{accent-color:var(--pink);width:16px;height:16px}
+.en-bar{position:sticky;bottom:0;z-index:5;background:var(--paper);border-top:2px solid var(--ink);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));display:grid;gap:8px}
+.en-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.en-apagar{margin-right:auto;color:#c4003f;border-color:#c4003f}
+.en-conf{margin-right:auto;display:flex;gap:6px;align-items:center;font-size:13px;font-weight:700;flex-wrap:wrap}
+.en-pv{position:sticky;top:90px;display:grid;gap:12px;min-width:0}
+.en-pv-h{display:flex;justify-content:space-between;align-items:center}
+.en-pv-h b{font-family:var(--fd);font-weight:400;font-size:22px;text-transform:uppercase}
+.en-est{font:800 11px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:999px;background:#eee;color:var(--ink)}
+.en-est.publicado{background:var(--mint)}.en-est.agendado{background:#ffe08a}.en-est.rascunho{background:#e2e2e2}
+.en-card{pointer-events:none;animation:none}
+.en-pg{border:2px solid var(--ink);border-radius:16px;background:#fff;padding:12px 14px;display:grid;gap:10px}
+.en-pg-t{font:800 11px/1 var(--fb);letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.en-pg-v{margin:0;font-size:13px;color:var(--grey)}
+.en-lu{display:flex;flex-wrap:wrap;gap:6px}
+.en-lu span{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;background:var(--paper);border-radius:999px;padding:4px 10px 4px 4px}
+.en-lu i{width:22px;height:22px;border-radius:50%;background:center/cover #ccc}.en-lu i.sem{background:var(--ink)}
+.en-lu small{font-weight:500;color:var(--grey);font-size:11px}
+.en-pg-b{display:grid;gap:4px;font-size:14px}.en-pg-b>div{display:flex;justify-content:space-between;gap:8px}.en-pg-b small{color:var(--grey)}
+.en-pg-b>b{font-size:20px}.en-pg-b>span{color:var(--grey);font-size:13px}
+.en-badges{display:flex;flex-wrap:wrap;gap:6px}.en-badges span{font:700 11px/1 var(--fb);border:1.5px solid var(--ink);border-radius:999px;padding:5px 8px}
+.en-ok{grid-column:1/-1;justify-items:center;text-align:center;padding:36px 20px}
+.en-ok-i{width:64px;height:64px;border-radius:50%;background:var(--mint);display:grid;place-items:center;font-size:32px;font-weight:800}
+.en-ok h2{margin:0;font-size:clamp(40px,6vw,64px)}.en-ok p{margin:0;max-width:52ch;color:var(--grey)}
+.en-ok .en-acts{justify-content:center}
+.pt-est{font:800 10px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:#e2e2e2;vertical-align:middle}.pt-est.ag{background:#ffe08a}
+.pt-rasc td{color:var(--grey)}
+@media (max-width:900px){.en{grid-template-columns:minmax(0,1fr)}.en-pv{position:static;order:-1}}
+@media (max-width:560px){.en-3{grid-template-columns:1fr 1fr}.en-3>label:first-child{grid-column:1/-1}.en-2{grid-template-columns:1fr}
+  .en-lh{display:none}.en-sx{display:inline}.en-lr{padding-bottom:10px;border-bottom:1.5px dashed var(--line);grid-template-columns:minmax(0,1fr) 92px 34px;grid-template-areas:"n p x" "q d d"}.en-lr>:nth-child(1){grid-area:n}.en-lr>:nth-child(2){grid-area:p}.en-lr>:nth-child(3){grid-area:q}.en-lr>:nth-child(4){grid-area:d}.en-lr>:nth-child(5){grid-area:x}
+  .en-lur{grid-template-columns:minmax(0,1fr) 34px;grid-template-areas:"b x" "h c"}.en-lur>:nth-child(1){grid-area:b}.en-lur>:nth-child(2){grid-area:h}.en-lur>:nth-child(3){grid-area:c}.en-lur>:nth-child(4){grid-area:x}
+  .en-seg{width:100%}.en-seg button{flex:1}.en-acts{justify-content:stretch}.en-acts>*{flex:1;text-align:center}}
 
 .leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 /* ===== mapas reais · Leaflet com tiles CARTO/OpenStreetMap, no estilo V5 ===== */
@@ -2679,6 +2764,20 @@ const estilosSel = e => e.estilo === 'todos' ? [] : String(e.estilo).split(',').
 const CAMADA = {patrocinado:0, parceiro:1, promoter:2, bot:3};
 ITENS.forEach(i => { if (!i.origem) i.origem = 'parceiro'; });
 (window.STREETFY_BOT || []).forEach(i => ITENS.push(i));
+/* eventos criados pela casa (evento-novo.html, guardados em streetfy:eventos-casa): os publicados entram no catálogo como os outros do parceiro.
+   Um evento do catálogo editado pela casa guarda-se com o mesmo id e sobrepõe-se ao original. Rascunhos e agendados ainda por sair ficam só no portal. */
+const EV_CASA = {k:'lisboa/lux fragil', lugar:'Lux Frágil', bairro:'Santa Apolónia', cidade:'lisboa', lat:38.7141, lng:-9.121};
+function deEventoCasa(e){
+  const lotes = (e.lotes || []).filter(l => +l.qtd > 0), livre = e.entrada !== 'paga' || !lotes.length;
+  const hoje = new Date().toISOString().slice(0, 10), ativo = lotes.find(l => !l.ate || l.ate >= hoje) || lotes[lotes.length - 1];
+  const nomes = (e.lineup || []).map(x => x.nome).filter(Boolean);
+  return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
+    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
+    hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+}
+const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
+try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}
 /* cidades do bot (Portugal inteiro): abrem no filtro se tiverem eventos; Faro, que estava "em breve", abre também */
 { const pt = PAISES[0];
   { const tot = (window.STREETFY_CIDADES || []).reduce((a, c) => ({e:a.e + c.eventos, l:a.l + c.lugares}), {e:0, l:0});
@@ -2713,7 +2812,7 @@ function ordenar(lista){
   const af = new Map(base.map(i => [i.id, GOSTOS.size ? afinidade(i) : 0]));
   return base.sort((a, b) => (gosta(b) - gosta(a)) || (pat(a) - pat(b)) || (importancia(b) + af.get(b.id) - importancia(a) - af.get(a.id)) || ((a._fora ? 1 : 0) - (b._fora ? 1 : 0)) || (camada(a) - camada(b)));
 }
-const im = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+const im = i => /^(https?:|data:|img\/)/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const lugarKey = i => i.cidade + '/' + chaveNome(i.lugar || i.titulo);
 const hrefPerfil = i => 'perfil.html#lugar=' + encodeURIComponent(lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
 const PADRAO = {pais:'pt', cidade:'todas', tipo:'tudo', quando:'hoje', estilo:'todos', bairro:'', q:'', preco:'', hora:'', extra:''};
@@ -3080,7 +3179,7 @@ function montar(bar){
   return {estado:() => e, set, render};
 }
 normalizaTempo();
-window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA};
+window.STREETFY_CATALOGO = {itens:ITENS, chave:chaveNome, lugarKey, CAMADA, deEventoCasa, publicado, EV_CASA};
 const montados = [...document.querySelectorAll('[data-filtros]')].map(montar);
 window.BORA_FILTROS = {PAISES, ITENS, TIPOS, QUANDO, filtrar, lerUrl, hashDe, montados, valPreco, valHora, valExtra, RAIO_KM, km, gostos:() => [...GOSTOS], grupoDe, AGORA, normalizaTempo};
 /* o mesmo gosto nas páginas do evento e do perfil: ler, alternar e o ícone */
@@ -3387,9 +3486,10 @@ const moda = arr => { const n = {}; arr.forEach(x => { if (x) n[x] = (n[x] || 0)
 const fmt = n => n == null ? '—' : (n >= 1000 ? (Math.round(n / 100) / 10).toString().replace('.', ',') + ' mil' : String(n));
 const eur = n => '€' + (Math.round(n * 100) / 100).toFixed(2).replace('.', ',').replace(/,00$/, '');
 const precoTxt = i => i.preco === 0 ? 'Entrada livre' : (typeof i.preco === 'number' ? '€' + i.preco : (i.preco || ''));
-const img = i => /^https?:/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
+const img = i => /^(https?:|data:|img\/)/.test(i.img || '') ? i.img : 'img/' + i.img + '.jpg';
 const SEM_C = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
-const quandoTxt = i => { const ks = (i._ks || []).slice().sort((a, b) => a - b); if (!ks.length) return (i.quando || []).includes('hoje') ? 'hoje' : 'esta semana'; if (ks[0] === 0) return 'hoje'; if (ks[0] === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + ks[0]); return SEM_C[d.getDay()] + ' ' + d.getDate(); };
+const MES_C = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const quandoTxt = i => { const ks = (i._ks || []).slice().sort((a, b) => a - b); if (!ks.length && i.data) { const d = new Date(i.data + 'T12:00'); return SEM_C[d.getDay()] + ' ' + d.getDate() + ' ' + MES_C[d.getMonth()]; } if (!ks.length) return (i.quando || []).includes('hoje') ? 'hoje' : 'esta semana'; if (ks[0] === 0) return 'hoje'; if (ks[0] === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + ks[0]); return SEM_C[d.getDay()] + ' ' + d.getDate(); };
 const hoje = new Date().toISOString().slice(0, 10);
 const SH = '<svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>';
 const COPIAR = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
@@ -3409,6 +3509,12 @@ const G = window.STREETFY_GOSTOS || {tem:() => false, alternar:() => false, icon
 const btnGosto = i => '<button type="button" class="s-btn ghost gosto' + (G.tem(i.id) ? ' on' : '') + '" data-gosto="' + esc(i.id) + '" aria-pressed="' + G.tem(i.id) + '">' + G.icone + '<span>' + (G.tem(i.id) ? 'Já gostas' : 'Gosto') + '</span></button>';
 const coracao = i => '<button type="button" class="s-gosto' + (G.tem(i.id) ? ' on' : '') + '" data-gosto="' + esc(i.id) + '" aria-pressed="' + G.tem(i.id) + '" aria-label="' + (G.tem(i.id) ? 'Já gostas · tirar' : 'Gosto') + '" title="' + (G.tem(i.id) ? 'Já gostas · tirar' : 'Gosto') + '">' + G.icone + '</button>';
 
+/* lotes do evento criado pela casa: o que está à venda primeiro; os que já fecharam aparecem riscados */
+function lotesHtml(i){
+  const ativo = i.lotes.find(l => !l.ate || l.ate >= hoje);
+  return '<div><div class="lbl"><span>Lote</span><i>' + (i.lotacao ? 'lotação ' + i.lotacao : '') + (i.idade && i.idade !== '0' ? ' · ' + esc(i.idade) + '+' : '') + '</i></div><div class="zones">'
+    + i.lotes.map(l => { const on = l === ativo, foi = l.ate && l.ate < hoje; return '<button type="button" class="so' + (on ? ' on' : '') + '"' + (on ? '' : ' style="opacity:.55' + (foi ? ';text-decoration:line-through' : '') + '"') + ' disabled>' + esc(l.nome) + '<small>' + (on ? 'à venda · ' : foi ? 'esgotado · ' : 'a seguir · ') + eur(+l.preco) + '</small></button>'; }).join('') + '</div></div>';
+}
 function render(){
   const q = new URLSearchParams(location.hash.slice(1));
   const chaveLugar = q.get('lugar') || '', idEvento = q.get('evento') || '';
@@ -3448,13 +3554,13 @@ function render(){
     + '<div class="p-acts"><a class="s-btn ink" href="' + esc(urlPerfil) + '">Ver perfil</a><a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a><a class="s-btn ghost" href="' + esc(urlPerfilSo) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>' + (instagram ? '<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>' : '') + (assumido ? '' : '<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>') + '</div>';
 
   /* sobre o evento */
-  el('sobre').innerHTML = '<p class="s-lead" style="font-size:16px">' + esc(sel.pp || sel.descricao || '') + (sel.origem === 'bot' ? (sel.pp ? ' · ' : '') + 'Informação recolhida de ' + esc(sel.fonte) + (fonteLink ? ', <a href="' + esc(fonteLink) + '" target="_blank" rel="noopener">ver a origem</a>' : '') : '') + '</p>'
+  el('sobre').innerHTML = '<p class="s-lead" style="font-size:16px">' + esc(sel.daCasa && sel.descricao ? sel.descricao : (sel.pp || sel.descricao || '')) + (sel.origem === 'bot' ? (sel.pp ? ' · ' : '') + 'Informação recolhida de ' + esc(sel.fonte) + (fonteLink ? ', <a href="' + esc(fonteLink) + '" target="_blank" rel="noopener">ver a origem</a>' : '') : '') + '</p>'
     + '<div class="p-acoes" style="margin-top:12px">' + (window.STREETFY_EUVOU ? window.STREETFY_EUVOU.botao(sel) : '') + btnGosto(sel) + '<a class="s-btn ghost" href="' + esc(ligar(sel)) + '" data-partilhar data-titulo="' + esc(sel.titulo + ' · ' + nome) + '">Compartilhar</a><a class="s-btn ghost icone" href="' + esc(ligar(sel)) + '" data-copiar title="Copiar link" aria-label="Copiar link">' + COPIAR + '</a></div>';
 
   /* lineup: dos artistas (subtítulo) ou do estilo */
   const artistas = (sel.subtitulo || '').split(/,|·/).map(x => x.trim()).filter(x => x && x.length < 40);
   el('lineup').innerHTML = artistas.length
-    ? artistas.slice(0, 6).map(a => '<div><div class="bd"><b class="nome">' + esc(a) + '</b><span>' + esc(sel.estilo ? cap(sel.estilo) : 'ao vivo') + '</span>' + (sel.hora ? '<span class="h">' + esc(sel.hora) + '</span>' : '') + '</div></div>').join('')
+    ? artistas.slice(0, 6).map((a, k) => '<div><div class="bd"><b class="nome">' + esc(a) + '</b><span>' + esc(sel.estilo ? cap(sel.estilo) : 'ao vivo') + '</span>' + ((sel.setsHora && sel.setsHora[k]) || sel.hora ? '<span class="h">' + esc((sel.setsHora && sel.setsHora[k]) || sel.hora) + '</span>' : '') + '</div></div>').join('')
     : '<div><div class="bd"><b class="nome">' + esc(sel.estilo ? cap(sel.estilo) : 'Programa') + '</b><span>' + (sel.origem === 'bot' ? 'a fonte não lista os artistas' : 'residentes da casa') + '</span>' + (sel.hora ? '<span class="h">' + esc(sel.hora) + '</span>' : '') + '</div></div>';
 
   /* os outros eventos do lugar */
@@ -3469,8 +3575,8 @@ function render(){
     el('bilhete').innerHTML = '<div class="book"><span class="mode-tag" style="background:#fff;color:var(--ink);border:2px dashed var(--ink)">Já passou</span><div class="pr"><b>' + esc(quandoTxt(sel)) + '</b><span>este evento fica no histórico do lugar</span></div><div class="fonte"><a class="s-btn pink" href="' + esc(urlPerfil) + '" style="width:100%;text-align:center">Ver o perfil e os próximos</a></div></div>';
   } else if (assumido && sel.origem !== 'bot') {
     el('bilhete').innerHTML = '<div class="book"><span class="mode-tag">' + (livre ? 'Entrada livre · sem bilhete' : 'Bilhete · lotação à vista') + '</span>'
-      + '<div class="pr"><b>' + (livre ? 'Grátis' : eur(precoBase)) + '</b><span>' + (livre ? 'chega e entra; faz check-in à porta' : 'Geral · taxa de serviço à parte, mostrada antes de pagar') + '</span></div>'
-      + (livre ? '' : '<div><div class="lbl"><span>Tipo</span><i>restam 62</i></div><div class="zones"><button type="button" class="on so">Geral<small>restam 62 · ' + eur(precoBase) + '</small></button><button type="button" class="so" style="opacity:.6">Mesa VIP<small>consumo mínimo · reservar</small></button></div></div>'
+      + '<div class="pr"><b>' + (livre ? 'Grátis' : eur(precoBase)) + '</b><span>' + (livre ? 'chega e entra; faz check-in à porta' : (sel.lotes && sel.lotes.length ? esc((sel.lotes.find(l => !l.ate || l.ate >= hoje) || sel.lotes[0]).nome) : 'Geral') + ' · taxa de serviço à parte, mostrada antes de pagar') + '</span></div>'
+      + (livre ? '' : (sel.lotes && sel.lotes.length ? lotesHtml(sel) : '<div><div class="lbl"><span>Tipo</span><i>restam 62</i></div><div class="zones"><button type="button" class="on so">Geral<small>restam 62 · ' + eur(precoBase) + '</small></button><button type="button" class="so" style="opacity:.6">Mesa VIP<small>consumo mínimo · reservar</small></button></div></div>')
         + '<div><div class="lbl"><span>Bilhetes</span><i>até 6 por compra</i></div><div class="step"><button type="button" data-q="-1">−</button><div style="text-align:center"><b data-p="qtd">' + qtd + '</b><span>pessoas</span></div><button type="button" class="p" data-q="1">+</button></div></div>'
         + '<div class="tot"><div><span>Bilhetes</span><span data-p="t-base"></span></div><div><span>Taxa de serviço (6% + €0,50)</span><span data-p="t-taxa"></span></div><div class="sum"><span>Total</span><span data-p="t-total"></span></div></div>')
       + '<a class="s-btn pink" href="' + (livre ? 'agenda.html' : 'app.html') + '" style="width:100%;text-align:center" data-p="cta">' + (livre ? 'Quero ir · entra nos planos' : 'Comprar') + '</a>'
