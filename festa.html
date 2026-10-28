@@ -501,6 +501,9 @@ img{max-width:100%;display:block}
 .s-nav:not(.on) .s-ico:hover{background:rgba(255,255,255,.12)}
 /* telemóvel e tablet: lupa, sino, avatar e menu sempre encostados à direita (a regra .s-menu + .s-conta deixava ~95 px vazios nas páginas internas) */
 @media (max-width:900px){.s-nav .s-menu + .s-conta{margin-left:auto}}
+.fa-pill.tira{cursor:pointer}.fa-pill.tira:hover{transform:translateY(-1px)}
+.fa-pill.mais{font-size:12.5px;padding:6px 11px;border-style:dashed;background:transparent}
+.p-hero .fa .fa-pill.mais,.s-dark .fa .fa-pill.mais{color:var(--fa-tx);border-color:var(--fa-tx)}
 
 /* ===== páginas internas ===== */
 .p-hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding-top:72px;min-height:520px;display:grid;align-items:end}
@@ -3620,6 +3623,12 @@ function painel(st, cfg){
   let h = '<div class="fa-topo">';
   if (!cfg.semTopo) {
     if (st.top == null) h += (cfg.tudo ? pill(' aria-pressed="true" tabindex="-1"', cfg.tudo, null, 'on') : '') + cfg.topo.map(([v, n, c]) => pill(' data-fa="top" data-v="' + esc(v) + '"' + (c === 0 ? ' disabled' : ''), n, c)).join('');
+    else if (cfg.multi && Array.isArray(st.tops)) {
+      /* vários tipos: os escolhidos ficam rosa (toca para tirar) e os outros aparecem pequenos para juntar */
+      h += st.tops.map(v => { const o = cfg.topo.find(x => x[0] === v) || [v, v]; return pill(' data-fa="top-tira" data-v="' + esc(v) + '" aria-pressed="true" title="' + esc(t.tirar) + '"', o[1] + ' ✕', o[2], 'on rosa tira'); }).join('')
+        + cfg.topo.filter(([v]) => !st.tops.includes(v)).map(([v, n, c]) => pill(' data-fa="top-mais" data-v="' + esc(v) + '" aria-pressed="false"' + (c === 0 ? ' disabled' : ''), '+ ' + n, null, 'mais')).join('')
+        + '<button type="button" class="fa-voltar" data-fa="top-voltar">' + t.voltar + '</button>';
+    }
     else { const o = cfg.topo.find(x => x[0] === st.top) || [st.top, st.top]; h += pill(' aria-pressed="true" tabindex="-1"', o[1], o[2], 'on' + (cfg.rosa === false ? '' : ' rosa')) + '<button type="button" class="fa-voltar" data-fa="top-voltar">' + t.voltar + '</button>'; }
   }
   if (ativo) {
@@ -3646,8 +3655,10 @@ function painel(st, cfg){
 function acao(st, b, passos){
   const a = b.dataset.fa, v = b.dataset.v, k = b.dataset.k;
   const p = (passos || []).find(x => x.k === k) || {};
-  if (a === 'top') { st.top = v; st.sel = {}; st.feito = {}; st.todos = false; }
-  else if (a === 'top-voltar') { st.top = null; st.sel = {}; st.feito = {}; st.todos = false; }
+  if (a === 'top') { st.top = v; if (Array.isArray(st.tops)) st.tops = [v]; st.sel = {}; st.feito = {}; st.todos = false; }
+  else if (a === 'top-voltar') { st.top = null; if (Array.isArray(st.tops)) st.tops = []; st.sel = {}; st.feito = {}; st.todos = false; }
+  else if (a === 'top-mais' && Array.isArray(st.tops)) { if (!st.tops.includes(v)) st.tops.push(v); st.top = st.tops[0]; }
+  else if (a === 'top-tira' && Array.isArray(st.tops)) { st.tops = st.tops.filter(x => x !== v); st.top = st.tops[0] || null; if (!st.top) { st.sel = {}; st.feito = {}; st.todos = false; } }
   else if (a === 'op') { const s = st.sel[k] || []; if (p.um) { st.sel[k] = [v]; st.feito[k] = 1; } else st.sel[k] = s.includes(v) ? s.filter(x => x !== v) : s.concat(v); }
   else if (a === 'fecha') st.feito[k] = 1;
   else if (a === 'reabre') delete st.feito[k];
