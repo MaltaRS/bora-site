@@ -2391,6 +2391,15 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 @media (max-width:560px){.bp-docs li{grid-template-columns:auto minmax(0,1fr) auto}.bp-docs li .pt-mini{display:none}}
 .bp-docs li.dj{border-color:var(--mint)}.bp-docs li.dj .bp-doc-i{background:var(--mint);color:var(--ink)}
 .dj-fat .bp-docs{margin-top:4px}.dj-fatf{gap:12px}
+
+/* permissões por promoter na parceria · eventos de promoters · faturação do DJ por conta ligada */
+.pc-okp{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff}
+.pc-perm{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--grey)}.pc-perm label{display:flex;gap:4px;align-items:center;cursor:pointer}.pc-perm input{accent-color:var(--pink)}
+.pc-permt{display:block;font-weight:500;color:var(--grey);font-size:11px}
+.pt-est.ok{background:var(--mint)}.pt-est.re{background:#ffc9d6}
+.en-est.a{background:#ffe08a}.en-est.recusado{background:#ffc9d6}
+.bp-docs li.pend{border-style:dashed}.bp-docs li.pend .bp-doc-i{background:#ffe08a;color:var(--ink)}
+.dj-fatf .en-seg{width:100%}.dj-fatf .en-seg button{flex:1}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2681,7 +2690,7 @@ const ITENS = [
  {id:'l8', lat:38.7034, lng:-9.1786, cidade:'lisboa', kind:'evento', tipos:['concerto'], estilo:'indie', tag:'Indie', titulo:'Concerto na LX', lugar:'LX Factory', bairro:'Santos', hora:'22:00', preco:12, vao:19, img:'lx', href:'evento.html', quando:['hoje'], pp:'sala pequena, chegar cedo'},
  {id:'l9', lat:38.7128, lng:-9.1448, cidade:'lisboa', kind:'lugar', tipos:['bar', 'livre'], estilo:'bar a bar', tag:'Entrada livre', titulo:'Bairro Alto', lugar:'23 bares abertos', bairro:'Bairro Alto', hora:'22:00', preco:0, aqui:412, img:'tram', href:'cais-do-sodre.html', quando:SEMPRE, pp:'a rua inteira, bar a bar · 1,1 km'},
  {id:'l10', lat:38.7111, lng:-9.148, cidade:'lisboa', kind:'lugar', tipos:['bar'], estilo:'rooftop', tag:'Rooftop', titulo:'Park', lugar:'Park Bar', bairro:'Bairro Alto', hora:'17:00', preco:'€€', aqui:88, star:'4,4', img:'bairro', href:'lugar.html', quando:SEMPRE, pp:'no topo do parque de estacionamento, pôr do sol'},
- {id:'l11', lat:38.7145, lng:-9.1206, cidade:'lisboa', kind:'evento', tipos:['festa', 'clube'], estilo:'house', tag:'House', titulo:'Lux Sessions', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'sáb 23:30', preco:12, vao:31, img:'club', href:'evento.html', quando:['amanha', 'fds'], pp:'residentes da casa · 23:30 – 06:00'},
+ {id:'l11', lat:38.7145, lng:-9.1206, cidade:'lisboa', kind:'evento', tipos:['festa', 'clube'], estilo:'house', tag:'House', titulo:'Lux Sessions', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'sáb 23:30', preco:12, vao:31, img:'club', href:'evento.html', quando:['amanha', 'fds'], pp:'residentes da casa · 23:30 – 06:00', soSeguidores:true},
  {id:'l12', lat:38.7137, lng:-9.1214, cidade:'lisboa', kind:'evento', tipos:['festa', 'livre'], estilo:'house', tag:'Entrada livre', titulo:'Terraço de domingo', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'dom 17:00', preco:0, img:'lux', href:'lugar.html', quando:['fds'], pp:'pôr do sol e house calmo'},
  {id:'l13', lat:38.7038, lng:-9.1782, cidade:'lisboa', kind:'evento', tipos:['festa', 'restaurante'], estilo:'disco', tag:'Disco', titulo:'Brunch eletrónico', lugar:'LX Factory', bairro:'Santos', hora:'dom 13:00', preco:15, vao:64, img:'lx', href:'evento.html', quando:['fds'], pp:'brunch incluído até às 15h'},
  /* Porto */
@@ -2726,10 +2735,11 @@ function deEventoCasa(e){
   const lotes = (e.lotes || []).filter(l => +l.qtd > 0), livre = e.entrada !== 'paga' || !lotes.length;
   const hoje = new Date().toISOString().slice(0, 10), ativo = lotes.find(l => !l.ate || l.ate >= hoje) || lotes[lotes.length - 1];
   const nomes = (e.lineup || []).map(x => x.nome).filter(Boolean);
-  return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
-    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
+  const LC = e.casa || EV_CASA;
+  return {id:e.id, lat:LC.lat, lng:LC.lng, cidade:LC.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
+    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:LC.lugar, bairro:LC.bairro,
     hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
-    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:e.origem === 'promoter' ? 'promoter' : 'parceiro', daCasa:true, criadoPor:e.criadoPor || '', vao:e.vao || 0};
 }
 const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
 try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}
@@ -3361,8 +3371,8 @@ const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.
 const nomeDe = (tipo, id) => USERS[id] ? USERS[id] : tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
 const DIA = 864e5, agora = Date.now();
 const PADRAO = () => [
-  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8},
-  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6},
+  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8, perm:{evento:false, lista:true}},
+  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6, perm:{evento:true, lista:true}},
   {id:'p3', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'marco-s', dir:'convite', estado:'aceite', t:agora - 60 * DIA, msg:'', comissao:0},
   {id:'p4', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'aceite', t:agora - 90 * DIA, msg:''},
   {id:'p5', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'beatriz-c', dir:'convite', estado:'aceite', t:agora - 40 * DIA, msg:''},
@@ -3376,6 +3386,8 @@ const gravar = l => { try { localStorage.setItem(PK, JSON.stringify(l)); } catch
 /* a relação atual entre um local e uma pessoa: o registo mais recente que não foi cancelado */
 const relacao = (local, tipo, quem) => ler().filter(r => r.local === local && r.tipo === tipo && r.quem === quem && r.estado !== 'cancelado').sort((a, b) => b.t - a.t)[0] || null;
 function criar(r){ const l = ler(); r = Object.assign({id:'p' + Date.now().toString(36), estado:'pendente', t:Date.now(), msg:''}, r); l.push(r); gravar(l); return r; }
+/* permissões automáticas que o local dá a um promoter parceiro: criar evento e lista sem passar pela aprovação (regra de 27/10) */
+function mudarPerm(id, k, v){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.perm = Object.assign({}, r.perm || {}, {[k]:!!v}); gravar(l); } return r; }
 function responder(id, estado){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.estado = estado; r.resp = Date.now(); gravar(l); } return r; }
 const sessao = () => { try { return localStorage.getItem(SK) || 'utilizador'; } catch (e) { return 'utilizador'; } };
 const mudarSessao = v => { try { localStorage.setItem(SK, v); } catch (e) {} };
@@ -3393,7 +3405,7 @@ function reputacao(id){
   return {v, itens:REP.map(([n, k, alvo]) => [n, k, v[k], alvo, v[k] >= alvo]), ok:cs.length > 0 && REP.every(([, k, alvo]) => v[k] >= alvo)};
 }
 function simularReputacao(id){ let sim = {}; try { sim = JSON.parse(localStorage.getItem(RK) || '{}') || {}; } catch (e) {} sim[id] = {dias:31, presencas:24, nota:4.6}; try { localStorage.setItem(RK, JSON.stringify(sim)); } catch (e) {} }
-window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
+window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, mudarPerm, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
 
 /* ---------- botões nos perfis ---------- */
 const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : document.querySelector('[data-user]') ? 'user' : '';

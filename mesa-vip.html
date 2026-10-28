@@ -2391,6 +2391,15 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 @media (max-width:560px){.bp-docs li{grid-template-columns:auto minmax(0,1fr) auto}.bp-docs li .pt-mini{display:none}}
 .bp-docs li.dj{border-color:var(--mint)}.bp-docs li.dj .bp-doc-i{background:var(--mint);color:var(--ink)}
 .dj-fat .bp-docs{margin-top:4px}.dj-fatf{gap:12px}
+
+/* permissões por promoter na parceria · eventos de promoters · faturação do DJ por conta ligada */
+.pc-okp{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff}
+.pc-perm{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--grey)}.pc-perm label{display:flex;gap:4px;align-items:center;cursor:pointer}.pc-perm input{accent-color:var(--pink)}
+.pc-permt{display:block;font-weight:500;color:var(--grey);font-size:11px}
+.pt-est.ok{background:var(--mint)}.pt-est.re{background:#ffc9d6}
+.en-est.a{background:#ffe08a}.en-est.recusado{background:#ffc9d6}
+.bp-docs li.pend{border-style:dashed}.bp-docs li.pend .bp-doc-i{background:#ffe08a;color:var(--ink)}
+.dj-fatf .en-seg{width:100%}.dj-fatf .en-seg button{flex:1}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2740,8 +2749,23 @@ window.addEventListener('resize', () => { if (window.innerWidth > 900) abrir(fal
 (function(){
 'use strict';
 const CONC = {'lara-v':['Lara V.', 'cocktail'], 'ricardo-p':['Ricardo P.', 'pribeira'], 'beatriz-c':['Beatriz C.', 'pfoz']};
-const NOITES = [{id:'n1', nome:'Noite X', dia:'sex 31 out', ev:'l4', lista:'a', ocup:{A3:'direta', A6:'direta', B1:'promoter', B4:'direta'}},
+const NOITES0 = [{id:'n1', nome:'Noite X', dia:'sex 31 out', ev:'l4', lista:'a', ocup:{A3:'direta', A6:'direta', B1:'promoter', B4:'direta'}},
                 {id:'n2', nome:'Lux Sessions', dia:'sáb 1 nov', ev:'l11', lista:'ls', ocup:{A2:'direta', B5:'promoter', B6:'direta'}}];
+/* noites publicadas pela casa em evento-novo.html com mesas: entram no mesmo stock, com o preço da noite e só as mesas escolhidas (R100).
+   Um evento do catálogo editado pela casa (Noite X, Lux Sessions) só muda os preços e as mesas da sua noite. */
+const NOITES = NOITES0.slice();
+try {
+  const SEM0 = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'], MES0 = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'], hoje0 = new Date().toISOString().slice(0, 10);
+  const pub = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
+  (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(e => pub(e) && e.mesas && e.mesas.on && e.mesas.sel && Object.keys(e.mesas.sel).length && (!e.casa || e.casa.k === 'lisboa/lux fragil') && e.data && e.data >= hoje0)
+    .sort((a, b) => a.data.localeCompare(b.data)).forEach(e => {
+      const n0 = NOITES.find(n => n.ev === e.id); if (n0) { n0.precos = e.mesas.sel; n0.so = Object.keys(e.mesas.sel); return; }
+      const d = new Date(e.data + 'T12:00');
+      NOITES.push({id:'ev-' + e.id, nome:e.titulo, dia:SEM0[d.getDay()] + ' ' + d.getDate() + ' ' + MES0[d.getMonth()], ev:e.id, lista:'ev-' + e.id, ocup:{}, precos:e.mesas.sel, so:Object.keys(e.mesas.sel), data:e.data});
+    });
+} catch (e) {}
+/* mesa que a casa não pôs à venda nessa noite */
+const foraDaNoite = (nid, m) => { const n = NOITES.find(x => x.id === nid); return !!(n && n.so && !n.so.includes(m)); };
 const HOLD = 30 * 60 * 1000;
 const LG = 'streetfy:concierge-ligacao';
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -2774,7 +2798,7 @@ const zonaDe = (lig, nome) => { const m = mesaDe(lig, nome), p = plantaDe(lig); 
 const noiteDe = id => NOITES.find(n => n.id === id) || NOITES[0];
 const estadoR = r => r.estado === 'segura' && Date.now() > r.t + HOLD ? 'expirou' : r.estado;
 const ativa = r => ['segura', 'pendente', 'confirmada'].includes(estadoR(r));
-const precoMesa = (lig, m) => { const e = mesaDe(lig, m); return e && e.preco != null ? +e.preco : +((lig.cfg.precos || {})[m] || PRECOS_PADRAO[m] || 0); };
+const precoMesa = (lig, m, nid) => { const n = nid ? NOITES.find(x => x.id === nid) : null; if (n && n.precos && n.precos[m] != null) return +n.precos[m]; const e = mesaDe(lig, m); return e && e.preco != null ? +e.preco : +((lig.cfg.precos || {})[m] || PRECOS_PADRAO[m] || 0); };
 function ocupacao(lig, nid){
   const n = noiteDe(nid), o = {}, existe = new Set(mesasDe(lig).map(m => m.nome));
   Object.entries(n.ocup).forEach(([m, t]) => { if (existe.has(m)) o[m] = {t}; });
@@ -2837,25 +2861,26 @@ document.addEventListener('keydown', ev => { if ((ev.key === 'Enter' || ev.key =
 /* cronómetros de todas as plantas na página */
 setInterval(() => document.querySelectorAll('.pl-crono[data-fim]').forEach(t => { const r = +t.dataset.fim - Date.now(); t.textContent = mmss(r); if (r <= 0) document.dispatchEvent(new CustomEvent('streetfy-planta-expirou')); }), 1000);
 
-window.STREETFY_MESAS = {CONC, NOITES, HOLD, LG, PRECOS_PADRAO, TIPOS, FORMAS, LIG_PADRAO, plantaPadrao, novoId, ler, gravar, plantaDe, mesasDe, mesaDe, zonaDe, noiteDe, estadoR, ativa, precoMesa, ocupacao, desenhaPlanta, forma, cadeiras, rotulo, rodar, DEFS, legenda, mmss, esc};
+window.STREETFY_MESAS = {CONC, NOITES, NOITES0, foraDaNoite, HOLD, LG, PRECOS_PADRAO, TIPOS, FORMAS, LIG_PADRAO, plantaPadrao, novoId, ler, gravar, plantaDe, mesasDe, mesaDe, zonaDe, noiteDe, estadoR, ativa, precoMesa, ocupacao, desenhaPlanta, forma, cadeiras, rotulo, rodar, DEFS, legenda, mmss, esc};
 
 /* ---------- página pública da Mesa VIP: a planta do dono, preço por mesa e cronómetro nas mesas em espera ---------- */
 const el = document.querySelector('[data-mesas]'); if (!el) return;
 const bx = document.querySelector('.book'), proxy = document.getElementById('mesa-proxy');
 let lig = ler(), noite = 'n1', mesa = '';
-function escolheLivre(){ const o = ocupacao(lig, noite), ms = mesasDe(lig); if (!mesa || o[mesa] || !ms.some(m => m.nome === mesa)) mesa = (ms.find(m => !o[m.nome]) || {}).nome || ''; }
+function escolheLivre(){ const o = ocupacao(lig, noite), ms = mesasDe(lig); if (!mesa || o[mesa] || foraDaNoite(noite, mesa) || !ms.some(m => m.nome === mesa)) mesa = (ms.find(m => !o[m.nome] && !foraDaNoite(noite, m.nome)) || {}).nome || ''; }
 function aplicaCaixa(){
   const z = mesa ? zonaDe(lig, mesa) : null, m = mesa ? mesaDe(lig, mesa) : null;
   const i = bx && bx.querySelector('#mesa-esc'); if (i) i.textContent = mesa ? 'mesa ' + mesa + ' · ' + z.nome + (m && m.lugares ? ' · até ' + m.lugares : '') + ' · garantida' : 'sem mesas livres nesta noite';
-  if (proxy && mesa) { proxy.dataset.price = precoMesa(lig, mesa); proxy.click(); }
-  const b = bx && bx.querySelector('.pr b'); if (b && mesa) b.textContent = '€' + precoMesa(lig, mesa);
+  if (proxy && mesa) { proxy.dataset.price = precoMesa(lig, mesa, noite); proxy.click(); }
+  const b = bx && bx.querySelector('.pr b'); if (b && mesa) b.textContent = '€' + precoMesa(lig, mesa, noite);
 }
 function desenha(){
   escolheLivre();
   const o = ocupacao(lig, noite);
   const estado = (nome, e) => {
     const x = o[nome];
-    if (!x) return {cls:'livre', sub:'€' + precoMesa(lig, nome), clicavel:true, sel:nome === mesa, titulo:'Mesa ' + nome + ', livre, €' + precoMesa(lig, nome) + (e.lugares ? ', até ' + e.lugares + ' pessoas' : '')};
+    if (foraDaNoite(noite, nome)) return {cls:'ocupada', sub:'não nesta noite', titulo:'Mesa ' + nome + ' não está à venda nesta noite'};
+    if (!x) return {cls:'livre', sub:'€' + precoMesa(lig, nome, noite), clicavel:true, sel:nome === mesa, titulo:'Mesa ' + nome + ', livre, €' + precoMesa(lig, nome, noite) + (e.lugares ? ', até ' + e.lugares + ' pessoas' : '')};
     if (x.r && estadoR(x.r) === 'segura') return {cls:'espera', sub:'em espera', fim:x.r.t + HOLD, titulo:'Mesa ' + nome + ' em espera: alguém está a fechar a reserva. Se não pagar, volta a ficar livre.'};
     return {cls:'ocupada', sub:'reservada', titulo:'Mesa ' + nome + ' já reservada'};
   };
@@ -2865,7 +2890,15 @@ function desenha(){
   aplicaCaixa();
 }
 el.addEventListener('click', ev => { const b = ev.target.closest('[data-mesa]'); if (!b) return; mesa = b.getAttribute('data-mesa'); desenha(); });
-if (bx) bx.querySelectorAll('[data-noite]').forEach(b => b.addEventListener('click', () => { noite = b.dataset.noite; mesa = ''; desenha(); }));
+/* as noites à venda: as duas fixas da demonstração mais as que a casa publicou com mesas */
+function montaNoites(){
+  if (!bx) return; const b0 = bx.querySelector('[data-noite]'); if (!b0) return; const slots = b0.parentElement, n = noiteDe(noite);
+  slots.innerHTML = NOITES.map(x => '<button type="button" class="' + (x.id === noite ? 'on' : '') + '" data-noite="' + esc(x.id) + '">' + esc(x.dia.split(' ').slice(0, 2).join(' ')) + '<small>' + esc(x.nome) + '</small></button>').join('');
+  slots.style.gridTemplateColumns = 'repeat(' + Math.min(3, NOITES.length) + ',1fr)';
+  const lbl = slots.previousElementSibling && slots.previousElementSibling.querySelector('i'); if (lbl) lbl.textContent = n.dia + ' · ' + n.nome;
+}
+if (bx) bx.addEventListener('click', ev => { const b = ev.target.closest('[data-noite]'); if (!b) return; noite = b.dataset.noite; mesa = ''; montaNoites(); desenha(); });
+montaNoites();
 document.addEventListener('streetfy-planta-expirou', () => desenha());
 window.addEventListener('storage', ev => { if (ev.key === LG) { lig = ler(); desenha(); } });
 desenha();

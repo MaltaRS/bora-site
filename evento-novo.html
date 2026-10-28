@@ -2391,6 +2391,15 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 @media (max-width:560px){.bp-docs li{grid-template-columns:auto minmax(0,1fr) auto}.bp-docs li .pt-mini{display:none}}
 .bp-docs li.dj{border-color:var(--mint)}.bp-docs li.dj .bp-doc-i{background:var(--mint);color:var(--ink)}
 .dj-fat .bp-docs{margin-top:4px}.dj-fatf{gap:12px}
+
+/* permissões por promoter na parceria · eventos de promoters · faturação do DJ por conta ligada */
+.pc-okp{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff}
+.pc-perm{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--grey)}.pc-perm label{display:flex;gap:4px;align-items:center;cursor:pointer}.pc-perm input{accent-color:var(--pink)}
+.pc-permt{display:block;font-weight:500;color:var(--grey);font-size:11px}
+.pt-est.ok{background:var(--mint)}.pt-est.re{background:#ffc9d6}
+.en-est.a{background:#ffe08a}.en-est.recusado{background:#ffc9d6}
+.bp-docs li.pend{border-style:dashed}.bp-docs li.pend .bp-doc-i{background:#ffe08a;color:var(--ink)}
+.dj-fatf .en-seg{width:100%}.dj-fatf .en-seg button{flex:1}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2681,7 +2690,7 @@ const ITENS = [
  {id:'l8', lat:38.7034, lng:-9.1786, cidade:'lisboa', kind:'evento', tipos:['concerto'], estilo:'indie', tag:'Indie', titulo:'Concerto na LX', lugar:'LX Factory', bairro:'Santos', hora:'22:00', preco:12, vao:19, img:'lx', href:'evento.html', quando:['hoje'], pp:'sala pequena, chegar cedo'},
  {id:'l9', lat:38.7128, lng:-9.1448, cidade:'lisboa', kind:'lugar', tipos:['bar', 'livre'], estilo:'bar a bar', tag:'Entrada livre', titulo:'Bairro Alto', lugar:'23 bares abertos', bairro:'Bairro Alto', hora:'22:00', preco:0, aqui:412, img:'tram', href:'cais-do-sodre.html', quando:SEMPRE, pp:'a rua inteira, bar a bar · 1,1 km'},
  {id:'l10', lat:38.7111, lng:-9.148, cidade:'lisboa', kind:'lugar', tipos:['bar'], estilo:'rooftop', tag:'Rooftop', titulo:'Park', lugar:'Park Bar', bairro:'Bairro Alto', hora:'17:00', preco:'€€', aqui:88, star:'4,4', img:'bairro', href:'lugar.html', quando:SEMPRE, pp:'no topo do parque de estacionamento, pôr do sol'},
- {id:'l11', lat:38.7145, lng:-9.1206, cidade:'lisboa', kind:'evento', tipos:['festa', 'clube'], estilo:'house', tag:'House', titulo:'Lux Sessions', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'sáb 23:30', preco:12, vao:31, img:'club', href:'evento.html', quando:['amanha', 'fds'], pp:'residentes da casa · 23:30 – 06:00'},
+ {id:'l11', lat:38.7145, lng:-9.1206, cidade:'lisboa', kind:'evento', tipos:['festa', 'clube'], estilo:'house', tag:'House', titulo:'Lux Sessions', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'sáb 23:30', preco:12, vao:31, img:'club', href:'evento.html', quando:['amanha', 'fds'], pp:'residentes da casa · 23:30 – 06:00', soSeguidores:true},
  {id:'l12', lat:38.7137, lng:-9.1214, cidade:'lisboa', kind:'evento', tipos:['festa', 'livre'], estilo:'house', tag:'Entrada livre', titulo:'Terraço de domingo', lugar:'Lux Frágil', bairro:'Santa Apolónia', hora:'dom 17:00', preco:0, img:'lux', href:'lugar.html', quando:['fds'], pp:'pôr do sol e house calmo'},
  {id:'l13', lat:38.7038, lng:-9.1782, cidade:'lisboa', kind:'evento', tipos:['festa', 'restaurante'], estilo:'disco', tag:'Disco', titulo:'Brunch eletrónico', lugar:'LX Factory', bairro:'Santos', hora:'dom 13:00', preco:15, vao:64, img:'lx', href:'evento.html', quando:['fds'], pp:'brunch incluído até às 15h'},
  /* Porto */
@@ -2726,10 +2735,11 @@ function deEventoCasa(e){
   const lotes = (e.lotes || []).filter(l => +l.qtd > 0), livre = e.entrada !== 'paga' || !lotes.length;
   const hoje = new Date().toISOString().slice(0, 10), ativo = lotes.find(l => !l.ate || l.ate >= hoje) || lotes[lotes.length - 1];
   const nomes = (e.lineup || []).map(x => x.nome).filter(Boolean);
-  return {id:e.id, lat:EV_CASA.lat, lng:EV_CASA.lng, cidade:EV_CASA.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
-    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:EV_CASA.lugar, bairro:EV_CASA.bairro,
+  const LC = e.casa || EV_CASA;
+  return {id:e.id, lat:LC.lat, lng:LC.lng, cidade:LC.cidade, kind:'evento', tipos:[...new Set((e.tipos && e.tipos.length ? e.tipos : ['festa']).concat(livre ? ['livre'] : []))], estilo:e.estilo || 'house',
+    tag:livre ? 'Entrada livre' : (e.estilo ? e.estilo.charAt(0).toUpperCase() + e.estilo.slice(1) : 'Festa'), titulo:e.titulo || 'Novo evento', lugar:LC.lugar, bairro:LC.bairro,
     hora:e.hora || '', horaFim:e.horaFim || '', preco:livre ? 0 : +ativo.preco, img:e.capa || 'lux', href:'evento.html', data:e.data, fim:e.data, pp:e.resumo || '', descricao:e.desc || '',
-    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:'parceiro', daCasa:true, vao:e.vao || 0};
+    subtitulo:nomes.join(', '), setsHora:(e.lineup || []).filter(x => x.nome).map(x => x.hora || ''), lineup:(e.lineup || []).map(x => x.dj).filter(Boolean), idade:e.idade, lotes:livre ? [] : lotes, vendaAte:livre ? '' : (e.vendaAte || ''), lotacao:+e.lotacao || 0, soSeguidores:!!e.seguidores, origem:e.origem === 'promoter' ? 'promoter' : 'parceiro', daCasa:true, criadoPor:e.criadoPor || '', vao:e.vao || 0};
 }
 const publicado = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
 try { (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(publicado).forEach(e => { const it = deEventoCasa(e), j = ITENS.findIndex(x => x.id === e.id); if (j >= 0) ITENS[j] = Object.assign({}, ITENS[j], it, {vao:ITENS[j].vao, aqui:ITENS[j].aqui, star:ITENS[j].star, origem:ITENS[j].origem}); else ITENS.push(it); }); } catch (e) {}
@@ -3263,6 +3273,7 @@ const F = window.BORA_FILTROS || {};
 const ativo = i => (i._ks || []).length > 0 && (!F.grupoDe || F.grupoDe(i, F.AGORA(), [0, 1, 2, 3, 4, 5, 6]) !== 'rolou');   /* o que já acabou não conta (regra das 4 h) */
 const naZona = (p, i) => (p.zona || [p.cidade]).includes(i.cidade);
 const imp = i => (+i.vao || 0) * 2 + (+i.aqui || 0) + (i.img ? 1 : 0);
+const segueLugar = i => { try { return localStorage.getItem('segue:' + C.lugarKey(i)) === '1'; } catch (e) { return false; } };
 function festasDe(p){
   const porId = new Map(C.itens.map(i => [i.id, i]));
   const esc1 = p.ids.map(id => porId.get(id)).filter(i => i && ativo(i));
@@ -3341,6 +3352,7 @@ function pedidosDemo(p, i){
 }
 function acaoLista(d){
   const st = doP(d.pid);
+  if (d.lc === 'seguir-quero') { const i0 = C.itens.find(x => String(x.id) === d.ev); if (i0) { try { localStorage.setItem('segue:' + C.lugarKey(i0), '1'); } catch (e) {} } st.pedidos[d.ev] = st.fav.eu ? 'na-lista' : 'pendente'; }
   if (d.lc === 'quero') st.pedidos[d.ev] = st.fav.eu ? 'na-lista' : 'pendente';
   if (d.lc === 'cancelar') delete st.pedidos[d.ev];
   if (d.lc === 'eu-aceitar') st.pedidos[d.ev] = 'aceite';
@@ -3363,7 +3375,7 @@ function listaHtml(p, f, modo){
       const est = meu === 'na-lista' || meu === 'aceite' ? '<span class="lc-est ok">Estás na lista ✓' + (meu === 'na-lista' ? ' · como favorito' : ' · aceite por ' + esc(p.nome.split(' ')[0])) + '</span>' + b('cancelar', 'Tirar o nome', 'ghost')
         : meu === 'pendente' ? '<span class="lc-est">Pedido enviado · à espera de ' + esc(p.nome.split(' ')[0]) + '</span>' + b('cancelar', 'Cancelar', 'ghost')
         : meu === 'recusado' ? '<span class="lc-est nao">' + esc(p.nome.split(' ')[0]) + ' não aceitou desta vez</span>'
-        : (resta ? b('quero', fav ? 'Pôr o meu nome' : 'Quero entrar', fav ? 'mint' : 'pink') : '<span class="lc-est nao">Lista cheia</span>');
+        : (resta ? (i.soSeguidores && !segueLugar(i) ? b('seguir-quero', 'Seguir ' + esc(i.lugar || 'a casa') + ' e pedir', 'pink') : b('quero', fav ? 'Pôr o meu nome' : 'Quero entrar', fav ? 'mint' : 'pink')) : '<span class="lc-est nao">Lista cheia</span>');
       return '<article class="lc-ev">' + cab + '<div class="lc-acao">' + est + '</div></article>';
     }
     /* vista do promoter: tu (se pediste) + os outros pedidos */
@@ -3491,6 +3503,7 @@ const PR = window.STREETFY_PROMOTERS || {};
 const setsDe = d => PR.festasDe ? PR.festasDe({ids:d.ids.concat(C.itens.filter(i => (i.lineup || []).includes(d.id) && !d.ids.includes(i.id)).map(i => i.id)), cidade:d.cidade, estilos:d.estilos, zona:[d.cidade]}).slice(0, 5) : [];
 const horaSet = (d, i) => { const h = (String(d.id + i.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 4); return ['23:00 – 01:00', '00:30 – 02:30', '01:00 – 03:00', '02:30 – 05:00'][h]; };
 const hrefEv = i => 'bilhete.html#lugar=' + encodeURIComponent(C.lugarKey(i)) + '&evento=' + encodeURIComponent(i.id);
+const segueLugar = i => { try { return localStorage.getItem('segue:' + C.lugarKey(i)) === '1'; } catch (e) { return false; } };
 const quando = i => { const k = Math.min(...(i._ks || [0])); if (k === 0) return 'hoje'; if (k === 1) return 'amanhã'; const d = new Date(); d.setDate(d.getDate() + k); return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'][d.getDay()] + ' ' + d.getDate(); };
 const rider = d => (ler('streetfy:dj-rider', {})[d.id]) || RIDER0;
 const mixes = d => (ler('streetfy:dj-mixes', {})[d.id]) || d.mixes;
@@ -3535,7 +3548,8 @@ function docIX(serie, desc, valor){ let n = ler('streetfy:ix-seq', 0) + 1; grava
    quando o dinheiro lhe chega: o sinal, o resto depois do set, ou a parte que fica para ele num cancelamento. Sem acordo, o DJ passa-a ele.
    Guarda-se só o NIF mascarado. streetfy:dj-faturacao = {<dj>: {on, nif, regime:'isento'|'iva', ret:'dispensado'|'sujeito', t}} */
 const FK = 'streetfy:dj-faturacao';
-const FAT0 = {'tomas-b':{on:true, nif:'••••••482', regime:'isento', ret:'dispensado', t:Date.now() - 40 * D1}, 'kiara-s':{on:true, nif:'••••••117', regime:'iva', ret:'dispensado', t:Date.now() - 90 * D1}};
+const FAT0 = {'tomas-b':{on:true, modo:'ligada', emissor:'InvoiceXpress', conta:'tombri', chave:'••••k7Qz', ret:'dispensado', t:Date.now() - 40 * D1}, 'kiara-s':{on:true, modo:'ligada', emissor:'Moloni', conta:'kiarasol', chave:'••••9aTw', ret:'dispensado', t:Date.now() - 90 * D1}};
+const EMISSORES = ['InvoiceXpress', 'Moloni', 'Outro com API'];
 const fatDe = dj => Object.assign({}, (ler(FK, null) || FAT0)[dj] || {on:false});
 const gravaFat = (dj, v) => { const F = ler(FK, null) || FAT0; F[dj] = v; gravar(FK, F); };
 const REGIME = {isento:'isento de IVA (art. 53.º do CIVA)', iva:'IVA a 23% incluído'};
@@ -3543,7 +3557,11 @@ function emiteDJ(x, valor, desc){
   const f = fatDe(x.dj); if (!f.on || !(valor > 0)) return;
   const d = porId(x.dj) || {art:x.dj}, k = 'streetfy:ix-seq-' + x.dj, n = ler(k, 0) + 1; gravar(k, n);
   x.docs = x.docs || [];
-  x.docs.push({n:'FR ' + String(d.art).replace(/\W+/g, '').toUpperCase() + '/' + new Date().getFullYear() + '/' + n, desc:desc + ' · ' + REGIME[f.regime] + (f.ret === 'sujeito' ? ' · sujeita a retenção de IRS pela casa' : ''), valor:r2(valor), t:Date.now(), ix:'emitida pelo Xouty em nome de ' + d.art + ' · enviada à casa e ao DJ', dj:x.dj});
+  const ret = f.ret === 'sujeito' ? ' · sujeita a retenção de IRS pela casa' : '';
+  /* conta ligada: a fatura sai pela conta do próprio DJ no emissor dele (série, IVA e numeração são da conta, nunca do Xouty) */
+  if (f.modo === 'ligada') x.docs.push({n:'FR ' + String(f.conta || d.art).replace(/\W+/g, '').toUpperCase() + '/' + new Date().getFullYear() + '/' + n, desc:desc + ret, valor:r2(valor), t:Date.now(), ix:'emitida pela conta ' + (f.emissor || 'do emissor') + ' do DJ · enviada à casa e ao DJ', dj:x.dj});
+  /* recibo verde à mão: fica por emitir até o DJ o passar no Portal das Finanças e anexar o PDF */
+  else x.docs.push({n:'Recibo verde ' + n + ' · por emitir', desc:desc + ret, valor:r2(valor), t:Date.now(), ix:'lembrete enviado ao DJ · anexa o PDF quando o emitir', dj:x.dj, pendente:true});
 }
 function registaPagamento(x, metodo){
   const p = parte(x), t = Date.now();
@@ -3572,7 +3590,7 @@ function passaTempo(b){
   /* um set já tocado, à espera da confirmação da casa (para se ver o passo depois do set) */
   if (!b.some(x => x.id === 'b4')) { b.push({id:'b4', dj:'kiara-s', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:diaMais(hoje, -1), hora:'23:30 – 01:30', cache:450, estado:'pago', t:agora - 9 * 864e5, pagoT:agora - 8 * 864e5, metodo:'cartao', nota:'Terraço · warm-up'}); mudou = true; }
   /* com sinal: um já com o sinal pago e o resto aberto, outro aceite à espera do sinal */
-  if (!b.some(x => x.id === 'b5')) { const c = 800, t = contas(c); b.push({id:'b5', dj:'tomas-b', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:diaMais(hoje, 40), hora:'00:30 – 02:30', cache:c, sinal:true, estado:'sinal', t:agora - 30 * 864e5, aceiteT:agora - 29 * 864e5, pagoT:agora - 29 * 864e5, metodo:'repasse', sinalLibertaEm:diaMais(hoje, -27), pagamentos:[{tipo:'sinal', valor:r2(c * SINAL + t.taxa + t.iva), cache:r2(c * SINAL), metodo:'repasse', t:agora - 29 * 864e5}], docs:[{n:'FR XOUTY/2026/0', desc:'Fatura-recibo · taxa de serviço do booking', valor:r2(t.taxa + t.iva), t:agora - 29 * 864e5, ix:'finalizado · enviado por e-mail'}, {n:'FR TOMBRI/2026/0', desc:'Fatura-recibo do DJ · sinal do cachê · ' + REGIME.isento, valor:r2(c * SINAL), t:agora - 29 * 864e5, ix:'emitida pelo Xouty em nome de TOMBRI · enviada à casa e ao DJ', dj:'tomas-b'}], nota:'Noite de dezembro · aquecimento'}); mudou = true; }
+  if (!b.some(x => x.id === 'b5')) { const c = 800, t = contas(c); b.push({id:'b5', dj:'tomas-b', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:diaMais(hoje, 40), hora:'00:30 – 02:30', cache:c, sinal:true, estado:'sinal', t:agora - 30 * 864e5, aceiteT:agora - 29 * 864e5, pagoT:agora - 29 * 864e5, metodo:'repasse', sinalLibertaEm:diaMais(hoje, -27), pagamentos:[{tipo:'sinal', valor:r2(c * SINAL + t.taxa + t.iva), cache:r2(c * SINAL), metodo:'repasse', t:agora - 29 * 864e5}], docs:[{n:'FR XOUTY/2026/0', desc:'Fatura-recibo · taxa de serviço do booking', valor:r2(t.taxa + t.iva), t:agora - 29 * 864e5, ix:'finalizado · enviado por e-mail'}, {n:'FR TOMBRI/2026/0', desc:'Fatura-recibo do DJ · sinal do cachê', valor:r2(c * SINAL), t:agora - 29 * 864e5, ix:'emitida pela conta InvoiceXpress do DJ · enviada à casa e ao DJ', dj:'tomas-b'}], nota:'Noite de dezembro · aquecimento'}); mudou = true; }
   if (!b.some(x => x.id === 'b6')) { b.push({id:'b6', dj:'mafalda-r', casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:diaMais(hoje, 75), hora:'01:00 – 03:00', cache:700, sinal:true, estado:'aceite', t:agora - 2 * 864e5, aceiteT:agora - 2 * H, nota:'Lux Sessions · janeiro'}); mudou = true; }
   if (mudou) gravar(BK, b);
   return b;
@@ -3622,7 +3640,7 @@ function perfil(el){
       + '<section class="s-sec tight"><div class="s-wrap"><div class="p-grid"><div>'
       + '<p class="s-eyebrow">Na cabine</p><h2 class="s-h h2s" style="margin-bottom:18px">PRÓXIMOS <em>SETS</em></h2>'
       + (sets.length ? sets.map(i => { const st = minha[i.id]; return '<div class="p-ev pr-ev dj-set"><a class="dj-setl" href="' + esc(hrefEv(i)) + '"><div class="p-ev-h"><span class="p-ev-q">' + esc(quando(i)) + ' · set ' + horaSet(d, i) + '</span></div><h3>' + esc(i.titulo) + '</h3><p>' + esc(i.lugar || '') + (i.estilo ? ' · ' + esc(cap(i.estilo)) : '') + '</p></a>'
-          + '<div class="dj-setac">' + (st ? '<span class="dj-pedido">' + (st === 'pedido' ? 'Pedido na lista do DJ enviado · o DJ aceita e a casa aprova' : 'Na lista do DJ ✓') + '</span>' : '<button type="button" class="s-btn ghost" data-dj-lista="' + esc(i.id) + '">Pedir lugar na lista do DJ</button>') + '</div></div>'; }).join('') : '<p class="p-vazio">Sem sets marcados esta semana.</p>')
+          + '<div class="dj-setac">' + (st ? '<span class="dj-pedido">' + (st === 'pedido' ? 'Pedido na lista do DJ enviado · o DJ aceita e a casa aprova' : 'Na lista do DJ ✓') + '</span>' : (i.soSeguidores && !segueLugar(i) ? '<button type="button" class="s-btn pink" data-dj-lista="' + esc(i.id) + '" data-seg="1">Seguir ' + esc(i.lugar || 'a casa') + ' e pedir lugar</button>' : '<button type="button" class="s-btn ghost" data-dj-lista="' + esc(i.id) + '">Pedir lugar na lista do DJ</button>')) + '</div></div>'; }).join('') : '<p class="p-vazio">Sem sets marcados esta semana.</p>')
       + '<p class="s-eyebrow" style="margin-top:28px">Para ouvir</p><h2 class="s-h h2s" style="margin-bottom:14px">MIXES</h2><ul class="dj-mixes">' + mixes(d).map(([t, min, pl]) => '<li><span class="dj-play" aria-hidden="true">▶</span><div><b>' + esc(t) + '</b><span>' + min + ' min · ' + esc(pl) + '</span></div></li>').join('') + '</ul>'
       + '</div><div>'
       + (d.casa ? '<p class="s-eyebrow">Residência</p><div class="inc" style="margin-top:12px"><div><h4>' + esc(d.casa) + '</h4><p>' + esc(NIVEL[d.nivel]) + ' · toca lá todos os meses.</p></div></div>' : '')
@@ -3635,7 +3653,7 @@ function perfil(el){
     const sg = ev.target.closest('[data-dj-seg]'); if (sg) { ev.preventDefault(); const id = sg.dataset.djSeg; if (segue[id]) delete segue[id]; else segue[id] = 1; guardaSeg(); desenha(); return; }
     const bk = ev.target.closest('[data-dj-book]'); if (bk) { ev.preventDefault(); form = !form; msg = null; desenha(); return; }
     const en = ev.target.closest('[data-dj-envia]'); if (en) { const v = k => (el.querySelector('[data-djb="' + k + '"]') || {}).value || '', d = porId(en.dataset.djEnvia); const b = bookings(); b.unshift({id:'b' + Date.now().toString(36), dj:d.id, casa:'Lux Frágil', casaK:'lisboa/lux fragil', data:v('data'), hora:v('hora'), cache:Math.max(0, +v('cache') || 0), estado:'pendente', t:Date.now(), nota:v('nota').trim()}); gravaB(b); form = false; msg = 'Pedido enviado a ' + d.art + ' para ' + dataTxt(v('data')) + ' · ' + v('hora') + ' · €' + fmt(+v('cache') || 0) + '. O DJ responde no portal.'; desenha(); return; }
-    const li = ev.target.closest('[data-dj-lista]'); if (li) { const d = porId(new URLSearchParams(location.hash.slice(1)).get('d')) || D[0], L = ler('streetfy:dj-listas', {}); (L[d.id] = L[d.id] || {})[li.dataset.djLista] = 'pedido'; gravar('streetfy:dj-listas', L); desenha(); }
+    const li = ev.target.closest('[data-dj-lista]'); if (li) { if (li.dataset.seg) { const i0 = C.itens.find(x => String(x.id) === li.dataset.djLista); if (i0) { try { localStorage.setItem('segue:' + C.lugarKey(i0), '1'); } catch (e) {} } } const d = porId(new URLSearchParams(location.hash.slice(1)).get('d')) || D[0], L = ler('streetfy:dj-listas', {}); (L[d.id] = L[d.id] || {})[li.dataset.djLista] = 'pedido'; gravar('streetfy:dj-listas', L); desenha(); }
   });
   window.addEventListener('hashchange', () => { msg = null; form = false; desenha(); window.scrollTo({top:0}); });
   desenha();
@@ -3659,21 +3677,32 @@ function portalDJ(){
     + '<div class="dj-mixf"><input data-djm="t" placeholder="nome do mix" maxlength="50"><input type="number" data-djm="m" placeholder="min" min="1" max="600"><select data-djm="p"><option>SoundCloud</option><option>Mixcloud</option><option>YouTube</option></select><button type="button" class="s-btn ghost" data-djp="mixadd">Juntar</button></div></div></div>'
     + cardFat();
 }
-/* cartão "Faturação" no portal do DJ */
-let fatForm = false, fatErro = '';
+/* cartão "Faturação" no portal do DJ: a fatura-recibo do cachê é do DJ; ele liga a conta do emissor dele ou passa o recibo verde à mão (decisão de 28/10) */
+let fatForm = false, fatErro = '', fatModo = 'ligada', fatVals = {};   /* o que foi escrito sobrevive aos redesenhos do cartão */
 function cardFat(){
-  const f = fatDe(EU), d = porId(EU), meus = bookings().flatMap(x => (x.docs || []).filter(dd => dd.dj === EU).map(dd => Object.assign({casa:x.casa}, dd)));
-  return '<div class="pt-card dj-fat" id="faturacao"><div class="pt-ch"><h3>Faturação</h3><span class="pt-mini-t">quem passa a fatura-recibo do cachê à casa</span></div>'
-    + '<label class="en-sw"><span>O Xouty passa as minhas faturas-recibo<small>' + (f.on ? 'Ativo desde ' + esc(dataTxt(new Date(f.t).toISOString().slice(0, 10))) + ' · NIF ' + esc(f.nif) + ' · ' + esc(REGIME[f.regime]) + ' · ' + (f.ret === 'sujeito' ? 'sujeito a retenção de IRS' : 'dispensado de retenção') : 'Desligado: passas tu a fatura-recibo à casa, no Portal das Finanças, quando o dinheiro te chega.') + '</small></span><input type="checkbox" class="pt-sw" data-djfat="sw"' + (f.on || fatForm ? ' checked' : '') + '></label>'
-    + (!f.on && fatForm ? '<div class="pt-form dj-fatf"><h4>Acordo de faturação</h4><div class="gd-g"><label>NIF<input data-djfat="nif" inputmode="numeric" maxlength="9" placeholder="9 algarismos"></label>'
-      + '<label>IVA<select data-djfat="regime"><option value="isento">Isento (art. 53.º do CIVA)</option><option value="iva">Cobro IVA a 23%</option></select></label>'
-      + '<label>Retenção de IRS<select data-djfat="ret"><option value="dispensado">Dispensado de retenção na fonte</option><option value="sujeito">Sujeito a retenção (a casa retém)</option></select></label></div>'
-      + '<label class="bp-chk"><input type="checkbox" data-djfat="ativ"> Tenho atividade aberta nas Finanças como trabalhador independente</label>'
-      + '<label class="bp-chk"><input type="checkbox" data-djfat="aut"> Autorizo o Xouty a emitir em meu nome as faturas-recibo dos bookings pagos pelo Xouty, com estes dados. Recebo cópia de cada uma e posso desligar quando quiser; as que já saíram não mudam.</label>'
-      + (fatErro ? '<p class="en-err" role="alert">' + esc(fatErro) + '</p>' : '') + '<p class="al-nota">Guardamos só os últimos 3 algarismos do NIF neste aparelho. O cachê combinado é o valor final: com IVA, a fatura mostra-o incluído.</p><div class="dj-bk-ac"><button type="button" class="s-btn ink" data-djfat="ok">Ativar</button><button type="button" class="s-btn ghost" data-djfat="cancela">Cancelar</button></div></div>' : '')
-    + (meus.length ? '<ul class="bp-docs">' + meus.map(dd => '<li><span class="bp-doc-i">FR</span><div><b>' + esc(dd.n) + '</b><small>' + esc(dd.casa) + ' · ' + esc(dd.desc) + '</small></div><b>' + eurC(dd.valor) + '</b></li>').join('') + '</ul>' : (f.on ? '<p class="al-nota">Ainda nenhuma fatura emitida em teu nome. Sai a primeira quando receberes um sinal ou um cachê.</p>' : ''))
+  const f = fatDe(EU), meus = bookings().flatMap(x => (x.docs || []).filter(dd => dd.dj === EU).map(dd => Object.assign({casa:x.casa, bk:x.id}, dd)));
+  const resumo = !f.on ? 'Desligado: a casa fica à espera da tua fatura-recibo e o Xouty não trata de nada por ti.'
+    : f.modo === 'ligada' ? 'Conta ligada: ' + esc(f.emissor) + ' · ' + esc(f.conta) + ' · chave ' + esc(f.chave) + ' · ' + (f.ret === 'sujeito' ? 'sujeito a retenção de IRS' : 'dispensado de retenção') + ' · desde ' + esc(dataTxt(new Date(f.t).toISOString().slice(0, 10)))
+    : 'Recibo verde à mão: recebes um lembrete quando o dinheiro te chegar e anexas o PDF aqui para a casa.';
+  const sel = (k, ops, v) => '<select data-djfat="' + k + '">' + ops.map(([val, t]) => '<option value="' + val + '"' + (val === (fatVals[k] || v) ? ' selected' : '') + '>' + t + '</option>').join('') + '</select>';
+  const formHtml = '<div class="pt-form dj-fatf"><h4>Como saem as tuas faturas-recibo</h4>'
+    + '<div class="en-seg" role="radiogroup"><button type="button" role="radio" aria-checked="' + (fatModo === 'ligada') + '" class="' + (fatModo === 'ligada' ? 'on' : '') + '" data-djfat-modo="ligada">Ligar a minha conta de faturação</button><button type="button" role="radio" aria-checked="' + (fatModo === 'manual') + '" class="' + (fatModo === 'manual' ? 'on' : '') + '" data-djfat-modo="manual">Passo eu o recibo verde</button></div>'
+    + (fatModo === 'ligada'
+      ? '<div class="gd-g"><label>Emissor' + sel('emissor', EMISSORES.map(e => [e, e]), 'InvoiceXpress') + '</label><label>Nome da conta<input data-djfat="conta" maxlength="40" placeholder="ex.: tombri" value="' + esc(fatVals.conta || '') + '"></label><label>Chave da API<input data-djfat="chave" type="password" autocomplete="off" placeholder="cola a chave do emissor" value="' + esc(fatVals.chave || '') + '"></label><label>Retenção de IRS' + sel('ret', [['dispensado', 'Dispensado de retenção na fonte'], ['sujeito', 'Sujeito a retenção (a casa retém)']], 'dispensado') + '</label></div>'
+        + '<label class="bp-chk"><input type="checkbox" data-djfat="aut"' + (fatVals.aut ? ' checked' : '') + '> Autorizo o Xouty a emitir, pela minha conta e em meu nome, as faturas-recibo dos bookings pagos pelo Xouty. Recebo cópia de cada uma e posso desligar quando quiser; as já emitidas não mudam.</label>'
+        + '<p class="al-nota">A chave fica cifrada no servidor; neste aparelho guardamos só os últimos 4 caracteres. A série, a numeração e o IVA são os da tua conta no emissor, nunca do Xouty. Precisas de atividade aberta nas Finanças.</p>'
+      : '<div class="gd-g"><label>Retenção de IRS' + sel('ret', [['dispensado', 'Dispensado de retenção na fonte'], ['sujeito', 'Sujeito a retenção (a casa retém)']], 'dispensado') + '</label></div>'
+        + '<label class="bp-chk"><input type="checkbox" data-djfat="ativ"' + (fatVals.ativ ? ' checked' : '') + '> Tenho atividade aberta nas Finanças como trabalhador independente</label>'
+        + '<p class="al-nota">Quando o cachê te chegar, recebes um lembrete. Passas o recibo verde no Portal das Finanças e anexas o PDF aqui; a casa recebe-o pelo Xouty.</p>')
+    + (fatErro ? '<p class="en-err" role="alert">' + esc(fatErro) + '</p>' : '')
+    + '<div class="dj-bk-ac"><button type="button" class="s-btn ink" data-djfat="ok">Ativar</button><button type="button" class="s-btn ghost" data-djfat="cancela">Cancelar</button></div></div>';
+  return '<div class="pt-card dj-fat" id="faturacao"><div class="pt-ch"><h3>Faturação</h3><span class="pt-mini-t">a fatura-recibo do cachê é tua; escolhe como sai</span></div>'
+    + '<label class="en-sw"><span>Faturas do cachê tratadas pelo Xouty<small>' + resumo + '</small></span><input type="checkbox" class="pt-sw" data-djfat="sw"' + (f.on || fatForm ? ' checked' : '') + '></label>'
+    + (!f.on && fatForm ? formHtml : '')
+    + (meus.length ? '<ul class="bp-docs">' + meus.map(dd => '<li' + (dd.pendente ? ' class="pend"' : '') + '><span class="bp-doc-i">' + (dd.pendente ? 'RV' : 'FR') + '</span><div><b>' + esc(dd.n) + '</b><small>' + esc(dd.casa) + ' · ' + esc(dd.desc) + ' · ' + esc(dd.ix) + '</small></div><b>' + eurC(dd.valor) + '</b>' + (dd.pendente ? '<button type="button" class="pt-mini" data-djfat-anexa="' + esc(dd.bk) + '|' + esc(dd.n) + '">Já emiti · anexar PDF</button>' : '') + '</li>').join('') + '</ul>' : (f.on ? '<p class="al-nota">Ainda nenhuma fatura. Sai a primeira quando receberes um sinal ou um cachê.</p>' : ''))
     + '</div>';
 }
+['input', 'change'].forEach(tp => document.addEventListener(tp, ev => { const i = ev.target.closest('[data-djfat]'); if (i && i.dataset.djfat !== 'sw') fatVals[i.dataset.djfat] = i.type === 'checkbox' ? i.checked : i.value; }));
 document.addEventListener('change', ev => {
   const t = ev.target.closest('[data-djfat="sw"]'); if (!t) return;
   const f = fatDe(EU);
@@ -3681,11 +3710,19 @@ document.addEventListener('change', ev => {
   document.dispatchEvent(new CustomEvent('streetfy-dj'));
 });
 document.addEventListener('click', ev => {
+  const mb = ev.target.closest('[data-djfat-modo]'); if (mb) { fatModo = mb.dataset.djfatModo; fatErro = ''; document.dispatchEvent(new CustomEvent('streetfy-dj')); return; }
+  const ax = ev.target.closest('[data-djfat-anexa]'); if (ax) { const [bk, n] = ax.dataset.djfatAnexa.split('|'), L = bookings(), x = L.find(y => y.id === bk), dd = x && (x.docs || []).find(y => y.n === n); if (dd) { dd.pendente = false; dd.n = dd.n.replace(' · por emitir', ''); dd.ix = 'PDF anexado pelo DJ · enviado à casa'; gravaB(L); } document.dispatchEvent(new CustomEvent('streetfy-dj')); return; }
   const b = ev.target.closest('[data-djfat="ok"],[data-djfat="cancela"]'); if (!b) return;
-  if (b.dataset.djfat === 'cancela') { fatForm = false; document.dispatchEvent(new CustomEvent('streetfy-dj')); return; }
-  const q = k => document.querySelector('[data-djfat="' + k + '"]'), nif = (q('nif').value || '').replace(/\D/g, '');
-  fatErro = !/^\d{9}$/.test(nif) ? 'O NIF tem 9 algarismos.' : !q('ativ').checked ? 'Para faturar precisas de atividade aberta nas Finanças.' : !q('aut').checked ? 'Falta autorizar a emissão em teu nome.' : '';
-  if (!fatErro) { gravaFat(EU, {on:true, nif:'••••••' + nif.slice(-3), regime:q('regime').value, ret:q('ret').value, t:Date.now()}); fatForm = false; }
+  if (b.dataset.djfat === 'cancela') { fatForm = false; fatVals = {}; document.dispatchEvent(new CustomEvent('streetfy-dj')); return; }
+  const q = k => document.querySelector('[data-djfat="' + k + '"]'), v = k => (q(k) || {}).value || '';
+  if (fatModo === 'ligada') {
+    const conta = v('conta').trim(), chave = v('chave').trim();
+    fatErro = !conta ? 'Diz o nome da conta no emissor.' : chave.length < 8 ? 'A chave da API parece curta demais.' : !q('aut').checked ? 'Falta autorizar a emissão pela tua conta.' : '';
+    if (!fatErro) { gravaFat(EU, {on:true, modo:'ligada', emissor:v('emissor'), conta, chave:'••••' + chave.slice(-4), ret:v('ret'), t:Date.now()}); fatForm = false; fatVals = {}; }
+  } else {
+    fatErro = !q('ativ').checked ? 'Para passar recibos verdes precisas de atividade aberta nas Finanças.' : '';
+    if (!fatErro) { gravaFat(EU, {on:true, modo:'manual', ret:v('ret'), t:Date.now()}); fatForm = false; fatVals = {}; }
+  }
   document.dispatchEvent(new CustomEvent('streetfy-dj'));
 });
 /* o que a casa vê e pode fazer em cada estado */
@@ -3763,8 +3800,23 @@ window.STREETFY_DJS = {lista:D, setsDe, porId, portalDJ, portalCasa, NIVEL, EU, 
 (function(){
 'use strict';
 const CONC = {'lara-v':['Lara V.', 'cocktail'], 'ricardo-p':['Ricardo P.', 'pribeira'], 'beatriz-c':['Beatriz C.', 'pfoz']};
-const NOITES = [{id:'n1', nome:'Noite X', dia:'sex 31 out', ev:'l4', lista:'a', ocup:{A3:'direta', A6:'direta', B1:'promoter', B4:'direta'}},
+const NOITES0 = [{id:'n1', nome:'Noite X', dia:'sex 31 out', ev:'l4', lista:'a', ocup:{A3:'direta', A6:'direta', B1:'promoter', B4:'direta'}},
                 {id:'n2', nome:'Lux Sessions', dia:'sáb 1 nov', ev:'l11', lista:'ls', ocup:{A2:'direta', B5:'promoter', B6:'direta'}}];
+/* noites publicadas pela casa em evento-novo.html com mesas: entram no mesmo stock, com o preço da noite e só as mesas escolhidas (R100).
+   Um evento do catálogo editado pela casa (Noite X, Lux Sessions) só muda os preços e as mesas da sua noite. */
+const NOITES = NOITES0.slice();
+try {
+  const SEM0 = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'], MES0 = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'], hoje0 = new Date().toISOString().slice(0, 10);
+  const pub = e => e.estado === 'publicado' || (e.estado === 'agendado' && e.pubEm && new Date(e.pubEm) <= new Date());
+  (JSON.parse(localStorage.getItem('streetfy:eventos-casa') || '[]') || []).filter(e => pub(e) && e.mesas && e.mesas.on && e.mesas.sel && Object.keys(e.mesas.sel).length && (!e.casa || e.casa.k === 'lisboa/lux fragil') && e.data && e.data >= hoje0)
+    .sort((a, b) => a.data.localeCompare(b.data)).forEach(e => {
+      const n0 = NOITES.find(n => n.ev === e.id); if (n0) { n0.precos = e.mesas.sel; n0.so = Object.keys(e.mesas.sel); return; }
+      const d = new Date(e.data + 'T12:00');
+      NOITES.push({id:'ev-' + e.id, nome:e.titulo, dia:SEM0[d.getDay()] + ' ' + d.getDate() + ' ' + MES0[d.getMonth()], ev:e.id, lista:'ev-' + e.id, ocup:{}, precos:e.mesas.sel, so:Object.keys(e.mesas.sel), data:e.data});
+    });
+} catch (e) {}
+/* mesa que a casa não pôs à venda nessa noite */
+const foraDaNoite = (nid, m) => { const n = NOITES.find(x => x.id === nid); return !!(n && n.so && !n.so.includes(m)); };
 const HOLD = 30 * 60 * 1000;
 const LG = 'streetfy:concierge-ligacao';
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -3797,7 +3849,7 @@ const zonaDe = (lig, nome) => { const m = mesaDe(lig, nome), p = plantaDe(lig); 
 const noiteDe = id => NOITES.find(n => n.id === id) || NOITES[0];
 const estadoR = r => r.estado === 'segura' && Date.now() > r.t + HOLD ? 'expirou' : r.estado;
 const ativa = r => ['segura', 'pendente', 'confirmada'].includes(estadoR(r));
-const precoMesa = (lig, m) => { const e = mesaDe(lig, m); return e && e.preco != null ? +e.preco : +((lig.cfg.precos || {})[m] || PRECOS_PADRAO[m] || 0); };
+const precoMesa = (lig, m, nid) => { const n = nid ? NOITES.find(x => x.id === nid) : null; if (n && n.precos && n.precos[m] != null) return +n.precos[m]; const e = mesaDe(lig, m); return e && e.preco != null ? +e.preco : +((lig.cfg.precos || {})[m] || PRECOS_PADRAO[m] || 0); };
 function ocupacao(lig, nid){
   const n = noiteDe(nid), o = {}, existe = new Set(mesasDe(lig).map(m => m.nome));
   Object.entries(n.ocup).forEach(([m, t]) => { if (existe.has(m)) o[m] = {t}; });
@@ -3860,25 +3912,26 @@ document.addEventListener('keydown', ev => { if ((ev.key === 'Enter' || ev.key =
 /* cronómetros de todas as plantas na página */
 setInterval(() => document.querySelectorAll('.pl-crono[data-fim]').forEach(t => { const r = +t.dataset.fim - Date.now(); t.textContent = mmss(r); if (r <= 0) document.dispatchEvent(new CustomEvent('streetfy-planta-expirou')); }), 1000);
 
-window.STREETFY_MESAS = {CONC, NOITES, HOLD, LG, PRECOS_PADRAO, TIPOS, FORMAS, LIG_PADRAO, plantaPadrao, novoId, ler, gravar, plantaDe, mesasDe, mesaDe, zonaDe, noiteDe, estadoR, ativa, precoMesa, ocupacao, desenhaPlanta, forma, cadeiras, rotulo, rodar, DEFS, legenda, mmss, esc};
+window.STREETFY_MESAS = {CONC, NOITES, NOITES0, foraDaNoite, HOLD, LG, PRECOS_PADRAO, TIPOS, FORMAS, LIG_PADRAO, plantaPadrao, novoId, ler, gravar, plantaDe, mesasDe, mesaDe, zonaDe, noiteDe, estadoR, ativa, precoMesa, ocupacao, desenhaPlanta, forma, cadeiras, rotulo, rodar, DEFS, legenda, mmss, esc};
 
 /* ---------- página pública da Mesa VIP: a planta do dono, preço por mesa e cronómetro nas mesas em espera ---------- */
 const el = document.querySelector('[data-mesas]'); if (!el) return;
 const bx = document.querySelector('.book'), proxy = document.getElementById('mesa-proxy');
 let lig = ler(), noite = 'n1', mesa = '';
-function escolheLivre(){ const o = ocupacao(lig, noite), ms = mesasDe(lig); if (!mesa || o[mesa] || !ms.some(m => m.nome === mesa)) mesa = (ms.find(m => !o[m.nome]) || {}).nome || ''; }
+function escolheLivre(){ const o = ocupacao(lig, noite), ms = mesasDe(lig); if (!mesa || o[mesa] || foraDaNoite(noite, mesa) || !ms.some(m => m.nome === mesa)) mesa = (ms.find(m => !o[m.nome] && !foraDaNoite(noite, m.nome)) || {}).nome || ''; }
 function aplicaCaixa(){
   const z = mesa ? zonaDe(lig, mesa) : null, m = mesa ? mesaDe(lig, mesa) : null;
   const i = bx && bx.querySelector('#mesa-esc'); if (i) i.textContent = mesa ? 'mesa ' + mesa + ' · ' + z.nome + (m && m.lugares ? ' · até ' + m.lugares : '') + ' · garantida' : 'sem mesas livres nesta noite';
-  if (proxy && mesa) { proxy.dataset.price = precoMesa(lig, mesa); proxy.click(); }
-  const b = bx && bx.querySelector('.pr b'); if (b && mesa) b.textContent = '€' + precoMesa(lig, mesa);
+  if (proxy && mesa) { proxy.dataset.price = precoMesa(lig, mesa, noite); proxy.click(); }
+  const b = bx && bx.querySelector('.pr b'); if (b && mesa) b.textContent = '€' + precoMesa(lig, mesa, noite);
 }
 function desenha(){
   escolheLivre();
   const o = ocupacao(lig, noite);
   const estado = (nome, e) => {
     const x = o[nome];
-    if (!x) return {cls:'livre', sub:'€' + precoMesa(lig, nome), clicavel:true, sel:nome === mesa, titulo:'Mesa ' + nome + ', livre, €' + precoMesa(lig, nome) + (e.lugares ? ', até ' + e.lugares + ' pessoas' : '')};
+    if (foraDaNoite(noite, nome)) return {cls:'ocupada', sub:'não nesta noite', titulo:'Mesa ' + nome + ' não está à venda nesta noite'};
+    if (!x) return {cls:'livre', sub:'€' + precoMesa(lig, nome, noite), clicavel:true, sel:nome === mesa, titulo:'Mesa ' + nome + ', livre, €' + precoMesa(lig, nome, noite) + (e.lugares ? ', até ' + e.lugares + ' pessoas' : '')};
     if (x.r && estadoR(x.r) === 'segura') return {cls:'espera', sub:'em espera', fim:x.r.t + HOLD, titulo:'Mesa ' + nome + ' em espera: alguém está a fechar a reserva. Se não pagar, volta a ficar livre.'};
     return {cls:'ocupada', sub:'reservada', titulo:'Mesa ' + nome + ' já reservada'};
   };
@@ -3888,10 +3941,164 @@ function desenha(){
   aplicaCaixa();
 }
 el.addEventListener('click', ev => { const b = ev.target.closest('[data-mesa]'); if (!b) return; mesa = b.getAttribute('data-mesa'); desenha(); });
-if (bx) bx.querySelectorAll('[data-noite]').forEach(b => b.addEventListener('click', () => { noite = b.dataset.noite; mesa = ''; desenha(); }));
+/* as noites à venda: as duas fixas da demonstração mais as que a casa publicou com mesas */
+function montaNoites(){
+  if (!bx) return; const b0 = bx.querySelector('[data-noite]'); if (!b0) return; const slots = b0.parentElement, n = noiteDe(noite);
+  slots.innerHTML = NOITES.map(x => '<button type="button" class="' + (x.id === noite ? 'on' : '') + '" data-noite="' + esc(x.id) + '">' + esc(x.dia.split(' ').slice(0, 2).join(' ')) + '<small>' + esc(x.nome) + '</small></button>').join('');
+  slots.style.gridTemplateColumns = 'repeat(' + Math.min(3, NOITES.length) + ',1fr)';
+  const lbl = slots.previousElementSibling && slots.previousElementSibling.querySelector('i'); if (lbl) lbl.textContent = n.dia + ' · ' + n.nome;
+}
+if (bx) bx.addEventListener('click', ev => { const b = ev.target.closest('[data-noite]'); if (!b) return; noite = b.dataset.noite; mesa = ''; montaNoites(); desenha(); });
+montaNoites();
 document.addEventListener('streetfy-planta-expirou', () => desenha());
 window.addEventListener('storage', ev => { if (ev.key === LG) { lig = ler(); desenha(); } });
 desenha();
+})();
+</script><script>/* Xouty · parcerias.js — convites e pedidos de parceria entre locais, promoters e concierges (R105–R107).
+   Só entre eles: o local vê "Convidar" no perfil de um promoter ou concierge; o promoter e o concierge veem "Ser parceiro" no perfil de um local.
+   Nada entra sem aceitação manual de quem recebe. Protótipo: quem está a ver escolhe-se em "Ver como"; tudo fica neste aparelho. */
+(function(){
+'use strict';
+const PK = 'streetfy:parcerias', SK = 'streetfy:sessao';
+const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+/* quem "sou eu" em cada papel, no protótipo */
+const EU = {local:{id:'lisboa/lux fragil', nome:'Lux Frágil'}, promoter:{id:'rita-m', nome:'Rita M.'}, concierge:{id:'lara-v', nome:'Lara V.'}, utilizador:{id:'mari-costa', nome:'Mariana Costa'}};
+const USERS = {'mari-costa':'Mariana Costa'};
+const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.', 'ricardo-p':'Ricardo P.', 'beatriz-c':'Beatriz C.', 'tiago-a':'Tiago A.'};
+const nomeDe = (tipo, id) => USERS[id] ? USERS[id] : tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
+const DIA = 864e5, agora = Date.now();
+const PADRAO = () => [
+  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8, perm:{evento:false, lista:true}},
+  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6, perm:{evento:true, lista:true}},
+  {id:'p3', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'marco-s', dir:'convite', estado:'aceite', t:agora - 60 * DIA, msg:'', comissao:0},
+  {id:'p4', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'aceite', t:agora - 90 * DIA, msg:''},
+  {id:'p5', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'beatriz-c', dir:'convite', estado:'aceite', t:agora - 40 * DIA, msg:''},
+  {id:'p6', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'ricardo-p', dir:'pedido', estado:'pendente', t:agora - 2 * DIA, msg:'Trago grupos de empresa às sextas, 6 a 10 pessoas por mesa.'},
+  {id:'p7', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'ines-c', dir:'pedido', estado:'pendente', t:agora - DIA, msg:'Faço techno há dois anos; levo 40 a 60 pessoas por noite.'},
+  {id:'p8', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'joana-p', dir:'convite', estado:'pendente', t:agora - 3 * DIA, msg:'Gostávamos de te ter nas Lux Sessions de sábado.', comissao:8},
+  {id:'p9', local:'lisboa/b leza', localNome:'B.Leza', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'pendente', t:agora - DIA / 2, msg:'Queremos-te nas sextas de kizomba. Comissão de 10%.', comissao:10},
+  {id:'p10', local:'lisboa/ministerium club', localNome:'Ministerium Club', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'pendente', t:agora - 4 * DIA, msg:'Tenho clientes para mesa às sextas e sábados.'}];
+const ler = () => { try { const g = JSON.parse(localStorage.getItem(PK) || 'null'); if (Array.isArray(g)) return g; } catch (e) {} return PADRAO(); };
+const gravar = l => { try { localStorage.setItem(PK, JSON.stringify(l)); } catch (e) {} };
+/* a relação atual entre um local e uma pessoa: o registo mais recente que não foi cancelado */
+const relacao = (local, tipo, quem) => ler().filter(r => r.local === local && r.tipo === tipo && r.quem === quem && r.estado !== 'cancelado').sort((a, b) => b.t - a.t)[0] || null;
+function criar(r){ const l = ler(); r = Object.assign({id:'p' + Date.now().toString(36), estado:'pendente', t:Date.now(), msg:''}, r); l.push(r); gravar(l); return r; }
+/* permissões automáticas que o local dá a um promoter parceiro: criar evento e lista sem passar pela aprovação (regra de 27/10) */
+function mudarPerm(id, k, v){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.perm = Object.assign({}, r.perm || {}, {[k]:!!v}); gravar(l); } return r; }
+function responder(id, estado){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.estado = estado; r.resp = Date.now(); gravar(l); } return r; }
+const sessao = () => { try { return localStorage.getItem(SK) || 'utilizador'; } catch (e) { return 'utilizador'; } };
+const mudarSessao = v => { try { localStorage.setItem(SK, v); } catch (e) {} };
+/* ---------- o utilizador comum que um local convidou (R113–R114) ----------
+   Convidado e aceite, passa a promoter da casa desse local (só para os eventos dele). Para pedir parceria a outros locais
+   precisa de reputação: 30 dias como promoter da casa, 20 presenças verificadas e nota ≥ 4,3. */
+const RK = 'streetfy:reputacao';
+const REP = [['Dias como promoter da casa', 'dias', 30], ['Presenças verificadas pelas tuas indicações', 'presencas', 20], ['Nota "Valeu?"', 'nota', 4.3]];
+const casasDe = id => ler().filter(r => r.tipo === 'promoter' && r.quem === id && r.estado === 'aceite' && r.estado !== 'cancelado');
+const ePromoterDaCasa = id => casasDe(id).length > 0;
+function reputacao(id){
+  const cs = casasDe(id), desde = cs.length ? Math.min(...cs.map(r => r.resp || r.t)) : 0;
+  let sim = null; try { sim = JSON.parse(localStorage.getItem(RK) || 'null'); } catch (e) {}
+  const v = sim && sim[id] ? sim[id] : {dias:desde ? Math.floor((Date.now() - desde) / DIA) : 0, presencas:desde ? 4 : 0, nota:4.4};
+  return {v, itens:REP.map(([n, k, alvo]) => [n, k, v[k], alvo, v[k] >= alvo]), ok:cs.length > 0 && REP.every(([, k, alvo]) => v[k] >= alvo)};
+}
+function simularReputacao(id){ let sim = {}; try { sim = JSON.parse(localStorage.getItem(RK) || '{}') || {}; } catch (e) {} sim[id] = {dias:31, presencas:24, nota:4.6}; try { localStorage.setItem(RK, JSON.stringify(sim)); } catch (e) {} }
+window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, mudarPerm, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
+
+/* ---------- botões nos perfis ---------- */
+const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : document.querySelector('[data-user]') ? 'user' : '';
+if (!pagina) return;
+/* quem está a ver escolhe-se na conta, no cabeçalho (nav.js) */
+/* no perfil da Mariana, quem não é ela vê a vista pública (sem "Editar perfil") */
+const vistaUser = () => { if (pagina !== 'user') return; const v = document.querySelector('[data-ver="' + (sessao() === 'utilizador' || sessao() === 'visitante' ? 'eu' : 'pub') + '"]'); if (v && !v.classList.contains('on')) v.click(); };
+let aberto = false;
+/* de quem é a página que estou a ver */
+function alvo(){
+  const q = new URLSearchParams(location.hash.slice(1));
+  if (pagina === 'local') { const n = document.querySelector('[data-p="nome"]'); return {local:q.get('lugar') || '', localNome:n ? n.textContent.trim() : 'este local', ia:!!document.querySelector('.p-estado.ia')}; }
+  if (pagina === 'user') return {tipo:'promoter', quem:EU.utilizador.id, user:true};
+  if (pagina === 'promoter') { const P = (window.STREETFY_PROMOTERS || {}).lista || []; const id = q.get('p') || (P[0] || {}).id; return {tipo:'promoter', quem:id}; }
+  return {tipo:'concierge', quem:q.get('c') || 'lara-v'};
+}
+function botao(){
+  const s = sessao(), a = alvo();
+  /* a Mariana, utilizadora comum, num perfil de local: aceita convites; pede parceria só com reputação */
+  if (pagina === 'local' && s === 'utilizador') {
+    if (!a.local || /NÃO ENCONTRADO/.test(a.localNome)) return '';
+    const me = EU.utilizador.id, r = relacao(a.local, 'promoter', me), nl = esc(a.localNome);
+    if (r && r.estado === 'aceite') return '<span class="s-btn mint pc-ok">Promoter da casa de ' + nl + ' ✓</span>';
+    if (r && r.estado === 'pendente' && r.dir === 'convite') return '<span class="pc-conv">' + nl + ' convidou-te para promoter<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    if (!ePromoterDaCasa(me)) return '';
+    if (r && r.estado === 'pendente') return '<span class="s-btn ghost pc-esp">Pedido enviado · à espera de ' + nl + '</span>';
+    if (!reputacao(me).ok) return '<a class="s-btn ghost pc-lock" href="trabalhar.html#trabalhar" title="Precisas de reputação: 30 dias como promoter da casa, 20 presenças verificadas e nota 4,3">Ser parceiro · 🔒 falta reputação</a>';
+    return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Pedir de novo para ser parceiro' : 'Ser parceiro') + '</a>';
+  }
+  if (pagina === 'local' && (s === 'promoter' || s === 'concierge')) {
+    if (!a.local || /NÃO ENCONTRADO/.test(a.localNome)) return '';
+    const r = relacao(a.local, s, EU[s].id), nl = esc(a.localNome);
+    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Pedir de novo para ser parceiro' : 'Ser parceiro') + '</a>';
+    if (r.estado === 'aceite') return '<span class="s-btn mint pc-ok">Parceiro de ' + nl + ' ✓</span>';
+    if (r.dir === 'convite') return '<span class="pc-conv">' + nl + ' convidou-te<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    return '<span class="s-btn ghost pc-esp">Pedido enviado · à espera de ' + nl + '</span>';
+  }
+  if (pagina === 'user' && s !== 'local') return '';
+  if (pagina !== 'local' && s === 'local') {
+    const r = relacao(EU.local.id, a.tipo, a.quem), nome = esc(nomeDe(a.tipo, a.quem).split(' ')[0]);
+    if (!r || r.estado === 'recusado') return '<a href="#" class="s-btn pink" data-pc="abrir">' + (r ? 'Convidar de novo' : a.user ? 'Convidar para promoter do ' + esc(EU.local.nome) : 'Convidar para o ' + esc(EU.local.nome)) + '</a>';
+    if (r.estado === 'aceite') return '<span class="s-btn mint pc-ok">' + (a.tipo === 'promoter' ? 'Promoter da casa' : 'Concierge parceiro') + ' ✓</span>';
+    if (a.user && r.dir === 'convite' && r.estado === 'pendente') return '<span class="s-btn ghost pc-esp">Convite enviado · à espera de ' + nome + '</span><a href="#" class="pc-cancel" data-pc="cancelar" data-id="' + r.id + '">cancelar</a>';
+    if (r.dir === 'pedido') return '<span class="pc-conv">' + nome + ' pediu para ser parceiro<a href="#" class="s-btn pink" data-pc="aceitar" data-id="' + r.id + '">Aceitar</a><a href="#" class="s-btn ghost" data-pc="recusar" data-id="' + r.id + '">Recusar</a></span>';
+    return '<span class="s-btn ghost pc-esp">Convite enviado · à espera de ' + nome + '</span><a href="#" class="pc-cancel" data-pc="cancelar" data-id="' + r.id + '">cancelar</a>';
+  }
+  return '';
+}
+function formulario(){
+  const s = sessao(), a = alvo();
+  if (pagina === 'local') return '<form class="pc-form" data-pc-form><b>Ser parceiro de ' + esc(a.localNome) + '</b><small>Como ' + (s === 'concierge' ? 'concierge' : 'promoter') + (s === 'utilizador' ? ', com a reputação que ganhaste como promoter da casa' : '') + '. ' + esc(a.localNome) + ' recebe o pedido no portal e aceita ou recusa.' + (a.ia ? ' Este perfil ainda é gerido pela IA: o pedido fica guardado até o dono o assumir.' : '') + '</small>'
+    + '<textarea name="msg" rows="3" maxlength="300" placeholder="' + (s === 'promoter' ? 'que noites fazes, quantas pessoas levas…' : 'que clientes trazes, em que noites…') + '"></textarea><div><button class="s-btn pink" type="submit">Enviar pedido</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
+  const nome = nomeDe(a.tipo, a.quem);
+  return '<form class="pc-form" data-pc-form><b>Convidar ' + esc(nome) + (a.user ? ' para promoter do ' : ' para o ') + esc(EU.local.nome) + '</b><small>' + (a.user ? esc(nome.split(' ')[0]) + ' ainda não é promoter. Se aceitar, passa a promoter da casa, só para os teus eventos, com selo, indicações e lista de convidados. Para pedir parceria a outros locais vai precisar de reputação.' : esc(nome.split(' ')[0]) + ' recebe o convite no portal e aceita ou recusa. Só depois ' + (a.tipo === 'promoter' ? 'passa a promoter da casa.' : 'pode reservar mesas e pôr nomes nas tuas listas.')) + '</small>'
+    + (a.tipo === 'promoter' ? '<label>Comissão por bilhete<span><input name="comissao" type="number" min="0" max="30" value="8"> %</span></label>' : '')
+    + '<textarea name="msg" rows="3" maxlength="300" placeholder="uma mensagem curta (opcional)"></textarea><div><button class="s-btn pink" type="submit">Enviar convite</button><button class="s-btn ghost" type="button" data-pc="fechar">Cancelar</button></div></form>';
+}
+function poe(){
+  const caixa = pagina === 'local' ? document.querySelector('[data-p="acoes"]') : document.querySelector('.p-acoes');
+  if (!caixa) return;
+  /* o botão vai para a fila de ações; o formulário abre por baixo dela, em linha própria */
+  let w = caixa.querySelector('.pc-w'), f = caixa.nextElementSibling && caixa.nextElementSibling.classList.contains('pc-fw') ? caixa.nextElementSibling : null;
+  const h = botao(), hf = h && aberto ? formulario() : '';
+  if (!h) { if (w) w.remove(); } else {
+    if (!w) { w = document.createElement('span'); w.className = 'pc-w'; caixa.insertBefore(w, caixa.firstChild); }
+    if (w.dataset.h !== h) { w.innerHTML = h; w.dataset.h = h; }
+  }
+  if (!hf) { if (f) f.remove(); return; }
+  if (!f) { f = document.createElement('div'); f.className = 'pc-fw'; caixa.after(f); }
+  if (f.dataset.h !== hf) { f.innerHTML = hf; f.dataset.h = hf; }
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-pc]'); if (!b) return;
+  ev.preventDefault();
+  const x = b.dataset.pc;
+  if (x === 'abrir') aberto = true;
+  if (x === 'fechar') aberto = false;
+  if (x === 'aceitar') responder(b.dataset.id, 'aceite');
+  if (x === 'recusar') responder(b.dataset.id, 'recusado');
+  if (x === 'cancelar') responder(b.dataset.id, 'cancelado');
+  poe();
+  if (x === 'abrir') { const t = document.querySelector('.pc-form textarea'); if (t) t.focus(); }
+});
+document.addEventListener('submit', ev => {
+  const f = ev.target.closest('[data-pc-form]'); if (!f) return;
+  ev.preventDefault();
+  const s = sessao(), a = alvo(), msg = f.msg.value.trim();
+  if (pagina === 'local') criar({local:a.local, localNome:a.localNome, tipo:s === 'utilizador' ? 'promoter' : s, quem:EU[s].id, dir:'pedido', msg, origem:s === 'utilizador' ? 'user' : undefined});
+  else criar({local:EU.local.id, localNome:EU.local.nome, tipo:a.tipo, quem:a.quem, dir:'convite', msg, origem:a.user ? 'user' : undefined, comissao:f.comissao ? Math.max(0, Math.min(30, +f.comissao.value || 0)) : undefined});
+  aberto = false; poe();
+});
+window.addEventListener('hashchange', () => { aberto = false; setTimeout(poe, 0); });
+window.addEventListener('storage', ev => { if (ev.key === PK || ev.key === SK || ev.key === RK) { vistaUser(); poe(); } });
+/* os perfis redesenham-se sozinhos (seguir, trocar de evento): volto a pôr o botão sempre que a caixa muda */
+new MutationObserver(() => poe()).observe(document.querySelector('[data-perfil],[data-promoter],[data-concierge],[data-user]'), {childList:true, subtree:true});
+vistaUser(); poe();
 })();
 </script><script>/* Xouty · eventos-casa.js — a casa cria e edita os seus eventos (evento-novo.html, [data-ev-novo]; editar: #id=<id>).
    O evento nasce sempre dentro da casa (regra: evento só existe num local). Ao publicar: entra no catálogo (filtros.js lê streetfy:eventos-casa),
@@ -3907,6 +4114,17 @@ const gravar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); ret
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const eur = n => '€' + (Math.round(n * 100) / 100).toFixed(2).replace('.', ',').replace(/,00$/, '');
 const CASA = C.EV_CASA, CASA_PROMS = ['rita-m', 'tiago-r', 'marco-s'];
+/* quem cria: a casa (sessão parceiro) ou um promoter parceiro (sessão promoter = Rita M.). O promoter só publica direto
+   nas casas que lhe deram essa permissão na parceria; nas outras o evento fica a aguardar a aprovação do local (regra de 27/10). */
+const SES = window.STREETFY_SESSAO, PC = window.STREETFY_PARCERIAS, PAPEL = SES ? SES.papel() : 'parceiro';
+const souPromoter = PAPEL === 'promoter', PROM_ID = 'rita-m', PROM_NOME = 'Rita M.';
+function casasDoPromoter(){
+  if (!PC) return [];
+  return PC.ler().filter(r => r.tipo === 'promoter' && r.quem === PROM_ID && r.estado === 'aceite').map(r => { const i = C.itens.find(x => C.lugarKey(x) === r.local && x.lat); return {k:r.local, lugar:r.localNome, bairro:i ? i.bairro || '' : '', cidade:i ? i.cidade : 'lisboa', lat:i ? i.lat : CASA.lat, lng:i ? i.lng : CASA.lng, perm:!!(r.perm && r.perm.evento)}; });
+}
+const casaAtual = () => (E && E.casa) || CASA;
+const permAuto = () => !souPromoter || !!(casasDoPromoter().find(c => c.k === casaAtual().k) || {}).perm;
+const portalDeVolta = 'portal.html#' + (souPromoter ? 'promoter' : 'parceiro');
 const ESTILOS = ['techno', 'house', 'disco', 'afro house', 'kizomba', 'hip-hop', 'funk', 'reggaeton', 'drum and bass', 'indie', 'jazz', 'fado'];
 const TIPOS = [['festa', 'Festa'], ['clube', 'Noite de clube'], ['concerto', 'Concerto'], ['restaurante', 'Jantar']];
 const CAPAS = ['lux', 'club', 'dj', 'noite', 'cocktail', 'pink', 'shots', 'tejo'];
@@ -3937,14 +4155,15 @@ const idHash = () => new URLSearchParams(location.hash.slice(1)).get('id') || ''
 let E, aviso = null, feito = null, apagar = false;
 function carrega(){
   const id = idHash(), g = todos().find(x => x.id === id);
-  E = g ? JSON.parse(JSON.stringify(g)) : (id && C.itens.find(i => i.id === id && C.lugarKey(i) === CASA.k) ? doCatalogo(C.itens.find(i => i.id === id)) : novo());
+  E = g ? JSON.parse(JSON.stringify(g)) : (!souPromoter && id && C.itens.find(i => i.id === id && C.lugarKey(i) === CASA.k) ? doCatalogo(C.itens.find(i => i.id === id)) : novo());
+  if (souPromoter && E.estado === 'novo') { const c0 = casasDoPromoter()[0]; E.casa = c0 ? {k:c0.k, lugar:c0.lugar, bairro:c0.bairro, cidade:c0.cidade, lat:c0.lat, lng:c0.lng} : null; E.criadoPor = PROM_ID; E.origem = 'promoter'; }
   if (E.vendaAuto === undefined) E.vendaAuto = !E.vendaAte;
   sincVenda();
   if (!E.mesas.sel) E.mesas.sel = mesasDaCasa().reduce((o, m) => (o[m.nome] = m.preco, o), {});
   aviso = null; feito = null; apagar = false;
 }
 const lig = () => ME ? ME.ler() : null;
-const mesasDaCasa = () => { const l = lig(); return l ? ME.mesasDe(l).map(m => ({nome:m.nome, zona:m.zona, lugares:m.lugares, preco:ME.precoMesa(l, m.nome)})) : []; };
+const mesasDaCasa = () => { const l = lig(); if (casaAtual().k !== CASA.k) return []; return l ? ME.mesasDe(l).map(m => ({nome:m.nome, zona:m.zona, lugares:m.lugares, preco:ME.precoMesa(l, m.nome)})) : []; };
 const zonaNome = z => { const l = lig(); const zz = l && (ME.plantaDe(l).zonas || []).find(x => x.id === z); return zz ? zz.nome : 'zona ' + z; };
 
 /* ---------- caminhos data-f="a.b.0.c" ---------- */
@@ -3982,11 +4201,11 @@ function erros(modo){
 /* ---------- pré-visualização ---------- */
 function preview(){
   const it = C.deEventoCasa(E), livre = it.preco === 0;
-  const estado = feito ? feito : E.estado === 'novo' ? 'por publicar' : E.estado === 'rascunho' ? 'rascunho' : E.estado === 'agendado' ? 'agendado' : 'publicado';
+  const estado = feito === 'pendente_local' || (!feito && E.estado === 'pendente_local') ? 'a aguardar o local' : E.estado === 'recusado' && !feito ? 'recusado pelo local' : feito ? feito : E.estado === 'novo' ? 'por publicar' : E.estado === 'rascunho' ? 'rascunho' : E.estado === 'agendado' ? 'agendado' : 'publicado';
   const lotes = E.entrada === 'paga' ? E.lotes.filter(l => +l.qtd > 0) : [];
   return '<div class="en-pv-h"><b>Como aparece</b><span class="en-est ' + esc(estado.split(' ')[0]) + '">' + esc(estado) + '</span></div>'
     + '<div class="card-l en-card"><div class="s-im" style="background-image:url(' + esc(imgUrl(E.capa)) + ')"><span class="s-tag' + (livre ? ' mint' : '') + '">' + esc((E.hora ? E.hora + ' · ' : '') + (livre ? 'Entrada livre' : E.estilo)) + '</span>' + (livre ? '' : '<span class="s-price">' + esc(eur(it.preco)) + '</span>') + '</div>'
-    + '<div class="bd"><h3>' + esc(E.titulo || 'Nome do evento') + '</h3><p>' + esc(CASA.lugar) + ' · ' + esc(CASA.bairro) + '</p><div class="op"><i>✓</i>' + esc(dataTxt(E.data)) + (E.hora ? ' · ' + esc(E.hora) + (E.horaFim ? ' – ' + esc(E.horaFim) : '') : '') + '</div><span class="pp">' + esc(E.resumo || 'A frase curta que aparece no cartão.') + '</span></div></div>'
+    + '<div class="bd"><h3>' + esc(E.titulo || 'Nome do evento') + '</h3><p>' + esc(casaAtual().lugar) + (casaAtual().bairro ? ' · ' + esc(casaAtual().bairro) : '') + '</p><div class="op"><i>✓</i>' + esc(dataTxt(E.data)) + (E.hora ? ' · ' + esc(E.hora) + (E.horaFim ? ' – ' + esc(E.horaFim) : '') : '') + '</div><span class="pp">' + esc(E.resumo || 'A frase curta que aparece no cartão.') + '</span></div></div>'
     + '<div class="en-pg"><span class="en-pg-t">Página do evento</span>'
     + (E.lineup.length ? '<div class="en-lu">' + E.lineup.map(x => '<span>' + (x.foto ? '<i style="background-image:url(img/' + esc(x.foto) + '.jpg)"></i>' : '<i class="sem"></i>') + esc(x.nome) + (x.hora ? '<small>' + esc(x.hora) + '</small>' : '') + '</span>').join('') + '</div>' : '<p class="en-pg-v">Sem line-up ainda: aparece "residentes da casa".</p>')
     + '<div class="en-pg-b">' + (livre ? '<b>Grátis</b><span>chega e entra · check-in à porta</span>' : (E.vendaAte ? '<div class="en-vd"><span>Venda até</span><b>' + esc(dtTxt(E.vendaAte)) + '</b></div>' : '') + lotes.map(l => '<div><span>' + esc(l.nome) + (l.ate ? ' <small>até ' + esc(dataTxt(l.ate)) + '</small>' : '') + '</span><b>' + eur(+l.preco) + '</b></div>').join('')) + '</div>'
@@ -3998,11 +4217,21 @@ const inp = (f, lab, extra, tipo) => '<label class="en-l"><span class="en-lt">' 
 const sw = (f, lab, sub) => '<label class="en-sw"><span>' + lab + (sub ? '<small>' + sub + '</small>' : '') + '</span><input type="checkbox" class="pt-sw" data-f="' + f + '"' + (pega(E, f) ? ' checked' : '') + '></label>';
 const err = (es, k) => { const m = es.filter(x => x[0] === k); return m.length ? '<p class="en-err" role="alert">' + m.map(x => esc(x[1])).join(' ') + '</p>' : ''; };
 function sec(n, titulo, sub, corpo){ return '<section class="pt-card en-s"><div class="en-sh"><span>' + n + '</span><div><h3>' + titulo + '</h3>' + (sub ? '<small>' + sub + '</small>' : '') + '</div></div>' + corpo + '</section>'; }
+/* o local do evento: fixo para a casa; para o promoter, uma das casas onde é parceiro, com o aviso da permissão */
+function blocoCasa(){
+  const ca = casaAtual();
+  if (!souPromoter) return '<div class="en-casa"><span class="en-casa-av" style="background-image:url(img/lux.jpg)"></span><div><b>' + esc(ca.lugar) + '</b><small>' + esc(ca.bairro) + ' · Lisboa · perfil assumido</small></div><a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent(ca.k) + '">ver perfil</a></div>';
+  const cs = casasDoPromoter();
+  if (!cs.length) return '<p class="en-err" role="alert">Ainda não és parceira de nenhuma casa. Pede parceria no perfil de um local; só depois podes criar eventos lá.</p>';
+  return '<label class="en-l"><span class="en-lt">Local <em>obrigatório: o evento vive na página da casa</em></span><select data-casa>' + cs.map(c => '<option value="' + esc(c.k) + '"' + (c.k === ca.k ? ' selected' : '') + '>' + esc(c.lugar) + (c.bairro ? ' · ' + esc(c.bairro) : '') + (c.perm ? ' · publicas direto' : ' · com aprovação') + '</option>').join('') + '</select></label>'
+    + '<p class="al-nota">' + (permAuto() ? esc(ca.lugar) + ' deu-te permissão automática: o evento publica direto em nome da casa.' : esc(ca.lugar) + ' ainda não te deu permissão automática: o evento fica a aguardar a aprovação da casa e só depois sai no catálogo.') + '</p>';
+}
 function form(){
   const es = aviso || [], DJS = DJ ? DJ.lista : [];
   const lotesTot = E.lotes.reduce((a, l) => a + (+l.qtd || 0), 0), receita = E.lotes.reduce((a, l) => a + (+l.qtd || 0) * (+l.preco || 0), 0);
   const ms = mesasDaCasa(), zonas = [...new Set(ms.map(m => m.zona))];
-  return sec(1, 'O evento', 'o que aparece no cartão e no topo da página',
+  return (E.estado === 'recusado' ? '<p class="en-err" role="alert">' + esc(casaAtual().lugar) + ' não aprovou este evento' + (E.motivo ? ': ' + esc(E.motivo) : '') + '. Corrige e envia outra vez.</p>' : '')
+    + sec(1, 'O evento', 'o que aparece no cartão e no topo da página',
       inp('titulo', 'Nome <em>obrigatório</em>', ' maxlength="48" placeholder="ex.: Noite X · Closing" required') + err(es, 'titulo')
       + '<div class="en-l">Tipo<div class="bf-tags">' + TIPOS.map(([v, n]) => '<button type="button" class="bf-tag' + (E.tipos.includes(v) ? ' on' : '') + '" data-tipo="' + v + '" aria-pressed="' + E.tipos.includes(v) + '">' + n + '</button>').join('') + '</div></div>' + err(es, 'tipos')
       + '<div class="en-2"><label class="en-l">Estilo<select data-f="estilo">' + ESTILOS.concat(ESTILOS.includes(E.estilo) ? [] : [E.estilo]).map(s => '<option' + (s === E.estilo ? ' selected' : '') + '>' + esc(s) + '</option>').join('') + '</select></label>'
@@ -4011,7 +4240,7 @@ function form(){
       + '<label class="en-l"><span class="en-lt">Sobre o evento <small class="en-cnt" data-cnt="desc">' + E.desc.length + '/600</small></span><textarea data-f="desc" maxlength="600" rows="4" placeholder="O que esperar, dress code, regras da casa…">' + esc(E.desc) + '</textarea></label>')
     + sec(2, 'Quando e onde', 'o evento fica sempre no perfil da casa',
       '<div class="en-3">' + inp('data', 'Data <em>obrigatório</em>', ' min="' + HOJE + '"', 'date') + inp('hora', 'Abre', '', 'time') + inp('horaFim', 'Fecha', '', 'time') + '</div>' + err(es, 'data') + err(es, 'hora')
-      + '<div class="en-casa"><span class="en-casa-av" style="background-image:url(img/lux.jpg)"></span><div><b>' + esc(CASA.lugar) + '</b><small>' + esc(CASA.bairro) + ' · Lisboa · perfil assumido</small></div><a class="pt-mini" href="perfil.html#lugar=' + encodeURIComponent(CASA.k) + '">ver perfil</a></div>')
+      + blocoCasa())
     + sec(3, 'Capa', 'fotos da casa, ou carrega a do cartaz',
       '<div class="en-capas" role="radiogroup" aria-label="Capa">' + CAPAS.concat(CAPAS.includes(E.capa) ? [] : [E.capa]).map(c => '<button type="button" role="radio" aria-checked="' + (c === E.capa) + '" class="' + (c === E.capa ? 'on' : '') + '" data-capa="' + esc(c) + '" style="background-image:url(' + esc(imgUrl(c)) + ')" aria-label="' + (/^data:/.test(c) ? 'Imagem carregada' : esc(c)) + '"></button>').join('')
       + '<label class="en-up">+<span>Carregar</span><input type="file" accept="image/*" data-up hidden></label></div><p class="en-err" data-up-err hidden></p>')
@@ -4044,20 +4273,21 @@ function form(){
       + sw('seguidores', 'Só para seguidores', 'quem não segue a casa vê o evento mas só compra depois de seguir'))
     + '<div class="en-bar">' + (es.length ? '<p class="en-err" role="alert">Falta: ' + es.map(x => esc(x[1])).join(' ') + '</p>' : '')
       + '<div class="en-acts">' + (E.estado === 'rascunho' ? (apagar ? '<span class="en-conf">Apagar o rascunho? <button type="button" class="pt-mini" data-apagar="sim">Sim, apagar</button><button type="button" class="pt-mini" data-apagar="nao">Não</button></span>' : '<button type="button" class="pt-mini en-apagar" data-apagar="1">Apagar rascunho</button>') : '')
-      + '<a class="s-btn ghost" href="portal.html#parceiro">Cancelar</a>'
+      + '<a class="s-btn ghost" href="' + portalDeVolta + '">Cancelar</a>'
       + (E.pub !== 'rascunho' ? '<button type="button" class="s-btn ghost" data-guardar="rascunho">Guardar rascunho</button>' : '')
-      + '<button type="button" class="s-btn pink" data-guardar="' + E.pub + '">' + (E.pub === 'rascunho' ? 'Guardar rascunho' : E.pub === 'agendar' ? 'Agendar' : E.estado === 'publicado' ? 'Guardar alterações' : 'Publicar') + '</button></div></div>';
+      + '<button type="button" class="s-btn pink" data-guardar="' + E.pub + '">' + (E.pub === 'rascunho' ? 'Guardar rascunho' : souPromoter && !permAuto() ? 'Enviar ao ' + esc(casaAtual().lugar) : E.pub === 'agendar' ? 'Agendar' : E.estado === 'publicado' ? 'Guardar alterações' : 'Publicar') + '</button></div></div>';
 }
 const somaTxt = (tot, rec) => '<b>' + tot + '</b> bilhetes em lotes' + (+E.lotacao ? ' de <b>' + E.lotacao + '</b> de lotação' : '') + ' · até <b>' + eur(rec) + '</b> se esgotar';
 
 function feitoHtml(){
   const it = C.itens.find(i => i.id === E.id), url = 'bilhete.html#lugar=' + encodeURIComponent(CASA.k) + '&evento=' + encodeURIComponent(E.id);
-  const t = feito === 'publicado' ? 'PUBLICADO' : feito === 'agendado' ? 'AGENDADO' : 'GUARDADO';
+  const t = feito === 'publicado' ? 'PUBLICADO' : feito === 'agendado' ? 'AGENDADO' : feito === 'pendente_local' ? 'ENVIADO AO LOCAL' : 'GUARDADO';
   const sub = feito === 'publicado' ? 'Já está no perfil da casa, na agenda e na pesquisa.' + (E.lineup.some(x => x.dj) ? ' Os DJs receberam o pedido de booking.' : '') + (E.lista.on ? ' A lista da casa abriu no portal.' : '')
+    : feito === 'pendente_local' ? esc(casaAtual().lugar) + ' aprova ou recusa no portal. Só depois o evento sai no catálogo, e só então os DJs do line-up recebem o pedido de booking.'
     : feito === 'agendado' ? 'Sai sozinho a ' + esc(new Date(E.pubEm).toLocaleString('pt-PT', {weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})) + '. Até lá só tu o vês no portal.' : 'Rascunho guardado. Só tu o vês, no portal.';
   return '<div class="pt-card en-ok"><span class="en-ok-i" aria-hidden="true">✓</span><h2 class="s-h">' + t + '</h2><p>' + sub + '</p><div class="en-acts">'
     + (feito === 'publicado' || it ? '<a class="s-btn pink" href="' + esc(url) + '">Ver a página do evento</a><a class="s-btn ghost" href="perfil.html#lugar=' + encodeURIComponent(CASA.k) + '">Ver no perfil</a>' : '')
-    + '<a class="s-btn ghost" href="#id=' + esc(E.id) + '" data-editar>Continuar a editar</a><a class="s-btn ghost" href="portal.html#parceiro">Voltar ao portal</a><a class="s-btn ghost" href="#novo" data-novo>Criar outro</a></div></div>';
+    + '<a class="s-btn ghost" href="#id=' + esc(E.id) + '" data-editar>Continuar a editar</a><a class="s-btn ghost" href="' + portalDeVolta + '">Voltar ao portal</a><a class="s-btn ghost" href="#novo" data-novo>Criar outro</a></div></div>';
 }
 
 function desenha(){
@@ -4072,15 +4302,16 @@ const atualizaPv = () => { const pv = el.querySelector('[data-pv]'); if (pv) pv.
 function guardar(modo){
   const es = erros(modo); if (es.length) { aviso = es; desenha(); const p = el.querySelector('.en-err'); if (p) p.scrollIntoView({block:'center', behavior:'smooth'}); return; }
   aviso = null;
-  E.estado = modo === 'rascunho' ? 'rascunho' : modo === 'agendar' ? 'agendado' : 'publicado';
+  E.estado = modo === 'rascunho' ? 'rascunho' : souPromoter && !permAuto() ? 'pendente_local' : modo === 'agendar' ? 'agendado' : 'publicado';
+  if (E.estado === 'pendente_local') { E.pubPedido = modo; E.pedidoEm = Date.now(); delete E.motivo; delete E.aprovadoEm; }
   if (modo === 'rascunho' && !E.titulo.trim()) E.titulo = 'Sem nome';
   E.atualizado = Date.now(); if (!E.criado) E.criado = Date.now();
   const L = todos(), j = L.findIndex(x => x.id === E.id); if (j >= 0) L[j] = E; else L.unshift(E);
   if (!gravar(K, L)) { aviso = [['pub', 'Sem espaço neste aparelho. Usa uma capa mais pequena.']]; desenha(); return; }
-  if (E.estado !== 'rascunho' && DJ && DJ.bookings) {
+  if (E.estado !== 'rascunho' && E.estado !== 'pendente_local' && DJ && DJ.bookings) {
     const B = DJ.bookings();
     E.lineup.filter(x => x.dj).forEach(x => { const b = B.find(b => b.ev === E.id && b.dj === x.dj); const d = {data:E.data, hora:x.hora || E.hora + (E.horaFim ? ' – ' + E.horaFim : ''), cache:+x.cache || 0, nota:E.titulo};
-      if (b) { if (b.estado === 'pendente') Object.assign(b, d); } else B.unshift(Object.assign({id:'b' + Date.now().toString(36) + x.dj, dj:x.dj, casa:CASA.lugar, casaK:CASA.k, estado:'pendente', t:Date.now(), ev:E.id}, d)); });
+      if (b) { if (b.estado === 'pendente') Object.assign(b, d); } else B.unshift(Object.assign({id:'b' + Date.now().toString(36) + x.dj, dj:x.dj, casa:casaAtual().lugar, casaK:casaAtual().k, estado:'pendente', t:Date.now(), ev:E.id}, d)); });
     DJ.gravaB(B);
   }
   feito = E.estado;
@@ -4101,6 +4332,7 @@ el.addEventListener('change', ev => {
   const t = ev.target;
   if (t.matches('[data-f]') && t.type === 'checkbox') { poe(E, t.dataset.f, t.checked); desenha(); return; }
   if (t.matches('select[data-f]')) { poe(E, t.dataset.f, t.value); atualizaPv(); return; }
+  if (t.matches('[data-casa]')) { const c = casasDoPromoter().find(x => x.k === t.value); if (c) { E.casa = {k:c.k, lugar:c.lugar, bairro:c.bairro, cidade:c.cidade, lat:c.lat, lng:c.lng}; E.mesas.sel = {}; desenha(); } return; }
   if (t.matches('[data-mesa]')) { const m = mesasDaCasa().find(x => x.nome === t.dataset.mesa); if (t.checked) E.mesas.sel[m.nome] = m.preco; else delete E.mesas.sel[m.nome]; desenha(); return; }
   if (t.matches('[data-up]')) carregaCapa(t.files[0]);
 });

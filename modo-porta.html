@@ -2391,6 +2391,15 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 @media (max-width:560px){.bp-docs li{grid-template-columns:auto minmax(0,1fr) auto}.bp-docs li .pt-mini{display:none}}
 .bp-docs li.dj{border-color:var(--mint)}.bp-docs li.dj .bp-doc-i{background:var(--mint);color:var(--ink)}
 .dj-fat .bp-docs{margin-top:4px}.dj-fatf{gap:12px}
+
+/* permissões por promoter na parceria · eventos de promoters · faturação do DJ por conta ligada */
+.pc-okp{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff}
+.pc-perm{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--grey)}.pc-perm label{display:flex;gap:4px;align-items:center;cursor:pointer}.pc-perm input{accent-color:var(--pink)}
+.pc-permt{display:block;font-weight:500;color:var(--grey);font-size:11px}
+.pt-est.ok{background:var(--mint)}.pt-est.re{background:#ffc9d6}
+.en-est.a{background:#ffe08a}.en-est.recusado{background:#ffc9d6}
+.bp-docs li.pend{border-style:dashed}.bp-docs li.pend .bp-doc-i{background:#ffe08a;color:var(--ink)}
+.dj-fatf .en-seg{width:100%}.dj-fatf .en-seg button{flex:1}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2748,11 +2757,14 @@ const jaUsado = (c, t) => { const E = todas(); if (E[c] && !E[c].usado) { E[c].u
 /* a casa tirou a pessoa da lista (excluída, banida ou lista não aprovada): o QR deixa de existir, se ainda não foi usado */
 const anula = c => { const E = todas(); if (E[c] && !E[c].usado) { delete E[c]; gravar(K, E); } };
 const de = c => todas()[String(c || '').trim().toUpperCase()] || null;
+/* a lista fecha a uma hora: depois dela o QR deixa de valer (a casa decide os minutos antes do evento) */
+const fecha = (c, t) => { const E = todas(); if (E[c] && E[c].fechaEm !== t) { E[c].fechaEm = t; gravar(K, E); } };
 /* a leitura na porta: inválido, já usado, ou entra e faz check-in */
 function lerQR(c, por){
   const E = todas(), k = String(c || '').trim().toUpperCase(), e = E[k];
   if (!e) return {ok:false, motivo:'invalido'};
   if (e.usado) return {ok:false, motivo:'usado', e};
+  if (e.fechaEm && Date.now() > e.fechaEm) return {ok:false, motivo:'fechada', e};
   e.usado = Date.now(); if (por) e.por = por; gravar(K, E);
   if (norm(e.nome) === norm(EU)) gravar(EK, {k:e.local, st:'la', t:e.usado, via:'qr'});
   document.dispatchEvent(new CustomEvent('streetfy-entrada', {detail:e}));
@@ -2764,7 +2776,7 @@ const presenca = () => { const p = ler('streetfy:perfil-user', {}) || {}; return
 const aquiAgora = local => { const s = ler(EK, null); return s && s.st === 'la' && s.k === local && Date.now() - s.t < VALE ? s : null; };
 const hhmm = t => { const d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
 const qrSvg = seed => { let h = hash(seed); let r = ''; for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) { const canto = (x < 7 && y < 7) || (x > 13 && y < 7) || (x < 7 && y > 13); h = (Math.imul(h, 1103515245) + 12345) >>> 0; const cx = x > 13 ? x - 14 : x, cy = y > 13 ? y - 14 : y; const on = canto ? (cx === 0 || cx === 6 || cy === 0 || cy === 6 || (cx > 1 && cx < 5 && cy > 1 && cy < 5)) : (h >>> 16) % 2 === 0; if (on) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; } return '<svg class="qr-svg" viewBox="-1 -1 23 23" role="img" aria-label="QR de entrada ' + seed + '"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#0b0b0b">' + r + '</g></svg>'; };
-window.STREETFY_ENTRADAS = {codigo, garante, jaUsado, anula, de, lerQR, minhas, presenca, aquiAgora, hhmm, qrSvg, EU, norm};
+window.STREETFY_ENTRADAS = {codigo, garante, jaUsado, anula, de, fecha, lerQR, minhas, presenca, aquiAgora, hhmm, qrSvg, EU, norm};
 })();
 </script><script>/* Ofertas na rua: a casa oferece algo grátis (bebida, comida, bilhete ou voucher) a quem está numa zona — um raio à volta da casa
    ou uma zona desenhada no mapa (ex.: o Bairro Alto). Regras:
@@ -3161,7 +3173,7 @@ function porta(el){
     const e = EN.de(c);
     if (!e) res = {ok:false, t:'QR inválido', s:'Este código não está em nenhuma lista.'};
     else if (e.local !== CASA.k) res = {ok:false, t:'QR de outra casa', s:e.nome + ' · ' + e.localNome + '. Não serve aqui.'};
-    else { const r = EN.lerQR(e.c, EU + ' · ' + funcao(a.funcao).nome); res = r.ok ? {ok:true, t:'Pode entrar: ' + e.nome, s:e.listaNome + ' · QR usado às ' + EN.hhmm(r.e.usado) + ' · check-in feito'} : {ok:false, t:'QR já usado', s:e.nome + ' entrou às ' + EN.hhmm(e.usado) + (e.por ? ' (' + e.por + ')' : '') + '. Não entra outra vez.'}; }
+    else { const r = EN.lerQR(e.c, EU + ' · ' + funcao(a.funcao).nome); res = r.ok ? {ok:true, t:'Pode entrar: ' + e.nome, s:e.listaNome + ' · QR usado às ' + EN.hhmm(r.e.usado) + ' · check-in feito'} : r.motivo === 'fechada' ? {ok:false, t:'Lista fechada', s:e.listaNome + ' fechou às ' + EN.hhmm(e.fechaEm) + '. ' + e.nome + ' já não entra por lista.'} : {ok:false, t:'QR já usado', s:e.nome + ' entrou às ' + EN.hhmm(e.usado) + (e.por ? ' (' + e.por + ')' : '') + '. Não entra outra vez.'}; }
     lidos.unshift({ok:res.ok, t:res.t, h:agora}); lidos = lidos.slice(0, 8);
     desenha('[data-po-in]');
   };

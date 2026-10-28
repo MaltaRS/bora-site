@@ -2391,6 +2391,15 @@ small.pt-bf.on{background:var(--mint);border-color:var(--mint);cursor:default}
 @media (max-width:560px){.bp-docs li{grid-template-columns:auto minmax(0,1fr) auto}.bp-docs li .pt-mini{display:none}}
 .bp-docs li.dj{border-color:var(--mint)}.bp-docs li.dj .bp-doc-i{background:var(--mint);color:var(--ink)}
 .dj-fat .bp-docs{margin-top:4px}.dj-fatf{gap:12px}
+
+/* permissões por promoter na parceria · eventos de promoters · faturação do DJ por conta ligada */
+.pc-okp{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:6px 10px;background:#fff}
+.pc-perm{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--grey)}.pc-perm label{display:flex;gap:4px;align-items:center;cursor:pointer}.pc-perm input{accent-color:var(--pink)}
+.pc-permt{display:block;font-weight:500;color:var(--grey);font-size:11px}
+.pt-est.ok{background:var(--mint)}.pt-est.re{background:#ffc9d6}
+.en-est.a{background:#ffe08a}.en-est.recusado{background:#ffc9d6}
+.bp-docs li.pend{border-style:dashed}.bp-docs li.pend .bp-doc-i{background:#ffe08a;color:var(--ink)}
+.dj-fatf .en-seg{width:100%}.dj-fatf .en-seg button{flex:1}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <filter id="spray" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".032" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="2.2" result="b"/><feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope=".5"/></feComponentTransfer><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3" result="grain"/><feColorMatrix in="grain" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0" result="ga"/><feComposite in="d" in2="ga" operator="in" result="speck"/><feMerge><feMergeNode in="halo"/><feMergeNode in="d"/><feMergeNode in="speck"/></feMerge></filter>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
@@ -2827,8 +2836,8 @@ const CONC_NOMES = {'lara-v':'Lara V.', 'joao-r':'João R.', 'marta-s':'Marta S.
 const nomeDe = (tipo, id) => USERS[id] ? USERS[id] : tipo === 'concierge' ? CONC_NOMES[id] || id : ((((window.STREETFY_PROMOTERS || {}).lista || []).find(p => p.id === id) || {}).nome || id);
 const DIA = 864e5, agora = Date.now();
 const PADRAO = () => [
-  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8},
-  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6},
+  {id:'p1', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'rita-m', dir:'convite', estado:'aceite', t:agora - 200 * DIA, msg:'', comissao:8, perm:{evento:false, lista:true}},
+  {id:'p2', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'tiago-r', dir:'pedido', estado:'aceite', t:agora - 120 * DIA, msg:'', comissao:6, perm:{evento:true, lista:true}},
   {id:'p3', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'promoter', quem:'marco-s', dir:'convite', estado:'aceite', t:agora - 60 * DIA, msg:'', comissao:0},
   {id:'p4', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'lara-v', dir:'pedido', estado:'aceite', t:agora - 90 * DIA, msg:''},
   {id:'p5', local:'lisboa/lux fragil', localNome:'Lux Frágil', tipo:'concierge', quem:'beatriz-c', dir:'convite', estado:'aceite', t:agora - 40 * DIA, msg:''},
@@ -2842,6 +2851,8 @@ const gravar = l => { try { localStorage.setItem(PK, JSON.stringify(l)); } catch
 /* a relação atual entre um local e uma pessoa: o registo mais recente que não foi cancelado */
 const relacao = (local, tipo, quem) => ler().filter(r => r.local === local && r.tipo === tipo && r.quem === quem && r.estado !== 'cancelado').sort((a, b) => b.t - a.t)[0] || null;
 function criar(r){ const l = ler(); r = Object.assign({id:'p' + Date.now().toString(36), estado:'pendente', t:Date.now(), msg:''}, r); l.push(r); gravar(l); return r; }
+/* permissões automáticas que o local dá a um promoter parceiro: criar evento e lista sem passar pela aprovação (regra de 27/10) */
+function mudarPerm(id, k, v){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.perm = Object.assign({}, r.perm || {}, {[k]:!!v}); gravar(l); } return r; }
 function responder(id, estado){ const l = ler(), r = l.find(x => x.id === id); if (r) { r.estado = estado; r.resp = Date.now(); gravar(l); } return r; }
 const sessao = () => { try { return localStorage.getItem(SK) || 'utilizador'; } catch (e) { return 'utilizador'; } };
 const mudarSessao = v => { try { localStorage.setItem(SK, v); } catch (e) {} };
@@ -2859,7 +2870,7 @@ function reputacao(id){
   return {v, itens:REP.map(([n, k, alvo]) => [n, k, v[k], alvo, v[k] >= alvo]), ok:cs.length > 0 && REP.every(([, k, alvo]) => v[k] >= alvo)};
 }
 function simularReputacao(id){ let sim = {}; try { sim = JSON.parse(localStorage.getItem(RK) || '{}') || {}; } catch (e) {} sim[id] = {dias:31, presencas:24, nota:4.6}; try { localStorage.setItem(RK, JSON.stringify(sim)); } catch (e) {} }
-window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
+window.STREETFY_PARCERIAS = {EU, nomeDe, ler, gravar, relacao, criar, responder, mudarPerm, sessao, mudarSessao, PADRAO, PK, RK, REP, casasDe, ePromoterDaCasa, reputacao, simularReputacao};
 
 /* ---------- botões nos perfis ---------- */
 const pagina = document.querySelector('[data-perfil]') ? 'local' : document.querySelector('[data-promoter]') ? 'promoter' : document.querySelector('[data-concierge]') ? 'concierge' : document.querySelector('[data-user]') ? 'user' : '';
