@@ -3718,15 +3718,13 @@ function render(){
     if (chaveLugar === 'lisboa/lux fragil') acoes.push('<a class="s-btn ink" href="mesa-vip.html">Reservar mesa</a>');
   } else {
     const fl = prox ? fonteDe(prox) : '';
-    if (instagram) acoes.push('<a class="s-btn mint" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Ver no Instagram</a>');
-    if (fl && !/instagram\.com/.test(fl)) acoes.push('<a class="s-btn ' + (instagram ? 'ghost' : 'mint') + '" href="' + esc(fl) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(prox.fonte || 'origem') + '</a>');
+    if (fl && !/instagram\.com/.test(fl)) acoes.push('<a class="s-btn mint" href="' + esc(fl) + '" target="_blank" rel="noopener">Ver na fonte · ' + esc(prox.fonte || 'origem') + '</a>');
     acoes.push('<a class="s-btn ink" href="parceiros.html">É o teu lugar? Assume o perfil</a>');
   }
   const CA = window.STREETFY_CARDAPIOS; if (CA && CA.visivel(chaveLugar)) acoes.push('<a class="s-btn ink" href="' + esc(CA.href(chaveLugar)) + '">Menu</a>');
   acoes.push('<a class="s-btn ' + (segue ? 'mint' : 'ghost') + '" href="#" data-seguir aria-pressed="' + segue + '">' + (segue ? 'A seguir ✓' : 'Seguir') + '</a>');
   acoes.push('<a class="s-btn ghost" href="' + esc(urlPerfil) + '" data-partilhar data-titulo="' + esc(nome) + '">Compartilhar perfil</a>');
   acoes.push('<a class="s-btn ghost icone" href="' + esc(urlPerfil) + '" data-copiar title="Copiar link" aria-label="Copiar link do perfil">' + COPIAR + '</a>');
-  if (assumido && instagram) acoes.push('<a class="s-btn ghost" href="https://www.instagram.com/' + esc(instagram) + '/" target="_blank" rel="noopener">Instagram</a>');
   el('acoes').innerHTML = acoes.join('');
   const nota = assumido
     ? 'Este lugar está no Xouty com bilhete e reserva. O que compras aqui é válido na porta.'
